@@ -329,6 +329,10 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 @media(max-width:1100px){.kcols{grid-template-columns:1fr 1fr}.kslots{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:860px){.wzcard{grid-template-columns:1fr;height:calc(100vh - 32px)}.wzside{display:none}.wzmain{padding:24px 20px 0}.wzcards,.flow3,.wzgrid2,.wzgrid2.types,.targets,.sumlist{grid-template-columns:1fr}.arow,.prow{grid-template-columns:1fr}}
 .pt tr[data-i] td:first-child{white-space:nowrap} .pt .handle,.pt .rk{vertical-align:middle}
+.pa{margin-left:6px!important;font-weight:600!important;color:var(--grey)}
+.arch-btn{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:8px;padding:3px 9px;font-size:11.5px;font-weight:700;color:var(--grey);cursor:pointer;font-family:Nunito,sans-serif}.arch-btn:hover{border-color:var(--am);color:var(--am)}
+.bd.ar{background:#EDEDEF;color:#8A8D91}
+.rolefix{font-size:12.5px;color:var(--grey)}
 .pt tr.drag{opacity:.4} .pt tr.over td{background:#F0F6F9} .pt .handle{cursor:grab;font-size:15px;padding:0 6px}
 .rk{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-size:11.5px;font-weight:800;color:var(--grey)}
 .pt tr:first-child .rk{background:var(--jet);color:#fff}
@@ -413,8 +417,9 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   </div>
   <div class="card sec" id="setTypes">
     <h2>Types d'activité</h2>
-    <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Tant que tu n'as pas retouché une couleur de type, elles suivent automatiquement tes couleurs de marque et ce classement. Le rôle de chaque type dans les calculs ne change pas (ex. Conversation + Session = heures de coaching).</div>
-    <table class="pt" style="margin-top:10px"><thead><tr><th style="width:70px">Rang</th><th></th><th>Libellé</th><th>Durée par défaut</th><th>Notes d'aisance</th></tr></thead><tbody id="typeRows"></tbody></table>
+    <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Tant que tu n'as pas retouché une couleur de type, elles suivent automatiquement tes couleurs de marque et ce classement. Tu peux ajouter jusqu'à 10 types : choisis pour chacun le calcul où il compte (heures de coaching, pratique délibérée, développement ou autre).</div>
+    <table class="pt" style="margin-top:10px"><thead><tr><th style="width:70px">Rang</th><th></th><th>Libellé</th><th>Durée par défaut</th><th>Notes d'aisance</th><th>Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table>
+    <button class="addl" id="addType">+ Ajouter un type</button>
   </div>
   <div class="card sec" id="setMets">
     <h2>Métriques d'aisance</h2>
@@ -425,6 +430,11 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <div class="pgrid sec">
     <div class="card" id="setSec"><h2>Sécurité</h2><div id="secBody"></div></div>
     <div class="card" id="setStore"><h2>Stockage des données</h2><div id="storeBody"></div></div>
+  </div>
+  <div class="card sec" id="setFin"><h2>Coûts de l'activité</h2>
+    <div class="hint">Déduits du taux horaire réel. Les charges annuelles sont réparties sur l'ensemble des contrats payants signés dans l'année.</div>
+    <div class="field" style="max-width:560px"><label>Charges annuelles moyennes</label><input class="fin" type="number" min="0" id="finCh" placeholder="€ par an (assurance, formation, outils, cotisations…)"></div>
+    <div class="field" style="max-width:560px"><label>Coût habituel d'une supervision</label><input class="fin" type="number" min="0" id="finSup" placeholder="€ par séance (pré-rempli à la saisie)"></div>
   </div>
   <div class="card sec" style="display:flex;align-items:center;gap:14px"><div><h2>Mes indicateurs</h2><div class="hint" style="margin:2px 0 0">Choisis jusqu'à 6 indicateurs parmi 19, classés par pilier, et leur ordre.</div></div><button class="btn2" data-kcat style="margin-left:auto;white-space:nowrap">Choisir mes indicateurs</button></div>
   <div class="card sec">
@@ -444,8 +454,10 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <div class="lab">Durée</div><div class="chips" id="mDurs"></div>
   <div class="durx"><input class="fin" id="mDurX" placeholder="Autre durée : 2,5 · 2h30 · 150min"><span id="mDurOk"></span></div>
   <div id="mPB"><div class="lab">Personne</div><div class="chips" id="mPeople"></div>
+    <select class="sel hide" id="mPA" style="margin-top:8px;margin-left:0"></select>
     <input class="fin hide" id="newP" placeholder="Prénom Nom, puis Entrée" style="margin-top:8px"></div>
   <div class="lab">Ce qu'on a vu</div><input class="fin" id="mCom" placeholder="1 ligne : thème, déclic, pattern repéré…">
+  <div id="mSup" class="hide"><div class="lab">Coût de la supervision</div><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"></div>
   <div id="mProp" class="hide"><div class="lab">Proposition · montant et durée d'engagement</div>
     <div class="two"><input type="number" class="fin" id="mEur" placeholder="Montant €" style="width:140px;flex:none"><div class="chips" id="mCdur"></div></div></div>
   <div id="mCR"><div class="lab">Suivi</div>
@@ -513,17 +525,24 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
    (identité, couleurs, types, métriques, saisies, objectifs…).
    ========================================================= */
 const VERSION=3, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
-const APP_VERSION=10, APP_DATE='2 novembre 2026';   // à incrémenter à chaque publication
+const APP_VERSION=11, APP_DATE='2 novembre 2026';   // à incrémenter à chaque publication
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
-const TYPE_KEYS=['conversation','proposition','session','reseau','debrief','supervision','annexe'];
+const BUILTIN=['conversation','proposition','session','reseau','debrief','supervision','annexe'];
+let TYPE_KEYS=[...BUILTIN];
+const MAX_TYPES=10;
+/* rôle d'un type dans les calculs : intégrés = fixes ; types ajoutés = choisis par l'utilisateur */
+const ROLES={coaching:'Heures de coaching',delib:'Pratique délibérée',dev:'Développement',autre:'Autre'};
+const BUILTIN_ROLE={conversation:'coaching',session:'coaching',debrief:'delib',supervision:'delib',proposition:'dev',reseau:'dev',annexe:'autre'};
+const typeRole=(k,C)=>BUILTIN_ROLE[k]||C.types[k]?.role||'autre';
+const keysOf=c=>[...BUILTIN,...Object.keys(c.types||{}).filter(k=>!BUILTIN.includes(k)&&c.types[k]?.perso)];
 const TYPE_ROLE={conversation:{p:1,cr:1},proposition:{p:1,prop:1},session:{p:1,cr:1},reseau:{p:1},debrief:{p:1},supervision:{p:1},annexe:{}};
 const KPI_DEFAULT=['h','delib','conv','coach','reg','caprop'];
 const KPI_ALL=['h','conv','coach','reg','newp','active','delib','disc','aism','obj','caprop','transfo','pending','accept','basket','rate','late','target','share'];
 const DEF_ORDER=['session','supervision','debrief','proposition','conversation','reseau','annexe'];
 let STACK=[...DEF_ORDER];
-const COACH=['conversation','session'];
+let COACH=['conversation','session'],DELIB=['debrief','supervision'];
 const DURS=[30,45,60,75,90,120,135,150];
 const MO=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
 const STAT={attente:'En attente',acceptee:'Acceptée',refusee:'Refusée'};
@@ -537,7 +556,7 @@ const PALETTES=[
  {n:'Ardoise',c:{accent:'#D9734E',fonce:'#2E3440',fond:'#F8F9FA',gris:'#7B818C',bleu:'#5E81AC'}},
  {n:'Lagune',c:{accent:'#E07A5F',fonce:'#0F3B3A',fond:'#F6FAF9',gris:'#76807F',bleu:'#2A9D8F'}}];
 /* 7 couleurs de stack, de la base (rang 1, la plus forte) au sommet, dérivées des couleurs de marque */
-function stackColors(K){return[K.accent,mix(K.accent,'#ffffff',.45),mix(K.fonce,K.bleu,.3),K.bleu,mix(K.bleu,'#ffffff',.45),mix(K.fonce,'#ffffff',.6),mix(K.gris,'#ffffff',.45)]}
+function stackColors(K){return[K.accent,mix(K.accent,'#ffffff',.45),mix(K.fonce,K.bleu,.3),K.bleu,mix(K.bleu,'#ffffff',.45),mix(K.fonce,'#ffffff',.6),mix(K.gris,'#ffffff',.45),mix(K.accent,K.fonce,.45),mix(K.bleu,K.fonce,.55),mix(K.gris,'#ffffff',.15)]}
 function applyStackColors(C){const S=stackColors(C.couleurs);C.ordre.forEach((k,i)=>C.types[k].c=S[i])}
 function defaultConfig(){const K={...PALETTES[0].c},S=stackColors(K),col=k=>S[DEF_ORDER.indexOf(k)];return{
  nom:'Mon cabinet',outil:'Suivi de pratique',sousTitre:"C'est en coachant beaucoup et en pratiquant délibérément qu'on devient un excellent coach",
@@ -586,11 +605,12 @@ function migrate(d){
   if(!d.config)d.config=(v===2&&d.entrees.length)?legacyConfig():defaultConfig();
   const D=defaultConfig(),c=d.config;
   c.couleurs={...D.couleurs,...(c.couleurs||{})};c.types=c.types||{};
-  TYPE_KEYS.forEach(k=>c.types[k]={...D.types[k],...(c.types[k]||{})});
+  BUILTIN.forEach(k=>c.types[k]={...D.types[k],...(c.types[k]||{})});const KK=keysOf(c);
   c.metriques=c.metriques||D.metriques;
   if(!Array.isArray(c.kpis)||c.kpis.some(k=>k=='prop'||k=='ca'))c.kpis=[...KPI_DEFAULT];   // ancienne liste fixe → nouvelle sélection par défaut
   c.kpis=[...new Set(c.kpis.filter(k=>KPI_ALL.includes(k)))].slice(0,6);if(!c.kpis.length)c.kpis=[...KPI_DEFAULT];
-  if(!Array.isArray(c.ordre)||c.ordre.length!==TYPE_KEYS.length||!TYPE_KEYS.every(k=>c.ordre.includes(k)))c.ordre=[...DEF_ORDER];['nom','outil','sousTitre'].forEach(k=>{if(c[k]==null)c[k]=D[k]});
+  c.finances={charges:0,supDefaut:0,...(c.finances||{})};
+  if(!Array.isArray(c.ordre))c.ordre=[...DEF_ORDER];c.ordre=[...new Set(c.ordre.filter(k=>KK.includes(k)))];KK.forEach(k=>{if(!c.ordre.includes(k))c.ordre.push(k)});['nom','outil','sousTitre'].forEach(k=>{if(c[k]==null)c[k]=D[k]});
   delete d.prefs.aisOrdre;delete d.prefs.kpiStyle;
   d.actions.forEach((a,i)=>{if(!a.id)a.id=i+1});
   if(!d.id)d.id=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));
@@ -601,7 +621,8 @@ function migrate(d){
 
 /* ---------- application de la configuration ---------- */
 function applyConfig(){const C=CFG(),K=C.couleurs,r=document.documentElement.style;
-  STACK=C.ordre;T=TYPE_KEYS.map(k=>({k,...TYPE_ROLE[k],...C.types[k]}));TM=Object.fromEntries(T.map(t=>[t.k,t]));PAL=STACK.map(k=>TM[k].c);
+  TYPE_KEYS=keysOf(C);COACH=TYPE_KEYS.filter(k=>typeRole(k,C)=='coaching');DELIB=TYPE_KEYS.filter(k=>typeRole(k,C)=='delib');
+  STACK=C.ordre;T=TYPE_KEYS.map(k=>({k,...(TYPE_ROLE[k]||{p:typeRole(k,C)!='autre'?1:0,cr:typeRole(k,C)=='coaching'?1:0}),...C.types[k]}));TM=Object.fromEntries(T.map(t=>[t.k,t]));PAL=STACK.map(k=>TM[k].c);
   r.setProperty('--am',K.accent);r.setProperty('--jet',K.fonce);r.setProperty('--gw',K.fond);r.setProperty('--grey',K.gris);r.setProperty('--afb',K.bleu);
   r.setProperty('--bluebg',mix(K.bleu,'#ffffff',.85));
   const title=[C.nom,C.outil].filter(Boolean).join(' - ');$('appTitle').textContent=title;document.title=title;$('appSub').textContent=C.sousTitre||'';$('footName').textContent=C.nom||'';
@@ -815,8 +836,8 @@ function download(name,text,type){const a=document.createElement('a');a.href=URL
 async function exportJson(){download(`coaching-data_export_${today()}.json`,JSON.stringify(await payload(),null,1),'application/json');if(DEKK)toast('Export chiffré avec ton mot de passe actuel')}
 function exportCsv(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (noms, commentaires). Continuer ?'))return;
   const q=v=>`"${String(v??'').replace(/"/g,'""')}"`,M=metrics();
-  const head=['Date','Type','Personne','Durée (min)','Durée (h)','Commentaire',...M.map(m=>m.l+(m.actif?'':' (archivée)')),'CR','Synthèse','Montant €','Engagement (mois)','Statut proposition'];
-  const L=[...E()].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,TM[e.type]?.l,pname(e.pid),e.dur,String(e.dur/60).replace('.',','),e.com,...M.map(m=>e.ais?.[m.id]??''),e.cr?'oui':'',e.syn?'oui':'',e.eur??'',e.engagement_mois??'',e.statut?STAT[e.statut]:'']);
+  const head=['Date','Type','Personne','Durée (min)','Durée (h)','Commentaire',...M.map(m=>m.l+(m.actif?'':' (archivée)')),'CR','Synthèse','Montant €','Engagement (mois)','Statut proposition','Coût €'];
+  const L=[...E()].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,TM[e.type]?.l,pname(e.pid),e.dur,String(e.dur/60).replace('.',','),e.com,...M.map(m=>e.ais?.[m.id]??''),e.cr?'oui':'',e.syn?'oui':'',e.eur??'',e.engagement_mois??'',e.statut?STAT[e.statut]:'',e.cout??'']);
   download(`coaching-saisies_${today()}.csv`,'﻿'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
 $('expJson').onclick=exportJson;$('expCsv').onclick=exportCsv;
 $('impJson').onclick=()=>$('impFile').click();
@@ -839,9 +860,9 @@ const H=a=>a.reduce((s,e)=>s+(e.dur||0),0)/60;
 function stats(list){const c=t=>list.filter(e=>t.includes(e.type)),P=c(['proposition']),A=P.filter(e=>e.statut=='acceptee');return{
  h:H(c(COACH)),conv:c(['conversation']).length,convH:H(c(['conversation'])),
  coach:new Set(c(COACH).filter(e=>e.pid!=null).map(e=>e.pid)).size,
- delib:H(c(['debrief','supervision'])),prop:P.reduce((s,e)=>s+(+e.eur||0),0),
+ delib:H(c(DELIB)),prop:P.reduce((s,e)=>s+(+e.eur||0),0),
  nprop:P.filter(e=>+e.eur>0).length,nacc:A.filter(e=>+e.eur>0).length,   // une proposition = un montant proposé (> 0 €)
- ca:A.reduce((s,e)=>s+(+e.eur||0),0),mois:A.reduce((s,e)=>s+(+e.engagement_mois||0),0)}}
+ ca:A.reduce((s,e)=>s+(+e.eur||0),0),sup:c(['supervision']).reduce((s,e)=>s+(+e.cout||0),0),mois:A.reduce((s,e)=>s+(+e.engagement_mois||0),0)}}
 const range=(a,b)=>E().filter(e=>e.date>=a&&e.date<=b);
 const yearData=y=>E().filter(e=>e.date.startsWith(y));
 const years=()=>{const s=new Set(E().map(e=>e.date.slice(0,4)));s.add(today().slice(0,4));return[...s].sort()};
@@ -903,8 +924,10 @@ const KPIDEF={
    d:D=>{const P=yearData(D.Y).filter(e=>e.type=='proposition'&&+e.eur>0);return `<b>${P.filter(e=>e.statut=='acceptee').length}</b> acceptée(s) · ${P.filter(e=>e.statut=='refusee').length} refusée(s) · ${P.filter(e=>e.statut=='attente').length} en attente`}},
  basket:{p:3,l:'Panier moyen',w:'an',u:'La valeur moyenne d\'un contrat signé.',v:D=>[D.s.nacc?num(D.s.ca/D.s.nacc):'—',D.s.nacc?'€':''],
    d:D=>{const A=yearData(D.Y).filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0);return A.length?`par contrat · engagement moyen <b>${n1(A.reduce((s,e)=>s+(+e.engagement_mois||0),0)/A.length)} mois</b>`:'aucun contrat signé cette année'}},
- rate:{p:3,l:'Taux horaire réel',w:'an',u:'Ce que vaut vraiment ton heure, préparation comprise.',v:D=>{const h=H(yearData(D.Y));return[h&&D.s.ca?num(D.s.ca/h):'—',h&&D.s.ca?'€/h':'']},
-   d:D=>`CA accepté ÷ <b>${n1(H(yearData(D.Y)))} h</b> de travail (toutes activités)`},
+ rate:{p:3,l:'Taux horaire réel',w:'an',u:'Ce que vaut vraiment ton heure : CA moins supervision et charges, rapporté à toutes tes heures.',
+   v:D=>{const h=H(yearData(D.Y)),net=D.s.ca-D.s.sup-(D.s.nacc?CFG().finances.charges:0);return[h&&D.s.ca?num(net/h):'—',h&&D.s.ca?'€/h':'']},
+   d:D=>{const F=CFG().finances,h=H(yearData(D.Y));if(!D.s.nacc)return `aucun contrat payant signé en ${D.Y}`;
+    return `(${eur(D.s.ca)} CA − ${eur(D.s.sup)} supervision − ${eur(F.charges)} charges, soit ${eur(F.charges/D.s.nacc)} par contrat payant) ÷ <b>${n1(h)} h</b>`}},
  late:{p:4,l:'Actions en retard',w:'now',u:'Ce qui glisse dans ton plan d\'action.',v:D=>[DB.actions.filter(a=>a.s=='encours'&&a.d&&a.d<D.t).length,''],
    d:()=>`${pl(DB.actions.filter(a=>a.s=='encours').length,'action')} en cours · ${DB.actions.filter(a=>a.s=='realisee').length} réalisée(s)`},
  target:{p:4,l:'Cibles du trimestre',w:'tri',u:'Où tu en es de tes objectifs chiffrés.',
@@ -1087,21 +1110,26 @@ function renderList(){
  const cY=filtered('y'),cT=filtered('t'),cP=filtered('p');
  chipRow('fY',years().map(y=>({v:y,l:y,n:cY.filter(e=>e.date.startsWith(y)).length})),F.y);
  chipRow('fT',T.map(t=>({v:t.k,l:t.l,c:t.c,n:cT.filter(e=>e.type==t.k).length})),F.t,'type');
- const pc=DB.personnes.map(p=>({v:p.id,l:p.nom,n:cP.filter(e=>e.pid==p.id).length})).filter(x=>x.n||F.p.has(x.v)).sort((a,b)=>b.n-a.n||byName(a.l,b.l));
+ const pc=DB.personnes.filter(p=>!p.archive||F.p.has(p.id)).map(p=>({v:p.id,l:p.nom,n:cP.filter(e=>e.pid==p.id).length})).filter(x=>x.n||F.p.has(x.v)).sort((a,b)=>b.n-a.n||byName(a.l,b.l));
  chipRow('fP',pc,F.p);
+ const AR=DB.personnes.filter(p=>p.archive&&!F.p.has(p.id)).sort((a,b)=>byName(a.nom,b.nom));
+ if(AR.length){$('fP').insertAdjacentHTML('beforeend',`<select class="sel pa" id="fPA"><option value="">Clients archivés (${AR.length})…</option>${AR.map(p=>`<option value="${p.id}">${esc(p.nom)} (${cP.filter(e=>e.pid==p.id).length})</option>`).join('')}</select>`);
+  $('fPA').onchange=e=>{const p=DB.personnes.find(x=>String(x.id)===e.target.value);if(p){F.p.add(p.id);renderList()}}}
  const L=filtered(),s=stats(L),f2f=L.filter(e=>TM[e.type]?.cr);
  $('sum').innerHTML=[[L.length,'saisies'],[n1(H(L))+' h','temps total'],[n1(s.h)+' h','dont coaching'],[n1(s.delib)+' h','pratique délibérée'],[f2f.length?Math.round(f2f.filter(e=>e.cr).length/f2f.length*100)+' %':'—','CR faits'],[f2f.length?Math.round(f2f.filter(e=>e.syn).length/f2f.length*100)+' %':'—','synthèses faites']].map(([v,l])=>`<div><b>${v}</b>${l}</div>`).join('');
- renderPCards();renderRows(L)}
+ renderPCards();bindArch();renderRows(L)}
 function badge(all){const P=all.filter(e=>e.type=='proposition'&&e.statut=='acceptee');
  if(all.some(e=>e.type=='session'))return P.some(e=>+e.eur>0)?['Client','']:['Pro bono','pb'];
  if(all.some(e=>e.type=='conversation'))return['Pro bono','pb'];
  return[all.some(e=>e.type=='supervision')?'Superviseur':'Réseau','ot']}
+function bindArch(){$('pcards').querySelectorAll('[data-arch]').forEach(b=>b.onclick=()=>{const p=DB.personnes.find(x=>String(x.id)===b.dataset.arch);if(!p)return;p.archive=!p.archive;p.maj=new Date().toISOString();touch();renderList();toast(p.archive?`${p.nom} archivé : retrouvable dans « Clients archivés »`:`${p.nom} réactivé`)})}
 function renderPCards(){
  $('pcards').innerHTML=[...F.p].map(pid=>{const all=E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));if(!all.length)return'';
   const s=stats(all),ai=all.filter(hasAis),[bl,bc]=badge(all),first=all[0].date,last=all.at(-1).date;
   const t0=new Date(first).getTime(),t1=Math.max(new Date(today()).getTime(),t0+1),props=all.filter(e=>e.type=='proposition');
   const ms=metrics().filter(m=>ai.some(e=>e.ais[m.id]));
-  return `<div class="pc"><div class="nm">${esc(pname(pid))}<span class="bd ${bc}">${bl}</span></div>
+  const per=DB.personnes.find(x=>x.id==pid);
+  return `<div class="pc"><div class="nm">${esc(pname(pid))}<span class="bd ${bc}">${bl}</span>${per?.archive?'<span class="bd ar">Archivé</span>':''}<button class="arch-btn" data-arch="${pid}">${per?.archive?'Réactiver':'Archiver'}</button></div>
   <div class="meta">Depuis le ${dShort(first)} · dernière fois le ${dShort(last)}</div>
   <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · engagement '+s.mois+' mois':''}</div></div>
   ${ms.length?`<div class="ais">${ms.map(m=>{const a=ai.filter(e=>e.ais[m.id]),v=a.reduce((x,e)=>x+e.ais[m.id],0)/a.length;return `<span>${esc(m.l)}${m.actif?'':' <small style="color:#B5B7BA">(archivée)</small>'}</span><div class="bar"><b style="width:${(v-1)/4*100}%"></b></div><b>${n1(v)}</b>`}).join('')}</div>`:'<div style="font-size:12px;color:var(--grey)">Aisance : pas encore de notes</div>'}
@@ -1110,7 +1138,7 @@ const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
 const short=s=>s.length>12?s.slice(0,11)+'.':s;
 function renderRows(L){
  const MS=$('showArch').checked?metrics():mActive();
- $('rowsHead').innerHTML=`<tr><th>Personne</th><th>Date</th><th>Type</th><th>Durée</th><th style="width:26%">Ce qu'on a vu</th>${MS.map(m=>`<th class="c ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${esc(short(m.l))}</th>`).join('')}<th class="c">CR</th><th class="c">Synth.</th><th>Contrat</th><th></th></tr>`;
+ $('rowsHead').innerHTML=`<tr><th>Personne</th><th>Date</th><th>Type</th><th>Durée</th><th style="width:26%">Ce qu'on a vu</th>${MS.map(m=>`<th class="c ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${esc(short(m.l))}</th>`).join('')}<th class="c">CR</th><th class="c">Synth.</th><th>Contrat / coût</th><th></th></tr>`;
  L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
  $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
  <td>${e.pid!=null?`<span class="plink" data-p="${e.pid}">${esc(pname(e.pid))}</span>`:'<span style="color:#C9CBCE">—</span>'}</td>
@@ -1120,18 +1148,29 @@ function renderRows(L){
  <td><input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—"></td>
  ${MS.map(m=>{const v=e.ais?.[m.id]||0;return `<td>${t.ais||v?`<select class="as" data-m="${m.id}" title="${esc(m.l)}" style="background:${AC[v]}"><option value="">·</option>${[1,2,3,4,5].map(n=>`<option ${v==n?'selected':''}>${n}</option>`).join('')}</select>`:''}</td>`}).join('')}
  <td>${t.cr?`<div class="ck ${e.cr?'on':''}" data-c="cr">✓</div>`:''}</td><td>${t.cr?`<div class="ck ${e.syn?'on':''}" data-c="syn">✓</div>`:''}</td>
- <td>${e.type=='proposition'?`<div class="contrat"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€"><select class="ed" data-k="engagement_mois">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select><select class="ed" data-k="statut" style="font-weight:800;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></div>`:''}</td>
+ <td>${e.type=='proposition'?`<div class="contrat"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€"><select class="ed" data-k="engagement_mois">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select><select class="ed" data-k="statut" style="font-weight:800;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></div>`:e.type=='supervision'?`<div class="contrat"><input class="ed" type="number" min="0" data-k="cout" value="${e.cout??''}" placeholder="coût €"></div>`:''}</td>
  <td><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${10+MS.length}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
  $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
   tr.querySelectorAll('.ck').forEach(c=>c.onclick=()=>{e[c.dataset.c]=!e[c.dataset.c];c.classList.toggle('on');fl()});
   tr.querySelectorAll('select.as').forEach(s=>s.onchange=()=>{e.ais=e.ais||{};if(s.value)e.ais[s.dataset.m]=+s.value;else delete e.ais[s.dataset.m];if(!Object.keys(e.ais).length)e.ais=null;s.style.background=AC[+s.value||0];fl()});
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
-   e[k]=['dur','eur','engagement_mois'].includes(k)?(i.value===''?null:+i.value):i.value;
+   e[k]=['dur','eur','engagement_mois','cout'].includes(k)?(i.value===''?null:+i.value):i.value;
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
    fl();if(['type','date','statut'].includes(k))renderList()});
   tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
   const p=tr.querySelector('.plink');if(p)p.onclick=()=>{const v=+p.dataset.p;F.p.has(v)?F.p.delete(v):F.p.add(v);renderList();window.scrollTo({top:0,behavior:'smooth'})}})}
 $('showArch').onchange=renderList;
+
+/* ---------- types ajoutés par l'utilisateur ---------- */
+function roleCell(k,C){if(BUILTIN.includes(k))return `<span class="rolefix">${ROLES[typeRole(k,C)]}</span>`;
+ return `<select class="ed" data-role="${k}" style="width:auto">${Object.entries(ROLES).map(([r,l])=>`<option value="${r}" ${r==typeRole(k,C)?'selected':''}>${l}</option>`).join('')}</select>`}
+function delCell(k){if(BUILTIN.includes(k))return '';const n=E().filter(e=>e.type==k).length;
+ return n?`<span class="hint" style="margin:0" title="Utilisé par ${n} saisie(s)">${n} saisie(s)</span>`:`<button class="ibtn del" data-tdel="${k}" title="Supprimer ce type">✕</button>`}
+function addCustomType(C){const keys=keysOf(C);if(keys.length>=MAX_TYPES){toast(`${MAX_TYPES} types maximum`);return false}
+ let i=1;while(C.types['t'+i])i++;const k='t'+i;C.types[k]={l:'Nouveau type',c:stackColors(C.couleurs)[Math.min(9,keys.length)],d:60,ais:false,perso:true,role:'autre'};C.ordre.push(k);recolor(C);return k}
+function bindTypeExtras(root,C,after){
+ root.querySelectorAll('[data-role]').forEach(s=>s.onchange=()=>{C.types[s.dataset.role].role=s.value;after()});
+ root.querySelectorAll('[data-tdel]').forEach(b=>b.onclick=()=>{const k=b.dataset.tdel;if(E().some(e=>e.type==k))return;delete C.types[k];C.ordre=C.ordre.filter(x=>x!=k);recolor(C);after()})}
 
 /* ---------- réordonner des lignes par glisser-déposer (poignée) ---------- */
 function dragRows(tbody,arr,onDone){let from=null;
@@ -1165,7 +1204,9 @@ function renderSecurity(){const on=!!DEKK,al=DB.prefs.autolock??15;
  if($('stDir'))$('stDir').onclick=()=>connectDir(false);
  if($('stOther'))$('stOther').onclick=()=>connectDir(false);
  $('stNew').onclick=async()=>{if(!confirm('Créer un nouveau carnet vide ?'+(DIR?` Ton carnet actuel reste dans le dossier « ${DIR.name} ».`:'')))return;if(await startFresh())openWizard(0,false)}}
-function renderSettings(){const C=CFG();renderSecurity();
+function renderSettings(){const C=CFG();
+ $('finCh').value=C.finances.charges||'';$('finSup').value=C.finances.supDefaut||'';
+ $('finCh').onchange=e=>{C.finances.charges=+e.target.value||0;touch()};$('finSup').onchange=e=>{C.finances.supDefaut=+e.target.value||0;touch()};renderSecurity();
  document.querySelectorAll('[data-c]').forEach(i=>{i.value=C[i.dataset.c]||'';i.oninput=()=>{C[i.dataset.c]=i.value;touch();applyConfig()}});
  $('pLogo').style.backgroundImage=C.logo?`url("${C.logo}")`:'';$('pBand').style.backgroundImage=C.bandeau?`url("${C.bandeau}")`:'';
  document.querySelectorAll('[data-img]').forEach(b=>b.onclick=()=>{IMGT=b.dataset.img;$('imgFile').click()});
@@ -1174,10 +1215,12 @@ function renderSettings(){const C=CFG();renderSecurity();
  $('brandColors').querySelectorAll('input').forEach(i=>{i.oninput=()=>{C.couleurs[i.dataset.bc]=i.value;recolor(C);touch();applyConfig()};i.onchange=()=>renderSettings()});
  $('typeRows').innerHTML=STACK.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}"><td><span class="handle" title="Glisser pour réordonner">⋮⋮</span><span class="rk">${i+1}</span></td><td><input type="color" data-tc="${k}" value="${t.c}"></td><td><input class="ed" data-tl="${k}" value="${esc(t.l)}"></td>
   <td><select class="ed" data-td="${k}" style="width:90px">${DURS.map(d=>`<option value="${d}" ${d==t.d?'selected':''}>${fmtD(d)}</option>`).join('')}</select></td>
-  <td><button class="sw ${t.ais?'on':''}" data-ta="${k}"></button></td></tr>`}).join('');
+  <td><button class="sw ${t.ais?'on':''}" data-ta="${k}"></button></td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('');
+ bindTypeExtras($('typeRows'),C,cfgChanged);$('addType').textContent=`+ Ajouter un type (${keysOf(C).length}/${MAX_TYPES})`;$('addType').disabled=keysOf(C).length>=MAX_TYPES;
+ $('addType').onclick=()=>{if(addCustomType(C)){cfgChanged();const ins=$('typeRows').querySelectorAll('[data-tl]');ins[ins.length-1]?.select()}};
  dragRows($('typeRows'),C.ordre,()=>{recolor(C);cfgChanged()});
  $('typeRows').querySelectorAll('[data-tc]').forEach(i=>i.oninput=()=>{C.types[i.dataset.tc].c=i.value;C.couleursAuto=false;touch();applyConfig()});
- $('typeRows').querySelectorAll('[data-tl]').forEach(i=>i.onchange=()=>{C.types[i.dataset.tl].l=i.value.trim()||defaultConfig().types[i.dataset.tl].l;cfgChanged()});
+ $('typeRows').querySelectorAll('[data-tl]').forEach(i=>i.onchange=()=>{C.types[i.dataset.tl].l=i.value.trim()||defaultConfig().types[i.dataset.tl]?.l||'Type';cfgChanged()});
  $('typeRows').querySelectorAll('[data-td]').forEach(i=>i.onchange=()=>{C.types[i.dataset.td].d=+i.value;cfgChanged()});
  $('typeRows').querySelectorAll('[data-ta]').forEach(b=>b.onclick=()=>{const t=C.types[b.dataset.ta];t.ais=!t.ais;cfgChanged()});
  const M=C.metriques,cnt=id=>E().filter(e=>e.ais?.[id]).length;
@@ -1202,7 +1245,7 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.datase
  ['dash','metrics','list','settings'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));renderAll()});
 
 /* ---------- popup ---------- */
-/* durée libre : 2,5 / 2.5 → 2h30 · 2h30 / 2h / 2 h 30 → 2h30 · 150min / 150 mn / 150m → 2h30 · 1:30 → 1h30 · nombre seul : ≤ 10 = heures, sinon minutes */
+/* durée libre, sans plafond : 2,5 / 2.5 → 2h30 · 2h30 / 2h / 2 h 30 → 2h30 · 150min / 150 mn / 150m → 2h30 · 1:30 → 1h30 · 14h → 14h · nombre seul : ≤ 10 = heures, sinon minutes */
 function parseDur(x){x=String(x||'').trim().toLowerCase().replace(/\s+/g,'');if(!x)return null;let m;
  if(m=x.match(/^(\d+)(?:h|:)(\d{1,2})?(?:min|mn|m)?$/))return +m[1]*60+(+m[2]||0);
  if(m=x.match(/^(\d+(?:[.,]\d+)?)h$/))return Math.round(parseFloat(m[1].replace(',','.'))*60);
@@ -1210,17 +1253,23 @@ function parseDur(x){x=String(x||'').trim().toLowerCase().replace(/\s+/g,'');if(
  if(m=x.match(/^(\d+(?:[.,]\d+)?)$/)){const v=parseFloat(m[1].replace(',','.'));return v<=10?Math.round(v*60):Math.round(v)}
  return null}
 $('mDurX').oninput=()=>{const v=parseDur($('mDurX').value),o=$('mDurOk');if(!$('mDurX').value.trim()){o.textContent='';o.className='';return}
- if(v&&v>0&&v<=12*60){S.dur=v;o.textContent='= '+fmtD(v);o.className='';$('mDurs').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'))}else{o.textContent='format non reconnu';o.className='bad'}};
+ if(v&&v>0){S.dur=v;o.textContent='= '+fmtD(v);o.className='';$('mDurs').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'))}else{o.textContent='format non reconnu';o.className='bad'}};
 const S={type:'session',dur:90,pid:null,cdur:3,ais:{}};let NEWP=[];
 function mChips(el,items,cur,cls,cb){$(el).innerHTML=items.map(it=>`<button class="chip ${cls||''} ${it.v===cur?'on':''} ${it.add?'add':''}" style="${it.c?`--c:${it.c};--t:${tc(it.c)}`:''}">${esc(it.l)}</button>`).join('');[...$(el).children].forEach((b,i)=>b.onclick=()=>cb(items[i].v))}
 function renderModal(){const t=TM[S.type];
  mChips('mTypes',T.map(x=>({v:x.k,l:x.l,c:x.c})),S.type,'type',v=>{S.type=v;S.dur=TM[v].d;renderModal()});
  mChips('mDurs',DURS.filter(d=>d<150).map(d=>({v:d,l:fmtD(d)})),S.dur,'',v=>{S.dur=v;$('mDurX').value='';$('mDurOk').textContent='';renderModal()});
  const recent=[...new Set([...NEWP,...[...E()].sort((a,b)=>b.date.localeCompare(a.date)).filter(e=>e.pid!=null&&(S.type=='supervision'?e.type=='supervision':e.type!='supervision')).map(e=>e.pid)])].slice(0,10);
+ const isArch=id=>DB.personnes.find(x=>x.id==id)?.archive;
+ for(let i=recent.length-1;i>=0;i--)if(isArch(recent[i])&&recent[i]!==S.pid)recent.splice(i,1);
  if(S.pid!=null&&!recent.includes(S.pid))recent.unshift(S.pid);
+ const AR=DB.personnes.filter(p=>p.archive&&p.id!==S.pid).sort((a,b)=>byName(a.nom,b.nom));
+ $('mPA').classList.toggle('hide',!AR.length);$('mPA').innerHTML=`<option value="">Client archivé…</option>`+AR.map(p=>`<option value="${p.id}">${esc(p.nom)}</option>`).join('');
+ $('mPA').onchange=e=>{const p=DB.personnes.find(x=>String(x.id)===e.target.value);if(p){S.pid=p.id;renderModal()}};
  mChips('mPeople',[...recent.map(id=>({v:id,l:pname(id)})),{v:'+',l:'+ Nouvelle',add:1}],S.pid,'',v=>{if(v=='+'){$('newP').classList.remove('hide');$('newP').focus()}else{S.pid=S.pid===v?null:v;renderModal()}});
  mChips('mCdur',[1,2,3,6,9,12].map(n=>({v:n,l:n+' mois'})),S.cdur,'',v=>{S.cdur=v;renderModal()});
- $('mPB').classList.toggle('hide',!t.p);$('mCR').classList.toggle('hide',!t.cr);$('mProp').classList.toggle('hide',!t.prop);
+ $('mPB').classList.toggle('hide',!t.p);$('mCR').classList.toggle('hide',!t.cr);$('mProp').classList.toggle('hide',!t.prop);$('mSup').classList.toggle('hide',S.type!='supervision');
+ if(S.type=='supervision'&&$('mCout').value===''){const last=[...E()].filter(e=>e.type=='supervision'&&+e.cout>0).sort((a,b)=>b.date.localeCompare(a.date))[0];const v=last?.cout||CFG().finances.supDefaut;if(v)$('mCout').value=v}
  const MA=mActive();$('mAis').classList.toggle('hide',!t.ais||!MA.length);
  $('mRates').innerHTML=MA.map(m=>`<div class="rate"><span>${esc(m.l)}${m.min||m.max?`<small>1 = ${esc(m.min)} · 5 = ${esc(m.max)}</small>`:''}</span><div class="dots">${[1,2,3,4,5].map(n=>`<span class="${n<=(S.ais[m.id]||0)?'on':''}" data-m="${m.id}" data-n="${n}">${n}</span>`).join('')}</div></div>`).join('');
  $('mRates').querySelectorAll('span[data-n]').forEach(s=>s.onclick=()=>{const k=s.dataset.m,n=+s.dataset.n;if(S.ais[k]==n)delete S.ais[k];else S.ais[k]=n;renderModal()})}
@@ -1233,6 +1282,7 @@ $('mSave').onclick=()=>{const t=TM[S.type];
  if(t.p&&S.pid==null&&['conversation','session','proposition','debrief'].includes(S.type)){toast('Choisis la personne');return}
  const e={id:nextId(E()),maj:new Date().toISOString(),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),
   cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on'),ais:t.ais&&Object.keys(S.ais).length?{...S.ais}:null};
+ if(S.type=='supervision'){e.cout=+$('mCout').value||0;$('mCout').value=''}
  if(t.prop){e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}
  E().push(e);$('mCom').value='';['tCR','tSY'].forEach(i=>$(i).classList.remove('on'));
  closeM();touch();renderAll();toast(`${t.l} · ${fmtD(S.dur)} enregistré`)};
@@ -1321,19 +1371,21 @@ const WS={
 
  types:()=>{const C=CFG(),O=C.ordre;
   return{t:'Tes types d\'entretien',lead:'Nomme tes activités et classe-les <b>par ordre d\'importance</b> en les faisant glisser. Le n° 1 forme la base des graphiques et reçoit la couleur la plus forte.',
-  html:`<div class="wzgrid2 types"><table class="pt"><thead><tr><th style="width:64px">Rang</th><th></th><th>Libellé</th><th>Durée</th><th title="Noter ton aisance après ce type d'entretien">Aisance</th></tr></thead><tbody id="wTypes">${O.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}">
+  html:`<div class="wzgrid2 types"><table class="pt"><thead><tr><th style="width:64px">Rang</th><th></th><th>Libellé</th><th>Durée</th><th title="Noter ton aisance après ce type d'entretien">Aisance</th><th>Compte dans</th><th></th></tr></thead><tbody id="wTypes">${O.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}">
    <td><span class="handle" title="Glisser pour réordonner">⋮⋮</span><span class="rk">${i+1}</span></td>
    <td><input type="color" data-c="${k}" value="${t.c}"></td><td><input class="ed" data-l="${k}" value="${esc(t.l)}" style="font-weight:700"></td>
    <td><select class="ed" data-du="${k}" style="width:84px">${DURS.map(d=>`<option value="${d}" ${d==t.d?'selected':''}>${fmtD(d)}</option>`).join('')}</select></td>
-   <td><button class="sw ${t.ais?'on':''}" data-a="${k}"></button></td></tr>`}).join('')}</tbody></table>
+   <td><button class="sw ${t.ais?'on':''}" data-a="${k}"></button></td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('')}</tbody></table>
    <div class="stackprev"><small>Aperçu d'une barre</small>${[...O].reverse().map((k,i)=>`<div class="r"><i style="background:${C.types[k].c}"></i>${esc(C.types[k].l)}</div>`).join('')}<small>↑ n° 1 à la base</small></div></div>
-   <div class="hint">La colonne Aisance indique après quels entretiens tu notes tes axes de progression. Le rôle de chaque type dans les calculs ne change pas.${C.couleursAuto?'':' Tu as personnalisé des couleurs : elles ne suivent plus la palette (choisis une palette à l\'étape précédente pour revenir à l\'automatique).'}</div>`,
+   <button class="addl" id="wAddT" ${O.length>=MAX_TYPES?'disabled':''}>+ Ajouter un type (${O.length}/${MAX_TYPES})</button>
+   <div class="hint">La colonne Aisance indique après quels entretiens tu notes tes axes de progression. « Compte dans » indique le calcul où le type est additionné ; il se choisit pour les types que tu ajoutes (jusqu\'à 10 types).${C.couleursAuto?'':' Tu as personnalisé des couleurs : elles ne suivent plus la palette (choisis une palette à l\'étape précédente pour revenir à l\'automatique).'}</div>`,
   bind:()=>{const B=$('wzBody');
    dragRows($('wTypes'),O,()=>{recolor(C);wzLive();renderWiz()});
    B.querySelectorAll('[data-c]').forEach(i=>i.onchange=()=>{C.types[i.dataset.c].c=i.value;C.couleursAuto=false;wzLive();renderWiz()});
-   B.querySelectorAll('[data-l]').forEach(i=>i.onchange=()=>{C.types[i.dataset.l].l=i.value.trim()||defaultConfig().types[i.dataset.l].l;wzLive();renderWiz()});
+   B.querySelectorAll('[data-l]').forEach(i=>i.onchange=()=>{C.types[i.dataset.l].l=i.value.trim()||defaultConfig().types[i.dataset.l]?.l||'Type';wzLive();renderWiz()});
    B.querySelectorAll('[data-du]').forEach(i=>i.onchange=()=>{C.types[i.dataset.du].d=+i.value;wzLive()});
-   B.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{const t=C.types[b.dataset.a];t.ais=!t.ais;wzLive();renderWiz()})}}},
+   B.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{const t=C.types[b.dataset.a];t.ais=!t.ais;wzLive();renderWiz()});
+   bindTypeExtras(B,C,()=>{wzLive();renderWiz()});$('wAddT').onclick=()=>{if(addCustomType(C)){wzLive();renderWiz()}}}}},
 
  suivi:()=>{const L=k=>`<strong>${esc(TM[k].l)}</strong>`;return{t:'Comment le suivi fonctionne',lead:'Peu d\'indicateurs, regardés souvent : on progresse sur ce que l\'on mesure.',
   html:`<div class="wzcards">
