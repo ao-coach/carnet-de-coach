@@ -45,9 +45,11 @@ h3{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
 .kpi .l{font-size:13px;opacity:.75;font-weight:700}
 .kpi .v{font-family:'Noto Serif',serif;font-size:44px;margin-top:2px}
 .kpi .v small{font-size:18px;opacity:.7}
-.kpi .d{font-size:12.5px;color:#B5D2E0;font-weight:600} .kpi .d b{color:#fff}
+.kpi .d{font-size:12.5px;color:#B5D2E0;font-weight:600;padding-right:104px;line-height:1.4} .kpi .d b{color:#fff}
 .kpi svg{position:absolute;right:16px;bottom:16px}
 .kpis2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.drg{cursor:grab;transition:transform .15s,box-shadow .15s,opacity .15s} .drg.drag{opacity:.4} .drg.over{transform:scale(1.02);box-shadow:0 0 0 3px var(--am)}
+.k2 .d b{color:var(--jet)}
 .k2{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 .k2 .v{font-family:'Noto Serif',serif;font-size:24px} .k2 .l{color:var(--grey);font-size:13px;margin-left:6px}
 .k2 .d{font-size:12px;color:var(--am);font-weight:700;margin-top:1px}
@@ -123,8 +125,13 @@ table.act{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:18px;padding:5px 12px;font-weight:700;font-size:13px;cursor:pointer;transition:.12s;display:inline-flex;align-items:center;gap:6px}
 .chip:hover{border-color:var(--afb)}
 .chip.on{background:var(--jet);border-color:var(--jet);color:#fff}
-.chip.type i{width:8px;height:8px;border-radius:50%;background:var(--c)}
-.chip.type.on{background:var(--c);border-color:var(--c)} .chip.type.on i{background:#fff}
+.chip.type i{display:none}
+.chip.type{background:color-mix(in srgb,var(--c) 20%,#fff);border-color:color-mix(in srgb,var(--c) 55%,#fff);color:var(--jet)}
+.chip.type:hover{border-color:var(--c)}
+.chip.type.on{background:var(--c);border-color:var(--c);color:var(--t,#fff);box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 30%,transparent)}
+.chip.type.on small{opacity:.8}
+.tysel{appearance:none;-webkit-appearance:none;border:0;border-radius:14px;padding:4px 12px;font-weight:800;font-size:12.5px;cursor:pointer;width:auto;text-align:center}
+.tysel:focus{outline:2px solid var(--afb)}
 .chip small{opacity:.55;font-weight:600} .chip.add{border-style:dashed;color:var(--am)}
 .reset{border:0;background:none;color:var(--am);font-weight:700;cursor:pointer;font-size:13px}
 .sumrow{display:flex;gap:28px;margin:18px 0 4px;flex-wrap:wrap}
@@ -151,7 +158,7 @@ table.ent{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1250px}
 .ent [data-k=com]{min-width:240px}
 .ent .ty{white-space:nowrap} .ent .ty i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px;vertical-align:1px}
 .ent .ty select{width:auto;font-weight:700;display:inline-block}
-.plink{cursor:pointer;font-weight:700;border-bottom:1px dotted #B5B7BA;white-space:nowrap} .plink:hover{color:var(--am);border-color:var(--am)}
+.plink{cursor:pointer;font-weight:600;color:var(--grey);border-bottom:1px dotted #CFCFD3;white-space:nowrap} .plink:hover{color:var(--am);border-color:var(--am)}
 .ck{width:20px;height:20px;border-radius:6px;border:2px solid #C9CBCE;display:grid;place-items:center;cursor:pointer;color:#fff;font-size:12px;margin:auto}
 .ck.on{background:var(--am);border-color:var(--am)}
 select.as{appearance:none;-webkit-appearance:none;width:34px;height:26px;border-radius:7px;border:1px solid var(--line);text-align:center;text-align-last:center;font-weight:800;font-size:12.5px;cursor:pointer;background:#fff;display:block;margin:auto}
@@ -293,12 +300,39 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 .sumlist{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:14.5px}
 .sumlist li{display:flex;gap:10px;align-items:center} .sumlist i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;background:var(--bluebg);color:var(--afb);flex:none}
 .sumlist li.no i{background:var(--soft);color:#B5B7BA}
-#recM{z-index:50} .toast{z-index:60}
+#recM{z-index:50} .toast{z-index:60} #kcat{z-index:48}
+.khint{display:flex;align-items:center;gap:14px;margin-top:10px}.khint .btn2{margin-left:auto;white-space:nowrap}
+.lnk{border:0;background:none;color:var(--grey);font-weight:700;font-size:12.5px;cursor:pointer;text-decoration:underline}.lnk:hover{color:var(--am)}
+.kpi .l .win,.k2 .l .win{font-weight:800;opacity:.65;font-size:11.5px;margin-left:4px}
+.kpi .v .of{font-size:15px;opacity:.75;font-family:Nunito,sans-serif;font-weight:700}
+.k2 .v .of{font-size:13px;color:var(--grey);font-family:Nunito,sans-serif;font-weight:700}
+.modal.kcm{width:min(1120px,100%)}
+.kslots{display:grid;grid-template-columns:repeat(3,1fr) repeat(3,.8fr);gap:8px;margin:16px 0 18px}
+.ks{border-radius:12px;padding:10px 12px;min-height:66px;position:relative;font-size:12.5px;display:flex;flex-direction:column;justify-content:center}
+.ks.p{background:var(--jet);color:#fff} .ks.s{background:#fff;border:1px solid var(--line)}
+.ks.e{border:1.5px dashed #CFCBD6;background:none;color:#B5B7BA;align-items:center;font-weight:700}
+.ks b{font-size:13px;display:block;line-height:1.2;padding-right:16px} .ks span{opacity:.7;font-size:11.5px}
+.ks .n{position:absolute;top:6px;right:8px;font-size:10.5px;font-weight:800;opacity:.6}
+.ks .rm{position:absolute;bottom:6px;right:6px;border:0;background:none;color:inherit;opacity:.5;cursor:pointer;font-size:13px} .ks .rm:hover{opacity:1}
+.ks.drg.over{box-shadow:0 0 0 3px var(--am)}
+.kslab{grid-column:1/-1;display:grid;grid-template-columns:3fr 2.4fr;gap:8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);margin-bottom:-2px}
+.kcols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kcol h4{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.kcol h4 i{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;color:#fff;font-style:normal;font-size:11.5px}
+.kc{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;background:#fff;position:relative;transition:.12s}
+.kc:hover{border-color:var(--afb)} .kc.on{border-color:var(--am);box-shadow:0 0 0 2px color-mix(in srgb,var(--am) 22%,transparent);background:color-mix(in srgb,var(--am) 4%,#fff)}
+.kc b{display:block;font-size:13.5px;padding-right:26px} .kc .w{font-size:10.5px;font-weight:800;color:var(--grey);text-transform:uppercase;letter-spacing:.04em}
+.kc .pv{font-family:'Noto Serif',serif;font-size:19px;margin:2px 0} .kc .pv small{font-family:Nunito,sans-serif;font-size:11.5px;color:var(--grey);font-weight:700}
+.kc p{font-size:12px;color:var(--grey);line-height:1.4}
+.kc .rk{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;background:var(--soft);color:#B5B7BA}
+.kc.on .rk{background:var(--am);color:#fff}
+@media(max-width:1100px){.kcols{grid-template-columns:1fr 1fr}.kslots{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:860px){.wzcard{grid-template-columns:1fr;height:calc(100vh - 32px)}.wzside{display:none}.wzmain{padding:24px 20px 0}.wzcards,.flow3,.wzgrid2,.wzgrid2.types,.targets,.sumlist{grid-template-columns:1fr}.arow,.prow{grid-template-columns:1fr}}
 .pt tr[data-i] td:first-child{white-space:nowrap} .pt .handle,.pt .rk{vertical-align:middle}
 .pt tr.drag{opacity:.4} .pt tr.over td{background:#F0F6F9} .pt .handle{cursor:grab;font-size:15px;padding:0 6px}
 .rk{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-size:11.5px;font-weight:800;color:var(--grey)}
 .pt tr:first-child .rk{background:var(--jet);color:#fff}
+.durx{display:flex;align-items:center;gap:10px;margin-top:8px}.durx .fin{max-width:260px;padding:7px 12px;font-size:14px}.durx span{font-size:13px;font-weight:800;color:var(--afb)}.durx span.bad{color:var(--am);font-weight:700}
 @media(max-width:1100px){.side{display:none}main{padding:0 16px 40px}.kpis,.kpis2,.row2,.pgrid{grid-template-columns:1fr}.top,header{flex-wrap:wrap}.obj{display:block;overflow-x:auto}.colors{grid-template-columns:repeat(3,1fr)}}
 </style></head><body>
 <div class="side" id="side"></div>
@@ -318,6 +352,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 <!-- ===== TABLEAU DE BORD ===== -->
 <div id="dash">
   <div class="kpis" id="kpisD"></div>
+  <div class="khint" style="justify-content:flex-end"><button class="lnk" data-kcat>Changer mes indicateurs</button></div>
   <div class="card sec" id="prioCard"><h2>Objectif prioritaire</h2><ul class="prios" id="prios"></ul><button class="addl" id="addPrio">+ Ajouter un objectif prioritaire</button></div>
   <div class="card sec" id="actCard">
     <h2>Plan d'action <div class="pills" id="pills"></div></h2>
@@ -331,6 +366,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 <div id="metrics" class="hide">
   <div class="kpis" id="kpisM"></div>
   <div class="kpis2" id="kpis2"></div>
+  <div class="khint"><span class="hint" style="margin:0">Glisse un indicateur sur un autre pour les échanger. Les 3 premiers sont tes indicateurs principaux, aussi sur le tableau de bord.</span><button class="btn2" data-kcat>Choisir mes indicateurs</button></div>
   <div class="yearbar sec"><span class="flab">Année</span><div class="chips" id="yChips"></div></div>
   <div class="row2">
     <div class="card"><h2>Temps passé par mois</h2><div class="legend" id="lg"></div><svg id="monthly" viewBox="0 0 720 250" width="100%"></svg></div>
@@ -390,6 +426,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
     <div class="card" id="setSec"><h2>Sécurité</h2><div id="secBody"></div></div>
     <div class="card" id="setStore"><h2>Stockage des données</h2><div id="storeBody"></div></div>
   </div>
+  <div class="card sec" style="display:flex;align-items:center;gap:14px"><div><h2>Mes indicateurs</h2><div class="hint" style="margin:2px 0 0">Choisis jusqu'à 6 indicateurs parmi 19, classés par pilier, et leur ordre.</div></div><button class="btn2" data-kcat style="margin-left:auto;white-space:nowrap">Choisir mes indicateurs</button></div>
   <div class="card sec">
     <h2>Partager à un pair</h2>
     <div class="hint">L'application ne contient aucune donnée : tu peux l'envoyer telle quelle. Pour donner en plus ta configuration (types, couleurs, métriques) sans tes données, ton nom ni ton logo, exporte un modèle : ton pair le choisit dans « Importer un fichier » à l'accueil.</div>
@@ -405,6 +442,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <input type="date" class="fin" id="fDate" style="margin-top:10px">
   <div class="lab">Type</div><div class="chips" id="mTypes"></div>
   <div class="lab">Durée</div><div class="chips" id="mDurs"></div>
+  <div class="durx"><input class="fin" id="mDurX" placeholder="Autre durée : 2,5 · 2h30 · 150min"><span id="mDurOk"></span></div>
   <div id="mPB"><div class="lab">Personne</div><div class="chips" id="mPeople"></div>
     <input class="fin hide" id="newP" placeholder="Prénom Nom, puis Entrée" style="margin-top:8px"></div>
   <div class="lab">Ce qu'on a vu</div><input class="fin" id="mCom" placeholder="1 ligne : thème, déclic, pattern repéré…">
@@ -416,6 +454,15 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <button class="save" id="mSave">Enregistrer</button>
 </div></div>
 <div class="toast" id="toast"></div>
+
+<!-- catalogue d'indicateurs -->
+<div class="ov" id="kcat"><div class="modal kcm">
+  <div class="mh"><h2>Choisir mes indicateurs</h2><button class="x" id="kcClose">✕</button></div>
+  <div class="hint" style="margin-top:0">Jusqu'à 6 indicateurs. Les 3 premiers sont tes <b>indicateurs principaux</b> (en grand, aussi sur le tableau de bord), les suivants sont secondaires. Clique pour ajouter ou retirer, glisse pour réordonner. Les valeurs affichées sont les tiennes, à date.</div>
+  <div class="kslots" id="kcSlots"></div>
+  <div class="kcols" id="kcCols"></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="save" id="kcOk" style="width:auto;padding:12px 28px;margin:0">Terminé</button></div>
+</div></div>
 
 <!-- verrou / saisie de secret -->
 <div class="lock hide" id="lock"><div class="lockbox">
@@ -470,6 +517,8 @@ const VERSION=3, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
 const TYPE_KEYS=['conversation','proposition','session','reseau','debrief','supervision','annexe'];
 const TYPE_ROLE={conversation:{p:1,cr:1},proposition:{p:1,prop:1},session:{p:1,cr:1},reseau:{p:1},debrief:{p:1},supervision:{p:1},annexe:{}};
+const KPI_DEFAULT=['h','delib','conv','coach','reg','caprop'];
+const KPI_ALL=['h','conv','coach','reg','newp','active','delib','disc','aism','obj','caprop','transfo','pending','accept','basket','rate','late','target','share'];
 const DEF_ORDER=['session','supervision','debrief','proposition','conversation','reseau','annexe'];
 let STACK=[...DEF_ORDER];
 const COACH=['conversation','session'];
@@ -514,6 +563,7 @@ const dShort=s=>{if(!s)return'';const[y,m,d]=s.split('-');return `${+d} ${MO[m-1
 const addDays=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
 const byName=(a,b)=>a.localeCompare(b,'fr',{sensitivity:'base'});
 const nextId=a=>a.reduce((m,x)=>Math.max(m,x.id||0),0)+1;
+function tc(h){const p=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(c=>c<=.03928?c/12.92:((c+.055)/1.055)**2.4);return .2126*p[0]+.7152*p[1]+.0722*p[2]>.42?'#1d1d1f':'#ffffff'}
 function mix(a,b,t){const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')}
 
 /* ---------- état ---------- */
@@ -536,6 +586,8 @@ function migrate(d){
   c.couleurs={...D.couleurs,...(c.couleurs||{})};c.types=c.types||{};
   TYPE_KEYS.forEach(k=>c.types[k]={...D.types[k],...(c.types[k]||{})});
   c.metriques=c.metriques||D.metriques;
+  if(!Array.isArray(c.kpis)||c.kpis.some(k=>k=='prop'||k=='ca'))c.kpis=[...KPI_DEFAULT];   // ancienne liste fixe → nouvelle sélection par défaut
+  c.kpis=[...new Set(c.kpis.filter(k=>KPI_ALL.includes(k)))].slice(0,6);if(!c.kpis.length)c.kpis=[...KPI_DEFAULT];
   if(!Array.isArray(c.ordre)||c.ordre.length!==TYPE_KEYS.length||!TYPE_KEYS.every(k=>c.ordre.includes(k)))c.ordre=[...DEF_ORDER];['nom','outil','sousTitre'].forEach(k=>{if(c[k]==null)c[k]=D[k]});
   delete d.prefs.aisOrdre;delete d.prefs.kpiStyle;
   d.actions.forEach((a,i)=>{if(!a.id)a.id=i+1});
@@ -727,7 +779,8 @@ const H=a=>a.reduce((s,e)=>s+(e.dur||0),0)/60;
 function stats(list){const c=t=>list.filter(e=>t.includes(e.type)),P=c(['proposition']),A=P.filter(e=>e.statut=='acceptee');return{
  h:H(c(COACH)),conv:c(['conversation']).length,convH:H(c(['conversation'])),
  coach:new Set(c(COACH).filter(e=>e.pid!=null).map(e=>e.pid)).size,
- delib:H(c(['debrief','supervision'])),prop:P.reduce((s,e)=>s+(+e.eur||0),0),nprop:P.length,
+ delib:H(c(['debrief','supervision'])),prop:P.reduce((s,e)=>s+(+e.eur||0),0),
+ nprop:P.filter(e=>+e.eur>0).length,nacc:A.filter(e=>+e.eur>0).length,   // une proposition = un montant proposé (> 0 €)
  ca:A.reduce((s,e)=>s+(+e.eur||0),0),mois:A.reduce((s,e)=>s+(+e.engagement_mois||0),0)}}
 const range=(a,b)=>E().filter(e=>e.date>=a&&e.date<=b);
 const yearData=y=>E().filter(e=>e.date.startsWith(y));
@@ -740,17 +793,102 @@ function toast(m,label,fn){const t=$('toast');t.innerHTML=`<span>${esc(m)}</span
 function spark(vals){if(vals.length<2)vals=[0,...vals];const mx=Math.max(...vals,1);return `<svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linejoin="round" points="${vals.map((v,i)=>`${i*(96/(vals.length-1))},${32-v/mx*28}`).join(' ')}"/></svg>`}
 function kpiBg(i){const K=CFG().couleurs,base=mix(K.fonce,K.bleu,[0,.12,.24][i]),end=mix(base,K.bleu,.32);
   return `linear-gradient(150deg,${base} 0%,${base} 38%,${end} 100%)`}
-function bigKPI(el){const Y=today().slice(0,4),s=stats(yearData(Y)),r=stats(range(addDays(today(),-30),today())),cm=+today().slice(5,7);
- const per=k=>Array.from({length:cm},(_,i)=>stats(yearData(Y+'-'+pad(i+1)))[k]);
- $(el).innerHTML=[['Heures de coaching '+Y,n1(s.h),'h',`31 derniers jours : <b>${n1(r.h)} h</b>`,'h'],
-  ['Conversations '+Y,s.conv,'',`31 derniers jours : <b>${r.conv}</b> · ${n1(r.convH)} h`,'conv'],
-  ['Personnes coachées '+Y,s.coach,'',`31 derniers jours : <b>${r.coach}</b>`,'coach']]
-  .map(([l,v,u,d,k],i)=>`<div class="kpi" style="background:${kpiBg(i)}"><div class="l">${l}</div><div class="v">${v}<small>${u?' '+u:''}</small></div><div class="d">${d}</div>${spark(per(k))}</div>`).join('')}
-function smallKPI(){const Y=today().slice(0,4),s=stats(yearData(Y)),r=stats(range(addDays(today(),-30),today()));
- $('kpis2').innerHTML=[[n1(s.delib)+' h','pratique délibérée',`31 j : ${n1(r.delib)} h · ratio ${s.h?n1(s.delib/s.h):'—'} h par h de coaching`],
-  [eur(s.prop),'proposés',`31 j : ${eur(r.prop)} · ${s.nprop} proposition${s.nprop>1?'s':''}`],
-  [eur(s.ca),'CA accepté',`31 j : ${eur(r.ca)} · ${s.mois} mois engagés`]]
-  .map(([v,l,d])=>`<div class="k2"><span class="v">${v}</span><span class="l">${l}</span><div class="d">${d}</div></div>`).join('')}
+/* =========================================================
+   CATALOGUE D'INDICATEURS
+   Chaque indicateur : pilier, libellé, fenêtre de calcul, valeur, détail, courbe (facultative), utilité.
+   ========================================================= */
+const num=v=>Math.round(v||0).toLocaleString('fr-FR');
+const pl=(n,w)=>`${n} ${w}${n>1?'s':''}`;
+const pct=v=>v==null||isNaN(v)?'—':Math.round(v*100);
+const PILLARS=[{k:1,l:'Coacher beaucoup',c:'var(--jet)'},{k:2,l:'Pratiquer délibérément',c:'var(--am)'},{k:3,l:'Développer ton activité',c:'var(--afb)'},{k:4,l:'Piloter',c:'var(--grey)'}];
+const winTxt={an:D=>D.Y,j31:()=>'31 j',j90:()=>'90 j',s12:()=>'12 sem.',m12:()=>'12 mois',now:()=>'en cours',tri:D=>'T'+D.Q};
+function kctx(){const t=today(),Y=t.slice(0,4),cm=+t.slice(5,7),c={Y,cm,Q:Math.floor((cm-1)/3)+1,t,
+  s:stats(yearData(Y)),r:stats(range(addDays(t,-30),t)),win:(a,b)=>range(addDays(t,-a),addDays(t,-b))};
+  c.monthly=f=>Array.from({length:cm},(_,i)=>f(yearData(Y+'-'+pad(i+1))));return c}
+const pids=(L,types)=>new Set(L.filter(e=>types.includes(e.type)&&e.pid!=null).map(e=>e.pid));
+function firstCoach(){const m={};E().forEach(e=>{if(COACH.includes(e.type)&&e.pid!=null&&(!m[e.pid]||e.date<m[e.pid]))m[e.pid]=e.date});return m}
+function weeksActive(D){const d=new Date(D.t+'T12:00:00Z'),mon=addDays(D.t,-((d.getUTCDay()+6)%7));
+  return Array.from({length:12},(_,i)=>{const a=addDays(mon,-7*(11-i)),b=addDays(a,6);return E().some(e=>COACH.includes(e.type)&&e.date>=a&&e.date<=b)?1:0})}
+function discipline(L){const f=L.filter(e=>TM[e.type]?.cr),a=L.filter(e=>TM[e.type]?.ais),r=[];
+  const cr=f.length?f.filter(e=>e.cr).length/f.length:null,sy=f.length?f.filter(e=>e.syn).length/f.length:null,no=a.length?a.filter(hasAis).length/a.length:null;
+  [cr,sy,no].forEach(v=>{if(v!=null)r.push(v)});return{g:r.length?r.reduce((x,y)=>x+y,0)/r.length:null,cr,sy,no,n:f.length}}
+function aisAvg(L,id){const v=[];L.forEach(e=>{if(!e.ais)return;Object.entries(e.ais).forEach(([k,x])=>{if(x&&(!id||k==id))v.push(x)})});return v.length?v.reduce((a,b)=>a+b,0)/v.length:null}
+const objMetric=()=>metrics().find(m=>/atteinte|objectif/i.test(m.l))||mActive()[0];
+const delta=(a,b)=>a==null||b==null?'':` · ${a-b>=0?'+':''}${n1(a-b)} vs 90 j précédents`;
+const KPIDEF={
+ h:{p:1,l:'Heures de coaching',w:'an',u:'Le volume qui muscle ta pratique.',v:D=>[n1(D.s.h),'h'],d:D=>`31 derniers jours : <b>${n1(D.r.h)} h</b>`,sp:D=>D.monthly(L=>stats(L).h)},
+ conv:{p:1,l:'Conversations',w:'an',u:'Ton élan pour faire découvrir le coaching.',v:D=>[D.s.conv,''],d:D=>`31 derniers jours : <b>${D.r.conv}</b> · ${n1(D.r.convH)} h`,sp:D=>D.monthly(L=>stats(L).conv)},
+ coach:{p:1,l:'Personnes coachées',w:'an',u:'La diversité de ta pratique.',v:D=>[D.s.coach,''],d:D=>`31 derniers jours : <b>${D.r.coach}</b>`,sp:D=>D.monthly(L=>stats(L).coach)},
+ reg:{p:1,l:'Régularité',w:'s12',u:'Coacher chaque semaine compte autant que le volume.',v:D=>{const w=weeksActive(D);return[w.reduce((a,b)=>a+b,0),'/ 12 sem.']},
+   d:D=>{const w=weeksActive(D);return `semaines avec au moins une séance · 4 dernières : <b>${w.slice(-4).reduce((a,b)=>a+b,0)}/4</b>`},bars:D=>weeksActive(D)},
+ newp:{p:1,l:'Nouvelles personnes',w:'an',u:'Ton activité se renouvelle-t-elle ?',v:D=>{const f=firstCoach();return[Object.values(f).filter(d=>d.startsWith(D.Y)).length,'']},
+   d:D=>{const f=firstCoach(),a=addDays(D.t,-30);return `31 derniers jours : <b>${Object.values(f).filter(d=>d>=a&&d<=D.t).length}</b>`},sp:D=>{const f=Object.values(firstCoach());return Array.from({length:D.cm},(_,i)=>f.filter(d=>d.startsWith(D.Y+'-'+pad(i+1))).length)}},
+ active:{p:1,l:'Clients actifs',w:'j31',u:'Les accompagnements réellement en cours.',v:D=>[pids(range(addDays(D.t,-30),D.t),['session']).size,''],
+   d:D=>`avec une session ces 31 jours · <b>${pids(range(addDays(D.t,-30),D.t),['conversation']).size}</b> en conversation`},
+ delib:{p:2,l:'Pratique délibérée',w:'an',u:'Débriefs et supervision : ce qui transforme l\'expérience en compétence.',v:D=>[n1(D.s.delib),'h'],d:D=>`31 derniers jours : <b>${n1(D.r.delib)} h</b> · ${D.s.h?n1(D.s.delib/D.s.h):'—'} h par h de coaching`,sp:D=>D.monthly(L=>stats(L).delib)},
+ disc:{p:2,l:'Discipline post-séance',w:'j90',u:'CR, synthèse et notes d\'aisance faits après les entretiens.',v:D=>{const x=discipline(D.win(89,0));return[pct(x.g),x.g==null?'':'%']},
+   d:D=>{const x=discipline(D.win(89,0));return x.n?`CR <b>${pct(x.cr)} %</b> · synthèse <b>${pct(x.sy)} %</b> · notes <b>${pct(x.no)} %</b>`:'aucun entretien sur 90 jours'}},
+ aism:{p:2,l:'Aisance moyenne',w:'j90',u:'Ton ressenti de maîtrise, tous axes confondus.',v:D=>{const a=aisAvg(D.win(89,0));return[a==null?'—':n1(a),a==null?'':'/ 5']},
+   d:D=>{const a=aisAvg(D.win(89,0)),b=aisAvg(D.win(179,90));return a==null?'pas encore de notes sur 90 jours':`moyenne des notes${delta(a,b)}`}},
+ obj:{p:2,l:'Atteinte de l\'objectif du rdv',w:'j90',u:'L\'efficacité de tes séances, vue par toi.',v:D=>{const m=objMetric(),a=m?aisAvg(D.win(89,0),m.id):null;return[a==null?'—':n1(a),a==null?'':'/ 5']},
+   d:D=>{const m=objMetric();if(!m)return 'aucun axe défini';const a=aisAvg(D.win(89,0),m.id),b=aisAvg(D.win(179,90),m.id);return a==null?`axe « ${esc(m.l)} » pas encore noté`:`axe « ${esc(m.l)} »${delta(a,b)}`}},
+ caprop:{p:3,l:'CA accepté / proposé',w:'an',u:'Ce que tu signes, face à ce que tu proposes.',v:D=>[num(D.s.ca),`€ <span class="of">/ ${num(D.s.prop)} € proposés</span>`],
+   d:D=>`${D.s.nacc} acceptée${D.s.nacc>1?'s':''} sur ${pl(D.s.nprop,'proposition')} · 31 derniers jours : <b>${eur(D.r.ca)}</b> signés`,sp:D=>D.monthly(L=>stats(L).ca)},
+ transfo:{p:3,l:'Taux de transformation',w:'m12',u:'Part des personnes en conversation qui signent un contrat payant.',
+   v:D=>{const P=pids(D.win(364,0),['conversation']),S=new Set(E().filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0).map(e=>e.pid)),n=[...P].filter(p=>S.has(p)).length;return[P.size?pct(n/P.size):'—',P.size?'%':'']},
+   d:D=>{const P=pids(D.win(364,0),['conversation']),S=new Set(E().filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0).map(e=>e.pid));return `<b>${[...P].filter(p=>S.has(p)).length}</b> sur ${pl(P.size,'personne')} en conversation`}},
+ pending:{p:3,l:'Propositions en attente',w:'now',u:'Ton portefeuille d\'affaires en cours.',v:()=>[num(E().filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((s,e)=>s+(+e.eur||0),0)),'€'],
+   d:()=>`${pl(E().filter(e=>e.type=='proposition'&&e.statut=='attente'&&+e.eur>0).length,'proposition')} en attente de réponse`},
+ accept:{p:3,l:'Taux d\'acceptation',w:'an',u:'Tes propositions convainquent-elles ?',v:D=>{const P=yearData(D.Y).filter(e=>e.type=='proposition'&&+e.eur>0),a=P.filter(e=>e.statut=='acceptee').length,r=P.filter(e=>e.statut=='refusee').length;return[a+r?pct(a/(a+r)):'—',a+r?'%':'']},
+   d:D=>{const P=yearData(D.Y).filter(e=>e.type=='proposition'&&+e.eur>0);return `<b>${P.filter(e=>e.statut=='acceptee').length}</b> acceptée(s) · ${P.filter(e=>e.statut=='refusee').length} refusée(s) · ${P.filter(e=>e.statut=='attente').length} en attente`}},
+ basket:{p:3,l:'Panier moyen',w:'an',u:'La valeur moyenne d\'un contrat signé.',v:D=>[D.s.nacc?num(D.s.ca/D.s.nacc):'—',D.s.nacc?'€':''],
+   d:D=>{const A=yearData(D.Y).filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0);return A.length?`par contrat · engagement moyen <b>${n1(A.reduce((s,e)=>s+(+e.engagement_mois||0),0)/A.length)} mois</b>`:'aucun contrat signé cette année'}},
+ rate:{p:3,l:'Taux horaire réel',w:'an',u:'Ce que vaut vraiment ton heure, préparation comprise.',v:D=>{const h=H(yearData(D.Y));return[h&&D.s.ca?num(D.s.ca/h):'—',h&&D.s.ca?'€/h':'']},
+   d:D=>`CA accepté ÷ <b>${n1(H(yearData(D.Y)))} h</b> de travail (toutes activités)`},
+ late:{p:4,l:'Actions en retard',w:'now',u:'Ce qui glisse dans ton plan d\'action.',v:D=>[DB.actions.filter(a=>a.s=='encours'&&a.d&&a.d<D.t).length,''],
+   d:()=>`${pl(DB.actions.filter(a=>a.s=='encours').length,'action')} en cours · ${DB.actions.filter(a=>a.s=='realisee').length} réalisée(s)`},
+ target:{p:4,l:'Cibles du trimestre',w:'tri',u:'Où tu en es de tes objectifs chiffrés.',
+   v:D=>{const x=targetProgress(D);return[x.length?pct(x.reduce((a,b)=>a+b.p,0)/x.length):'—',x.length?'%':'']},
+   d:D=>{const x=targetProgress(D);return x.length?x.slice(0,3).map(t=>`${t.l} <b>${pct(t.p)} %</b>`).join(' · '):'aucune cible définie pour ce trimestre'}},
+ share:{p:4,l:'Part du coaching',w:'an',u:'La place du coaching dans tout ton temps.',v:D=>{const h=H(yearData(D.Y));return[h?pct(D.s.h/h):'—',h?'%':'']},
+   d:D=>{const h=H(yearData(D.Y));return h?`pratique délibérée <b>${pct(D.s.delib/h)} %</b> · annexe ${pct(H(yearData(D.Y).filter(e=>e.type=='annexe'))/h)} %`:'aucune saisie cette année'}}};
+function targetProgress(D){const q=`${D.Y}T${D.Q}`,O=DB.objectifs[q]||{},per=periods(q)[0],st=stats(range(per.a,per.b));
+  return OROWS.filter(r=>+O[r.k]>0).map(r=>({l:r.l.split(' ')[0],p:Math.min(1,st[r.k]/O[r.k])}))}
+const kOrder=()=>{const o=CFG().kpis;return Array.isArray(o)&&o.length?o.filter(k=>KPIDEF[k]):[...KPI_DEFAULT]};
+const kLabel=(k,D)=>`${KPIDEF[k].l}<span class="win">${winTxt[KPIDEF[k].w](D)}</span>`;
+function bars(v){const w=96/v.length;return `<svg width="96" height="34">${v.map((x,i)=>`<rect x="${i*w+1}" y="${x?6:28}" width="${w-2}" height="${x?26:4}" rx="1.5" fill="rgba(255,255,255,${x?.6:.2})"/>`).join('')}</svg>`}
+function tileBig(k,i,D,drag){const K=KPIDEF[k],[v,u]=K.v(D);
+ return `<div class="kpi ${drag?'drg':''}" data-k="${k}" ${drag?'draggable="true"':''} style="background:${kpiBg(i)}"><div class="l">${kLabel(k,D)}</div><div class="v">${v}<small>${u?' '+u:''}</small></div><div class="d">${K.d(D)}</div>${K.bars?bars(K.bars(D)):K.sp?spark(K.sp(D)):''}</div>`}
+function tileSmall(k,D){const K=KPIDEF[k],[v,u]=K.v(D);
+ return `<div class="k2 drg" data-k="${k}" draggable="true"><span class="v">${v}${u?' '+u:''}</span><span class="l">${K.l.toLowerCase()}<span class="win">${winTxt[K.w](D)}</span></span><div class="d">${K.d(D)}</div></div>`}
+function bigKPI(el,drag){const D=kctx();$(el).innerHTML=kOrder().slice(0,3).map((k,i)=>tileBig(k,i,D,drag)).join('');if(drag)bindKpiDrag()}
+function smallKPI(){const D=kctx(),o=kOrder().slice(3);$('kpis2').innerHTML=o.map(k=>tileSmall(k,D)).join('');$('kpis2').classList.toggle('hide',!o.length);bindKpiDrag()}
+let dragK=null;
+function swapK(a,b){const o=[...kOrder()],i=o.indexOf(a),j=o.indexOf(b);if(i<0||j<0||i==j)return;[o[i],o[j]]=[o[j],o[i]];CFG().kpis=o;touch()}
+function bindKpiDrag(){document.querySelectorAll('#kpisM [data-k],#kpis2 [data-k]').forEach(t=>{
+ t.ondragstart=e=>{dragK=t.dataset.k;t.classList.add('drag');try{e.dataTransfer.setData('text/plain',dragK)}catch(_){}};t.ondragend=()=>t.classList.remove('drag');
+ t.ondragover=e=>{e.preventDefault();t.classList.add('over')};t.ondragleave=()=>t.classList.remove('over');
+ t.ondrop=e=>{e.preventDefault();t.classList.remove('over');if(dragK&&dragK!=t.dataset.k){swapK(dragK,t.dataset.k);renderAll()}dragK=null}})}
+
+/* ---------- fenêtre de choix des indicateurs ---------- */
+function renderKcat(){const D=kctx(),o=kOrder();
+ $('kcSlots').innerHTML=`<div class="kslab"><span>Principaux</span><span>Secondaires</span></div>`+Array.from({length:6},(_,i)=>{const k=o[i];
+  if(!k)return `<div class="ks e ${i<3?'pe':''}">+ emplacement libre</div>`;const [v,u]=KPIDEF[k].v(D);
+  return `<div class="ks ${i<3?'p':'s'} drg" draggable="true" data-sk="${k}"><span class="n">${i+1}</span><b>${KPIDEF[k].l}</b><span>${v} ${u.replace(/<[^>]+>/g,'')}</span><button class="rm" data-rm="${k}" title="Retirer">✕</button></div>`}).join('');
+ $('kcCols').innerHTML=PILLARS.map(P=>`<div class="kcol"><h4><i style="background:${P.c}">${P.k}</i>${P.l}</h4>${Object.entries(KPIDEF).filter(([,K])=>K.p==P.k).map(([k,K])=>{const [v,u]=K.v(D),r=o.indexOf(k);
+  return `<div class="kc ${r>=0?'on':''}" data-ck="${k}"><span class="rk">${r>=0?r+1:'+'}</span><span class="w">${winTxt[K.w](D)}</span><b>${K.l}</b><div class="pv">${v}<small> ${u.replace(/<[^>]+>/g,'')}</small></div><p>${K.u}</p></div>`}).join('')}</div>`).join('');
+ $('kcCols').querySelectorAll('[data-ck]').forEach(c=>c.onclick=()=>{const k=c.dataset.ck,L=[...kOrder()],i=L.indexOf(k);
+  if(i>=0)L.splice(i,1);else{if(L.length>=6){toast('6 indicateurs maximum : retires-en un d\'abord');return}L.push(k)}
+  if(!L.length){toast('Garde au moins un indicateur');return}CFG().kpis=L;touch();renderKcat()});
+ $('kcSlots').querySelectorAll('[data-rm]').forEach(b=>b.onclick=e=>{e.stopPropagation();const L=kOrder().filter(x=>x!=b.dataset.rm);if(!L.length){toast('Garde au moins un indicateur');return}CFG().kpis=L;touch();renderKcat()});
+ $('kcSlots').querySelectorAll('[data-sk]').forEach(t=>{
+  t.ondragstart=e=>{dragK=t.dataset.sk;t.classList.add('drag');try{e.dataTransfer.setData('text/plain',dragK)}catch(_){}};t.ondragend=()=>t.classList.remove('drag');
+  t.ondragover=e=>{e.preventDefault();t.classList.add('over')};t.ondragleave=()=>t.classList.remove('over');
+  t.ondrop=e=>{e.preventDefault();t.classList.remove('over');if(dragK&&dragK!=t.dataset.sk){swapK(dragK,t.dataset.sk);renderKcat()}dragK=null}})}
+function openKcat(){renderKcat();$('kcat').classList.add('show')}
+function closeKcat(){$('kcat').classList.remove('show');renderAll()}
+document.querySelectorAll('[data-kcat]').forEach(b=>b.onclick=openKcat);
+$('kcClose').onclick=closeKcat;$('kcOk').onclick=closeKcat;$('kcat').onclick=e=>{if(e.target==$('kcat'))closeKcat()};
 
 /* ---------- temps passé par mois ---------- */
 let YSEL=null;
@@ -882,7 +1020,7 @@ $('addAct').onclick=()=>{DB.actions.push({id:nextId(DB.actions),p:DB.priorites[0
 /* ---------- mes saisies ---------- */
 const F={y:new Set(),t:new Set(),p:new Set()};
 function filtered(ignore){return E().filter(e=>(ignore=='y'||!F.y.size||F.y.has(e.date.slice(0,4)))&&(ignore=='t'||!F.t.size||F.t.has(e.type))&&(ignore=='p'||!F.p.size||F.p.has(e.pid)))}
-function chipRow(el,items,set,cls){$(el).innerHTML=items.map((it,i)=>`<button class="chip ${cls||''} ${set.has(it.v)?'on':''}" data-i="${i}" style="${it.c?'--c:'+it.c:''}">${it.c?'<i></i>':''}${esc(it.l)} <small>${it.n}</small></button>`).join('')+(set.size?`<button class="reset" data-r>Tout</button>`:'');
+function chipRow(el,items,set,cls){$(el).innerHTML=items.map((it,i)=>`<button class="chip ${cls||''} ${set.has(it.v)?'on':''}" data-i="${i}" style="${it.c?`--c:${it.c};--t:${tc(it.c)}`:''}">${esc(it.l)} <small>${it.n}</small></button>`).join('')+(set.size?`<button class="reset" data-r>Tout</button>`:'');
  $(el).querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const v=items[b.dataset.i].v;set.has(v)?set.delete(v):set.add(v);renderList()});
  const r=$(el).querySelector('[data-r]');if(r)r.onclick=()=>{set.clear();renderList()}}
 function renderList(){
@@ -905,19 +1043,19 @@ function renderPCards(){
   const ms=metrics().filter(m=>ai.some(e=>e.ais[m.id]));
   return `<div class="pc"><div class="nm">${esc(pname(pid))}<span class="bd ${bc}">${bl}</span></div>
   <div class="meta">Depuis le ${dShort(first)} · dernière fois le ${dShort(last)}</div>
-  <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · '+s.mois+' mois':''}</div></div>
+  <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · engagement '+s.mois+' mois':''}</div></div>
   ${ms.length?`<div class="ais">${ms.map(m=>{const a=ai.filter(e=>e.ais[m.id]),v=a.reduce((x,e)=>x+e.ais[m.id],0)/a.length;return `<span>${esc(m.l)}${m.actif?'':' <small style="color:#B5B7BA">(archivée)</small>'}</span><div class="bar"><b style="width:${(v-1)/4*100}%"></b></div><b>${n1(v)}</b>`}).join('')}</div>`:'<div style="font-size:12px;color:var(--grey)">Aisance : pas encore de notes</div>'}
   <div class="tl">${all.map(e=>`<i title="${dShort(e.date)} · ${esc(TM[e.type]?.l)}" style="left:${(new Date(e.date)-t0)/(t1-t0)*96}%;background:${TM[e.type]?.c}"></i>`).join('')}</div></div>`}).join('')}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
 const short=s=>s.length>12?s.slice(0,11)+'.':s;
 function renderRows(L){
  const MS=$('showArch').checked?metrics():mActive();
- $('rowsHead').innerHTML=`<tr><th>Date</th><th>Type</th><th>Personne</th><th>Durée</th><th style="width:26%">Ce qu'on a vu</th>${MS.map(m=>`<th class="c ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${esc(short(m.l))}</th>`).join('')}<th class="c">CR</th><th class="c">Synth.</th><th>Contrat</th><th></th></tr>`;
+ $('rowsHead').innerHTML=`<tr><th>Personne</th><th>Date</th><th>Type</th><th>Durée</th><th style="width:26%">Ce qu'on a vu</th>${MS.map(m=>`<th class="c ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${esc(short(m.l))}</th>`).join('')}<th class="c">CR</th><th class="c">Synth.</th><th>Contrat</th><th></th></tr>`;
  L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
  $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
- <td><input type="date" class="ed" data-k="date" value="${e.date}" style="width:122px"></td>
- <td class="ty"><i style="background:${t.c}"></i><select class="ed" data-k="type">${T.map(x=>`<option value="${x.k}" ${x.k==e.type?'selected':''}>${esc(x.l)}</option>`).join('')}</select></td>
  <td>${e.pid!=null?`<span class="plink" data-p="${e.pid}">${esc(pname(e.pid))}</span>`:'<span style="color:#C9CBCE">—</span>'}</td>
+ <td><input type="date" class="ed" data-k="date" value="${e.date}" style="width:122px"></td>
+ <td class="ty"><select class="tysel" data-k="type" style="background:${t.c};color:${tc(t.c)}">${T.map(x=>`<option value="${x.k}" ${x.k==e.type?'selected':''} style="background:#fff;color:#1d1d1f">${esc(x.l)}</option>`).join('')}</select></td>
  <td><select class="ed" data-k="dur" style="width:72px">${(DURS.includes(e.dur)?DURS:[e.dur,...DURS]).map(d=>`<option value="${d}" ${d==e.dur?'selected':''}>${fmtD(d)}</option>`).join('')}</select></td>
  <td><input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—"></td>
  ${MS.map(m=>{const v=e.ais?.[m.id]||0;return `<td>${t.ais||v?`<select class="as" data-m="${m.id}" title="${esc(m.l)}" style="background:${AC[v]}"><option value="">·</option>${[1,2,3,4,5].map(n=>`<option ${v==n?'selected':''}>${n}</option>`).join('')}</select>`:''}</td>`}).join('')}
@@ -1004,11 +1142,20 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.datase
  ['dash','metrics','list','settings'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));renderAll()});
 
 /* ---------- popup ---------- */
+/* durée libre : 2,5 / 2.5 → 2h30 · 2h30 / 2h / 2 h 30 → 2h30 · 150min / 150 mn / 150m → 2h30 · 1:30 → 1h30 · nombre seul : ≤ 10 = heures, sinon minutes */
+function parseDur(x){x=String(x||'').trim().toLowerCase().replace(/\s+/g,'');if(!x)return null;let m;
+ if(m=x.match(/^(\d+)(?:h|:)(\d{1,2})?(?:min|mn|m)?$/))return +m[1]*60+(+m[2]||0);
+ if(m=x.match(/^(\d+(?:[.,]\d+)?)h$/))return Math.round(parseFloat(m[1].replace(',','.'))*60);
+ if(m=x.match(/^(\d+)(?:min|mn|m)$/))return +m[1];
+ if(m=x.match(/^(\d+(?:[.,]\d+)?)$/)){const v=parseFloat(m[1].replace(',','.'));return v<=10?Math.round(v*60):Math.round(v)}
+ return null}
+$('mDurX').oninput=()=>{const v=parseDur($('mDurX').value),o=$('mDurOk');if(!$('mDurX').value.trim()){o.textContent='';o.className='';return}
+ if(v&&v>0&&v<=12*60){S.dur=v;o.textContent='= '+fmtD(v);o.className='';$('mDurs').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'))}else{o.textContent='format non reconnu';o.className='bad'}};
 const S={type:'session',dur:90,pid:null,cdur:3,ais:{}};let NEWP=[];
-function mChips(el,items,cur,cls,cb){$(el).innerHTML=items.map(it=>`<button class="chip ${cls||''} ${it.v===cur?'on':''} ${it.add?'add':''}" style="${it.c?'--c:'+it.c:''}">${it.c?'<i></i>':''}${esc(it.l)}</button>`).join('');[...$(el).children].forEach((b,i)=>b.onclick=()=>cb(items[i].v))}
+function mChips(el,items,cur,cls,cb){$(el).innerHTML=items.map(it=>`<button class="chip ${cls||''} ${it.v===cur?'on':''} ${it.add?'add':''}" style="${it.c?`--c:${it.c};--t:${tc(it.c)}`:''}">${esc(it.l)}</button>`).join('');[...$(el).children].forEach((b,i)=>b.onclick=()=>cb(items[i].v))}
 function renderModal(){const t=TM[S.type];
  mChips('mTypes',T.map(x=>({v:x.k,l:x.l,c:x.c})),S.type,'type',v=>{S.type=v;S.dur=TM[v].d;renderModal()});
- mChips('mDurs',DURS.map(d=>({v:d,l:fmtD(d)})),S.dur,'',v=>{S.dur=v;renderModal()});
+ mChips('mDurs',DURS.filter(d=>d<150).map(d=>({v:d,l:fmtD(d)})),S.dur,'',v=>{S.dur=v;$('mDurX').value='';$('mDurOk').textContent='';renderModal()});
  const recent=[...new Set([...NEWP,...[...E()].sort((a,b)=>b.date.localeCompare(a.date)).filter(e=>e.pid!=null&&(S.type=='supervision'?e.type=='supervision':e.type!='supervision')).map(e=>e.pid)])].slice(0,10);
  if(S.pid!=null&&!recent.includes(S.pid))recent.unshift(S.pid);
  mChips('mPeople',[...recent.map(id=>({v:id,l:pname(id)})),{v:'+',l:'+ Nouvelle',add:1}],S.pid,'',v=>{if(v=='+'){$('newP').classList.remove('hide');$('newP').focus()}else{S.pid=S.pid===v?null:v;renderModal()}});
@@ -1020,7 +1167,7 @@ function renderModal(){const t=TM[S.type];
 $('newP').onkeydown=e=>{const v=e.target.value.trim();if(e.key=='Enter'&&v){let p=DB.personnes.find(x=>byName(x.nom,v)==0);
  if(!p){p={id:nextId(DB.personnes),nom:v};DB.personnes.push(p);touch()}NEWP.unshift(p.id);S.pid=p.id;e.target.value='';e.target.classList.add('hide');renderModal()}};
 ['tCR','tSY'].forEach(i=>$(i).onclick=()=>$(i).classList.toggle('on'));
-const openM=()=>{$('fDate').value=today();S.ais={};renderModal();$('ov').classList.add('show')},closeM=()=>$('ov').classList.remove('show');
+const openM=()=>{$('fDate').value=today();$('mDurX').value='';$('mDurOk').textContent='';S.ais={};renderModal();$('ov').classList.add('show')},closeM=()=>$('ov').classList.remove('show');
 $('openLog').onclick=openM;$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
 $('mSave').onclick=()=>{const t=TM[S.type];
  if(t.p&&S.pid==null&&['conversation','session','proposition','debrief'].includes(S.type)){toast('Choisis la personne');return}
@@ -1034,7 +1181,7 @@ $('mSave').onclick=()=>{const t=TM[S.type];
 function renderAll(){
  if(!DB)return;
  if(TAB=='dash'){bigKPI('kpisD');renderPrio();renderActs();renderObj()}
- if(TAB=='metrics'){bigKPI('kpisM');smallKPI();renderYears();renderMonthly();renderEase()}
+ if(TAB=='metrics'){bigKPI('kpisM',true);smallKPI();renderYears();renderMonthly();renderEase()}
  if(TAB=='list')renderList();
  if(TAB=='settings')renderSettings();
 }
@@ -1134,7 +1281,8 @@ const WS={
    <div class="wzc"><div class="ic">2</div><b>Pratiquer délibérément</b><p>${L('debrief')}, ${L('supervision')}, et une note d'aisance après chaque entretien sur tes axes de progression. C'est ce qui transforme l'expérience en compétence.</p></div>
    <div class="wzc"><div class="ic">3</div><b>Développer ton activité</b><p>${L('conversation')} offerte, puis ${L('proposition')} (montant proposé), puis ${L('session')} sous contrat (CA accepté) : le chemin d'un premier échange à un accompagnement.</p></div></div>
    <div class="flow3"><div><b>Tableau de bord</b>Ton cap : priorités, plan d'action, cibles du trimestre.</div><div><b>Métriques</b>Tes tendances : temps passé chaque mois, aisance dans le temps.</div><div><b>Mes saisies</b>Le détail de chaque entretien, filtrable et modifiable.</div></div>
-   <div class="wznote">Au quotidien : un clic sur « + Enregistrer un temps » après chaque entretien. Moins de 30 secondes.</div>`,next:'Compris'}},
+   <div class="wznote" style="display:flex;align-items:center;gap:12px"><span>Tes indicateurs se choisissent dans un catalogue de 19, classés selon ces trois piliers.</span><button class="btn2" style="margin-left:auto;white-space:nowrap" data-kcat2>Choisir mes indicateurs</button></div>
+   <div class="wznote">Au quotidien : un clic sur « + Enregistrer un temps » après chaque entretien. Moins de 30 secondes.</div>`,next:'Compris',bind:()=>{const b=document.querySelector('[data-kcat2]');if(b)b.onclick=openKcat}}},
 
  axes:()=>{const M=metrics(),cnt=id=>E().filter(e=>e.ais?.[id]).length;
   const SUG=[["Atteinte de l'obj. du rdv",'Pas atteint','Atteint'],['Conduite & rapport','Challengé',"À l'aise"],['Niveau de jeu','Faible','Élevé'],['Curseur câlin/challenge','Câlin','Challenge'],['Écoute','Challengé',"À l'aise"],['Questionnement','Challengé',"À l'aise"],['Reformulation','Challengé',"À l'aise"],['Présence','Challengé',"À l'aise"],['Gestion du silence','Challengé',"À l'aise"]].filter(s=>!M.some(m=>m.l==s[0]));
@@ -1195,7 +1343,7 @@ const WS={
   const types=T.filter(x=>x.p&&x.k!='debrief'&&x.k!='supervision');
   return{t:'Ton premier entretien',lead:'Enregistre ton dernier entretien : c\'est exactement le geste que tu feras après chaque séance.',skip:true,next:'Enregistrer et continuer',
   html:`<div class="wzgrid2"><div>
-   <label class="wzl" style="margin-top:0">Type</label><div class="chips">${types.map(x=>`<button class="chip type ${x.k==f.type?'on':''}" style="--c:${x.c}" data-ft="${x.k}"><i></i>${esc(x.l)}</button>`).join('')}</div>
+   <label class="wzl" style="margin-top:0">Type</label><div class="chips">${types.map(x=>`<button class="chip type ${x.k==f.type?'on':''}" style="--c:${x.c};--t:${tc(x.c)}" data-ft="${x.k}">${esc(x.l)}</button>`).join('')}</div>
    <label class="wzl">Date</label><input class="fin" type="date" id="fwD" value="${f.date}">
    <label class="wzl">Durée</label><div class="chips">${DURS.map(d=>`<button class="chip ${d==f.dur?'on':''}" data-fd="${d}">${fmtD(d)}</button>`).join('')}</div>
    <label class="wzl">Personne</label><input class="fin" id="fwP" list="fwPL" value="${esc(f.nom)}" placeholder="Prénom Nom (ou initiales)"><datalist id="fwPL">${DB.personnes.map(p=>`<option value="${esc(p.nom)}">`).join('')}</datalist>
