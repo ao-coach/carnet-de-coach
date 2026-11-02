@@ -433,7 +433,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
     <button class="btn2" id="expModel" style="margin-top:10px">Exporter un modèle sans données</button>
   </div>
 </div>
-<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
+<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
 </main>
 
 <!-- ===== POPUP SAISIE ===== -->
@@ -513,6 +513,8 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
    (identité, couleurs, types, métriques, saisies, objectifs…).
    ========================================================= */
 const VERSION=3, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
+const APP_VERSION=10, APP_DATE='2 novembre 2026';   // à incrémenter à chaque publication
+let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
 const TYPE_KEYS=['conversation','proposition','session','reseau','debrief','supervision','annexe'];
@@ -562,7 +564,7 @@ const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(
 const dShort=s=>{if(!s)return'';const[y,m,d]=s.split('-');return `${+d} ${MO[m-1].toLowerCase()}${y==today().slice(0,4)?'':' '+y.slice(2)}`};
 const addDays=(s,n)=>{const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
 const byName=(a,b)=>a.localeCompare(b,'fr',{sensitivity:'base'});
-const nextId=a=>a.reduce((m,x)=>Math.max(m,x.id||0),0)+1;
+const nextId=a=>Math.max(a.reduce((m,x)=>Math.max(m,+x.id||0),0)+1,Date.now()*100+Math.floor(Math.random()*100));
 function tc(h){const p=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(c=>c<=.03928?c/12.92:((c+.055)/1.055)**2.4);return .2126*p[0]+.7152*p[1]+.0722*p[2]>.42?'#1d1d1f':'#ffffff'}
 function mix(a,b,t){const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')}
 
@@ -593,6 +595,7 @@ function migrate(d){
   d.actions.forEach((a,i)=>{if(!a.id)a.id=i+1});
   if(!d.id)d.id=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));
   if(d.config.sousTitre==="C'est en coachant délibérément et beaucoup qu'on devient un excellent coach")d.config.sousTitre="C'est en coachant beaucoup et en pratiquant délibérément qu'on devient un excellent coach";
+  d.supprimes=d.supprimes||{};d.supprimes.e=d.supprimes.e||{};d.supprimes.a=d.supprimes.a||{};
   d.version_schema=VERSION;return d;
 }
 
@@ -700,15 +703,19 @@ setInterval(()=>{const m=DB?.prefs?.autolock??15;if(DEKK&&DB&&m&&Date.now()-last
    ========================================================= */
 let NEEDPERM=false;
 const FS_OK=!!window.showDirectoryPicker;
-const BKRE=/^coaching-data_\d{4}-\d{2}-\d{2}\.json$/;
+const BKRE=/^coaching-data_.*\.json$/;
 async function writeFile(dir,name,text){const fh=await dir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(text);await w.close()}
 async function readFile(dir,name){try{const fh=await dir.getFileHandle(name);return await (await fh.getFile()).text()}catch(e){return null}}
-async function dailyBackup(txt){
-  if(!DIR)return;const b=await DIR.getDirectoryHandle(BKDIR,{create:true}),name=`coaching-data_${today()}.json`;
-  try{await b.getFileHandle(name);return}catch(e){}
-  await writeFile(b,name,txt);
-  const names=[];for await(const [n] of b.entries())if(BKRE.test(n))names.push(n);
-  names.sort();for(const n of names.slice(0,-KEEP))await b.removeEntry(n)}
+/* Copies de sécurité : avant chaque écriture, l'état précédent du fichier est copié dans /sauvegardes
+   (une copie par heure, gardée 48 h ; au-delà, une par jour pendant 30 jours ; + une copie avant chaque fusion). */
+async function snapshot(txt,tag){if(!DIR||!txt)return;const b=await DIR.getDirectoryHandle(BKDIR,{create:true}),d=new Date(),h=pad(d.getHours());
+  const name=tag?`coaching-data_${today()}_${h}${pad(d.getMinutes())}${pad(d.getSeconds())}_${tag}.json`:`coaching-data_${today()}_${h}h.json`;
+  if(!tag){try{await b.getFileHandle(name);return}catch(e){}}
+  await writeFile(b,name,txt);await pruneBackups(b)}
+async function pruneBackups(b){const L=[];for await(const [n] of b.entries()){const m=n.match(/^coaching-data_(\d{4}-\d{2}-\d{2})(?:_(\d{2}))?.*\.json$/);if(m)L.push({n,day:m[1],h:m[2]||'00'})}
+  L.sort((x,y)=>(y.day+y.h+y.n).localeCompare(x.day+x.h+x.n));const now=Date.now(),seen=new Set(),del=[];
+  for(const f of L){const age=now-new Date(`${f.day}T${f.h}:00:00`).getTime();if(age<=48*3600e3)continue;if(age>KEEP*86400e3||seen.has(f.day))del.push(f.n);else seen.add(f.day)}
+  for(const n of del){try{await b.removeEntry(n)}catch(e){}}}
 async function listBackups(){
   if(DIR&&!NEEDPERM){const b=await DIR.getDirectoryHandle(BKDIR,{create:true}),n=[];for await(const [k] of b.entries())if(BKRE.test(k))n.push(k);return n}return[]}
 async function readBackup(n){return readFile(await DIR.getDirectoryHandle(BKDIR),n)}
@@ -717,24 +724,73 @@ async function encryptOldBackups(){let k=0;try{for(const n of await listBackups(
   await writeBackup(n,JSON.stringify(await sealObj(o),null,1));k++}catch(e){}}}catch(e){}return k}
 
 async function payload(){return DEKK?await sealObj(DB):DB}
-function touch(){if(!DB)return;DB.enregistre_le=new Date().toISOString();setStatus('busy');clearTimeout(saveT);saveT=setTimeout(persist,400)}
-async function persist(){if(!DB)return;
-  const obj=await payload(),txt=JSON.stringify(obj,null,1);await idb.set('data',obj);
-  if(DIR&&!NEEDPERM){try{await writeFile(DIR,FILE,txt);await dailyBackup(txt);setStatus('ok')}catch(e){setStatus('err','Écriture du fichier impossible');NEEDPERM=true;banner('reconnect')}}
-  else setStatus('local')}
+
+/* =========================================================
+   FUSION : on ne remplace jamais un carnet par un autre, on fusionne.
+   - saisies, personnes, actions : réunies par identifiant ; une même saisie modifiée des deux côtés
+     garde la modification la plus récente ; deux saisies différentes portant le même identifiant sont gardées toutes les deux ;
+   - suppressions : mémorisées (registre « supprimes ») pour ne pas faire réapparaître une saisie effacée ;
+   - réglages, objectifs, priorités : ceux de la copie la plus récente.
+   ========================================================= */
+const compatBook=(a,b)=>!a?.id||!b?.id||a.id===b.id;
+const sig=e=>`${e.date}|${e.type}|${e.pid}`;
+function mergeDB(A,B){
+  const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
+  const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})}};R.supprimes=sup;
+  const remap={};let added=0;
+  (O.personnes||[]).forEach(p=>{const q=R.personnes.find(x=>String(x.id)===String(p.id));
+    if(q&&byName(q.nom,p.nom)==0)return;
+    const same=R.personnes.find(x=>byName(x.nom,p.nom)==0);if(same){remap[p.id]=same.id;return}
+    if(!q){R.personnes.push({...p});return}
+    const nid=nextId(R.personnes);remap[p.id]=nid;R.personnes.push({...p,id:nid})});
+  const strip=x=>JSON.stringify({...x,maj:0});
+  const mergeList=(dst,src,key,isSame)=>{src.forEach(x=>{const k=String(x.id),r=dst.find(y=>String(y.id)===k);
+    if(!r){if(sup[key][k])return;dst.push(x);added+=key=='e';return}
+    if(strip(r)===strip(x))return;
+    if(isSame(r,x)){if((x.maj||'')>(r.maj||''))Object.assign(r,x);return}
+    dst.push({...x,id:nextId(dst)});added+=key=='e'});
+    return dst.filter(x=>!sup[key][String(x.id)])};
+  R.entrees=mergeList(R.entrees,(O.entrees||[]).map(e=>({...e,pid:e.pid!=null&&remap[e.pid]!=null?remap[e.pid]:e.pid})),'e',(r,x)=>sig(r)===sig(x));
+  R.actions=mergeList(R.actions,(O.actions||[]).map(a=>({...a})),'a',(r,x)=>r.a===x.a);
+  R.app_version=Math.max(+A.app_version||0,+B.app_version||0);
+  return{db:R,added}}
+
+function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version de l\'application est périmée. Recharge-la (Ctrl+F5).');return}
+  DB.enregistre_le=new Date().toISOString();setStatus('busy');clearTimeout(saveT);saveT=setTimeout(persist,400)}
+/* les écritures passent une par une (file d'attente) pour ne jamais se chevaucher */
+let PQ=Promise.resolve();
+function persist(){PQ=PQ.then(_persist,_persist);return PQ}
+async function _persist(){if(!DB||READONLY)return;
+  DB.app_version=Math.max(+DB.app_version||0,APP_VERSION);
+  if(!(DIR&&!NEEDPERM)){await idb.set('data',await payload());setStatus('local');return}
+  try{
+    const cur=await readFile(DIR,FILE);let curObj=null;if(cur){try{curObj=JSON.parse(cur)}catch(e){setStatus('err',`${FILE} illisible : non écrasé`);return}}
+    if(curObj&&!compatBook(curObj,DB)){setStatus('err','Le dossier contient un autre carnet : non écrasé');banner('reconnect');return}
+    if(curObj&&(curObj.enregistre_le||'')!==(LASTSEEN||'')){
+      /* le fichier a été modifié ailleurs (autre fenêtre, autre version, autre ordinateur) : on fusionne au lieu d'écraser */
+      const p=isEnc(curObj)?await tryCurrentKey(curObj):curObj;
+      if(!p){setStatus('err','Fichier modifié ailleurs avec un autre mot de passe : non écrasé');return}
+      if((+p.app_version||0)>APP_VERSION){READONLY=true;banner('old');setStatus('err','Lecture seule');return}
+      await snapshot(cur,'avant-fusion');
+      const m=mergeDB(DB,migrate(p));DB=m.db;DB.enregistre_le=new Date().toISOString();DB.app_version=Math.max(+DB.app_version||0,APP_VERSION);
+      if(m.added)toast(`${m.added} saisie(s) enregistrée(s) ailleurs ont été réunies dans ton carnet`);renderAll()}
+    else if(cur)await snapshot(cur);
+    const obj=await payload(),txt=JSON.stringify(obj,null,1);await idb.set('data',obj);
+    await writeFile(DIR,FILE,txt);LASTSEEN=DB.enregistre_le;setStatus('ok')
+  }catch(e){await idb.set('data',await payload());setStatus('err','Écriture du fichier impossible');NEEDPERM=true;banner('reconnect')}}
 window.addEventListener('beforeunload',e=>{if($('status').classList.contains('busy')){e.preventDefault();e.returnValue=''}});
 
 const sameBook=(a,b)=>(a?.id||null)===(b?.id||null);
 /* Relier un dossier. Si ce dossier contient un AUTRE carnet, on l'ouvre sans jamais écraser son fichier. */
 async function connectDir(useExisting){
-  if(useExisting){try{if(await DIR.requestPermission({mode:'readwrite'})!=='granted')return}catch(e){return}NEEDPERM=false;if(DB){clearTimeout(saveT);await persist()}return boot()}
+  if(useExisting){try{if(await DIR.requestPermission({mode:'readwrite'})!=='granted')return}catch(e){return}NEEDPERM=false;if(DB){clearTimeout(saveT);await idb.set('data',await payload())}return boot()}
   const prevDir=await idb.get('dir');let nd;try{nd=await window.showDirectoryPicker({id:'aocoach',mode:'readwrite'})}catch(e){return}
   const t=await readFile(nd,FILE);let f=null;if(t){try{f=JSON.parse(t)}catch(e){toast(`${FILE} est illisible dans ce dossier`);return}}
   if(!f&&!DB){toast(`Aucun carnet (${FILE}) dans ce dossier`);return}
   const cur=DB||await idb.get('data');let other=f&&cur&&!sameBook(f,cur);
   if(other&&!prevDir&&!confirm(`Ce dossier contient un autre carnet.\nTon carnet actuel n'est enregistré que dans ce navigateur : il sera remplacé. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nOuvrir le carnet de ce dossier ?`))return;
-  if(DB&&!other){clearTimeout(saveT);await persist()}
-  DIR=nd;NEEDPERM=false;await idb.set('dir',nd);
+  if(DB&&!other){clearTimeout(saveT);await idb.set('data',await payload())}
+  DIR=nd;LASTSEEN=null;NEEDPERM=false;await idb.set('dir',nd);
   if(other){await idb.set('data',null);DB=null;await setDEK(null);ENV=null;toast(`Carnet du dossier « ${nd.name} » ouvert`)}
   boot()}
 async function startFresh(){const c=await idb.get('data'),d=await idb.get('dir');
@@ -745,11 +801,12 @@ async function startFresh(){const c=await idb.get('data'),d=await idb.get('dir')
 function setStatus(s,msg){const el=$('status');el.className='status '+(s=='ok'?'':s);
   const h=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),lockTxt=DEKK?' · chiffré':'';
   el.lastChild.textContent={ok:`Enregistré dans ${FILE}${lockTxt} · ${h}`,busy:'Enregistrement…',local:`Enregistré dans ce navigateur seulement${lockTxt} · ${h}`,err:msg||'Erreur'}[s];
-  $('footInfo').textContent=DIR?`Dossier : ${DIR.name} · ${FILE} · copie datée quotidienne dans /${BKDIR} (${KEEP} jours)`:'Aucun dossier relié';
+  $('footInfo').textContent=DIR?`Dossier : ${DIR.name} · ${FILE} · copies automatiques dans /${BKDIR}`:'Aucun dossier relié';
 }
 function banner(kind){const b=$('banner');if(!kind){b.classList.add('hide');return}
   const M={nodir:['Tes saisies sont gardées dans ce navigateur uniquement. Choisis un dossier (idéalement synchronisé, OneDrive ou Drive) pour les enregistrer dans un fichier.','Choisir le dossier',()=>connectDir(false)],
    reconnect:['Le navigateur demande ton autorisation pour accéder au dossier de données. Choisis « Autoriser à chaque visite » pour ne plus avoir à le refaire.','Reconnecter le dossier',()=>connectDir(true)],
+   old:['Cette version de l\'application est plus ancienne que celle qui a enregistré ton carnet : elle est en lecture seule pour protéger tes données.','Recharger',()=>location.reload()],
    nofs:['Ce navigateur ne sait pas enregistrer dans un fichier : utilise Chrome ou Edge sur ordinateur. En attendant, tes saisies sont gardées dans le navigateur ; exporte régulièrement.','Exporter JSON',exportJson]}[kind];
   $('bannerTxt').textContent=M[0];$('bannerBtn').textContent=M[1];$('bannerBtn').onclick=M[2];b.classList.remove('hide')}
 
@@ -768,7 +825,10 @@ $('impFile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!
   if(!DB){const c=await idb.get('data'),dd=await idb.get('dir');if(c&&!dd&&!confirm("Le carnet actuel n'est enregistré que dans ce navigateur et sera remplacé. Continuer ?"))return;DIR=null;await idb.set('dir',null);await setDEK(null);ENV=null}
   if(isEnc(d)){const r=await askSecret({title:'Fichier chiffré',text:'Saisis le mot de passe de ce fichier, ou sa clé de secours.',cancelable:true,verify:(s,w)=>openEnv(d,s,w,!DEKK&&!DB)});if(!r)return;d=r.r}
   if(!d.entrees){toast('Fichier JSON non reconnu');return}
-  if(DB&&E().length&&!confirm(`Remplacer les données actuelles (${E().length} saisies) par celles du fichier (${d.entrees.length} saisies) ?\nUne sauvegarde datée existe dans /${BKDIR}.`))return;
+  if(DB&&E().length){
+   if(compatBook(d,DB)&&confirm(`Récupérer dans ton carnet les saisies de ce fichier qui n'y sont pas ?\nRien n'est supprimé ni remplacé : c'est la bonne option pour retrouver des saisies perdues.\n\nOK = fusionner · Annuler = autres options`)){
+    const m=mergeDB(DB,migrate(d));DB=m.db;touch();await afterLoad();toast(`${m.added} saisie(s) récupérée(s)`);return}
+   if(!confirm(`Remplacer entièrement ton carnet (${E().length} saisies) par ce fichier (${d.entrees.length} saisies) ?\nL'état actuel reste dans /${BKDIR}.`))return}
   const first=!DB;DB=migrate(d);closeWizard();touch();await afterLoad();if(first&&!d.entrees.length){openWizard(2,true);toast('Modèle importé : ajuste-le à ta pratique')}else toast('Données importées')};
 $('chDir').onclick=()=>FS_OK?connectDir(false):toast('Utilise Chrome ou Edge pour relier un dossier');
 $('expModel').onclick=()=>{const c=JSON.parse(JSON.stringify(CFG()));c.nom='Mon cabinet';c.logo=null;c.bandeau=null;
@@ -1009,7 +1069,7 @@ function renderActs(){const A=DB.actions,t=today();
  $('acts').querySelectorAll('tr[data-id]').forEach(tr=>{const a=A.find(x=>x.id==tr.dataset.id);
   tr.querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{const k=el.dataset.k;
    if(k=='psel'){a.p=el.value=='__o'?'':el.value;touch();renderActs();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
-   a[k]=el.value;touch();
+   a[k]=el.value;a.maj=new Date().toISOString();touch();
    if(k=='s'){tr.className=a.s=='realisee'?'done':a.s=='annulee'?'cancel':'';el.className='st '+a.s;
     toast(a.s=='realisee'?'Action réalisée ✓':a.s=='annulee'?'Action annulée':'Action remise en cours');
     setTimeout(()=>{tr.classList.add('fade');setTimeout(renderActs,450)},700)}
@@ -1062,14 +1122,14 @@ function renderRows(L){
  <td>${t.cr?`<div class="ck ${e.cr?'on':''}" data-c="cr">✓</div>`:''}</td><td>${t.cr?`<div class="ck ${e.syn?'on':''}" data-c="syn">✓</div>`:''}</td>
  <td>${e.type=='proposition'?`<div class="contrat"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€"><select class="ed" data-k="engagement_mois">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select><select class="ed" data-k="statut" style="font-weight:800;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></div>`:''}</td>
  <td><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${10+MS.length}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
- $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
+ $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
   tr.querySelectorAll('.ck').forEach(c=>c.onclick=()=>{e[c.dataset.c]=!e[c.dataset.c];c.classList.toggle('on');fl()});
   tr.querySelectorAll('select.as').forEach(s=>s.onchange=()=>{e.ais=e.ais||{};if(s.value)e.ais[s.dataset.m]=+s.value;else delete e.ais[s.dataset.m];if(!Object.keys(e.ais).length)e.ais=null;s.style.background=AC[+s.value||0];fl()});
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
    e[k]=['dur','eur','engagement_mois'].includes(k)?(i.value===''?null:+i.value):i.value;
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
    fl();if(['type','date','statut'].includes(k))renderList()});
-  tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);touch();renderList()})};
+  tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
   const p=tr.querySelector('.plink');if(p)p.onclick=()=>{const v=+p.dataset.p;F.p.has(v)?F.p.delete(v):F.p.add(v);renderList();window.scrollTo({top:0,behavior:'smooth'})}})}
 $('showArch').onchange=renderList;
 
@@ -1098,7 +1158,7 @@ function renderSecurity(){const on=!!DEKK,al=DB.prefs.autolock??15;
   <div class="btns"><button class="btn2" id="sOn" style="border-color:var(--am);color:var(--am)">Activer le chiffrement</button></div>`;
  if(on){$('alSel').onchange=e=>{DB.prefs.autolock=+e.target.value;touch()};$('sLock').onclick=lock;$('sPwd').onclick=changePassword;$('sRec').onclick=newRecovery;$('sOff').onclick=disableEncryption}
  else $('sOn').onclick=enableEncryption;
- const st=DIR&&!NEEDPERM?`<div class="secst on"><i></i>Dossier : ${esc(DIR.name)}</div><div class="hint">${FILE} est écrit dans ce dossier à chaque modification, avec une copie datée par jour dans /${BKDIR} (${KEEP} jours). Idéalement un dossier synchronisé (OneDrive, Drive).</div><div class="btns"><button class="btn2" id="stDir">Changer de dossier</button></div>`
+ const st=DIR&&!NEEDPERM?`<div class="secst on"><i></i>Dossier : ${esc(DIR.name)}</div><div class="hint">${FILE} est écrit dans ce dossier à chaque modification, avec des copies automatiques dans /${BKDIR} : une par heure (48 h), puis une par jour (${KEEP} jours). Idéalement un dossier synchronisé (OneDrive, Drive).</div><div class="btns"><button class="btn2" id="stDir">Changer de dossier</button></div>`
   :FS_OK?`<div class="secst"><i></i>Aucun dossier relié</div><div class="hint">Tes données ne sont gardées que dans ce navigateur. Choisis un dossier pour les enregistrer dans un fichier.</div><div class="btns"><button class="btn2" id="stDir" style="border-color:var(--am);color:var(--am)">Choisir le dossier</button></div>`
   :`<div class="secst"><i></i>Navigateur sans accès aux fichiers</div><div class="hint">Utilise Chrome ou Edge sur ordinateur. En attendant, exporte régulièrement.</div>`;
  $('storeBody').innerHTML=st+`<div class="hint" style="margin-top:10px">Un seul fichier contient tout : saisies, réglages, objectifs, logo et bandeau.</div><div class="btns">${FS_OK?'<button class="btn2" id="stOther">Ouvrir un autre carnet</button>':''}<button class="btn2" id="stNew">Nouveau carnet</button></div>`;
@@ -1171,7 +1231,7 @@ const openM=()=>{$('fDate').value=today();$('mDurX').value='';$('mDurOk').textCo
 $('openLog').onclick=openM;$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
 $('mSave').onclick=()=>{const t=TM[S.type];
  if(t.p&&S.pid==null&&['conversation','session','proposition','debrief'].includes(S.type)){toast('Choisis la personne');return}
- const e={id:nextId(E()),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),
+ const e={id:nextId(E()),maj:new Date().toISOString(),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),
   cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on'),ais:t.ais&&Object.keys(S.ais).length?{...S.ais}:null};
  if(t.prop){e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}
  E().push(e);$('mCom').value='';['tCR','tSY'].forEach(i=>$(i).classList.remove('on'));
@@ -1237,7 +1297,7 @@ const WS={
   html:`<div class="wzcards">
    <div class="wzc"><div class="ic">${ICO.home}</div><b>Chez toi, pas dans le cloud</b><p>L'application tourne dans ton navigateur. Rien n'est envoyé sur internet : toutes tes données tiennent dans un seul fichier, sur ton ordinateur ou ton OneDrive.</p></div>
    <div class="wzc"><div class="ic">${ICO.lock}</div><b>Chiffré par ton mot de passe</b><p>Noms, notes, objectifs : illisibles sans ton mot de passe. Une clé de secours te permet de retrouver l'accès en cas d'oubli.</p></div>
-   <div class="wzc"><div class="ic">${ICO.save}</div><b>Enregistré en continu</b><p>Chaque modification est sauvegardée aussitôt, avec une copie datée chaque jour, conservée 30 jours.</p></div></div>
+   <div class="wzc"><div class="ic">${ICO.save}</div><b>Enregistré en continu</b><p>Chaque modification est sauvegardée aussitôt, avec des copies de sécurité automatiques (toutes les heures, puis chaque jour pendant 30 jours).</p></div></div>
    <div class="wznote">Tu choisiras ton dossier et ton mot de passe à la fin du parcours. D'ici là, tout est déjà gardé dans ce navigateur.</div>`,next:'Compris'}),
 
  ident:()=>{const C=CFG(),K=C.couleurs,cur=PALETTES.findIndex(p=>Object.keys(p.c).every(k=>p.c[k].toLowerCase()==K[k].toLowerCase()));
@@ -1334,7 +1394,7 @@ const WS={
    B.querySelectorAll('[data-ap]').forEach(i=>i.onchange=()=>{f(i.dataset.ap).p=i.value;touch()});
    B.querySelectorAll('[data-aa]').forEach(i=>i.oninput=()=>{f(i.dataset.aa).a=i.value;touch()});
    B.querySelectorAll('[data-ad]').forEach(i=>i.onchange=()=>{f(i.dataset.ad).d=i.value;touch()});
-   B.querySelectorAll('[data-adel]').forEach(b=>b.onclick=()=>{A.splice(A.indexOf(f(b.dataset.adel)),1);touch();renderWiz()});
+   B.querySelectorAll('[data-adel]').forEach(b=>b.onclick=()=>{const x=f(b.dataset.adel);A.splice(A.indexOf(x),1);DB.supprimes.a[x.id]=new Date().toISOString();touch();renderWiz()});
    $('wAddA').onclick=()=>{A.push({id:nextId(A),p:names[0]||'',a:'',d:addDays(today(),14),r:'',s:'encours'});renderWiz();const ins=B.querySelectorAll('[data-aa]');ins[ins.length-1]?.focus()}},
   go:()=>{DB.actions=A.filter(a=>a.s!='encours'||a.a.trim());touch();return true}}},
 
@@ -1356,7 +1416,7 @@ const WS={
    $('fwD').onchange=e=>f.date=e.target.value;$('fwP').oninput=e=>f.nom=e.target.value;$('fwC').oninput=e=>f.com=e.target.value},
   go:()=>{const nom=f.nom.trim();if(!nom){toast('Indique la personne, ou clique sur « Plus tard »');return false}
    let p=DB.personnes.find(x=>byName(x.nom,nom)==0);if(!p){p={id:nextId(DB.personnes),nom};DB.personnes.push(p)}
-   const tt=TM[f.type],e={id:nextId(E()),date:f.date||today(),type:f.type,dur:f.dur,pid:p.id,com:f.com.trim(),cr:false,syn:false,ais:tt.ais&&Object.keys(f.ais).length?{...f.ais}:null};
+   const tt=TM[f.type],e={id:nextId(E()),maj:new Date().toISOString(),date:f.date||today(),type:f.type,dur:f.dur,pid:p.id,com:f.com.trim(),cr:false,syn:false,ais:tt.ais&&Object.keys(f.ais).length?{...f.ais}:null};
    if(tt.prop){e.eur=0;e.engagement_mois=3;e.statut='attente'}
    E().push(e);touch();WTMP.saved=1;return true}}},
 
@@ -1394,6 +1454,7 @@ $('reTour').onclick=()=>openWizard(2,false);
 
 /* ---------- démarrage ---------- */
 async function afterLoad(){
+ $('appVer').textContent=`Version ${APP_VERSION} (${APP_DATE})`;
  $('lock').classList.add('hide');$('main').style.visibility='visible';applyConfig();renderAll();updLockBtn();
  if(!FS_OK){banner('nofs');setStatus('local')}
  else if(DIR&&NEEDPERM){banner('reconnect');setStatus('local')}
@@ -1407,20 +1468,22 @@ async function boot(){
   if(DIR){let p='prompt';try{p=await DIR.queryPermission({mode:'readwrite'})}catch(e){}
    if(p==='granted'){const t=await readFile(DIR,FILE);if(t){try{fileRaw=JSON.parse(t)}catch(e){toast(`${FILE} est illisible : il n'a pas été modifié. Restaure une sauvegarde.`);setStatus('err','Fichier illisible');return}}}
    else NEEDPERM=true}}
- let raw=fileRaw;   // le fichier du dossier fait foi ; la copie navigateur ne l'emporte que si c'est le même carnet, plus récent
- if(cached&&(!raw||(sameBook(cached,raw)&&(cached.enregistre_le||'')>(raw.enregistre_le||''))))raw=cached;
- if(!raw){showWelcome();return}
- if(isEnc(raw)){
-  let plain=await tryCurrentKey(raw);
-  if(plain)ENV={cles:raw.cles};
-  else{const r=await askSecret({title:'Carnet verrouillé',text:'Saisis ton mot de passe pour ouvrir tes données.',other:true,verify:(s,w)=>openEnv(raw,s,w,true)});plain=r.r;
-   if(r.which=='secours'){const pwd=await askNewPassword('Choisis un nouveau mot de passe');if(pwd){ENV.cles={...ENV.cles,mdp:await wrapWith(pwd,IT_PWD)};toast('Nouveau mot de passe enregistré')}}}
-  DB=migrate(plain);
- }else{await setDEK(null);ENV=null;DB=migrate(raw)}
- await afterLoad();
- if(raw!==fileRaw||raw.version_schema!==VERSION||raw.id!==DB.id||ENV&&raw.cles!==ENV.cles){clearTimeout(saveT);await persist()}
- else if(DIR&&!NEEDPERM){try{await dailyBackup(JSON.stringify(raw,null,1))}catch(e){}}
+ /* le fichier du dossier fait foi ; si la copie du navigateur est le même carnet, on FUSIONNE les deux (rien n'est perdu) */
+ const other=fileRaw&&cached&&compatBook(fileRaw,cached)?cached:null,base=fileRaw||cached;
+ if(!base){showWelcome();return}
+ const open=async(raw,ask)=>{if(!isEnc(raw))return raw;const p=await tryCurrentKey(raw);if(p){ENV={cles:raw.cles};return p}if(!ask)return null;
+  const r=await askSecret({title:'Carnet verrouillé',text:'Saisis ton mot de passe pour ouvrir tes données.',other:true,verify:(s,w)=>openEnv(raw,s,w,true)});
+  if(r.which=='secours'){const pwd=await askNewPassword('Choisis un nouveau mot de passe');if(pwd){ENV.cles={...ENV.cles,mdp:await wrapWith(pwd,IT_PWD)};toast('Nouveau mot de passe enregistré')}}
+  return r.r};
+ if(!isEnc(base)){await setDEK(null);ENV=null}
+ const plain=await open(base,true);DB=migrate(plain);let added=0;
+ if(other){const op=await open(other,false);if(op){const m=mergeDB(DB,migrate(op));DB=m.db;added=m.added}}
+ READONLY=(+plain.app_version||0)>APP_VERSION;LASTSEEN=fileRaw?fileRaw.enregistre_le||'':null;
+ await afterLoad();if(READONLY){banner('old');setStatus('err','Lecture seule');return}
+ if(added)toast(`${added} saisie(s) gardée(s) dans ce navigateur ont été réunies dans ton carnet`);
+ if(added||base!==fileRaw||plain.version_schema!==VERSION||(+plain.app_version||0)<APP_VERSION||!plain.id){if(added)DB.enregistre_le=new Date().toISOString();clearTimeout(saveT);await persist()}
 }
-if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
+ let had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had)toast('Nouvelle version de l\'application disponible','Recharger',()=>location.reload());had=true})}
 boot();
 </script></body></html>
