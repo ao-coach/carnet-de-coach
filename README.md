@@ -1,6 +1,6 @@
 # Suivi de pratique de coaching
 
-**Version 1.3.4 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+**Version 1.4.0 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
 Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, tes objectifs et tes relances.
 
@@ -41,6 +41,8 @@ L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur co
 1. Ouvre **l'adresse de l'application** dans Chrome ou Edge. C'est le lien qu'on t'a transmis.
 2. Clique sur l'icône **Installer**, à droite de la barre d'adresse : un écran avec une flèche vers le bas. Dans Edge, l'option est aussi dans le menu **⋯ > Applications > Installer ce site en tant qu'application**.
 3. L'application apparaît dans ton menu Démarrer, ou dans le Dock et le Launchpad sur Mac. Elle s'ouvre dans sa propre fenêtre et **fonctionne même hors ligne**.
+
+**Icônes.** L'icône de l'application installée (menu Démarrer, barre des tâches, Dock) est la même pour tout le monde. L'icône de l'onglet et de la barre de titre reprend le logo de ton carnet, si tu en as mis un (Paramètres > Apparence).
 
 **Les mises à jour sont automatiques.** Au lancement suivant, une bannière « Nouvelle version disponible » propose de recharger, puis un écran présente les nouveautés (voir la [partie 13](#13-nouveautés-et-versions)).
 
@@ -335,7 +337,7 @@ Les blocs vont par deux, dans cet ordre :
 
 | Gauche | Droite |
 |---|---|
-| **Identité** : nom du cabinet, nom de l'outil, phrase de motivation. | **Apparence** : logo et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
+| **Identité** : nom du cabinet, nom de l'outil, phrase de motivation. | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
 | **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 11](#11-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
 | **Types d'activité** (10 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. | **Métriques d'aisance** : libellé, repères du 1 et du 5, ordre. Un axe « non suivi » disparaît de la saisie mais garde son historique. Renommer un axe conserve ses notes. Un axe n'est supprimable que s'il n'a aucune note. |
 | **Suivi des personnes** : seuil de l'alerte « sans contact », en jours. | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
@@ -411,6 +413,7 @@ Pour lui transmettre aussi ta configuration (types, couleurs, axes, indicateurs)
 
 - **L'application ne se met plus à jour, ou se comporte bizarrement.** Ferme-la, rouvre l'adresse dans Chrome ou Edge, puis recharge avec Ctrl+F5.
 - **Bandeau jaune « Reconnecter le dossier ».** Clique dessus et autorise l'accès. Choisis « Autoriser à chaque visite » si l'option est proposée.
+- **L'ancienne icône reste affichée dans le menu Démarrer ou la barre des tâches.** Désinstalle l'application (clic droit sur l'icône, ou menu ⋯ de la fenêtre > Désinstaller), puis réinstalle-la depuis son adresse. Tes données ne bougent pas : elles sont dans ton dossier.
 - **La nouvelle version n'apparaît pas.** Ferme complètement l'application et rouvre-la, ou recharge avec Ctrl+F5. Le numéro en bas de page fait foi.
 - **Bandeau « lecture seule ».** Tu utilises une version plus ancienne que celle qui a enregistré ton carnet, par exemple une ancienne copie de l'application. Recharge (Ctrl+F5), ou ouvre l'application installée.
 - **Des saisies ont disparu.** Voir « Récupérer des saisies perdues » dans la [partie 12](#12-tes-données--enregistrement-sauvegardes-récupération).
@@ -437,7 +440,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **1.3.4** | 04/11/2026 | Coûts : taux moyen de prélèvement URSSAF, appliqué au CA accepté et compté comme une charge. |
+| **1.4.0** | 04/11/2026 | Nouvelle icône de l'application. L'icône de l'onglet et de la fenêtre reprend le logo du carnet. |
+| 1.3.4 | 04/11/2026 | Coûts : taux moyen de prélèvement URSSAF, appliqué au CA accepté et compté comme une charge. |
 | 1.3.3 | 04/11/2026 | Frises : les pastilles des types les mieux classés passent au premier plan. |
 | 1.3.2 | 04/11/2026 | Personne modifiable dans Mes saisies (liste déroulante), loupe pour filtrer. |
 | 1.3.1 | 04/11/2026 | Montant personnalisé par supervision : vide = prix moyen, sinon le montant saisi prend le pas. |
