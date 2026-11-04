@@ -1,7 +1,7 @@
 /* Service worker : rend l'application disponible hors ligne.
    « Réseau d'abord », sans cache HTTP : en ligne, on prend TOUJOURS la dernière version publiée ;
    hors ligne, on sert la copie gardée. Aucune donnée personnelle ne passe ici. */
-const CACHE = 'suivi-coaching-1.3.1';   // à changer à chaque publication : force la mise à jour chez tout le monde
+const CACHE = 'suivi-coaching-1.3.4';   // à changer à chaque publication : force la mise à jour chez tout le monde
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE.map(u => new Request(u, { cache: 'reload' }))))); self.skipWaiting(); });
 self.addEventListener('activate', e => {

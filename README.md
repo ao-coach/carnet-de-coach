@@ -1,6 +1,6 @@
 # Suivi de pratique de coaching
 
-**Version 1.3.1 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+**Version 1.3.4 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
 Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, tes objectifs et tes relances.
 
@@ -71,7 +71,7 @@ Un carnet neuf s'ouvre sur un parcours en 11 étapes, d'environ 5 minutes. Le pa
 | Tes axes de progression | Les dimensions que tu notes de 1 à 5 après un entretien, avec des suggestions. |
 | Priorités et objectifs | Tes objectifs prioritaires (3 au maximum, c'est l'idéal), l'ambition et les cibles du trimestre. |
 | Premières actions | Les prochains pas concrets, avec une date. |
-| Personnes et coûts | Seuil d'alerte « sans contact », prix moyen d'une supervision, tes autres coûts annuels ligne par ligne, mode de calcul des charges. Cette étape peut être passée. |
+| Personnes et coûts | Seuil d'alerte « sans contact », prix moyen d'une supervision, taux moyen de prélèvement URSSAF, tes autres coûts annuels ligne par ligne, mode de calcul des charges. Cette étape peut être passée. |
 | Premier entretien | Une vraie saisie, pour prendre le geste. Elle peut être passée. |
 | Sécurité | Dossier où ranger le carnet et mot de passe (recommandé). La clé de secours t'est remise à ce moment-là. |
 
@@ -207,6 +207,7 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 - **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
   - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
   - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut.
+  - **Personne** est une liste : tu peux changer la personne d'une saisie ou la retirer (« — »), par exemple pour indiquer qui t'a supervisé. La petite loupe à côté filtre le tableau sur cette personne.
   - Chaque modification est enregistrée aussitôt.
   - ✕ supprime une saisie. L'annulation est possible quelques secondes.
 - **Afficher les métriques archivées.** Fait réapparaître les axes que tu ne suis plus.
@@ -266,7 +267,7 @@ Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », 
 
 - **Chiffres.** Dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
 - **Contrat**, s'il y en a un. Montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
-- **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
+- **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. Quand des pastilles se chevauchent, celles des types les mieux classés dans Paramètres > Types d'activité passent au-dessus : par exemple les sessions au-dessus des débriefs. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
 - **Aisance moyenne** sur tous tes axes suivis, en deux colonnes.
 - **Plan d'action.** Les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
 
@@ -308,11 +309,15 @@ Réglages dans **Paramètres > Coûts de l'activité**.
   - Tu y indiques le **prix moyen** d'une supervision.
   - Son coût annuel est calculé à partir de tes saisies de l'année : le montant personnalisé de chaque séance s'il y en a un, sinon le prix moyen.
   - Les séances marquées « non payante » ne comptent pas.
-- **Charges moyennes annuelles.** C'est la somme de toutes les lignes, supervision comprise.
+- **La ligne Cotisations URSSAF**, fixe elle aussi.
+  - Tu y indiques ton **taux moyen de prélèvement**, en pourcentage. Ce taux dépend de ton statut et de ton activité : vérifie le tien auprès de l'URSSAF.
+  - Son coût annuel est ce taux appliqué à ton CA accepté de l'année. Il compte comme une charge et se déduit de ton taux horaire réel.
+  - Ce calcul porte sur le CA accepté, pas sur les sommes réellement encaissées : c'est une estimation.
+- **Charges moyennes annuelles.** C'est la somme de toutes les lignes, supervision et URSSAF comprises.
 - **Répartition.** Un graphique en anneau montre la part de chaque coût, avec la supervision dans la couleur de son type d'activité.
 - **Charges dans le taux horaire.** Clique sur la tuile du calcul que tu veux utiliser :
   - **En entier** : toutes les charges de l'année sont déduites dès le premier contrat payant. Le taux est prudent en début d'année.
-  - **Au prorata** : les supervisions déjà payées, plus la part des autres charges correspondant à l'année écoulée. Le taux reflète le rythme en cours.
+  - **Au prorata** : les supervisions déjà payées et les cotisations URSSAF sur le CA déjà accepté, plus la part des autres charges correspondant à l'année écoulée. Le taux reflète le rythme en cours.
 
   Chaque tuile affiche le taux obtenu, par exemple « En entier : 2 €/h ». La tuile choisie est bordée et cochée : c'est elle qui alimente l'indicateur.
 
@@ -432,7 +437,10 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **1.3.1** | 04/11/2026 | Montant personnalisé par supervision : vide = prix moyen, sinon le montant saisi prend le pas. |
+| **1.3.4** | 04/11/2026 | Coûts : taux moyen de prélèvement URSSAF, appliqué au CA accepté et compté comme une charge. |
+| 1.3.3 | 04/11/2026 | Frises : les pastilles des types les mieux classés passent au premier plan. |
+| 1.3.2 | 04/11/2026 | Personne modifiable dans Mes saisies (liste déroulante), loupe pour filtrer. |
+| 1.3.1 | 04/11/2026 | Montant personnalisé par supervision : vide = prix moyen, sinon le montant saisi prend le pas. |
 | 1.3.0 | 04/11/2026 | Coûts de l'activité ligne par ligne, avec répartition en anneau, supervision calculée sur les séances payantes, case « non payante » et choix du calcul par tuile. Nouvelle fiche personne en deux moitiés (icônes de contact, frise datée, aisance sur tous les axes, plan d'action). Mes saisies : tuile à côté des filtres, onglets, années décroissantes. Pipeline : cartes agrandies. Blocs repliables sur le tableau de bord et dans les Paramètres, Paramètres réorganisés. |
 | 1.2.3 | 04/11/2026 | Tableaux resserrés (colonnes courtes au plus juste). CR et Synth. avant « Ce qu'on a vu ». Personnes : pipeline par défaut, sélecteur avant la recherche. Manuel d'utilisation complet. |
 | 1.2.2 | 04/11/2026 | Affichage adapté à la résolution : toute la largeur, graphiques à la taille de leur cadre, « À relancer » et priorités côte à côte sur grand écran. |
