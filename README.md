@@ -403,7 +403,7 @@ L'outil est publié sous **licence PolyForm Shield 1.0.0** (fichier `LICENSE`).
 - **Interdit sans accord** : le revendre, ou en tirer un produit ou un service concurrent (version payante, marque blanche…).
 - En le partageant, transmets aussi le fichier `LICENSE`.
 
-Pour un usage commercial (revente, intégration dans une offre payante, marque blanche), contacte Allan Oudomphong.
+Pour un usage commercial (revente, intégration dans une offre payante, marque blanche), contacte Allan Oudomphong. 
 
 ---
 
