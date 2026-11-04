@@ -1,93 +1,401 @@
-# AO Coach - Faciliter le job de coach
+# Suivi de pratique de coaching
 
-Un outil pour t'aider à développer et piloter ton activité de coach ! 
-Ouvre `index.html` et laisse-toi guider ! ;)
-Allan
+**Version 1.2.3 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
+Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, tes objectifs et tes relances.
 
+L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur comme une application. Il n'y a ni compte à créer ni abonnement. **Tes données ne sont jamais en ligne** : elles restent sur ton ordinateur, dans **un seul fichier** `coaching-data.json`, rangé dans le dossier de ton choix.
 
-# Suivi de pratique de coaching : mise en route
+- Ce fichier contient tes saisies, tes réglages, ton logo et ton bandeau.
+- Il peut être chiffré par un mot de passe.
+- Une copie de sécurité en est faite automatiquement dans le sous-dossier `sauvegardes/`.
 
-L'application tient en **un fichier HTML**, sans installation. Tes données restent sur ton ordinateur, dans **un seul fichier** `coaching-data.json`, chiffrable par mot de passe, qui contient saisies, réglages, logo et bandeau. Chaque jour, une copie datée de ce fichier est créée dans le sous-dossier `sauvegardes/`, et les 30 dernières sont conservées.
+**Navigateur requis :** Chrome ou Edge sur ordinateur. Firefox, Safari et les mobiles ne savent pas écrire dans un dossier.
 
-Navigateur requis : **Chrome ou Edge sur ordinateur**. Firefox, Safari et les mobiles ne savent pas écrire dans un dossier.
+## Sommaire
 
----
-
-## Option 1 : en local, en 1 minute
-
-1. Mets `index.html` où tu veux, par exemple dans le dossier de tes données.
-2. Double-clique dessus pour l'ouvrir dans Chrome ou Edge.
-3. À l'accueil :
-   - si tu as déjà un `coaching-data.json`, clique « Ouvrir un dossier existant » et choisis son dossier ;
-   - sinon, clique « Commencer » : un parcours de 5 minutes te guide (identité, entretiens, axes de progression, priorités, premières actions, premier entretien, sécurité).
-
-Pour mettre à jour l'application, remplace `index.html`. Tes données ne bougent pas.
-
-## Option 2 : en ligne sur GitHub Pages (recommandé), en 20 minutes une seule fois
-
-L'application est alors disponible à une adresse fixe, installable comme une application (icône, fenêtre à part, fonctionne hors ligne), et se met à jour toute seule chez toi comme chez tes pairs. **Seul le code est en ligne, jamais tes données.**
-
-### Mise en ligne
-
-1. Crée un compte gratuit sur [github.com](https://github.com). Le pseudo apparaîtra dans l'adresse, par exemple `ao-coach`.
-2. En haut à droite, clique sur **+**, puis **New repository**.
-   - Nom : `suivi-coaching`
-   - Licence : **No license** (on ajoute la nôtre juste après).
-   - Visibilité : **Public**. C'est obligatoire pour Pages en version gratuite, et sans risque : le code ne contient aucune donnée.
-   - Clique sur **Create repository**.
-3. Sur la page du dépôt, clique sur le lien **uploading an existing file**. Glisse-y les 6 fichiers de l'application, puis clique sur **Commit changes**.
-   - Les 6 fichiers : `index.html`, `manifest.webmanifest`, `sw.js`, `icon-192.png`, `icon-512.png`, `LICENSE`.
-   - **Ne dépose jamais `coaching-data.json` ni le dossier `sauvegardes`.**
-4. Va dans **Settings**, puis **Pages** dans le menu de gauche. Dans « Build and deployment » :
-   - Source : **Deploy from a branch**
-   - Branch : **main**, dossier **/ (root)**
-   - Clique sur **Save**.
-5. Attends 1 à 2 minutes. L'adresse s'affiche en haut de la page Pages, par exemple `https://ao-coach.github.io/suivi-coaching/`.
-
-### Première ouverture
-
-1. Ouvre l'adresse dans Chrome ou Edge.
-2. Clique sur l'icône **Installer** à droite de la barre d'adresse. L'application apparaît dans ton menu Démarrer ou ton Dock.
-3. Clique sur « Ouvrir un dossier existant » et choisis le dossier qui contient ton `coaching-data.json`.
-4. Quand le navigateur demande l'accès au dossier, choisis **« Autoriser à chaque visite »** si l'option est proposée. Tu n'auras alors plus rien à faire aux lancements suivants.
-
-### Mettre à jour l'application
-
-Sur la page du dépôt, clique sur **Add file**, puis **Upload files**, et dépose le nouveau `index.html`. Il remplace l'ancien. Clique sur **Commit changes**. La mise à jour est en ligne en 1 à 2 minutes et arrive chez tout le monde au lancement suivant.
-
-GitHub garde chaque version. Pour revenir en arrière, ouvre le fichier, puis **History**.
+1. [Mise en route](#1-mise-en-route)
+2. [Premier lancement : le parcours de démarrage](#2-premier-lancement--le-parcours-de-démarrage)
+3. [Enregistrer un temps](#3-enregistrer-un-temps)
+4. [Tableau de bord](#4-tableau-de-bord)
+5. [Métriques](#5-métriques)
+6. [Mes saisies](#6-mes-saisies)
+7. [Personnes](#7-personnes)
+8. [Propositions et contrats](#8-propositions-et-contrats)
+9. [Coûts et taux horaire réel](#9-coûts-et-taux-horaire-réel)
+10. [Paramètres](#10-paramètres)
+11. [Sécurité et chiffrement](#11-sécurité-et-chiffrement)
+12. [Tes données : enregistrement, sauvegardes, récupération](#12-tes-données--enregistrement-sauvegardes-récupération)
+13. [Nouveautés et versions](#13-nouveautés-et-versions)
+14. [Partager à un pair](#14-partager-à-un-pair)
+15. [En cas de souci](#15-en-cas-de-souci)
+16. [Licence et usage](#16-licence-et-usage)
+17. [Historique des versions](#17-historique-des-versions)
 
 ---
 
-## Partager à un pair
+## 1. Mise en route
 
-- **Si tu as mis l'application en ligne :** envoie simplement l'adresse.
-- **Sinon :** envoie `index.html`.
+### Installer l'application (2 minutes, une seule fois)
 
-Dans les deux cas, ton pair est accueilli par le parcours de démarrage.
+1. Ouvre **l'adresse de l'application** dans Chrome ou Edge. C'est le lien qu'on t'a transmis.
+2. Clique sur l'icône **Installer**, à droite de la barre d'adresse : un écran avec une flèche vers le bas. Dans Edge, l'option est aussi dans le menu **⋯ > Applications > Installer ce site en tant qu'application**.
+3. L'application apparaît dans ton menu Démarrer, ou dans le Dock et le Launchpad sur Mac. Elle s'ouvre dans sa propre fenêtre et **fonctionne même hors ligne**.
 
-Pour lui transmettre aussi ta configuration (activités, couleurs, métriques) sans tes données, va dans **Paramètres**, puis **Exporter un modèle sans données**. Ton pair choisit ensuite « Importer une sauvegarde ou un modèle » sur l'écran d'accueil.
+**Les mises à jour sont automatiques.** Au lancement suivant, une bannière « Nouvelle version disponible » propose de recharger, puis un écran présente les nouveautés (voir la [partie 13](#13-nouveautés-et-versions)).
 
-## Sécurité
+### Choisir où ranger son carnet
 
-Pour chiffrer ton fichier, va dans **Paramètres**, **Sécurité**, puis **Activer le chiffrement**.
+Choisis un dossier sur ton ordinateur, de préférence synchronisé (OneDrive, Google Drive…) : ton carnet te suit alors d'un ordinateur à l'autre, et il est sauvegardé.
 
-Garde ta **clé de secours** hors de l'ordinateur, dans un gestionnaire de mots de passe ou imprimée. Sans le mot de passe ni la clé de secours, les données ne peuvent plus être rouvertes par personne.
+- **Tu commences :** clique sur « Commencer ». Le parcours de démarrage te demandera le dossier à la fin.
+- **Tu as déjà un `coaching-data.json` :** à l'accueil, clique sur « J'ai déjà un carnet : ouvrir son dossier ».
 
-## En cas de souci
+Quand le navigateur demande l'accès au dossier, choisis **« Autoriser à chaque visite »** si l'option est proposée. Tu n'auras plus rien à faire aux lancements suivants.
 
-- **Bandeau jaune « Reconnecter le dossier » :** clique dessus et autorise l'accès. Choisis « Autoriser à chaque visite » si l'option est proposée.
-- **Revenir à une version antérieure de tes données :** va dans **Importer un JSON** (en bas de page) et choisis un fichier du dossier `sauvegardes/`.
-- **Ouvrir un autre carnet ou en créer un nouveau :**
-  - si l'application est ouverte, va dans **Paramètres**, puis **Stockage des données** ;
-  - si elle est verrouillée, clique sur le lien en bas de l'écran de verrouillage.
-
-  Un dossier qui contient déjà un carnet n'est jamais écrasé par un autre carnet.
+> Mets ton carnet dans un dossier à toi. Ne le dépose jamais dans un espace public ou partagé avec d'autres personnes.
 
 ---
 
-## Licence et usage
+## 2. Premier lancement : le parcours de démarrage
+
+Un carnet neuf s'ouvre sur un parcours en 11 étapes, d'environ 5 minutes. Le panneau de gauche montre en direct ton logo, ton nom et l'avancement. Tout reste modifiable ensuite, et le parcours se relance depuis **Paramètres > Relancer le parcours**.
+
+| Étape | Ce que tu y fais |
+|---|---|
+| Bienvenue | Lettre d'accueil. Liens pour ouvrir un carnet existant ou importer une sauvegarde ou un modèle. |
+| Le principe | Données chez toi, chiffrement, enregistrement continu. |
+| Ton identité | Nom du cabinet, nom de l'outil, phrase de motivation, logo, bandeau, palette de couleurs. |
+| Tes types d'entretien | Libellé, couleur, durée par défaut, notes d'aisance, rubrique où le type est compté (« Compte dans »), ordre d'importance par glisser-déposer, ajout de types (10 au maximum). |
+| Le suivi | Les 3 piliers (coacher beaucoup, pratiquer délibérément, développer ton activité), les 4 onglets et le choix de tes indicateurs. |
+| Tes axes de progression | Les dimensions que tu notes de 1 à 5 après un entretien, avec des suggestions. |
+| Priorités et objectifs | Tes objectifs prioritaires (3 au maximum, c'est l'idéal), l'ambition et les cibles du trimestre. |
+| Premières actions | Les prochains pas concrets, avec une date. |
+| Personnes et coûts | Seuil d'alerte « sans contact », coût d'une supervision, charges annuelles, mode de calcul. Cette étape peut être passée. |
+| Premier entretien | Une vraie saisie, pour prendre le geste. Elle peut être passée. |
+| Sécurité | Dossier où ranger le carnet et mot de passe (recommandé). La clé de secours t'est remise à ce moment-là. |
+
+---
+
+## 3. Enregistrer un temps
+
+C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistrer un temps »**, en haut à droite. Il faut moins de 30 secondes.
+
+- **Date.** Aujourd'hui par défaut.
+- **Type.** Un bouton par type d'activité, dans sa couleur.
+- **Durée.**
+  - Des boutons proposent les durées courantes.
+  - Le champ « Autre durée » accepte `2,5`, `2.5`, `2h30`, `2h`, `150min` ou `1:30`.
+  - Un nombre seul compte en heures jusqu'à 10, en minutes au-delà. Il n'y a pas de plafond.
+- **Personne.**
+  - Les personnes les plus fréquentes apparaissent en boutons.
+  - Les personnes archivées sont dans une liste déroulante.
+  - « + Nouvelle » crée une nouvelle personne : tape « Prénom Nom », puis Entrée.
+- **Ce qu'on a vu.** Une ligne : thème, déclic, pattern repéré.
+- **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
+- **Aisance.** Une note de 1 à 5 pour chacun de tes axes de progression, pour les types où l'aisance est activée.
+- **Proposition.** Montant, nombre de séances prévues, durée d'engagement. Une proposition est enregistrée « En attente » (voir la [partie 8](#8-propositions-et-contrats)).
+- **Supervision.** Coût de la séance. Il est pré-rempli avec le dernier coût saisi, ou à défaut avec le coût habituel indiqué dans les Paramètres.
+
+---
+
+## 4. Tableau de bord
+
+C'est ton cap : à regarder une fois par semaine.
+
+### Indicateurs principaux
+
+Ce sont les 3 premiers indicateurs que tu as choisis (voir la [partie 5](#5-métriques)). Ils affichent la valeur de l'année, celle des 31 derniers jours et une courbe de tendance. Pour les changer, clique sur « Changer mes indicateurs ».
+
+### À relancer
+
+La liste de ce qui demande une action, avec les plus urgents en premier.
+
+| Alerte | Quand elle apparaît | Boutons |
+|---|---|---|
+| **Action liée à une personne** | Elle est en retard ou prévue dans les 7 jours. | Fait |
+| **Proposition en attente** | Une proposition attend une réponse et aucune action n'est prévue pour la personne. Le délai d'attente passe en rouge à partir de 14 jours. | Acceptée · Refusée (annulable) · Planifier une relance (dans 2 jours) · Plus tard (une semaine) |
+| **Fin d'accompagnement** | Le contrat se termine dans les 21 jours, s'est terminé depuis moins de 45 jours, ou la dernière séance prévue est atteinte. | Planifier le bilan · Plus tard (14 jours) |
+| **Sans contact** | La personne est en conversation ou en attente de réponse, sans action prévue, et sans contact depuis le seuil choisi (30 jours par défaut, aucune alerte au-delà de 365 jours). | Planifier une relance · Plus tard · Sans suite |
+
+Clique sur un nom pour ouvrir la fiche de la personne.
+
+### Objectif prioritaire
+
+Tes priorités du moment, avec pour chacune son objet et ce qu'elle veut dire pour toi. Tu peux les réordonner avec les flèches ou par glisser-déposer.
+
+### Plan d'action
+
+Chaque action a un objectif prioritaire, une description, une personne (facultative), une date prévue, un résultat et un statut : En cours, Réalisée ou Annulée.
+
+- Une action en retard s'affiche en rouge.
+- Les pastilles « En cours », « Réalisées » et « Annulées » filtrent la liste.
+- Les actions créées depuis une fiche ou une relance ont pour objectif « Relance ».
+
+### Suivi indicateurs
+
+Tes cibles par trimestre, semestre et année : heures de coaching, conversations, personnes coachées, pratique délibérée, CA accepté. Chaque période a une phrase d'ambition. Une barre montre l'avancement. Le menu en haut à droite permet de choisir la période.
+
+> Sur un écran large (1700 px et plus), « À relancer » et « Objectif prioritaire » s'affichent côte à côte.
+
+---
+
+## 5. Métriques
+
+### Mes indicateurs
+
+Tu choisis 6 indicateurs au maximum. Les 3 premiers sont **principaux** : ils s'affichent en grand, aussi sur le tableau de bord. Les suivants sont secondaires.
+
+- Pour échanger deux indicateurs, glisse l'un sur l'autre.
+- Pour en changer, ouvre « Choisir mes indicateurs ». Le catalogue affiche ta valeur réelle à date pour chacun.
+
+Le catalogue compte 19 indicateurs, répartis en 4 piliers :
+
+- **Coacher beaucoup :**
+  - heures de coaching ;
+  - conversations ;
+  - personnes coachées ;
+  - régularité (semaines actives sur les 12 dernières) ;
+  - nouvelles personnes ;
+  - clients actifs (31 jours).
+- **Pratiquer délibérément :**
+  - pratique délibérée ;
+  - discipline post-séance (CR, synthèse et notes, sur 90 jours glissants) ;
+  - aisance moyenne ;
+  - atteinte de l'objectif du rendez-vous.
+- **Développer l'activité :**
+  - CA accepté / proposé ;
+  - taux de transformation ;
+  - propositions en attente ;
+  - taux d'acceptation ;
+  - panier moyen ;
+  - taux horaire réel.
+- **Piloter :**
+  - actions en retard ;
+  - avancement des cibles du trimestre ;
+  - part du coaching dans ton temps total.
+
+### Graphiques
+
+- **Année.** Les boutons 2024, 2025, 2026… choisissent l'année affichée.
+- **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail.
+- **Aisance.** Deux vues :
+  - « Toutes les métriques » : une courbe par axe ;
+  - « Une métrique par type » : une courbe par type d'entretien pour l'axe choisi.
+
+  Clique sur un élément de la légende pour le masquer ou l'afficher. Glisse-le pour changer l'ordre.
+
+---
+
+## 6. Mes saisies
+
+Le détail de tous tes entretiens, filtrable et modifiable directement dans le tableau.
+
+- **Filtres.**
+  - Clique sur une année, un type ou une ou plusieurs personnes. Clique à nouveau pour retirer le filtre.
+  - Les clients archivés sont dans une liste déroulante.
+- **Résumé.** Nombre de saisies, temps total, dont coaching, pratique délibérée, et pourcentages de CR et de synthèses faits.
+- **Fiches.** Quand une personne est sélectionnée, sa carte s'affiche :
+  - son badge (Client.e, Pro bono, Superviseur.e ou Réseau), sa fonction et son site ;
+  - ses chiffres et son aisance moyenne par axe ;
+  - une frise de ses entretiens ;
+  - les boutons Fiche et Archiver.
+- **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
+  - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
+  - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances.
+  - Chaque modification est enregistrée aussitôt.
+  - ✕ supprime une saisie. L'annulation est possible quelques secondes.
+- **Afficher les métriques archivées.** Fait réapparaître les axes que tu ne suis plus.
+- **Exporter CSV** (en bas de page). Un tableur de toutes tes saisies.
+
+---
+
+## 7. Personnes
+
+### Vues
+
+- **Pipeline** (par défaut) : une colonne par étape, avec son nombre de personnes et ses totaux (propositions en attente, contrats en cours).
+  - Glisse une carte dans une autre colonne pour changer son étape à la main.
+  - Remettre « Automatique » sur la fiche efface ce choix manuel.
+- **Liste** : des tuiles compactes, avec la photo, le nom, l'étape, la provenance, la fonction, le site, le dernier contact, le contrat et la prochaine action.
+  - Des filtres par étape indiquent le nombre de personnes dans chacune.
+  - Les tuiles sont triées par prochaine action, puis par dernier contact.
+- **Recherche** : sur le nom, la fonction, la provenance, les notes et le site.
+- **Personnes archivées** : case à cocher pour les afficher.
+
+### Les étapes
+
+L'étape se calcule toute seule à partir de tes saisies :
+
+| Étape | Règle automatique |
+|---|---|
+| Contact | Aucune conversation ni session. |
+| En conversation | Au moins une conversation ou une session, sans proposition en attente. |
+| Proposition envoyée | Au moins une proposition « En attente ». |
+| Client.e | Un contrat en cours, ou une séance après la fin du contrat. |
+| Accompagnement terminé | Le contrat est échu. Sans durée d'engagement, la personne passe dans cette étape après 120 jours sans contact. |
+| Sans suite | Toutes les propositions sont refusées et il n'y a pas eu de contact depuis, ou c'est un choix manuel. |
+| Superviseur.e | Au moins une supervision avec cette personne, et aucune proposition acceptée. |
+
+Une étape choisie à la main, sur la fiche ou par glisser-déposer, reste valable jusqu'à la saisie suivante concernant la personne.
+
+### La fiche personne
+
+Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « + Nouvelle personne ».
+
+- **Photo.**
+  - Clique sur le rond ou sur « Photo », choisis une image, puis cadre-la dans le disque : glisse pour centrer, puis zoome avec le curseur ou la molette.
+  - La photo est compressée (environ 5 Ko) et stockée dans ton carnet, donc chiffrée avec lui.
+- **Coordonnées.**
+  - **Téléphone** : il s'espace automatiquement. `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
+  - **E-mail** : le lien « Écrire un e-mail » ouvre ta messagerie.
+  - **Site web** : le lien « Voir le site » l'ouvre. Il est aussi cliquable depuis les tuiles.
+- **Description.**
+  - En une ligne : la fonction, par exemple « Cheffe de projet chez Michel Musique ».
+  - Élargie : contexte, enjeux, ce qu'il faut savoir.
+- **Étape** (automatique ou manuelle) et **provenance**. La provenance propose les valeurs déjà utilisées sur tes autres fiches.
+- **Prochaines actions.** Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action.
+- **En bref.** Conversations, sessions, heures de coaching, contrat, premier et dernier contact.
+- **Contrat.** Si la personne a un contrat : début, séances prévues, durée, et une barre d'avancement.
+- **Archiver / Réactiver.** Une personne archivée sort des boutons de saisie et des filtres, mais garde tout son historique.
+- **Voir ses saisies.** Ouvre Mes saisies, filtré sur elle.
+
+Tout est enregistré pendant la frappe. « Terminé » ferme la fiche.
+
+---
+
+## 8. Propositions et contrats
+
+**Rien n'est automatique** : c'est toi qui indiques si une proposition est acceptée.
+
+1. Enregistre une **proposition** (montant, séances prévues, durée d'engagement). Elle est « En attente ».
+2. Elle apparaît dans **À relancer** tant qu'aucune action n'est prévue pour la personne.
+3. Change son statut :
+   - dans **À relancer**, avec les boutons Acceptée ou Refusée ;
+   - ou dans **Mes saisies**, colonne Contrat dépliée, Accepté : En attente, Acceptée ou Refusée.
+4. Le **contrat** d'une personne est sa **dernière proposition acceptée** :
+   - début : par défaut la date de la proposition, modifiable sur la fiche ;
+   - fin : le début plus la durée d'engagement ;
+   - séances réalisées : les sessions entre le début et la fin.
+5. À l'approche de la fin, ou à la dernière séance prévue, « À relancer » te propose de **planifier le bilan**.
+
+Seules les propositions de plus de 0 € comptent dans les indicateurs commerciaux : propositions, taux d'acceptation, CA, panier moyen.
+
+---
+
+## 9. Coûts et taux horaire réel
+
+Réglages dans **Paramètres > Coûts de l'activité**.
+
+- **Coût habituel d'une supervision.** Il pré-remplit le coût à la saisie, et chaque séance reste modifiable.
+- **Charges annuelles moyennes.** Assurance, formation, outils, cotisations…
+- **Charges dans le taux horaire :**
+  - **En entier** : toutes les charges de l'année sont déduites dès le premier contrat payant. Le taux est prudent en début d'année.
+  - **Au prorata** : seule la part des charges correspondant à l'année écoulée est déduite. Le taux reflète le rythme en cours.
+
+  L'aperçu affiche les deux taux côte à côte. C'est le mode actif qui alimente l'indicateur.
+
+**Taux horaire réel = (CA accepté − coûts de supervision − charges) ÷ toutes tes heures de l'année.** Toutes les heures comptent, y compris le temps non facturé. Le détail de l'indicateur montre aussi les charges rapportées à chaque contrat payant.
+
+---
+
+## 10. Paramètres
+
+- **Identité.** Nom du cabinet, nom de l'outil et phrase de motivation. Le bouton **Relancer le parcours** est ici.
+- **Apparence.**
+  - Logo et bandeau (la photo du panneau latéral).
+  - Les 5 couleurs de marque, et « Revenir à la palette par défaut ».
+  - Les couleurs des types suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
+- **Types d'activité** (10 au maximum).
+  - Pour chaque type : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut et notes d'aisance.
+  - **Compte dans** : heures de coaching, pratique délibérée, développement ou autre. Ce choix décide dans quel indicateur les heures du type sont additionnées.
+  - Un type ajouté ne peut être supprimé que s'il n'a aucune saisie.
+- **Métriques d'aisance.**
+  - Pour chaque axe : libellé, repères du 1 et du 5, et ordre.
+  - Un axe « non suivi » disparaît de la saisie mais garde son historique.
+  - Renommer un axe conserve ses notes.
+  - Un axe n'est supprimable que s'il n'a aucune note.
+- **Sécurité.** Chiffrement, verrouillage automatique, mot de passe et clé de secours (voir la [partie 11](#11-sécurité-et-chiffrement)).
+- **Stockage des données.** Dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ».
+- **Suivi des personnes.** Seuil de l'alerte « sans contact », en jours.
+- **Coûts de l'activité.** Voir la [partie 9](#9-coûts-et-taux-horaire-réel).
+- **Mes indicateurs.** Ouvre le catalogue.
+- **Partager à un pair.** « Exporter un modèle sans données ».
+
+En bas de chaque page :
+
+- **Changer de dossier** ;
+- **Exporter JSON**, qui produit une copie complète ;
+- **Exporter CSV** ;
+- **Importer un JSON** ;
+- le numéro de version et le lien **Nouveautés**.
+
+---
+
+## 11. Sécurité et chiffrement
+
+- **Activer le chiffrement** : Paramètres > Sécurité. Noms, notes, objectifs et photos deviennent illisibles sans ton mot de passe. Les sauvegardes existantes sont chiffrées elles aussi.
+- **Clé de secours** : elle t'est remise à l'activation. Garde-la **hors de l'ordinateur**, dans un gestionnaire de mots de passe ou sur papier. Sans le mot de passe ni la clé de secours, personne ne peut plus rouvrir les données, pas même l'auteur de l'outil.
+- **Verrouillage automatique** : jamais, ou après 5, 15, 30 ou 60 minutes d'inactivité.
+- **Écran de verrouillage** : il propose de déverrouiller avec ton mot de passe ou avec ta clé de secours. Avec la clé de secours, tu choisis ensuite un nouveau mot de passe. Un lien permet aussi d'ouvrir un autre carnet.
+- Dans Paramètres, tu peux aussi verrouiller tout de suite, changer de mot de passe, générer une nouvelle clé de secours ou désactiver le chiffrement.
+
+---
+
+## 12. Tes données : enregistrement, sauvegardes, récupération
+
+- **Enregistrement continu.** Chaque modification est enregistrée au bout d'une fraction de seconde. L'état s'affiche en haut à droite.
+- **Rien n'est jamais écrasé à l'aveugle.** Avant chaque enregistrement, l'application relit le fichier. S'il a été modifié ailleurs (autre fenêtre, autre ordinateur, autre version), elle **fusionne** au lieu de remplacer :
+  - les saisies des deux côtés sont gardées ;
+  - pour une même saisie modifiée des deux côtés, c'est la modification la plus récente qui l'emporte ;
+  - les suppressions sont respectées.
+- **Copies de sécurité** dans `sauvegardes/` :
+  - une par heure, gardée 48 h ;
+  - puis une par jour, gardée 30 jours ;
+  - plus une copie juste avant chaque fusion.
+- **Version périmée = lecture seule.** Une version de l'application plus ancienne que celle qui a enregistré ton carnet ne peut plus l'écrire. Un bandeau te le signale.
+- **Récupérer des saisies perdues.**
+  1. En bas de page, clique sur **Importer un JSON**.
+  2. Choisis une copie dans `sauvegardes/`.
+  3. Réponds **OK (fusionner)**.
+
+  Les saisies manquantes reviennent, sans rien supprimer.
+- **Plusieurs carnets.** Paramètres > Stockage des données > Ouvrir un autre carnet ou Nouveau carnet. Un dossier qui contient déjà un carnet n'est jamais écrasé par un autre.
+- **Sans dossier relié**, les données ne sont gardées que dans ce navigateur. Un bandeau jaune te propose alors d'en choisir un.
+
+---
+
+## 13. Nouveautés et versions
+
+- **Numérotation `x.y.z`** : x = version majeure, y = nouvelle fonctionnalité, z = correctif. La version s'affiche en bas de page.
+- **Écran des nouveautés.** Au premier lancement d'une nouvelle version, une fenêtre présente ce qui a changé depuis ta dernière visite, avec des boutons qui mènent à chaque fonction. La version déjà vue est enregistrée dans ton carnet. Le lien **Nouveautés**, en bas de page, permet de les revoir.
+- **La mise à jour est automatique.** Au lancement suivant, une bannière « Nouvelle version disponible » peut proposer de recharger. Si tu as un doute, ferme puis rouvre l'application.
+
+---
+
+## 14. Partager à un pair
+
+Envoie-lui simplement **l'adresse de l'application**. Il l'installe à son tour (voir la [partie 1](#1-mise-en-route)) et démarre avec « Commencer ». Ses données restent chez lui, et les tiennes chez toi.
+
+Pour lui transmettre aussi ta configuration (types, couleurs, axes, indicateurs) sans tes données, va dans **Paramètres > Partager à un pair > Exporter un modèle sans données**, et envoie-lui le fichier obtenu. Ton pair choisit ensuite « Importer une sauvegarde ou un modèle » à l'accueil.
+
+---
+
+## 15. En cas de souci
+
+- **L'application ne se met plus à jour, ou se comporte bizarrement.** Ferme-la, rouvre l'adresse dans Chrome ou Edge, puis recharge avec Ctrl+F5.
+- **Bandeau jaune « Reconnecter le dossier ».** Clique dessus et autorise l'accès. Choisis « Autoriser à chaque visite » si l'option est proposée.
+- **La nouvelle version n'apparaît pas.** Ferme complètement l'application et rouvre-la, ou recharge avec Ctrl+F5. Le numéro en bas de page fait foi.
+- **Bandeau « lecture seule ».** Tu utilises une version plus ancienne que celle qui a enregistré ton carnet, par exemple une ancienne copie de l'application. Recharge (Ctrl+F5), ou ouvre l'application installée.
+- **Des saisies ont disparu.** Voir « Récupérer des saisies perdues » dans la [partie 12](#12-tes-données--enregistrement-sauvegardes-récupération).
+- **Mot de passe oublié.** Utilise la clé de secours sur l'écran de verrouillage.
+- **Ouvrir un autre carnet ou en créer un nouveau.**
+  - Si l'application est ouverte : Paramètres > Stockage des données.
+  - Si elle est verrouillée : clique sur le lien en bas de l'écran de verrouillage.
+
+---
+
+## 16. Licence et usage
 
 L'outil est publié sous **licence PolyForm Shield 1.0.0** (fichier `LICENSE`).
 
@@ -97,9 +405,17 @@ L'outil est publié sous **licence PolyForm Shield 1.0.0** (fichier `LICENSE`).
 
 Pour un usage commercial (revente, intégration dans une offre payante, marque blanche), contacte Allan Oudomphong.
 
-### Mettre la licence sur GitHub (une seule fois)
+---
 
-1. Lors de la création du dépôt, choisis **No license** dans le menu des licences.
-2. Dépose le fichier `LICENSE` avec les autres fichiers de l'application (même glisser-déposer).
-3. GitHub l'affiche alors sur la page du dépôt.
-4. Facultatif, mais plus complet : ouvre `LICENSE` sur GitHub, clique sur le crayon (**Edit**), puis colle à la fin le texte officiel complet, copié depuis https://polyformproject.org/licenses/shield/1.0.0.txt.
+## 17. Historique des versions
+
+| Version | Date | Principales évolutions |
+|---|---|---|
+| **1.2.3** | 04/11/2026 | Tableaux resserrés (colonnes courtes au plus juste). CR et Synth. avant « Ce qu'on a vu ». Personnes : pipeline par défaut, sélecteur avant la recherche. Manuel d'utilisation complet. |
+| 1.2.2 | 04/11/2026 | Affichage adapté à la résolution : toute la largeur, graphiques à la taille de leur cadre, « À relancer » et priorités côte à côte sur grand écran. |
+| 1.2.1 | 04/11/2026 | Étape Superviseur.e, « Client.e », tuiles compactes, téléphone espacé automatiquement. |
+| 1.2.0 | 04/11/2026 | Propositions en attente dans « À relancer ». Site web à la place de LinkedIn. Notes et contrat repliables dans Mes saisies. Correctif : coordonnées de la fiche parfois non enregistrées. |
+| 1.1.2 | 04/11/2026 | Écran des nouveautés. Parcours complété et lisible sur tous les écrans. « Compte dans » modifiable pour tous les types. Numérotation x.y.z. |
+| 1.1.1 | 04/11/2026 | Bouton En entier / Au prorata pour les charges, avec les deux taux côte à côte. |
+| 1.1.0 | 04/11/2026 | CRM : fiches personnes, photo, étapes, pipeline, contrats, « À relancer ». |
+| 1.0 | 02/11/2026 | Version partagée aux pairs : catalogue de 19 indicateurs, enregistrements sécurisés (fusion, sauvegardes), 10 types, archivage, coûts et taux horaire. |

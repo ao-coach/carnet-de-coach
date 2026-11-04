@@ -17,7 +17,7 @@
 body{font-family:Nunito,sans-serif;background:var(--gw);color:var(--jet);display:flex;min-height:100vh}
 button,input,select,textarea{font-family:inherit;color:inherit}
 .side{width:92px;flex:none;background-position:center;background-size:cover;position:sticky;top:0;height:100vh;opacity:.92}
-main{flex:1;padding:0 36px 48px;max-width:1360px;min-width:0}
+main{flex:1;padding:0 clamp(16px,2.4vw,48px) 48px;max-width:2200px;min-width:0;margin:0 auto}
 .banner{background:#FFF2B8;border:1px solid #F1DA7A;color:#5C4A00;border-radius:0 0 12px 12px;padding:9px 16px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:14px;margin-bottom:14px}
 .banner button{margin-left:auto;background:#5C4A00;color:#FFF2B8;border:0;border-radius:8px;padding:6px 14px;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap}
 .top{display:flex;align-items:center;gap:22px;margin:18px 0 18px}
@@ -149,7 +149,7 @@ table.act{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
 .tl{margin-top:12px;height:22px;position:relative;border-top:1px solid var(--line)}
 .tl i{position:absolute;top:-5px;width:9px;height:9px;border-radius:50%;border:1.5px solid #fff}
 .tblwrap{max-height:640px;overflow:auto;margin-top:12px}
-table.ent{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1250px}
+table.ent{width:100%;border-collapse:collapse;font-size:13.5px;min-width:980px}
 .ent th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);padding:8px 4px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1;white-space:nowrap}
 .ent th.c{text-align:center} .ent th.arch{color:#B5B7BA}
 .ent td{padding:2px 4px;border-bottom:1px solid #F0EEF3;vertical-align:middle;transition:background 1s}
@@ -246,7 +246,7 @@ table.pt{width:100%;border-collapse:collapse;font-size:13.5px}
 .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 /* parcours de démarrage */
 .wiz{position:fixed;inset:0;z-index:45;background:radial-gradient(120% 90% at 0% 0%,color-mix(in srgb,var(--afb) 14%,var(--gw)) 0%,var(--gw) 60%);display:grid;place-items:center;padding:16px}
-.wzcard{width:min(1040px,100%);height:min(720px,calc(100vh - 32px));display:grid;grid-template-columns:290px 1fr;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.14)}
+.wzcard{width:min(1320px,100%);height:min(860px,calc(100vh - 32px));display:grid;grid-template-columns:clamp(220px,20vw,280px) 1fr;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.14)}
 .wzside{color:#fff;padding:28px 26px;display:flex;flex-direction:column;background-size:cover;background-position:center}
 .wzbrand{display:flex;align-items:center;gap:12px} .wzbrand img,.wzbrand .ini{width:50px;height:50px;border-radius:50%;object-fit:cover;flex:none}
 .wzbrand .ini{display:grid;place-items:center;background:rgba(255,255,255,.14);font-family:'Noto Serif',serif;font-size:18px}
@@ -257,10 +257,10 @@ table.pt{width:100%;border-collapse:collapse;font-size:13.5px}
 .wzsteps li.cur{opacity:1;font-weight:800} .wzsteps li.cur b{background:#fff;color:var(--jet);border-color:#fff}
 .wzsteps li.ok{opacity:.85} .wzsteps li.ok b{background:rgba(255,255,255,.2);border-color:transparent}
 .wzquote{margin-top:auto;font-family:'Noto Serif',serif;font-style:italic;font-size:14px;line-height:1.45;opacity:.85}
-.wzmain{padding:36px 44px 0;display:flex;flex-direction:column;overflow:auto;position:relative}
+.wzmain{padding:36px clamp(20px,3.2vw,48px) 0;min-width:0;display:flex;flex-direction:column;overflow:auto;position:relative}
 .wzkick{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--am);min-height:15px}
 .wzt{font-size:30px;margin:6px 0 6px;display:block}
-.wzlead{color:var(--grey);font-size:15px;line-height:1.5;max-width:620px}
+.wzlead{color:var(--grey);font-size:15px;line-height:1.5;max-width:820px}
 .wzbody{flex:1;margin-top:22px;padding-bottom:20px;animation:wzin .35s ease}
 @keyframes wzin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .wzfoot{position:sticky;bottom:0;background:linear-gradient(180deg,rgba(255,255,255,0),#fff 30%);display:flex;align-items:center;gap:10px;padding:22px 0 26px}
@@ -288,14 +288,16 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 .stackprev{display:flex;flex-direction:column;gap:3px;padding:14px;border:1px solid var(--line);border-radius:16px;align-self:start}
 .stackprev .r{display:flex;align-items:center;gap:10px;font-size:13px} .stackprev .r i{width:46px;height:24px;border-radius:5px;flex:none}
 .stackprev small{color:var(--grey);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-.wzgrid2.types{grid-template-columns:1fr 220px}
+.wzgrid2.types{grid-template-columns:minmax(0,1fr) 200px} .wzgrid2>*{min-width:0}
+.wztbl{overflow-x:auto} .wztbl table.pt{min-width:640px} .wztbl input[data-l]{min-width:160px}
+@media(max-width:1280px){.wzgrid2.types{grid-template-columns:minmax(0,1fr)}.wzgrid2.types .stackprev{flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 14px}}
 .flow3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
 .flow3 div{border-radius:14px;padding:12px 14px;background:var(--soft);font-size:13px;color:var(--grey)} .flow3 b{display:block;color:var(--jet);font-size:14px;margin-bottom:2px}
 .wzh{font-size:15px;font-weight:800;margin:4px 0 8px;display:flex;align-items:baseline;gap:8px} .wzh small{font-weight:600;color:var(--grey);font-size:12.5px}
 .prow{display:grid;grid-template-columns:30px 1fr 1.6fr 30px;gap:8px;align-items:center;margin-bottom:6px}
 .targets{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .targets label{font-size:12px;font-weight:700;color:var(--grey);display:flex;flex-direction:column;gap:4px}
-.arow{display:grid;grid-template-columns:200px 1fr 150px 30px;gap:8px;align-items:center;margin-bottom:6px}
+.arow{display:grid;grid-template-columns:250px 1fr 150px 30px;gap:8px;align-items:center;margin-bottom:6px}
 .ok-box{display:flex;gap:12px;align-items:center;background:var(--bluebg);border-radius:14px;padding:14px 16px;font-weight:700}
 .sumlist{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:14.5px}
 .sumlist li{display:flex;gap:10px;align-items:center} .sumlist i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;background:var(--bluebg);color:var(--afb);flex:none}
@@ -338,12 +340,87 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 .pt tr:first-child .rk{background:var(--jet);color:#fff}
 .durx{display:flex;align-items:center;gap:10px;margin-top:8px}.durx .fin{max-width:260px;padding:7px 12px;font-size:14px}.durx span{font-size:13px;font-weight:800;color:var(--afb)}.durx span.bad{color:var(--am);font-weight:700}
 @media(max-width:1100px){.side{display:none}main{padding:0 16px 40px}.kpis,.kpis2,.row2,.pgrid{grid-template-columns:1fr}.top,header{flex-wrap:wrap}.obj{display:block;overflow-x:auto}.colors{grid-template-columns:repeat(3,1fr)}}
+/* personnes */
+#pfM{z-index:32} #cropM{z-index:34}
+.av{border-radius:50%;object-fit:cover;flex:none;display:inline-grid;place-items:center;color:#fff;font-weight:800;font-family:Nunito,sans-serif;background:var(--grey)}
+.cntb{font-family:Nunito,sans-serif;font-size:12px;font-weight:800;background:var(--am);color:#fff;border-radius:10px;padding:1px 8px}
+.cntb:empty{display:none}
+.rel{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line)}
+.rel:last-child{border:0} .rel .who{font-weight:800;cursor:pointer} .rel .who:hover{color:var(--am)}
+.rel .what{font-size:13.5px} .rel .when{font-size:12px;color:var(--grey);font-weight:700} .rel .when.late{color:var(--am)}
+.rel .btns{margin:0;gap:6px}
+.pphead{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ppgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;align-items:start}
+.ppc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 13px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:3px}
+.ppc:hover{border-color:var(--afb);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.ppc .top{display:flex;gap:10px;align-items:flex-start;margin:0 0 3px;padding:0} .ppc .tx{min-width:0;flex:1} .ppc .r2{display:flex;align-items:center;gap:6px;margin:2px 0 1px;min-width:0} .ppc .r2 .stp{flex:none} .ppc .r2 .ti{min-width:0}
+.ppc .nm{font-family:'Noto Serif',serif;font-size:15.5px;line-height:1.25} .ppc .ti{font-size:12px;color:var(--grey);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .ppc .ti .site{font-size:12px}
+.ppc .ln{font-size:12px;color:var(--grey);line-height:1.4} .ppc .ln b{color:var(--jet)} .ppc .ln.late b{color:var(--am)}
+.stp{display:inline-block;font-size:11px;font-weight:800;border-radius:7px;padding:2px 8px;color:#fff;letter-spacing:.02em}
+.modal.pfm{width:min(820px,100%)}
+.pfgrid{display:grid;grid-template-columns:150px 1fr;gap:22px;margin-top:6px}
+.pfav{width:130px;height:130px;border-radius:50%;background:var(--soft) center/cover;cursor:pointer;display:grid;place-items:center;font-size:38px;font-family:'Noto Serif',serif;color:#fff;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.pfavb{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px}
+.pfnom{font-family:'Noto Serif',serif;font-size:21px}
+.pf3{display:grid;grid-template-columns:1fr 1.2fr 1.4fr;gap:8px;margin-top:8px}
+.pf2{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:10px}
+.pflab{display:block;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);margin-top:10px} .pflab .fin{margin-top:5px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--jet)}
+.pflinks{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap} .pflinks a{font-size:12.5px;font-weight:800;color:var(--afb);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:3px 10px}
+.pflinks a:hover{border-color:var(--afb)}
+.pfsec{margin-top:18px;border-top:1px solid var(--line);padding-top:12px} .pfsec h3{margin:0 0 8px}
+.pfa{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px} .pfa .ck{margin:0} .pfa .d{font-size:12px;font-weight:800;color:var(--grey);margin-left:auto} .pfa .d.late{color:var(--am)}
+.pfadd{display:grid;grid-template-columns:1fr 150px auto;gap:8px;margin-top:8px}
+.pfsum{display:flex;gap:24px;flex-wrap:wrap;font-size:12.5px;color:var(--grey)} .pfsum b{display:block;font-family:'Noto Serif',serif;font-weight:400;font-size:19px;color:var(--jet)}
+.pffoot{display:flex;gap:10px;margin-top:20px} .pffoot .save{width:auto;margin:0 0 0 auto;padding:11px 26px}
+.crwrap{display:grid;place-items:center;margin-top:8px} #crCv{border-radius:16px;cursor:grab;touch-action:none;background:#222;max-width:100%}
+.pc .nm .av{margin-right:4px}
+@media(max-width:860px){.pfgrid,.pf3,.pf2,.pfadd{grid-template-columns:1fr}}
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(7,minmax(140px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px}
+.pcol{background:var(--soft);border-radius:14px;padding:10px;min-height:220px;transition:.15s;border:2px solid transparent}
+.pcol.over{border-color:var(--am);background:color-mix(in srgb,var(--am) 6%,var(--soft))}
+.pch{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--jet);margin-bottom:4px}
+.pch .dot{width:9px;height:9px;border-radius:50%} .pch .n{margin-left:auto;background:#fff;border-radius:9px;padding:0 7px;font-size:11.5px;color:var(--grey)}
+.pct{font-family:'Noto Serif',serif;font-size:16px;margin:0 0 6px 16px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 10px;margin-top:8px;display:flex;gap:9px;cursor:grab;transition:.12s}
+.pcard:hover{border-color:var(--afb);box-shadow:0 4px 12px rgba(0,0,0,.06)} .pcard.drag{opacity:.4}
+.pcard .pn{font-weight:800;font-size:13.5px;line-height:1.2} .pcard .pt2{font-size:11.5px;color:var(--grey);margin-top:2px;line-height:1.3} .pcard .pt2 b{color:var(--jet)} .pcard .pt2.late{color:var(--am);font-weight:700}
+.pempty{color:#C9CBCE;text-align:center;padding:20px 0}
+.pfk{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:10px;align-items:end;font-size:14px} .pfk .pflab{margin-top:0}
+@media(max-width:860px){.pfk{grid-template-columns:1fr}}
+.finprev{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.finprev div{border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--grey);min-width:200px}
+.finprev div.on{border-color:var(--am);background:color-mix(in srgb,var(--am) 5%,#fff)}
+.finprev b{display:block;font-family:'Noto Serif',serif;font-weight:400;font-size:18px;color:var(--jet)}
+.flow3.f4{grid-template-columns:repeat(4,1fr)}
+.wzfld{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:13.5px;color:var(--grey)} .wzfld .fin{width:110px}
+.nwv{margin-top:18px} .nwv:first-of-type{margin-top:4px} .nwv h3{font-family:'Noto Serif',serif;font-size:15px;margin:0 0 8px;color:var(--jet);display:flex;align-items:baseline;gap:8px} .nwv h3 small{font-family:Nunito,sans-serif;font-weight:600;color:var(--grey);font-size:12px}
+.nwi{display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.nwi b{display:block;color:var(--jet);font-size:14px} .nwi p{margin:2px 0 0;font-size:13px;color:var(--grey);line-height:1.45} .nwi .btn2{white-space:nowrap}
+.nwold summary{cursor:pointer;color:var(--grey);font-size:13px;margin-top:14px}
+@media(max-width:860px){.flow3.f4{grid-template-columns:1fr}.nwi{grid-template-columns:1fr}}
+@media(max-width:1180px){.wzgrid2{grid-template-columns:minmax(0,1fr)}.arow{grid-template-columns:1fr 150px 30px}.arow select{grid-column:1/-1}.prow{grid-template-columns:30px 1fr 30px}.prow [data-pd]{grid-column:2;grid-row:2}}
+.wztbl.ax table.pt{min-width:520px}
+@media(max-width:860px){.pals{grid-template-columns:1fr 1fr}.wzt{font-size:25px}}
+.site{font-size:12.5px;font-weight:700;color:var(--afb);text-decoration:none;display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .site:hover{text-decoration:underline}
+.ent .cn,.ent th.cn{background:color-mix(in srgb,var(--afb) 10%,#fff)} .ent .kk,.ent th.kk{background:color-mix(in srgb,var(--am) 7%,#fff)}
+.ent th .tgl{border:0;background:none;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--jet);cursor:pointer;padding:2px 4px;border-radius:6px} .ent th .tgl:hover{background:rgba(0,0,0,.06)}
+.ent td.sumc{font-size:12.5px;color:var(--grey);white-space:nowrap;cursor:pointer;letter-spacing:.04em} .ent td.sumc b{font-weight:800}
+.ent td.kk .ed{font-size:13px}
+.pcard .pn,.pcard .pt2{overflow-wrap:anywhere}
+@media(min-width:1700px){.dashpair{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start}.dashpair>.card{margin-top:22px}}
+table .fit{width:1%;white-space:nowrap}
+.pt.tight td{white-space:nowrap} .pt.tight input.ed:not([type]),.pt.tight input.ed[type=text]{width:230px} .pt.tight td:last-child{text-align:right}
+.wztbl.ax table.pt{min-width:0}
+.ent .plink{white-space:nowrap} .ent td{white-space:nowrap} .ent td.grow{white-space:normal}
+.act td select.ed{width:auto;max-width:260px}
+.seg.big{padding:4px} .seg.big button{padding:8px 20px;font-size:14px;border-radius:8px}
 </style></head><body>
 <div class="side" id="side"></div>
 <main id="main">
 <div class="banner hide" id="banner"><span id="bannerTxt"></span><button id="bannerBtn"></button></div>
 <div class="top">
-  <nav class="tabs"><button class="on" data-tab="dash">Tableau de bord</button><button data-tab="metrics">Métriques</button><button data-tab="list">Mes saisies</button><button data-tab="settings">Paramètres</button></nav>
+  <nav class="tabs"><button class="on" data-tab="dash">Tableau de bord</button><button data-tab="metrics">Métriques</button><button data-tab="list">Mes saisies</button><button data-tab="people">Personnes</button><button data-tab="settings">Paramètres</button></nav>
   <span class="status" id="status"><i></i><span>Chargement…</span></span>
   <button class="lockbtn hide" id="lockBtn" title="Verrouiller le carnet"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Verrouiller</button>
 </div>
@@ -357,10 +434,11 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 <div id="dash">
   <div class="kpis" id="kpisD"></div>
   <div class="khint" style="justify-content:flex-end"><button class="lnk" data-kcat>Changer mes indicateurs</button></div>
-  <div class="card sec" id="prioCard"><h2>Objectif prioritaire</h2><ul class="prios" id="prios"></ul><button class="addl" id="addPrio">+ Ajouter un objectif prioritaire</button></div>
+  <div class="dashpair"><div class="card sec" id="relCard"><h2>À relancer <span class="cntb" id="relN"></span></h2><div id="relList"></div></div>
+  <div class="card sec" id="prioCard"><h2>Objectif prioritaire</h2><ul class="prios" id="prios"></ul><button class="addl" id="addPrio">+ Ajouter un objectif prioritaire</button></div></div>
   <div class="card sec" id="actCard">
     <h2>Plan d'action <div class="pills" id="pills"></div></h2>
-    <table class="act"><thead><tr><th style="width:21%">Objectif prioritaire</th><th>Action</th><th style="width:150px">Date prévue</th><th style="width:22%">Résultat</th><th style="width:110px">Statut</th></tr></thead><tbody id="acts"></tbody></table>
+    <table class="act"><thead><tr><th class="fit">Objectif prioritaire</th><th>Action</th><th class="fit">Personne</th><th class="fit">Date prévue</th><th style="width:28%">Résultat</th><th class="fit">Statut</th></tr></thead><tbody id="acts"></tbody></table>
     <button class="addl" id="addAct">+ Ajouter une action</button>
   </div>
   <div class="card sec" id="objCard"><h2>Suivi indicateurs<select class="sel" id="qSel"></select></h2><table class="obj" id="obj"></table></div>
@@ -373,8 +451,8 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <div class="khint"><span class="hint" style="margin:0">Glisse un indicateur sur un autre pour les échanger. Les 3 premiers sont tes indicateurs principaux, aussi sur le tableau de bord.</span><button class="btn2" data-kcat>Choisir mes indicateurs</button></div>
   <div class="yearbar sec"><span class="flab">Année</span><div class="chips" id="yChips"></div></div>
   <div class="row2">
-    <div class="card"><h2>Temps passé par mois</h2><div class="legend" id="lg"></div><svg id="monthly" viewBox="0 0 720 250" width="100%"></svg></div>
-    <div class="card"><h2>Aisance <span class="seg" id="easeView"></span></h2><div id="easeMet" class="hide" style="margin-top:8px"></div><div class="legend box" id="easeLg"></div><svg id="ease" viewBox="0 0 720 250" width="100%"></svg></div>
+    <div class="card"><h2>Temps passé par mois</h2><div class="legend" id="lg"></div><svg id="monthly" viewBox="0 0 720 260" width="100%" height="260"></svg></div>
+    <div class="card"><h2>Aisance <span class="seg" id="easeView"></span></h2><div id="easeMet" class="hide" style="margin-top:8px"></div><div class="legend box" id="easeLg"></div><svg id="ease" viewBox="0 0 720 260" height="260" width="100%"></svg></div>
   </div>
 </div>
 
@@ -393,6 +471,14 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
     <h2>Détail des saisies <em id="cnt"></em><label class="small" style="margin-left:auto"><input type="checkbox" id="showArch"> Afficher les métriques archivées</label></h2>
     <div class="tblwrap"><table class="ent"><thead id="rowsHead"></thead><tbody id="rows"></tbody></table></div>
   </div>
+</div>
+
+<!-- ===== PERSONNES ===== -->
+<div id="people" class="hide">
+  <div class="card"><div class="pphead"><span class="seg big" id="ppView" style="margin-left:0"><button data-v="pipe" class="on">Pipeline</button><button data-v="list">Liste</button></span><input class="fin" id="ppQ" placeholder="Rechercher : nom, fonction, provenance, notes…" style="max-width:420px"><label class="small"><input type="checkbox" id="ppArch"> Personnes archivées</label><button class="cta" id="ppNew">+ Nouvelle personne</button></div>
+  <div class="chips" id="ppSt" style="margin-top:14px"></div></div>
+  <div class="ppgrid sec" id="ppList"></div>
+  <div class="pipe sec hide" id="ppPipe"></div>
 </div>
 
 <!-- ===== PARAMÈTRES ===== -->
@@ -418,22 +504,26 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <div class="card sec" id="setTypes">
     <h2>Types d'activité</h2>
     <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Tant que tu n'as pas retouché une couleur de type, elles suivent automatiquement tes couleurs de marque et ce classement. Tu peux ajouter jusqu'à 10 types : choisis pour chacun le calcul où il compte (heures de coaching, pratique délibérée, développement ou autre).</div>
-    <table class="pt" style="margin-top:10px"><thead><tr><th style="width:70px">Rang</th><th></th><th>Libellé</th><th>Durée par défaut</th><th>Notes d'aisance</th><th>Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table>
+    <table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée par défaut</th><th class="fit">Notes d'aisance</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table>
     <button class="addl" id="addType">+ Ajouter un type</button>
   </div>
   <div class="card sec" id="setMets">
     <h2>Métriques d'aisance</h2>
     <div class="hint">Une métrique « non suivie » disparaît de la saisie mais garde tout son historique : elle reste visible dans les graphiques des périodes où tu l'as notée, et dans Mes saisies avec « Afficher les métriques archivées ». Renommer une métrique conserve ses notes. Une métrique ne peut être supprimée que si elle n'a aucune note.</div>
-    <table class="pt" style="margin-top:12px"><thead><tr><th style="width:70px">Ordre</th><th>Libellé</th><th>Repère du 1</th><th>Repère du 5</th><th>Suivie</th><th>Notes</th><th></th></tr></thead><tbody id="metRows"></tbody></table>
+    <table class="pt tight" style="margin-top:12px"><thead><tr><th class="fit">Ordre</th><th class="fit">Libellé</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th class="fit">Suivie</th><th class="fit">Notes</th><th></th></tr></thead><tbody id="metRows"></tbody></table>
     <button class="addl" id="addMet">+ Ajouter une métrique</button>
   </div>
   <div class="pgrid sec">
     <div class="card" id="setSec"><h2>Sécurité</h2><div id="secBody"></div></div>
     <div class="card" id="setStore"><h2>Stockage des données</h2><div id="storeBody"></div></div>
   </div>
+  <div class="card sec" id="setCrm"><h2>Suivi des personnes</h2>
+    <div class="field" style="max-width:560px"><label>Alerte « sans contact »</label><div style="display:flex;align-items:center;gap:10px"><input class="fin" type="number" min="7" id="crmFroid" style="width:100px"><span class="hint" style="margin:0">jours sans contact pour une personne en conversation ou en attente de proposition</span></div></div>
+  </div>
   <div class="card sec" id="setFin"><h2>Coûts de l'activité</h2>
     <div class="hint">Déduits du taux horaire réel. Les charges annuelles sont réparties sur l'ensemble des contrats payants signés dans l'année.</div>
     <div class="field" style="max-width:560px"><label>Charges annuelles moyennes</label><input class="fin" type="number" min="0" id="finCh" placeholder="€ par an (assurance, formation, outils, cotisations…)"></div>
+    <div class="field" style="max-width:720px"><label>Charges dans le taux horaire</label><div><span class="seg" id="finMode" style="margin-left:0"><button data-m="entier">En entier</button><button data-m="prorata">Au prorata</button></span><div class="finprev" id="finPrev"></div></div></div>
     <div class="field" style="max-width:560px"><label>Coût habituel d'une supervision</label><input class="fin" type="number" min="0" id="finSup" placeholder="€ par séance (pré-rempli à la saisie)"></div>
   </div>
   <div class="card sec" style="display:flex;align-items:center;gap:14px"><div><h2>Mes indicateurs</h2><div class="hint" style="margin:2px 0 0">Choisis jusqu'à 6 indicateurs parmi 19, classés par pilier, et leur ordre.</div></div><button class="btn2" data-kcat style="margin-left:auto;white-space:nowrap">Choisir mes indicateurs</button></div>
@@ -443,7 +533,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
     <button class="btn2" id="expModel" style="margin-top:10px">Exporter un modèle sans données</button>
   </div>
 </div>
-<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
+<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · <a id="newsLink">Nouveautés</a> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
 </main>
 
 <!-- ===== POPUP SAISIE ===== -->
@@ -459,13 +549,53 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
   <div class="lab">Ce qu'on a vu</div><input class="fin" id="mCom" placeholder="1 ligne : thème, déclic, pattern repéré…">
   <div id="mSup" class="hide"><div class="lab">Coût de la supervision</div><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"></div>
   <div id="mProp" class="hide"><div class="lab">Proposition · montant et durée d'engagement</div>
-    <div class="two"><input type="number" class="fin" id="mEur" placeholder="Montant €" style="width:140px;flex:none"><div class="chips" id="mCdur"></div></div></div>
+    <div class="two"><input type="number" class="fin" id="mEur" placeholder="Montant €" style="width:140px;flex:none"><input type="number" min="1" class="fin" id="mSea" placeholder="Séances" title="Nombre de séances prévues" style="width:110px;flex:none"><div class="chips" id="mCdur"></div></div></div>
   <div id="mCR"><div class="lab">Suivi</div>
     <div class="two"><div class="tog" id="tCR"><b>✓</b>CR envoyé</div><div class="tog" id="tSY"><b>✓</b>Synthèse écrite</div></div></div>
   <div id="mAis"><div class="lab">Aisance</div><div id="mRates"></div></div>
   <button class="save" id="mSave">Enregistrer</button>
 </div></div>
 <div class="toast" id="toast"></div>
+
+<!-- fiche personne -->
+<div class="ov" id="pfM"><div class="modal pfm">
+  <div class="mh"><h2 id="pfTitle">Fiche</h2><button class="x" id="pfClose">✕</button></div>
+  <div class="pfgrid">
+    <div class="pfleft"><div class="pfav" id="pfAv" title="Changer la photo"></div>
+      <div class="pfavb"><button class="btn2" id="pfPh">Photo</button><button class="lnk" id="pfPhDel">Retirer</button></div>
+      <input type="file" id="pfFile" accept="image/*" class="hide"></div>
+    <div class="pfright">
+      <input class="fin pfnom" id="pfNom" placeholder="Prénom Nom">
+      <input class="fin" id="pfTit" placeholder="En une ligne : ex. Chef de projet chez Michel Musique" style="margin-top:8px">
+      <div class="pf3"><input class="fin" id="pfTel" placeholder="Téléphone" inputmode="tel"><input class="fin" id="pfMail" placeholder="E-mail" inputmode="email"><input class="fin" id="pfWeb" placeholder="Site web (lien)" inputmode="url"></div>
+      <div class="pflinks" id="pfLinks"></div>
+      <div class="pf2"><label class="pflab">Étape<select class="fin" id="pfEt"></select></label><label class="pflab">Provenance<input class="fin" id="pfSrc" list="pfSrcL" placeholder="Recommandation de…, réseau, LinkedIn, atelier…"><datalist id="pfSrcL"></datalist></label></div>
+      <label class="pflab">Description<textarea class="fin" id="pfNotes" rows="4" placeholder="Contexte, enjeux, ce qu'il faut savoir…"></textarea></label>
+    </div>
+  </div>
+  <div class="pfsec"><h3>Prochaines actions</h3><div id="pfActs"></div>
+    <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div></div>
+  <div class="pfsec" id="pfKS"><h3>Contrat</h3><div id="pfK"></div></div>
+  <div class="pfsec"><h3>En bref</h3><div class="pfsum" id="pfSum"></div></div>
+  <div class="pffoot"><button class="btn2" id="pfArch"></button><button class="btn2" id="pfSeeE">Voir ses saisies</button><button class="save" id="pfOk">Terminé</button></div>
+</div></div>
+
+<!-- recadrage photo -->
+<div class="ov" id="cropM"><div class="modal" style="width:min(400px,100%)">
+  <div class="mh"><h2>Recadrer la photo</h2><button class="x" id="crClose">✕</button></div>
+  <div class="crwrap"><canvas id="crCv" width="300" height="300"></canvas></div>
+  <input type="range" id="crZoom" min="1" max="4" step="0.01" value="1" style="width:100%;margin-top:12px">
+  <div class="hint">Fais glisser l'image pour la centrer dans le cercle, ajuste le zoom. La photo est compressée à l'enregistrement.</div>
+  <button class="save" id="crOk">Valider</button>
+</div></div>
+
+<!-- nouveautés -->
+<div class="ov" id="newsM"><div class="modal" style="width:min(640px,100%)">
+  <div class="mh"><h2 id="nwTitle">Quoi de neuf</h2><button class="x" id="nwClose">✕</button></div>
+  <div class="hint" style="margin-top:0" id="nwLead"></div>
+  <div id="nwBody"></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="save" id="nwOk" style="width:auto;padding:12px 28px;margin:0">J'ai compris</button></div>
+</div></div>
 
 <!-- catalogue d'indicateurs -->
 <div class="ov" id="kcat"><div class="modal kcm">
@@ -525,7 +655,10 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
    (identité, couleurs, types, métriques, saisies, objectifs…).
    ========================================================= */
 const VERSION=3, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
-const APP_VERSION=11, APP_DATE='2 novembre 2026';   // à incrémenter à chaque publication
+/* Version affichée : x.y.z (x = version majeure, y = nouvelle fonctionnalité, z = correctif).
+   APP_VERSION = numéro de publication interne, +1 à chaque publication quelle qu'elle soit :
+   il est enregistré dans le carnet (app_version) et met en lecture seule les versions plus anciennes. */
+const APP_SEMVER='1.2.3', APP_VERSION=20, APP_DATE='4 novembre 2026';
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
@@ -535,7 +668,7 @@ const MAX_TYPES=10;
 /* rôle d'un type dans les calculs : intégrés = fixes ; types ajoutés = choisis par l'utilisateur */
 const ROLES={coaching:'Heures de coaching',delib:'Pratique délibérée',dev:'Développement',autre:'Autre'};
 const BUILTIN_ROLE={conversation:'coaching',session:'coaching',debrief:'delib',supervision:'delib',proposition:'dev',reseau:'dev',annexe:'autre'};
-const typeRole=(k,C)=>BUILTIN_ROLE[k]||C.types[k]?.role||'autre';
+const typeRole=(k,C)=>C.types[k]?.role||BUILTIN_ROLE[k]||'autre';
 const keysOf=c=>[...BUILTIN,...Object.keys(c.types||{}).filter(k=>!BUILTIN.includes(k)&&c.types[k]?.perso)];
 const TYPE_ROLE={conversation:{p:1,cr:1},proposition:{p:1,prop:1},session:{p:1,cr:1},reseau:{p:1},debrief:{p:1},supervision:{p:1},annexe:{}};
 const KPI_DEFAULT=['h','delib','conv','coach','reg','caprop'];
@@ -598,6 +731,7 @@ function migrate(d){
   d=JSON.parse(JSON.stringify(d||{}));delete d.format;const v=d.version_schema||0;
   d.personnes=d.personnes||[];d.entrees=d.entrees||[];
   d.objectifs=(d.objectifs&&!Array.isArray(d.objectifs))?d.objectifs:{};d.priorites=d.priorites||[];d.actions=d.actions||[];d.prefs=d.prefs||{};
+  (d.personnes||[]).forEach(p=>{if(p.linkedin!==undefined){if(p.linkedin&&!p.site)p.site=p.linkedin;delete p.linkedin}});
   d.entrees.forEach(e=>{
     if(e.contrat&&!e.engagement_mois){e.engagement_mois=e.contrat;delete e.contrat}
     if(Array.isArray(e.ais)){const o={};e.ais.forEach((x,i)=>{if(x)o['m'+(i+1)]=x});e.ais=Object.keys(o).length?o:null}   // v2 : tableau → par identifiant
@@ -609,7 +743,7 @@ function migrate(d){
   c.metriques=c.metriques||D.metriques;
   if(!Array.isArray(c.kpis)||c.kpis.some(k=>k=='prop'||k=='ca'))c.kpis=[...KPI_DEFAULT];   // ancienne liste fixe → nouvelle sélection par défaut
   c.kpis=[...new Set(c.kpis.filter(k=>KPI_ALL.includes(k)))].slice(0,6);if(!c.kpis.length)c.kpis=[...KPI_DEFAULT];
-  c.finances={charges:0,supDefaut:0,...(c.finances||{})};
+  c.finances={charges:0,supDefaut:0,mode:'entier',...(c.finances||{})};c.crm={froid:30,...(c.crm||{})};
   if(!Array.isArray(c.ordre))c.ordre=[...DEF_ORDER];c.ordre=[...new Set(c.ordre.filter(k=>KK.includes(k)))];KK.forEach(k=>{if(!c.ordre.includes(k))c.ordre.push(k)});['nom','outil','sousTitre'].forEach(k=>{if(c[k]==null)c[k]=D[k]});
   delete d.prefs.aisOrdre;delete d.prefs.kpiStyle;
   d.actions.forEach((a,i)=>{if(!a.id)a.id=i+1});
@@ -755,12 +889,22 @@ async function payload(){return DEKK?await sealObj(DB):DB}
    ========================================================= */
 const compatBook=(a,b)=>!a?.id||!b?.id||a.id===b.id;
 const sig=e=>`${e.date}|${e.type}|${e.pid}`;
+/* Après une fusion, on met à jour le carnet EN PLACE : les fenêtres ouvertes (fiche, paramètres, parcours)
+   gardent ainsi les mêmes objets, et ce qu'on tape ensuite est bien enregistré. */
+const isObj=x=>x&&typeof x=='object'&&!Array.isArray(x);
+function inPlace(o,n){
+  if(Array.isArray(o)&&Array.isArray(n)){const byId=new Map(o.filter(x=>isObj(x)&&x.id!=null).map(x=>[String(x.id),x]));
+    const r=n.map((x,i)=>{if(!isObj(x))return x;const old=x.id!=null?byId.get(String(x.id)):(isObj(o[i])&&o[i].id==null?o[i]:null);if(old){inPlace(old,x);return old}return x});
+    o.splice(0,o.length,...r);return o}
+  Object.keys(o).forEach(k=>{if(!(k in n))delete o[k]});
+  Object.keys(n).forEach(k=>{const a=o[k],b=n[k];if((Array.isArray(a)&&Array.isArray(b))||(isObj(a)&&isObj(b)))inPlace(a,b);else o[k]=b});return o}
+function adoptDB(n){if(!DB){DB=n;return}inPlace(DB,n)}
 function mergeDB(A,B){
   const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
   const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})}};R.supprimes=sup;
   const remap={};let added=0;
   (O.personnes||[]).forEach(p=>{const q=R.personnes.find(x=>String(x.id)===String(p.id));
-    if(q&&byName(q.nom,p.nom)==0)return;
+    if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||''))Object.assign(q,p);return}
     const same=R.personnes.find(x=>byName(x.nom,p.nom)==0);if(same){remap[p.id]=same.id;return}
     if(!q){R.personnes.push({...p});return}
     const nid=nextId(R.personnes);remap[p.id]=nid;R.personnes.push({...p,id:nid})});
@@ -773,7 +917,8 @@ function mergeDB(A,B){
     return dst.filter(x=>!sup[key][String(x.id)])};
   R.entrees=mergeList(R.entrees,(O.entrees||[]).map(e=>({...e,pid:e.pid!=null&&remap[e.pid]!=null?remap[e.pid]:e.pid})),'e',(r,x)=>sig(r)===sig(x));
   R.actions=mergeList(R.actions,(O.actions||[]).map(a=>({...a})),'a',(r,x)=>r.a===x.a);
-  R.app_version=Math.max(+A.app_version||0,+B.app_version||0);
+  R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
+  {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
   return{db:R,added}}
 
 function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version de l\'application est périmée. Recharge-la (Ctrl+F5).');return}
@@ -782,7 +927,7 @@ function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version
 let PQ=Promise.resolve();
 function persist(){PQ=PQ.then(_persist,_persist);return PQ}
 async function _persist(){if(!DB||READONLY)return;
-  DB.app_version=Math.max(+DB.app_version||0,APP_VERSION);
+  if((+DB.app_version||0)<=APP_VERSION){DB.app_version=APP_VERSION;DB.app_semver=APP_SEMVER}
   if(!(DIR&&!NEEDPERM)){await idb.set('data',await payload());setStatus('local');return}
   try{
     const cur=await readFile(DIR,FILE);let curObj=null;if(cur){try{curObj=JSON.parse(cur)}catch(e){setStatus('err',`${FILE} illisible : non écrasé`);return}}
@@ -793,11 +938,11 @@ async function _persist(){if(!DB||READONLY)return;
       if(!p){setStatus('err','Fichier modifié ailleurs avec un autre mot de passe : non écrasé');return}
       if((+p.app_version||0)>APP_VERSION){READONLY=true;banner('old');setStatus('err','Lecture seule');return}
       await snapshot(cur,'avant-fusion');
-      const m=mergeDB(DB,migrate(p));DB=m.db;DB.enregistre_le=new Date().toISOString();DB.app_version=Math.max(+DB.app_version||0,APP_VERSION);
+      const m=mergeDB(DB,migrate(p));adoptDB(m.db);DB.enregistre_le=new Date().toISOString();DB.app_version=Math.max(+DB.app_version||0,APP_VERSION);
       if(m.added)toast(`${m.added} saisie(s) enregistrée(s) ailleurs ont été réunies dans ton carnet`);renderAll()}
     else if(cur)await snapshot(cur);
-    const obj=await payload(),txt=JSON.stringify(obj,null,1);await idb.set('data',obj);
-    await writeFile(DIR,FILE,txt);LASTSEEN=DB.enregistre_le;setStatus('ok')
+    const ws=DB.enregistre_le,obj=await payload(),txt=JSON.stringify(obj,null,1);await idb.set('data',obj);
+    await writeFile(DIR,FILE,txt);LASTSEEN=ws;setStatus(DB.enregistre_le===ws?'ok':'busy')
   }catch(e){await idb.set('data',await payload());setStatus('err','Écriture du fichier impossible');NEEDPERM=true;banner('reconnect')}}
 window.addEventListener('beforeunload',e=>{if($('status').classList.contains('busy')){e.preventDefault();e.returnValue=''}});
 
@@ -817,7 +962,7 @@ async function connectDir(useExisting){
 async function startFresh(){const c=await idb.get('data'),d=await idb.get('dir');
   if(c&&!d&&!confirm("Le carnet actuel n'est enregistré que dans ce navigateur et sera remplacé par un nouveau carnet. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nContinuer ?"))return false;
   if(DB){clearTimeout(saveT);await persist()}
-  DIR=null;NEEDPERM=false;await idb.set('dir',null);await setDEK(null);ENV=null;DB=migrate(null);touch();await afterLoad();return true}
+  DIR=null;NEEDPERM=false;await idb.set('dir',null);await setDEK(null);ENV=null;DB=migrate(null);DB.prefs.nouveautes_vues=APP_VERSION;touch();await afterLoad();return true}
 
 function setStatus(s,msg){const el=$('status');el.className='status '+(s=='ok'?'':s);
   const h=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),lockTxt=DEKK?' · chiffré':'';
@@ -848,7 +993,7 @@ $('impFile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!
   if(!d.entrees){toast('Fichier JSON non reconnu');return}
   if(DB&&E().length){
    if(compatBook(d,DB)&&confirm(`Récupérer dans ton carnet les saisies de ce fichier qui n'y sont pas ?\nRien n'est supprimé ni remplacé : c'est la bonne option pour retrouver des saisies perdues.\n\nOK = fusionner · Annuler = autres options`)){
-    const m=mergeDB(DB,migrate(d));DB=m.db;touch();await afterLoad();toast(`${m.added} saisie(s) récupérée(s)`);return}
+    const m=mergeDB(DB,migrate(d));adoptDB(m.db);touch();await afterLoad();toast(`${m.added} saisie(s) récupérée(s)`);return}
    if(!confirm(`Remplacer entièrement ton carnet (${E().length} saisies) par ce fichier (${d.entrees.length} saisies) ?\nL'état actuel reste dans /${BKDIR}.`))return}
   const first=!DB;DB=migrate(d);closeWizard();touch();await afterLoad();if(first&&!d.entrees.length){openWizard(2,true);toast('Modèle importé : ajuste-le à ta pratique')}else toast('Données importées')};
 $('chDir').onclick=()=>FS_OK?connectDir(false):toast('Utilise Chrome ou Edge pour relier un dossier');
@@ -925,9 +1070,9 @@ const KPIDEF={
  basket:{p:3,l:'Panier moyen',w:'an',u:'La valeur moyenne d\'un contrat signé.',v:D=>[D.s.nacc?num(D.s.ca/D.s.nacc):'—',D.s.nacc?'€':''],
    d:D=>{const A=yearData(D.Y).filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0);return A.length?`par contrat · engagement moyen <b>${n1(A.reduce((s,e)=>s+(+e.engagement_mois||0),0)/A.length)} mois</b>`:'aucun contrat signé cette année'}},
  rate:{p:3,l:'Taux horaire réel',w:'an',u:'Ce que vaut vraiment ton heure : CA moins supervision et charges, rapporté à toutes tes heures.',
-   v:D=>{const h=H(yearData(D.Y)),net=D.s.ca-D.s.sup-(D.s.nacc?CFG().finances.charges:0);return[h&&D.s.ca?num(net/h):'—',h&&D.s.ca?'€/h':'']},
-   d:D=>{const F=CFG().finances,h=H(yearData(D.Y));if(!D.s.nacc)return `aucun contrat payant signé en ${D.Y}`;
-    return `(${eur(D.s.ca)} CA − ${eur(D.s.sup)} supervision − ${eur(F.charges)} charges, soit ${eur(F.charges/D.s.nacc)} par contrat payant) ÷ <b>${n1(h)} h</b>`}},
+   v:D=>{const h=H(yearData(D.Y)),net=D.s.ca-D.s.sup-(D.s.nacc?chargesYTD(D).v:0);return[h&&D.s.ca?num(net/h):'—',h&&D.s.ca?'€/h':'']},
+   d:D=>{const C=chargesYTD(D),h=H(yearData(D.Y));if(!D.s.nacc)return `aucun contrat payant signé en ${D.Y}`;
+    return `(${eur(D.s.ca)} CA − ${eur(D.s.sup)} supervision − ${eur(C.v)} charges${C.pr?` (${C.pr} % de l'année)`:''}, soit ${eur(C.v/D.s.nacc)} par contrat payant) ÷ <b>${n1(h)} h</b>`}},
  late:{p:4,l:'Actions en retard',w:'now',u:'Ce qui glisse dans ton plan d\'action.',v:D=>[DB.actions.filter(a=>a.s=='encours'&&a.d&&a.d<D.t).length,''],
    d:()=>`${pl(DB.actions.filter(a=>a.s=='encours').length,'action')} en cours · ${DB.actions.filter(a=>a.s=='realisee').length} réalisée(s)`},
  target:{p:4,l:'Cibles du trimestre',w:'tri',u:'Où tu en es de tes objectifs chiffrés.',
@@ -935,6 +1080,9 @@ const KPIDEF={
    d:D=>{const x=targetProgress(D);return x.length?x.slice(0,3).map(t=>`${t.l} <b>${pct(t.p)} %</b>`).join(' · '):'aucune cible définie pour ce trimestre'}},
  share:{p:4,l:'Part du coaching',w:'an',u:'La place du coaching dans tout ton temps.',v:D=>{const h=H(yearData(D.Y));return[h?pct(D.s.h/h):'—',h?'%':'']},
    d:D=>{const h=H(yearData(D.Y));return h?`pratique délibérée <b>${pct(D.s.delib/h)} %</b> · annexe ${pct(H(yearData(D.Y).filter(e=>e.type=='annexe'))/h)} %`:'aucune saisie cette année'}}};
+/* charges de l'année : en entier, ou au prorata des jours écoulés */
+function chargesYTD(D){const F=CFG().finances,c=+F.charges||0;if(F.mode!='prorata')return{v:c,pr:0};
+ const y=+D.Y,start=Date.UTC(y,0,1),end=Date.UTC(y+1,0,1),now=new Date(D.t+'T12:00:00Z').getTime(),r=Math.min(1,(now-start)/(end-start));return{v:c*r,pr:Math.round(r*100)}}
 function targetProgress(D){const q=`${D.Y}T${D.Q}`,O=DB.objectifs[q]||{},per=periods(q)[0],st=stats(range(per.a,per.b));
   return OROWS.filter(r=>+O[r.k]>0).map(r=>({l:r.l.split(' ')[0],p:Math.min(1,st[r.k]/O[r.k])}))}
 const kOrder=()=>{const o=CFG().kpis;return Array.isArray(o)&&o.length?o.filter(k=>KPIDEF[k]):[...KPI_DEFAULT]};
@@ -978,9 +1126,11 @@ let YSEL=null;
 function renderYears(){const ys=years();if(!YSEL||!ys.includes(YSEL))YSEL=today().slice(0,4);
  $('yChips').innerHTML=ys.map(y=>`<button class="chip ${y==YSEL?'on':''}" data-y="${y}">${y}</button>`).join('');
  $('yChips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{YSEL=b.dataset.y;renderAll()})}
-function renderMonthly(){const y=YSEL,W=720,Hh=250,l=36,b=26,top=14,cur=today();
+/* largeur réelle du cadre : texte à taille normale, barres réparties sur tout l'espace */
+const svgW=id=>{const el=$(id),w=Math.round(el?.getBoundingClientRect().width||0);const W=w>200?w:720;el.setAttribute('viewBox',`0 0 ${W} 260`);return W};
+function renderMonthly(){const y=YSEL,W=svgW('monthly'),Hh=260,l=36,b=26,top=16,cur=today();
  const ST=STACK.map(k=>TM[k]),M=MO.map((_,i)=>ST.map(t=>H(E().filter(e=>e.type==t.k&&e.date.startsWith(y+'-'+pad(i+1))))));
- const tot=M.map(r=>r.reduce((a,b)=>a+b,0)),mx=Math.max(...tot),stepv=mx>60?20:mx>20?10:mx>8?4:2,max=Math.max(4,Math.ceil(mx/stepv)*stepv),bw=36,step=(W-l-10)/12;let g='';
+ const tot=M.map(r=>r.reduce((a,b)=>a+b,0)),mx=Math.max(...tot),stepv=mx>60?20:mx>20?10:mx>8?4:2,max=Math.max(4,Math.ceil(mx/stepv)*stepv),step=(W-l-10)/12,bw=Math.max(14,Math.min(56,step*.62));let g='';
  for(let v=0;v<=max;v+=stepv){const yy=Hh-b-(v/max)*(Hh-b-top);g+=`<line x1="${l}" x2="${W-6}" y1="${yy}" y2="${yy}" stroke="#EEE"/><text x="${l-8}" y="${yy+4}" text-anchor="end">${v}h</text>`}
  M.forEach((row,i)=>{const x=l+i*step+(step-bw)/2;let yy=Hh-b;const isCur=y==cur.slice(0,4)&&i==+cur.slice(5,7)-1;
   g+=`<text x="${x+bw/2}" y="${Hh-8}" text-anchor="middle" style="${isCur?'fill:var(--jet);font-weight:800':''}">${MO[i]}</text>`;
@@ -992,7 +1142,7 @@ function renderMonthly(){const y=YSEL,W=720,Hh=250,l=36,b=26,top=14,cur=today();
 /* ---------- aisance dans le temps ---------- */
 let EVIEW='met',EMET=null,EHIDE=new Set(),dragM=null;
 const posColor=(i,n)=>PAL[n<=1?0:Math.round(i*(PAL.length-1)/(n-1))];   // gauche → droite : rouge … gris
-function renderEase(){const y=YSEL,W=720,Hh=250,l=36,b=26,top=14,step=(W-l-10)/12;
+function renderEase(){const y=YSEL,W=svgW('ease'),Hh=260,l=36,b=26,top=16,step=(W-l-10)/12;
  $('easeView').innerHTML=`<button data-v="met" class="${EVIEW=='met'?'on':''}">Toutes les métriques</button><button data-v="type" class="${EVIEW=='type'?'on':''}">Une métrique par type</button>`;
  $('easeView').querySelectorAll('button').forEach(b=>b.onclick=()=>{EVIEW=b.dataset.v;EHIDE.clear();renderEase()});
  const pts=E().filter(e=>e.date.startsWith(y)&&hasAis(e));
@@ -1086,11 +1236,13 @@ function renderActs(){const A=DB.actions,t=today();
   <td><div class="prio-cell"><select class="ed" data-k="psel">${names.map(n=>`<option ${n==a.p?'selected':''}>${esc(n)}</option>`).join('')}<option value="__o" ${custom?'selected':''}>Autre…</option></select>
    ${custom?`<input class="ed" data-k="p" value="${esc(a.p)}" placeholder="Saisir une valeur" style="font-size:13px;color:var(--am)">`:''}</div></td>
   <td><input class="ed" data-k="a" value="${esc(a.a)}" placeholder="Décrire l'action"></td>
+  <td><select class="ed" data-k="pid"><option value="">—</option>${DB.personnes.filter(p=>!p.archive||p.id==a.pid).sort((x,y)=>byName(x.nom,y.nom)).map(p=>`<option value="${p.id}" ${p.id==a.pid?'selected':''}>${esc(p.nom)}</option>`).join('')}</select></td>
   <td class="${late?'late':''}"><input type="date" class="ed" data-k="d" value="${a.d||''}">${late?'<div style="font-size:11px;color:var(--am);font-weight:800;padding-left:7px">En retard</div>':''}</td>
   <td><input class="ed" data-k="r" value="${esc(a.r)}" placeholder="—"></td>
-  <td><select class="st ${a.s}" data-k="s">${Object.keys(SS).map(k=>`<option value="${k}" ${k==a.s?'selected':''}>${SS[k]}</option>`).join('')}</select></td></tr>`}).join('')||`<tr><td colspan="5" class="empty">Aucune action ${SL[AF].toLowerCase()}.</td></tr>`;
+  <td><select class="st ${a.s}" data-k="s">${Object.keys(SS).map(k=>`<option value="${k}" ${k==a.s?'selected':''}>${SS[k]}</option>`).join('')}</select></td></tr>`}).join('')||`<tr><td colspan="6" class="empty">Aucune action ${SL[AF].toLowerCase()}.</td></tr>`;
  $('acts').querySelectorAll('tr[data-id]').forEach(tr=>{const a=A.find(x=>x.id==tr.dataset.id);
   tr.querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{const k=el.dataset.k;
+   if(k=='pid'){a.pid=el.value?pById(el.value)?.id??null:null;a.maj=new Date().toISOString();touch();return}
    if(k=='psel'){a.p=el.value=='__o'?'':el.value;touch();renderActs();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
    a[k]=el.value;a.maj=new Date().toISOString();touch();
    if(k=='s'){tr.className=a.s=='realisee'?'done':a.s=='annulee'?'cancel':'';el.className='st '+a.s;
@@ -1119,42 +1271,53 @@ function renderList(){
  $('sum').innerHTML=[[L.length,'saisies'],[n1(H(L))+' h','temps total'],[n1(s.h)+' h','dont coaching'],[n1(s.delib)+' h','pratique délibérée'],[f2f.length?Math.round(f2f.filter(e=>e.cr).length/f2f.length*100)+' %':'—','CR faits'],[f2f.length?Math.round(f2f.filter(e=>e.syn).length/f2f.length*100)+' %':'—','synthèses faites']].map(([v,l])=>`<div><b>${v}</b>${l}</div>`).join('');
  renderPCards();bindArch();renderRows(L)}
 function badge(all){const P=all.filter(e=>e.type=='proposition'&&e.statut=='acceptee');
- if(all.some(e=>e.type=='session'))return P.some(e=>+e.eur>0)?['Client','']:['Pro bono','pb'];
+ if(all.some(e=>e.type=='session'))return P.some(e=>+e.eur>0)?['Client.e','']:['Pro bono','pb'];
  if(all.some(e=>e.type=='conversation'))return['Pro bono','pb'];
- return[all.some(e=>e.type=='supervision')?'Superviseur':'Réseau','ot']}
-function bindArch(){$('pcards').querySelectorAll('[data-arch]').forEach(b=>b.onclick=()=>{const p=DB.personnes.find(x=>String(x.id)===b.dataset.arch);if(!p)return;p.archive=!p.archive;p.maj=new Date().toISOString();touch();renderList();toast(p.archive?`${p.nom} archivé : retrouvable dans « Clients archivés »`:`${p.nom} réactivé`)})}
+ return[all.some(e=>e.type=='supervision')?'Superviseur.e':'Réseau','ot']}
+function bindArch(){$('pcards').querySelectorAll('[data-pfo]').forEach(b=>b.onclick=()=>openFiche(b.dataset.pfo));$('pcards').querySelectorAll('[data-arch]').forEach(b=>b.onclick=()=>{const p=DB.personnes.find(x=>String(x.id)===b.dataset.arch);if(!p)return;p.archive=!p.archive;p.maj=new Date().toISOString();touch();renderList();toast(p.archive?`${p.nom} archivé : retrouvable dans « Clients archivés »`:`${p.nom} réactivé`)})}
 function renderPCards(){
  $('pcards').innerHTML=[...F.p].map(pid=>{const all=E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));if(!all.length)return'';
   const s=stats(all),ai=all.filter(hasAis),[bl,bc]=badge(all),first=all[0].date,last=all.at(-1).date;
   const t0=new Date(first).getTime(),t1=Math.max(new Date(today()).getTime(),t0+1),props=all.filter(e=>e.type=='proposition');
   const ms=metrics().filter(m=>ai.some(e=>e.ais[m.id]));
   const per=DB.personnes.find(x=>x.id==pid);
-  return `<div class="pc"><div class="nm">${esc(pname(pid))}<span class="bd ${bc}">${bl}</span>${per?.archive?'<span class="bd ar">Archivé</span>':''}<button class="arch-btn" data-arch="${pid}">${per?.archive?'Réactiver':'Archiver'}</button></div>
+  return `<div class="pc"><div class="nm">${avatar(per,34)}${esc(pname(pid))}<span class="bd ${bc}">${bl}</span>${per?.archive?'<span class="bd ar">Archivé</span>':''}<button class="arch-btn" data-pfo="${pid}">Fiche</button><button class="arch-btn" style="margin-left:6px" data-arch="${pid}">${per?.archive?'Réactiver':'Archiver'}</button></div>${per?.titre||per?.site?`<div class="meta" style="margin-top:0">${per?.titre?esc(per.titre):''}${per?.titre&&per?.site?' · ':''}${siteLink(per)}</div>`:''}
   <div class="meta">Depuis le ${dShort(first)} · dernière fois le ${dShort(last)}</div>
   <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · engagement '+s.mois+' mois':''}</div></div>
   ${ms.length?`<div class="ais">${ms.map(m=>{const a=ai.filter(e=>e.ais[m.id]),v=a.reduce((x,e)=>x+e.ais[m.id],0)/a.length;return `<span>${esc(m.l)}${m.actif?'':' <small style="color:#B5B7BA">(archivée)</small>'}</span><div class="bar"><b style="width:${(v-1)/4*100}%"></b></div><b>${n1(v)}</b>`}).join('')}</div>`:'<div style="font-size:12px;color:var(--grey)">Aisance : pas encore de notes</div>'}
   <div class="tl">${all.map(e=>`<i title="${dShort(e.date)} · ${esc(TM[e.type]?.l)}" style="left:${(new Date(e.date)-t0)/(t1-t0)*96}%;background:${TM[e.type]?.c}"></i>`).join('')}</div></div>`}).join('')}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
 const short=s=>s.length>12?s.slice(0,11)+'.':s;
+const LV={notes:false,k:false};
 function renderRows(L){
  const MS=$('showArch').checked?metrics():mActive();
- $('rowsHead').innerHTML=`<tr><th>Personne</th><th>Date</th><th>Type</th><th>Durée</th><th style="width:26%">Ce qu'on a vu</th>${MS.map(m=>`<th class="c ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${esc(short(m.l))}</th>`).join('')}<th class="c">CR</th><th class="c">Synth.</th><th>Contrat / coût</th><th></th></tr>`;
+ const NH=!MS.length?'':LV.notes?MS.map((m,i)=>`<th class="c cn fit ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${i==0?'<button class="tgl" data-tg="notes" title="Replier les notes">◂</button>':''}${esc(short(m.l))}</th>`).join(''):`<th class="cn fit"><button class="tgl" data-tg="notes" title="Déplier pour modifier les notes">Notes ▸</button></th>`;
+ const KH=LV.k?`<th class="kk fit"><button class="tgl" data-tg="k" title="Replier">◂</button>Accepté</th><th class="kk fit">Montant</th><th class="kk fit">Durée</th><th class="kk fit">Séances</th>`:`<th class="kk fit"><button class="tgl" data-tg="k" title="Déplier pour modifier">Contrat / coût ▸</button></th>`;
+ $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th>Ce qu'on a vu</th>${NH}${KH}<th class="fit"></th></tr>`;
+ $('rowsHead').querySelectorAll('[data-tg]').forEach(b=>b.onclick=()=>{LV[b.dataset.tg]=!LV[b.dataset.tg];renderRows(L)});
  L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
  $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
  <td>${e.pid!=null?`<span class="plink" data-p="${e.pid}">${esc(pname(e.pid))}</span>`:'<span style="color:#C9CBCE">—</span>'}</td>
  <td><input type="date" class="ed" data-k="date" value="${e.date}" style="width:122px"></td>
  <td class="ty"><select class="tysel" data-k="type" style="background:${t.c};color:${tc(t.c)}">${T.map(x=>`<option value="${x.k}" ${x.k==e.type?'selected':''} style="background:#fff;color:#1d1d1f">${esc(x.l)}</option>`).join('')}</select></td>
  <td><select class="ed" data-k="dur" style="width:72px">${(DURS.includes(e.dur)?DURS:[e.dur,...DURS]).map(d=>`<option value="${d}" ${d==e.dur?'selected':''}>${fmtD(d)}</option>`).join('')}</select></td>
- <td><input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—"></td>
- ${MS.map(m=>{const v=e.ais?.[m.id]||0;return `<td>${t.ais||v?`<select class="as" data-m="${m.id}" title="${esc(m.l)}" style="background:${AC[v]}"><option value="">·</option>${[1,2,3,4,5].map(n=>`<option ${v==n?'selected':''}>${n}</option>`).join('')}</select>`:''}</td>`}).join('')}
  <td>${t.cr?`<div class="ck ${e.cr?'on':''}" data-c="cr">✓</div>`:''}</td><td>${t.cr?`<div class="ck ${e.syn?'on':''}" data-c="syn">✓</div>`:''}</td>
- <td>${e.type=='proposition'?`<div class="contrat"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€"><select class="ed" data-k="engagement_mois">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select><select class="ed" data-k="statut" style="font-weight:800;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></div>`:e.type=='supervision'?`<div class="contrat"><input class="ed" type="number" min="0" data-k="cout" value="${e.cout??''}" placeholder="coût €"></div>`:''}</td>
- <td><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${10+MS.length}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
+ <td class="grow"><input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—"></td>
+ ${!MS.length?'':LV.notes?MS.map(m=>{const v=e.ais?.[m.id]||0;return `<td class="cn">${t.ais||v?`<select class="as" data-m="${m.id}" title="${esc(m.l)}" style="background:${AC[v]}"><option value="">·</option>${[1,2,3,4,5].map(n=>`<option ${v==n?'selected':''}>${n}</option>`).join('')}</select>`:''}</td>`}).join('')
+   :`<td class="cn sumc" data-open="notes">${e.ais&&Object.keys(e.ais).length?MS.map(m=>e.ais[m.id]||'·').join(' '):''}</td>`}
+ ${LV.k?(e.type=='proposition'?`<td class="kk"><select class="ed" data-k="statut" style="font-weight:800;width:auto;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></td>
+   <td class="kk"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€" style="width:80px"></td>
+   <td class="kk"><select class="ed" data-k="engagement_mois" style="width:auto">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></td>
+   <td class="kk"><input class="ed" type="number" min="1" data-k="seances" value="${e.seances??''}" placeholder="—" title="Séances prévues" style="width:62px"></td>`
+   :e.type=='supervision'?`<td class="kk"></td><td class="kk"><input class="ed" type="number" min="0" data-k="cout" value="${e.cout??''}" placeholder="coût €" style="width:80px"></td><td class="kk"></td><td class="kk"></td>`:'<td class="kk"></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>')
+   :`<td class="kk sumc" data-open="k">${e.type=='proposition'?`<b style="color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${STAT[e.statut]||'En attente'}</b> · ${eur(e.eur)}${e.engagement_mois?' · '+e.engagement_mois+' mois':''}${e.seances?' · '+e.seances+' séances':''}`:e.type=='supervision'&&e.cout!=null&&e.cout!==''?`coût ${eur(e.cout)}`:''}</td>`}
+ <td><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${8+(MS.length?(LV.notes?MS.length:1):0)+(LV.k?4:1)}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
+ $('rows').querySelectorAll('[data-open]').forEach(c=>c.ondblclick=c.onclick=()=>{LV[c.dataset.open]=true;renderRows(L)});
  $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
   tr.querySelectorAll('.ck').forEach(c=>c.onclick=()=>{e[c.dataset.c]=!e[c.dataset.c];c.classList.toggle('on');fl()});
   tr.querySelectorAll('select.as').forEach(s=>s.onchange=()=>{e.ais=e.ais||{};if(s.value)e.ais[s.dataset.m]=+s.value;else delete e.ais[s.dataset.m];if(!Object.keys(e.ais).length)e.ais=null;s.style.background=AC[+s.value||0];fl()});
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
-   e[k]=['dur','eur','engagement_mois','cout'].includes(k)?(i.value===''?null:+i.value):i.value;
+   e[k]=['dur','eur','engagement_mois','cout','seances'].includes(k)?(i.value===''?null:+i.value):i.value;
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
    fl();if(['type','date','statut'].includes(k))renderList()});
   tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
@@ -1162,7 +1325,7 @@ function renderRows(L){
 $('showArch').onchange=renderList;
 
 /* ---------- types ajoutés par l'utilisateur ---------- */
-function roleCell(k,C){if(BUILTIN.includes(k))return `<span class="rolefix">${ROLES[typeRole(k,C)]}</span>`;
+function roleCell(k,C){
  return `<select class="ed" data-role="${k}" style="width:auto">${Object.entries(ROLES).map(([r,l])=>`<option value="${r}" ${r==typeRole(k,C)?'selected':''}>${l}</option>`).join('')}</select>`}
 function delCell(k){if(BUILTIN.includes(k))return '';const n=E().filter(e=>e.type==k).length;
  return n?`<span class="hint" style="margin:0" title="Utilisé par ${n} saisie(s)">${n} saisie(s)</span>`:`<button class="ibtn del" data-tdel="${k}" title="Supprimer ce type">✕</button>`}
@@ -1205,6 +1368,13 @@ function renderSecurity(){const on=!!DEKK,al=DB.prefs.autolock??15;
  if($('stOther'))$('stOther').onclick=()=>connectDir(false);
  $('stNew').onclick=async()=>{if(!confirm('Créer un nouveau carnet vide ?'+(DIR?` Ton carnet actuel reste dans le dossier « ${DIR.name} ».`:'')))return;if(await startFresh())openWizard(0,false)}}
 function renderSettings(){const C=CFG();
+ const finUI=()=>{const m=C.finances.mode||'entier',D=kctx(),keep=C.finances.mode,res={};
+  ['entier','prorata'].forEach(x=>{C.finances.mode=x;res[x]={v:KPIDEF.rate.v(D),c:chargesYTD(D)}});C.finances.mode=keep;
+  $('finMode').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.m==m);b.onclick=()=>{C.finances.mode=b.dataset.m;touch();finUI()}});
+  const t=x=>`${res[x].v[0]} ${res[x].v[1].replace(/<[^>]+>/g,'')}`.trim();
+  $('finPrev').innerHTML=`<div class="${m=='entier'?'on':''}"><b>${t('entier')}</b>en entier · ${eur(res.entier.c.v)} de charges déduites</div><div class="${m=='prorata'?'on':''}"><b>${t('prorata')}</b>au prorata · ${eur(res.prorata.c.v)} (${res.prorata.c.pr} % de l'année)</div>`};
+ finUI();$('finCh').addEventListener('change',()=>setTimeout(finUI,0));
+ $('crmFroid').value=C.crm.froid;$('crmFroid').onchange=e=>{C.crm.froid=Math.max(7,+e.target.value||30);touch()};
  $('finCh').value=C.finances.charges||'';$('finSup').value=C.finances.supDefaut||'';
  $('finCh').onchange=e=>{C.finances.charges=+e.target.value||0;touch()};$('finSup').onchange=e=>{C.finances.supDefaut=+e.target.value||0;touch()};renderSecurity();
  document.querySelectorAll('[data-c]').forEach(i=>{i.value=C[i.dataset.c]||'';i.oninput=()=>{C[i.dataset.c]=i.value;touch();applyConfig()}});
@@ -1242,7 +1412,173 @@ $('addMet').onclick=()=>{const M=CFG().metriques,n=M.reduce((x,m)=>Math.max(x,+m
 /* ---------- onglets ---------- */
 let TAB='dash';
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x==b));
- ['dash','metrics','list','settings'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));renderAll()});
+ ['dash','metrics','list','people','settings'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));renderAll()});
+
+/* =========================================================
+   PERSONNES (CRM léger) : étape, fiche, photo, relances
+   ========================================================= */
+const ETAPES=[['contact','Contact'],['conversation','En conversation'],['proposition','Proposition envoyée'],['client','Client.e'],['termine','Accompagnement terminé'],['perdu','Sans suite'],['superviseur','Superviseur.e']];
+const ETL=Object.fromEntries(ETAPES);
+const ETC={contact:'#9A9DA1',conversation:'#2F8C93',proposition:'var(--afb)',client:'var(--am)',termine:'var(--jet)',perdu:'#C9727B',superviseur:'#8B78A8'};
+const pEntries=pid=>E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));
+const lastContact=pid=>pEntries(pid).filter(e=>e.date<=today()).at(-1)||null;
+/* étape proposée automatiquement à partir des saisies */
+/* contrat en cours d'une personne : dernière proposition acceptée */
+const addMonths=(d,m)=>{const x=new Date(d+'T12:00:00Z');x.setUTCMonth(x.getUTCMonth()+(+m||0));return x.toISOString().slice(0,10)};
+function contractOf(pid){const A=pEntries(pid).filter(e=>e.type=='proposition'&&e.statut=='acceptee');if(!A.length)return null;const e=A.at(-1),debut=e.debut||e.date,
+ fin=e.engagement_mois?addMonths(debut,e.engagement_mois):null,S=pEntries(pid).filter(x=>x.type=='session'&&x.date>=debut&&(!fin||x.date<=fin));
+ return{e,debut,fin,prevues:+e.seances||null,faites:S.length,eur:+e.eur||0}}
+function contractTxt(K){if(!K)return'';return `${K.prevues?`${K.faites}/${K.prevues} séances`:`${pl(K.faites,'séance')}`}${K.fin?` · fin ${K.fin<today()?'le ':'prévue le '}${dShort(K.fin)}`:''}`}
+function contractBar(K){if(!K?.prevues)return'';const p=Math.min(100,K.faites/K.prevues*100);return `<div class="bar" style="margin-top:4px"><b style="width:${p}%;background:var(--am)"></b></div>`}
+function autoStage(pid){const L=pEntries(pid);if(!L.length)return'contact';const P=L.filter(e=>e.type=='proposition'),last=L.at(-1).date;
+ if(L.some(e=>e.type=='supervision')&&!P.some(e=>e.statut=='acceptee'))return'superviseur';
+ if(P.some(e=>e.statut=='acceptee')){const K=contractOf(pid);
+  if(K.fin){if(K.fin>=today()||L.some(e=>e.date>K.fin&&COACH.includes(e.type)))return'client';return'termine'}
+  return last<addDays(today(),-120)?'termine':'client'}
+ if(P.some(e=>e.statut=='attente'))return'proposition';
+ if(P.length&&P.every(e=>e.statut=='refusee')&&!L.some(e=>e.date>P.at(-1).date))return'perdu';
+ if(L.some(e=>COACH.includes(e.type)))return'conversation';
+ return'contact'}
+/* une étape choisie à la main reste valable tant qu'aucune nouvelle saisie n'arrive ensuite */
+function stageOf(p){const a=autoStage(p.id);if(p.etape?.v){const at=p.etape.at.slice(0,10);if(!pEntries(p.id).some(e=>e.date>at))return p.etape.v}return a}
+const stagePill=st=>`<span class="stp" style="background:${ETC[st]}">${ETL[st]}</span>`;
+function avatar(p,sz){const ini=(p?.nom||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase(),h=[...(p?.nom||'')].reduce((a,c)=>a+c.charCodeAt(0),0);
+ const bg=PAL[h%PAL.length]||'#999';
+ return p?.photo?`<img class="av" src="${p.photo}" style="width:${sz}px;height:${sz}px" alt="">`:`<span class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.38)}px;background:${bg};color:${tc(bg)}">${esc(ini)}</span>`}
+const openActs=pid=>DB.actions.filter(a=>a.pid==pid&&a.s=='encours').sort((a,b)=>(a.d||'9').localeCompare(b.d||'9'));
+const pById=id=>DB.personnes.find(x=>String(x.id)===String(id));
+
+/* ---------- à relancer (tableau de bord) ---------- */
+function relItems(){const t=today(),soon=addDays(t,7),seuil=+CFG().crm.froid||30,items=[];
+ DB.actions.filter(a=>a.s=='encours'&&a.pid!=null&&a.d&&a.d<=soon).forEach(a=>{const p=pById(a.pid);if(p)items.push({k:'act',p,a,late:a.d<t,ord:a.d})});
+ const withProp=new Set();
+ E().filter(e=>e.type=='proposition'&&e.statut=='attente'&&e.pid!=null&&!(e.snz&&e.snz>t)).forEach(e=>{const p=pById(e.pid);if(!p||p.archive||openActs(p.id).length)return;
+  withProp.add(p.id);const days=Math.max(0,Math.round((new Date(t)-new Date(e.date))/864e5));items.push({k:'prop',p,e,days,late:days>=14,ord:'0'+e.date})});
+ DB.personnes.filter(p=>!p.archive&&!withProp.has(p.id)&&!(p.snooze&&p.snooze>t)&&['conversation','proposition'].includes(stageOf(p))&&!openActs(p.id).length).forEach(p=>{
+  const l=lastContact(p.id),days=l?Math.round((new Date(t)-new Date(l.date))/864e5):999;if(days>=seuil&&days<=365)items.push({k:'cold',p,days,ord:'0'+String(9999-days).padStart(4,'0')})});
+ DB.personnes.filter(p=>!p.archive&&!(p.snoozeK&&p.snoozeK>t)&&!openActs(p.id).length).forEach(p=>{const K=contractOf(p.id);if(!K)return;
+  const nearEnd=K.fin&&K.fin<=addDays(t,21)&&K.fin>=addDays(t,-45),lastSes=K.prevues&&K.faites>=K.prevues-1&&(!K.fin||K.fin>=t);
+  if(nearEnd||lastSes)items.push({k:'end',p,K,late:!!K.fin&&K.fin<t,ord:'1'+(K.fin||t)})});
+ return items.sort((x,y)=>(y.late?1:0)-(x.late?1:0)||x.ord.localeCompare(y.ord))}
+function renderRel(){const I=relItems();$('relN').textContent=I.length||'';
+ $('relList').innerHTML=I.map((x,i)=>`<div class="rel">${avatar(x.p,36)}<div><span class="who" data-pf="${x.p.id}">${esc(x.p.nom)}</span> ${stagePill(stageOf(x.p))}
+  <div class="what">${x.k=='prop'?`Proposition de <b>${eur(x.e.eur)}</b>${x.e.engagement_mois?` · ${x.e.engagement_mois} mois`:''}${x.e.seances?` · ${x.e.seances} séances`:''} envoyée le ${dShort(x.e.date)} : où en est-elle ?`:x.k=='act'?esc(x.a.a||'Action'):x.k=='end'?`Accompagnement ${x.late?'terminé':'bientôt terminé'} (${contractTxt(x.K)}) : bilan ou renouvellement ?`:'Pas de nouvelles depuis un moment : une relance ?'}</div></div>
+  <div style="text-align:right"><div class="when ${x.late||x.k=='cold'?'late':''}">${x.k=='prop'?`En attente depuis ${x.days} j`:x.k=='act'?(x.late?'En retard · ':'')+dShort(x.a.d):x.k=='end'?(x.K.fin?`Fin ${x.late?'le':'prévue le'} ${dShort(x.K.fin)}`:'Dernière séance prévue'):`Sans contact depuis ${x.days>900?'toujours':x.days+' j'}`}</div>
+  <div class="btns" style="justify-content:flex-end;margin-top:4px">${x.k=='prop'?`<button class="btn2" data-pacc="${x.e.id}">Acceptée</button><button class="btn2" data-pref="${x.e.id}">Refusée</button><button class="btn2" data-plan="${x.p.id}">Planifier une relance</button><button class="lnk" data-psnz="${x.e.id}">Plus tard</button>`:x.k=='act'?`<button class="btn2" data-done="${x.a.id}">Fait</button>`:x.k=='end'?`<button class="btn2" data-bilan="${x.p.id}">Planifier le bilan</button><button class="lnk" data-snzk="${x.p.id}">Plus tard</button>`:`<button class="btn2" data-plan="${x.p.id}">Planifier une relance</button><button class="lnk" data-snz="${x.p.id}">Plus tard</button><button class="lnk" data-lost="${x.p.id}">Sans suite</button>`}</div></div></div>`).join('')
+  ||'<div class="empty">Rien à relancer pour l\'instant.</div>';
+ $('relList').querySelectorAll('[data-pf]').forEach(b=>b.onclick=()=>openFiche(b.dataset.pf));
+ const eById=id=>E().find(x=>String(x.id)===String(id));
+ $('relList').querySelectorAll('[data-pacc]').forEach(b=>b.onclick=()=>{const e=eById(b.dataset.pacc);e.statut='acceptee';e.maj=new Date().toISOString();touch();renderAll();toast('Proposition acceptée : contrat enregistré','Ouvrir la fiche',()=>openFiche(e.pid))});
+ $('relList').querySelectorAll('[data-pref]').forEach(b=>b.onclick=()=>{const e=eById(b.dataset.pref),old=e.statut;e.statut='refusee';e.maj=new Date().toISOString();touch();renderAll();toast('Proposition refusée','Annuler',()=>{e.statut=old;e.maj=new Date().toISOString();touch();renderAll()})});
+ $('relList').querySelectorAll('[data-psnz]').forEach(b=>b.onclick=()=>{const e=eById(b.dataset.psnz);e.snz=addDays(today(),7);e.maj=new Date().toISOString();touch();renderAll();toast('Reportée d\'une semaine')});
+ $('relList').querySelectorAll('[data-done]').forEach(b=>b.onclick=()=>{const a=DB.actions.find(x=>String(x.id)===b.dataset.done);a.s='realisee';a.maj=new Date().toISOString();touch();renderAll();toast('Action réalisée ✓')});
+ $('relList').querySelectorAll('[data-plan]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.plan);DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Relancer ${p.nom.split(' ')[0]}`,d:addDays(today(),2),r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderAll();toast('Relance planifiée dans 2 jours')});
+ $('relList').querySelectorAll('[data-bilan]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.bilan),K=contractOf(p.id),d=K?.fin&&K.fin>today()?(K.fin<addDays(today(),7)?K.fin:addDays(today(),7)):addDays(today(),2);
+  DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Bilan / renouvellement avec ${p.nom.split(' ')[0]}`,d,r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderAll();toast('Bilan planifié')});
+ $('relList').querySelectorAll('[data-snzk]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.snzk);p.snoozeK=addDays(today(),14);p.maj=new Date().toISOString();touch();renderAll()});
+ $('relList').querySelectorAll('[data-lost]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.lost);p.etape={v:'perdu',at:new Date().toISOString()};p.maj=p.etape.at;touch();renderAll();toast(`${p.nom} classé « Sans suite »`)});
+ $('relList').querySelectorAll('[data-snz]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.snz);p.snooze=addDays(today(),+CFG().crm.froid||30);p.maj=new Date().toISOString();touch();renderAll()})}
+
+/* ---------- onglet Personnes ---------- */
+const PF={st:'',q:'',arch:false,view:'pipe'};
+function renderPipe(base){const t=today(),q=PF.q.trim().toLowerCase();
+ const L=base.filter(x=>!q||[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site].join(' ').toLowerCase().includes(q));
+ $('ppPipe').innerHTML=ETAPES.map(([k,l])=>{const C=L.filter(x=>x.st==k),tot=k=='proposition'?C.reduce((s,x)=>s+pEntries(x.p.id).filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((a,e)=>a+(+e.eur||0),0),0):k=='client'?C.reduce((s,x)=>s+(contractOf(x.p.id)?.eur||0),0):0;
+  return `<div class="pcol" data-col="${k}"><div class="pch"><span class="dot" style="background:${ETC[k]}"></span>${l}<span class="n">${C.length}</span></div>${tot?`<div class="pct">${eur(tot)}</div>`:''}
+   ${C.map(({p,last,next})=>{const K=contractOf(p.id),pend=pEntries(p.id).filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((a,e)=>a+(+e.eur||0),0);
+    return `<div class="pcard" draggable="true" data-pid="${p.id}">${avatar(p,30)}<div style="min-width:0;flex:1"><div class="pn">${esc(p.nom)}</div>${p.titre?`<div class="pt2">${esc(p.titre)}</div>`:''}${siteLink(p)}
+     ${k=='client'&&K?`<div class="pt2"><b>${contractTxt(K)}</b></div>${contractBar(K)}`:''}${k=='proposition'&&pend?`<div class="pt2"><b>${eur(pend)}</b> en attente</div>`:''}
+     <div class="pt2 ${next&&next.d&&next.d<t?'late':''}">${next?'→ '+esc(next.a||'Action')+(next.d?' · '+dShort(next.d):''):last?'Dernier contact '+dShort(last.date):''}</div></div></div>`}).join('')||'<div class="pempty">—</div>'}</div>`}).join('');
+ let dragP=null;
+ $('ppPipe').querySelectorAll('.pcard').forEach(c=>{c.onclick=e=>{if(e.target.closest('a'))return;openFiche(c.dataset.pid)};c.ondragstart=e=>{dragP=c.dataset.pid;c.classList.add('drag');try{e.dataTransfer.setData('text/plain',dragP)}catch(_){}};c.ondragend=()=>c.classList.remove('drag')});
+ $('ppPipe').querySelectorAll('.pcol').forEach(col=>{col.ondragover=e=>{e.preventDefault();col.classList.add('over')};col.ondragleave=e=>{if(!col.contains(e.relatedTarget))col.classList.remove('over')};
+  col.ondrop=e=>{e.preventDefault();col.classList.remove('over');const p=pById(dragP);dragP=null;if(!p)return;const k=col.dataset.col;
+   p.etape=k==autoStage(p.id)?null:{v:k,at:new Date().toISOString()};p.maj=new Date().toISOString();touch();renderPeople();toast(`${p.nom} : ${ETL[k]}`)}})}
+function renderPeople(){const t=today();
+ $('ppView').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v==PF.view);b.onclick=()=>{PF.view=b.dataset.v;renderPeople()}});
+ $('ppList').classList.toggle('hide',PF.view!='list');$('ppPipe').classList.toggle('hide',PF.view!='pipe');$('ppSt').classList.toggle('hide',PF.view!='list');
+ const base=DB.personnes.filter(p=>PF.arch?p.archive:!p.archive).map(p=>({p,st:stageOf(p),last:lastContact(p.id),next:openActs(p.id)[0]}));
+ $('ppSt').innerHTML=[['','Toutes']].concat(ETAPES).map(([k,l])=>{const n=k?base.filter(x=>x.st==k).length:base.length;return `<button class="chip ${PF.st==k?'on':''}" data-st="${k}">${l} <small>${n}</small></button>`}).join('');
+ $('ppSt').querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{PF.st=b.dataset.st;renderPeople()});
+ const q=PF.q.trim().toLowerCase();
+ const L=base.filter(x=>(!PF.st||x.st==PF.st)&&(!q||[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site].join(' ').toLowerCase().includes(q)))
+  .sort((a,b)=>(a.next?0:1)-(b.next?0:1)||(a.next?.d||'').localeCompare(b.next?.d||'')||(b.last?.date||'').localeCompare(a.last?.date||'')||byName(a.p.nom,b.p.nom));
+ $('ppList').innerHTML=L.map(({p,st,last,next})=>`<div class="ppc" data-pf="${p.id}"><div class="top">${avatar(p,38)}<div class="tx"><div class="nm">${esc(p.nom)}</div><div class="r2">${stagePill(st)}${p.provenance?`<span class="ti">via ${esc(p.provenance)}</span>`:''}</div>
+  ${p.titre||p.site?`<div class="ti">${p.titre?esc(p.titre):''}${p.titre&&p.site?' · ':''}${siteLink(p)}</div>`:''}</div></div>
+  <div class="ln">Dernier contact : <b>${last?dShort(last.date)+' · '+esc(TM[last.type]?.l||''):'—'}</b></div>
+  ${st=='client'&&contractOf(p.id)?`<div class="ln">Contrat : <b>${contractTxt(contractOf(p.id))}</b>${contractBar(contractOf(p.id))}</div>`:''}
+  <div class="ln ${next&&next.d&&next.d<t?'late':''}">Prochaine action : <b>${next?esc(next.a||'Action')+(next.d?' · '+dShort(next.d):''):'—'}</b></div></div>`).join('')||'<div class="empty">Personne pour ces critères.</div>';
+ $('ppList').querySelectorAll('[data-pf]').forEach(c=>c.onclick=e=>{if(e.target.closest('a'))return;openFiche(c.dataset.pf)});
+ if(PF.view=='pipe')renderPipe(base)}
+$('ppQ').oninput=e=>{PF.q=e.target.value;renderPeople()};
+$('ppArch').onchange=e=>{PF.arch=e.target.checked;renderPeople()};
+$('ppNew').onclick=()=>{const p={id:nextId(DB.personnes),nom:'Nouvelle personne',maj:new Date().toISOString()};DB.personnes.push(p);touch();openFiche(p.id);setTimeout(()=>$('pfNom').select(),60)};
+
+/* ---------- fiche personne ---------- */
+let PFID=null;
+/* téléphone lisible : 0123456789 → 01 23 45 67 89 ; +33123456789 → +33 1 23 45 67 89 */
+function fmtTel(v){const raw=String(v||'').trim();if(!raw)return'';const plus=raw.startsWith('+')||raw.startsWith('00'),d=raw.replace(/\D/g,'').replace(/^00/,'');
+ if(d.length<6||d.length>15)return raw;const pairs=x=>{const o=x.length%2?[x[0]]:[];for(let i=x.length%2;i<x.length;i+=2)o.push(x.slice(i,i+2));return o.join(' ')};
+ if(!plus)return pairs(d);const cl=/^(1|7)/.test(d)?1:/^(35|37|38|42|50|59|67|68|69|85|88|96|97|99)/.test(d)?3:2;return '+'+d.slice(0,cl)+' '+pairs(d.slice(cl))}
+const webUrl=v=>!v?'':/^https?:\/\//i.test(v.trim())?v.trim():'https://'+v.trim().replace(/^\/+/,'');
+const webHost=v=>{try{return new URL(webUrl(v)).hostname.replace(/^www\./,'')}catch(e){return v}};
+const siteLink=p=>p?.site?`<a class="site" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">${esc(webHost(p.site))} ↗</a>`:'';
+function openFiche(id){PFID=pById(id)?.id;if(PFID==null)return;renderFiche();$('pfM').classList.add('show')}
+function closeFiche(){$('pfM').classList.remove('show');PFID=null;renderAll()}
+function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new Date().toISOString();touch()};
+ $('pfTitle').textContent='Fiche';
+ const ini=(p.nom||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+ $('pfAv').style.backgroundImage=p.photo?`url("${p.photo}")`:'';$('pfAv').textContent=p.photo?'':ini;$('pfAv').style.background=p.photo?'':PAL[[...(p.nom||'')].reduce((a,c)=>a+c.charCodeAt(0),0)%PAL.length];
+ if(p.photo){$('pfAv').style.backgroundImage=`url("${p.photo}")`;$('pfAv').style.backgroundSize='cover'}
+ $('pfPhDel').classList.toggle('hide',!p.photo);
+ [['pfNom','nom'],['pfTit','titre'],['pfTel','tel'],['pfMail','email'],['pfWeb','site'],['pfSrc','provenance'],['pfNotes','notes']].forEach(([id,k])=>{$(id).value=p[k]||'';
+  $(id).oninput=e=>{p[k]=e.target.value;if(k=='nom'&&!p.nom.trim())return;mk();if(['email','site'].includes(k))links()}});
+ $('pfTel').value=fmtTel(p.tel);$('pfTel').onchange=e=>{const f=fmtTel(e.target.value);if(f!==e.target.value){e.target.value=f;p.tel=f;mk()}};
+ $('pfNom').onchange=e=>{if(!e.target.value.trim()){p.nom='Sans nom';e.target.value=p.nom;mk()}};
+ const links=()=>{$('pfLinks').innerHTML=[p.email?`<a href="mailto:${esc(p.email)}">Écrire un e-mail</a>`:'',p.site?`<a href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">Voir le site</a>`:''].join('')};links();
+ $('pfSrcL').innerHTML=[...new Set(DB.personnes.map(x=>x.provenance).filter(Boolean))].sort(byName).map(v=>`<option value="${esc(v)}">`).join('');
+ const auto=autoStage(p.id),cur=stageOf(p),manual=p.etape?.v&&cur==p.etape.v;
+ $('pfEt').innerHTML=`<option value="">Automatique : ${ETL[auto]}</option>`+ETAPES.map(([k,l])=>`<option value="${k}" ${manual&&k==cur?'selected':''}>${l}</option>`).join('');
+ $('pfEt').onchange=e=>{p.etape=e.target.value?{v:e.target.value,at:new Date().toISOString()}:null;mk()};
+ const A=openActs(p.id),t=today();
+ $('pfActs').innerHTML=A.map(a=>`<div class="pfa"><div class="ck" data-adone="${a.id}" title="Marquer comme réalisée">✓</div><span>${esc(a.a||'Action')}</span><span class="d ${a.d&&a.d<t?'late':''}">${a.d?dShort(a.d):'sans date'}</span></div>`).join('')||'<div class="hint" style="margin:0">Aucune action prévue.</div>';
+ $('pfActs').querySelectorAll('[data-adone]').forEach(c=>c.onclick=()=>{const a=DB.actions.find(x=>String(x.id)===c.dataset.adone);a.s='realisee';a.maj=new Date().toISOString();touch();renderFiche();toast('Action réalisée ✓')});
+ $('pfADate').value=addDays(t,7);$('pfANew').value='';
+ $('pfAAdd').onclick=()=>{const txt=$('pfANew').value.trim();if(!txt){$('pfANew').focus();return}
+  DB.actions.push({id:nextId(DB.actions),p:'Relance',a:txt,d:$('pfADate').value||'',r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderFiche()};
+ $('pfANew').onkeydown=e=>{if(e.key=='Enter')$('pfAAdd').click()};
+ const all=pEntries(p.id),st=stats(all),l=lastContact(p.id);
+ $('pfSum').innerHTML=[[all.filter(e=>e.type=='conversation').length,'conversations'],[all.filter(e=>e.type=='session').length,'sessions'],[n1(st.h)+' h','de coaching'],[st.ca?eur(st.ca):'—','contrat'],[all[0]?dShort(all[0].date):'—','premier contact'],[l?dShort(l.date):'—','dernier contact']].map(([v,k])=>`<div><b>${v}</b>${k}</div>`).join('');
+ const K=contractOf(p.id);$('pfKS').classList.toggle('hide',!K);
+ if(K){$('pfK').innerHTML=`<div class="pfk"><div><b>${eur(K.eur)}</b>${K.e.engagement_mois?` · ${K.e.engagement_mois} mois`:''} · ${contractTxt(K)}${contractBar(K)}</div>
+   <label class="pflab">Début<input class="fin" type="date" id="pfKD" value="${K.debut}"></label><label class="pflab">Séances prévues<input class="fin" type="number" min="1" id="pfKN" value="${K.prevues||''}" placeholder="—"></label>
+   <label class="pflab">Durée<select class="fin" id="pfKM">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==K.e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></label></div>`;
+  const up=()=>{K.e.maj=new Date().toISOString();touch();clearTimeout(up.t);up.t=setTimeout(renderFiche,0)};
+  $('pfKD').onchange=e=>{K.e.debut=e.target.value||K.e.date;up()};$('pfKN').onchange=e=>{K.e.seances=+e.target.value||null;up()};$('pfKM').onchange=e=>{K.e.engagement_mois=+e.target.value;up()}}
+ $('pfArch').textContent=p.archive?'Réactiver':'Archiver';
+ $('pfArch').onclick=()=>{p.archive=!p.archive;mk();renderFiche();toast(p.archive?`${p.nom} archivé`:`${p.nom} réactivé`)};
+ $('pfSeeE').onclick=()=>{const id=p.id;closeFiche();F.p.clear();F.p.add(id);goTab('list')}}
+$('pfClose').onclick=closeFiche;$('pfOk').onclick=closeFiche;$('pfM').onclick=e=>{if(e.target==$('pfM'))closeFiche()};
+
+/* ---------- photo : recadrage en disque + compression ---------- */
+const CR={img:null,z:1,ox:0,oy:0};
+function crDraw(cv,size,overlay){const g=cv.getContext('2d'),im=CR.img,b=300/Math.min(im.width,im.height),s=b*CR.z*(size/300),w=im.width*s,h=im.height*s;
+ g.fillStyle='#fff';g.fillRect(0,0,size,size);g.drawImage(im,size/2-w/2+CR.ox*size/300,size/2-h/2+CR.oy*size/300,w,h);
+ if(overlay){g.fillStyle='rgba(20,20,22,.55)';g.beginPath();g.rect(0,0,size,size);g.arc(size/2,size/2,size/2-6,0,Math.PI*2,true);g.fill('evenodd');
+  g.strokeStyle='rgba(255,255,255,.9)';g.lineWidth=2;g.beginPath();g.arc(size/2,size/2,size/2-6,0,Math.PI*2);g.stroke()}}
+function crClamp(){const im=CR.img,b=300/Math.min(im.width,im.height),w=im.width*b*CR.z,h=im.height*b*CR.z,mx=Math.max(0,(w-300)/2),my=Math.max(0,(h-300)/2);
+ CR.ox=Math.max(-mx,Math.min(mx,CR.ox));CR.oy=Math.max(-my,Math.min(my,CR.oy))}
+$('pfPh').onclick=()=>$('pfFile').click();$('pfAv').onclick=()=>$('pfFile').click();
+$('pfPhDel').onclick=()=>{const p=pById(PFID);delete p.photo;p.maj=new Date().toISOString();touch();renderFiche()};
+$('pfFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{CR.img=im;CR.z=1;CR.ox=0;CR.oy=0;$('crZoom').value=1;crDraw($('crCv'),300,true);$('cropM').classList.add('show')};im.onerror=()=>toast('Image non reconnue');im.src=fr.result};fr.readAsDataURL(f)};
+$('crZoom').oninput=e=>{CR.z=+e.target.value;crClamp();crDraw($('crCv'),300,true)};
+(()=>{const cv=$('crCv');let d=null;const sc=()=>300/cv.getBoundingClientRect().width;
+ cv.onpointerdown=e=>{d={x:e.clientX,y:e.clientY,ox:CR.ox,oy:CR.oy};cv.setPointerCapture(e.pointerId)};
+ cv.onpointermove=e=>{if(!d)return;CR.ox=d.ox+(e.clientX-d.x)*sc();CR.oy=d.oy+(e.clientY-d.y)*sc();crClamp();crDraw(cv,300,true)};
+ cv.onpointerup=()=>d=null;cv.onwheel=e=>{e.preventDefault();CR.z=Math.max(1,Math.min(4,CR.z*(e.deltaY<0?1.06:.94)));$('crZoom').value=CR.z;crClamp();crDraw(cv,300,true)}})();
+$('crOk').onclick=()=>{const c=document.createElement('canvas');c.width=c.height=160;crDraw(c,160,false);const p=pById(PFID);
+ p.photo=c.toDataURL('image/jpeg',.8);p.maj=new Date().toISOString();touch();$('cropM').classList.remove('show');renderFiche();toast(`Photo enregistrée (${Math.round(p.photo.length*.75/1024)} Ko)`)};
+$('crClose').onclick=()=>$('cropM').classList.remove('show');
 
 /* ---------- popup ---------- */
 /* durée libre, sans plafond : 2,5 / 2.5 → 2h30 · 2h30 / 2h / 2 h 30 → 2h30 · 150min / 150 mn / 150m → 2h30 · 1:30 → 1h30 · 14h → 14h · nombre seul : ≤ 10 = heures, sinon minutes */
@@ -1277,22 +1613,23 @@ $('newP').onkeydown=e=>{const v=e.target.value.trim();if(e.key=='Enter'&&v){let 
  if(!p){p={id:nextId(DB.personnes),nom:v};DB.personnes.push(p);touch()}NEWP.unshift(p.id);S.pid=p.id;e.target.value='';e.target.classList.add('hide');renderModal()}};
 ['tCR','tSY'].forEach(i=>$(i).onclick=()=>$(i).classList.toggle('on'));
 const openM=()=>{$('fDate').value=today();$('mDurX').value='';$('mDurOk').textContent='';S.ais={};renderModal();$('ov').classList.add('show')},closeM=()=>$('ov').classList.remove('show');
-$('openLog').onclick=openM;$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
+$('openLog').onclick=openM;$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape'){if($('cropM').classList.contains('show'))$('cropM').classList.remove('show');else if($('pfM').classList.contains('show'))closeFiche();else closeM()}});
 $('mSave').onclick=()=>{const t=TM[S.type];
  if(t.p&&S.pid==null&&['conversation','session','proposition','debrief'].includes(S.type)){toast('Choisis la personne');return}
  const e={id:nextId(E()),maj:new Date().toISOString(),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),
   cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on'),ais:t.ais&&Object.keys(S.ais).length?{...S.ais}:null};
  if(S.type=='supervision'){e.cout=+$('mCout').value||0;$('mCout').value=''}
- if(t.prop){e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}
+ if(t.prop){if(+$('mSea').value)e.seances=+$('mSea').value;$('mSea').value='';e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}
  E().push(e);$('mCom').value='';['tCR','tSY'].forEach(i=>$(i).classList.remove('on'));
  closeM();touch();renderAll();toast(`${t.l} · ${fmtD(S.dur)} enregistré`)};
 
 /* ---------- rendu ---------- */
 function renderAll(){
  if(!DB)return;
- if(TAB=='dash'){bigKPI('kpisD');renderPrio();renderActs();renderObj()}
+ if(TAB=='dash'){bigKPI('kpisD');renderRel();renderPrio();renderActs();renderObj()}
  if(TAB=='metrics'){bigKPI('kpisM',true);smallKPI();renderYears();renderMonthly();renderEase()}
  if(TAB=='list')renderList();
+ if(TAB=='people')renderPeople();
  if(TAB=='settings')renderSettings();
 }
 
@@ -1301,8 +1638,8 @@ function goTab(t){document.querySelector(`.tabs button[data-tab="${t}"]`).click(
 /* =========================================================
    PARCOURS DE DÉMARRAGE
    ========================================================= */
-const WZ=['hello','principe','ident','types','suivi','axes','prio','actions','first','secu','done'];
-const WZL={hello:'Bienvenue',principe:'Le principe',ident:'Ton identité',types:'Tes entretiens',suivi:'Le suivi',axes:'Tes axes de progression',prio:'Priorités et objectifs',actions:'Premières actions',first:'Premier entretien',secu:'Sécurité',done:'C\'est prêt'};
+const WZ=['hello','principe','ident','types','suivi','axes','prio','actions','activite','first','secu','done'];
+const WZL={hello:'Bienvenue',principe:'Le principe',ident:'Ton identité',types:'Tes entretiens',suivi:'Le suivi',axes:'Tes axes de progression',prio:'Priorités et objectifs',actions:'Premières actions',activite:'Personnes et coûts',first:'Premier entretien',secu:'Sécurité',done:'C\'est prêt'};
 const ICO={home:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
  lock:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
  save:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>'};
@@ -1316,7 +1653,7 @@ function wzSide(){const C=DB?CFG():defaultConfig(),K=C.couleurs,ini=(C.nom||'?')
  $('wzSteps').innerHTML=WZ.slice(1).map((k,i)=>{const n=i+1;return `<li class="${n<WI?'ok':n==WI?'cur':''}"><b>${n<WI?'✓':n}</b>${WZL[k]}</li>`}).join('');
  $('wzQuote').textContent=DB?C.sousTitre:''}
 function renderWiz(){const k=WZ[WI],st=WS[k]();wzSide();
- $('wzKicker').textContent=k=='hello'||k=='done'?'':`Étape ${WI} sur ${WZ.length-2}`;
+ $('wzKicker').textContent=k=='hello'||k=='done'?'':`Étape ${WI} sur ${WZ.length-1}`;
  $('wzTitle').textContent=st.t;$('wzLead').innerHTML=st.lead||'';$('wzBody').innerHTML=st.html;
  $('wzBack').classList.toggle('hide',WI==0||k=='done');$('wzSkip').classList.toggle('hide',!st.skip);$('wzNext').textContent=st.next||'Continuer';
  if(st.bind)st.bind();
@@ -1355,14 +1692,14 @@ const WS={
   html:`<div class="wzgrid2"><div>
    <label class="wzl" style="margin-top:0">Nom de ton cabinet</label><input class="fin" id="wNom" value="${esc(C.nom)}" placeholder="Ex. AO Coach">
    <label class="wzl">Nom de l'outil</label><input class="fin" id="wOutil" value="${esc(C.outil)}">
-   <label class="wzl">Ta phrase de motivation</label><input class="fin" id="wSub" value="${esc(C.sousTitre)}">
   </div><div>
    <label class="wzl" style="margin-top:0">Logo et bandeau</label>
    <div class="imgrow"><div class="imgprev" style="${C.logo?`background-image:url('${C.logo}')`:''}"></div><button class="btn2" id="wLogo">Choisir un logo</button>
     <div class="imgprev tall" style="${C.bandeau?`background-image:url('${C.bandeau}')`:''}"></div><button class="btn2" id="wBand">Choisir un bandeau</button></div>
    <label class="wzl">Palette</label><div class="pals">${PALETTES.map((p,i)=>`<button class="pal ${i==cur?'on':''}" data-p="${i}"><span>${stackColors(p.c).slice(0,4).concat([p.c.fonce]).map(c=>`<i style="background:${c}"></i>`).join('')}</span>${p.n}</button>`).join('')}</div>
    <details><summary>Ajuster les couleurs</summary><div class="colors" style="margin-top:10px">${BRAND.map(([k,l])=>`<label>${l}<input type="color" data-wc="${k}" value="${K[k]}"></label>`).join('')}</div></details>
-  </div></div>`,
+  </div></div>
+  <label class="wzl">Ta phrase de motivation</label><input class="fin" id="wSub" value="${esc(C.sousTitre)}">`,
   bind:()=>{[['wNom','nom'],['wOutil','outil'],['wSub','sousTitre']].forEach(([id,k])=>$(id).oninput=e=>{C[k]=e.target.value;wzLive()});
    $('wLogo').onclick=()=>{IMGT='logo';$('imgFile').click()};$('wBand').onclick=()=>{IMGT='bandeau';$('imgFile').click()};
    document.querySelectorAll('.pal').forEach(b=>b.onclick=()=>{C.couleurs={...PALETTES[+b.dataset.p].c};C.couleursAuto=true;applyStackColors(C);wzLive();renderWiz()});
@@ -1371,14 +1708,14 @@ const WS={
 
  types:()=>{const C=CFG(),O=C.ordre;
   return{t:'Tes types d\'entretien',lead:'Nomme tes activités et classe-les <b>par ordre d\'importance</b> en les faisant glisser. Le n° 1 forme la base des graphiques et reçoit la couleur la plus forte.',
-  html:`<div class="wzgrid2 types"><table class="pt"><thead><tr><th style="width:64px">Rang</th><th></th><th>Libellé</th><th>Durée</th><th title="Noter ton aisance après ce type d'entretien">Aisance</th><th>Compte dans</th><th></th></tr></thead><tbody id="wTypes">${O.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}">
+  html:`<div class="wzgrid2 types"><div class="wztbl"><table class="pt tight"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit" title="Noter ton aisance après ce type d'entretien">Aisance</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="wTypes">${O.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}">
    <td><span class="handle" title="Glisser pour réordonner">⋮⋮</span><span class="rk">${i+1}</span></td>
    <td><input type="color" data-c="${k}" value="${t.c}"></td><td><input class="ed" data-l="${k}" value="${esc(t.l)}" style="font-weight:700"></td>
    <td><select class="ed" data-du="${k}" style="width:84px">${DURS.map(d=>`<option value="${d}" ${d==t.d?'selected':''}>${fmtD(d)}</option>`).join('')}</select></td>
-   <td><button class="sw ${t.ais?'on':''}" data-a="${k}"></button></td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('')}</tbody></table>
+   <td><button class="sw ${t.ais?'on':''}" data-a="${k}"></button></td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('')}</tbody></table></div>
    <div class="stackprev"><small>Aperçu d'une barre</small>${[...O].reverse().map((k,i)=>`<div class="r"><i style="background:${C.types[k].c}"></i>${esc(C.types[k].l)}</div>`).join('')}<small>↑ n° 1 à la base</small></div></div>
    <button class="addl" id="wAddT" ${O.length>=MAX_TYPES?'disabled':''}>+ Ajouter un type (${O.length}/${MAX_TYPES})</button>
-   <div class="hint">La colonne Aisance indique après quels entretiens tu notes tes axes de progression. « Compte dans » indique le calcul où le type est additionné ; il se choisit pour les types que tu ajoutes (jusqu\'à 10 types).${C.couleursAuto?'':' Tu as personnalisé des couleurs : elles ne suivent plus la palette (choisis une palette à l\'étape précédente pour revenir à l\'automatique).'}</div>`,
+   <div class="hint">La colonne Aisance indique après quels entretiens tu notes tes axes de progression. « Compte dans » indique le calcul où le type est additionné (heures de coaching, pratique délibérée, développement ou autre). Tu peux ajouter jusqu\'à 10 types.${C.couleursAuto?'':' Tu as personnalisé des couleurs : elles ne suivent plus la palette (choisis une palette à l\'étape précédente pour revenir à l\'automatique).'}</div>`,
   bind:()=>{const B=$('wzBody');
    dragRows($('wTypes'),O,()=>{recolor(C);wzLive();renderWiz()});
    B.querySelectorAll('[data-c]').forEach(i=>i.onchange=()=>{C.types[i.dataset.c].c=i.value;C.couleursAuto=false;wzLive();renderWiz()});
@@ -1391,8 +1728,8 @@ const WS={
   html:`<div class="wzcards">
    <div class="wzc"><div class="ic">1</div><b>Coacher beaucoup</b><p>Tes heures de ${L('conversation')} et de ${L('session')}, et le nombre de personnes accompagnées. C'est le volume qui muscle ta pratique.</p></div>
    <div class="wzc"><div class="ic">2</div><b>Pratiquer délibérément</b><p>${L('debrief')}, ${L('supervision')}, et une note d'aisance après chaque entretien sur tes axes de progression. C'est ce qui transforme l'expérience en compétence.</p></div>
-   <div class="wzc"><div class="ic">3</div><b>Développer ton activité</b><p>${L('conversation')} offerte, puis ${L('proposition')} (montant proposé), puis ${L('session')} sous contrat (CA accepté) : le chemin d'un premier échange à un accompagnement.</p></div></div>
-   <div class="flow3"><div><b>Tableau de bord</b>Ton cap : priorités, plan d'action, cibles du trimestre.</div><div><b>Métriques</b>Tes tendances : temps passé chaque mois, aisance dans le temps.</div><div><b>Mes saisies</b>Le détail de chaque entretien, filtrable et modifiable.</div></div>
+   <div class="wzc"><div class="ic">3</div><b>Développer ton activité</b><p>${L('conversation')} offerte, puis ${L('proposition')} (montant proposé), puis ${L('session')} sous contrat (CA accepté) : le chemin d'un premier échange à un accompagnement. Chaque personne a sa fiche et son étape.</p></div></div>
+   <div class="flow3 f4"><div><b>Tableau de bord</b>Ton cap : priorités, plan d'action, personnes à relancer, cibles du trimestre.</div><div><b>Métriques</b>Tes tendances : temps passé chaque mois, aisance dans le temps.</div><div><b>Mes saisies</b>Le détail de chaque entretien, filtrable et modifiable.</div><div><b>Personnes</b>Les fiches de tes clients et prospects, en liste ou en pipeline.</div></div>
    <div class="wznote" style="display:flex;align-items:center;gap:12px"><span>Tes indicateurs se choisissent dans un catalogue de 19, classés selon ces trois piliers.</span><button class="btn2" style="margin-left:auto;white-space:nowrap" data-kcat2>Choisir mes indicateurs</button></div>
    <div class="wznote">Au quotidien : un clic sur « + Enregistrer un temps » après chaque entretien. Moins de 30 secondes.</div>`,next:'Compris',bind:()=>{const b=document.querySelector('[data-kcat2]');if(b)b.onclick=openKcat}}},
 
@@ -1400,9 +1737,9 @@ const WS={
   const SUG=[["Atteinte de l'obj. du rdv",'Pas atteint','Atteint'],['Conduite & rapport','Challengé',"À l'aise"],['Niveau de jeu','Faible','Élevé'],['Curseur câlin/challenge','Câlin','Challenge'],['Écoute','Challengé',"À l'aise"],['Questionnement','Challengé',"À l'aise"],['Reformulation','Challengé',"À l'aise"],['Présence','Challengé',"À l'aise"],['Gestion du silence','Challengé',"À l'aise"]].filter(s=>!M.some(m=>m.l==s[0]));
   const add=(l,mi,ma)=>{const n=M.reduce((x,m)=>Math.max(x,+m.id.slice(1)||0),0)+1;M.push({id:'m'+n,l,actif:true,min:mi,max:ma});wzLive();renderWiz()};
   return{t:'Tes axes de progression',lead:'Après chaque entretien, tu notes de 1 à 5 les dimensions que tu travailles en ce moment. <b>Deux à cinq axes</b>, c\'est l\'idéal.',
-  html:`<table class="pt"><thead><tr><th>Axe</th><th>Repère du 1</th><th>Repère du 5</th><th style="width:60px"></th></tr></thead><tbody>${M.map((m,i)=>`<tr class="${m.actif?'':'arch'}">
+  html:`<div class="wztbl ax"><table class="pt tight"><thead><tr><th class="fit">Axe</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th></th></tr></thead><tbody>${M.map((m,i)=>`<tr class="${m.actif?'':'arch'}">
    <td><input class="ed" data-f="l" data-i="${i}" value="${esc(m.l)}" style="font-weight:700"></td><td><input class="ed" data-f="min" data-i="${i}" value="${esc(m.min)}" placeholder="ex. Challengé"></td><td><input class="ed" data-f="max" data-i="${i}" value="${esc(m.max)}" placeholder="ex. À l'aise"></td>
-   <td>${cnt(m.id)?`<button class="sw ${m.actif?'on':''}" data-act="${i}" title="Suivi"></button>`:`<button class="ibtn del" data-del="${i}" title="Retirer">✕</button>`}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Aucun axe pour l\'instant.</td></tr>'}</tbody></table>
+   <td>${cnt(m.id)?`<button class="sw ${m.actif?'on':''}" data-act="${i}" title="Suivi"></button>`:`<button class="ibtn del" data-del="${i}" title="Retirer">✕</button>`}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Aucun axe pour l\'instant.</td></tr>'}</tbody></table></div>
    <label class="wzl">Suggestions</label><div class="chips">${SUG.map((s,i)=>`<button class="chip add" data-s="${i}">+ ${esc(s[0])}</button>`).join('')}<button class="chip add" id="wAddM">+ Autre axe</button></div>
    <div class="wznote">Quand un axe est acquis, archive-le et ouvres-en un nouveau : l'historique de tes notes est toujours conservé.</div>`,
   bind:()=>{const B=$('wzBody');
@@ -1450,6 +1787,24 @@ const WS={
    $('wAddA').onclick=()=>{A.push({id:nextId(A),p:names[0]||'',a:'',d:addDays(today(),14),r:'',s:'encours'});renderWiz();const ins=B.querySelectorAll('[data-aa]');ins[ins.length-1]?.focus()}},
   go:()=>{DB.actions=A.filter(a=>a.s!='encours'||a.a.trim());touch();return true}}},
 
+ activite:()=>{const C=CFG(),F=C.finances;
+  return{t:'Tes personnes et tes coûts',lead:'Deux réglages qui transforment tes entretiens en suivi d\'activité. Tu peux passer cette étape et y revenir dans Paramètres.',skip:true,
+  html:`<div class="wzgrid2"><div class="wzc"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><b>Suivre tes personnes</b>
+    <p>Chaque personne a une fiche : photo, coordonnées, provenance, notes, contrat en cours. Son étape (Contact, En conversation, Proposition envoyée, Client, Accompagnement terminé) <strong>se met à jour seule</strong> à partir de tes saisies. L'onglet Personnes les montre en liste ou en pipeline.</p>
+    <p>Sur le tableau de bord, « À relancer » te signale les relances dues, les fins d'accompagnement et les personnes restées sans nouvelles.</p>
+    <label class="wzl">Alerte « sans contact » après</label><div class="wzfld" style="margin-top:0"><input class="fin" type="number" min="7" id="wFroid" value="${C.crm.froid}"> jours sans nouvelles</div></div>
+   <div class="wzc"><div class="ic">€</div><b>Connaître ton taux horaire réel</b>
+    <p>(CA accepté − coûts de supervision − charges) ÷ toutes tes heures de l'année, y compris le temps non facturé.</p>
+    <label class="wzl">Coût habituel d'une supervision</label><input class="fin" type="number" min="0" id="wSup" value="${F.supDefaut||''}" placeholder="€ par séance">
+    <label class="wzl">Charges annuelles moyennes</label><input class="fin" type="number" min="0" id="wCh" value="${F.charges||''}" placeholder="€ par an">
+    <label class="wzl">Charges dans le taux horaire</label><span class="seg" id="wMode" style="margin-left:0"><button data-m="entier">En entier</button><button data-m="prorata">Au prorata</button></span>
+    <div class="hint" id="wModeH"></div></div></div>`,
+  bind:()=>{const mh=()=>{const m=F.mode||'entier';$('wMode').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.m==m));
+    $('wModeH').textContent=m=='entier'?'Toutes les charges de l\'année sont déduites dès le premier contrat : le taux est prudent en début d\'année.':'Seule la part de charges correspondant à l\'année écoulée est déduite : le taux reflète mieux le rythme en cours.'};mh();
+   $('wMode').querySelectorAll('button').forEach(b=>b.onclick=()=>{F.mode=b.dataset.m;touch();mh()});
+   $('wFroid').onchange=e=>{C.crm.froid=Math.max(7,+e.target.value||30);touch()};
+   $('wSup').onchange=e=>{F.supDefaut=+e.target.value||0;touch()};$('wCh').onchange=e=>{F.charges=+e.target.value||0;touch()}}}},
+
  first:()=>{const f=WTMP.f=WTMP.f||{type:'session',dur:TM.session.d,date:today(),nom:'',com:'',ais:{}},t=TM[f.type],MA=mActive();
   if(WTMP.saved)return{t:'Ton premier entretien',html:`<div class="ok-box">✓ Entretien enregistré. Bravo, ton carnet est lancé.</div><div class="hint" style="margin-top:12px">Ensuite, tu enregistreras chaque entretien avec le bouton « + Enregistrer un temps », en haut à droite.</div>`};
   const types=T.filter(x=>x.p&&x.k!='debrief'&&x.k!='supervision');
@@ -1495,18 +1850,67 @@ const WS={
  done:()=>{const n=(a,x)=>a.length+' '+x+(a.length>1?'s':''),it=(ok,txt)=>`<li class="${ok?'':'no'}"><i>${ok?'✓':'–'}</i>${txt}</li>`;
   return{t:'C\'est prêt',lead:'Ton carnet est configuré. Tout reste modifiable dans Paramètres, et le parcours peut être relancé à tout moment.',next:'Ouvrir mon tableau de bord',
   html:`<ul class="sumlist">
-   ${it(true,'Identité : '+esc(CFG().nom))}${it(true,'7 types d\'entretien, dans ton ordre')}
-   ${it(mActive().length,n(mActive(),'axe')+' de progression')}${it(DB.priorites.length,n(DB.priorites,'objectif prioritaire'))}
+   ${it(true,'Identité : '+esc(CFG().nom))}${it(true,CFG().ordre.length+' types d\'entretien, dans ton ordre')}${it(CFG().finances.charges||CFG().finances.supDefaut,CFG().finances.charges||CFG().finances.supDefaut?'Coûts de l\'activité renseignés':'Coûts de l\'activité à renseigner (Paramètres)')}
+   ${it(mActive().length,n(mActive(),'axe')+' de progression')}${it(DB.priorites.length,DB.priorites.length+(DB.priorites.length>1?' objectifs prioritaires':' objectif prioritaire'))}
    ${it(DB.actions.filter(a=>a.s=='encours').length,n(DB.actions.filter(a=>a.s=='encours'),'action'))}${it(E().length,E().length?'Premier entretien enregistré':'Premier entretien à saisir')}
    ${it(DIR&&!NEEDPERM,DIR?'Dossier « '+esc(DIR.name)+' »':'Pas de dossier : gardé dans ce navigateur')}${it(DEKK,DEKK?'Chiffré par mot de passe':'Non chiffré')}</ul>
    <div class="wznote">Le réflexe à prendre : après chaque entretien, « + Enregistrer un temps ». Et une fois par semaine, un coup d'œil au tableau de bord.</div>`,
-  go:()=>{DB.prefs.onboarded=true;touch();closeWizard();$('main').style.visibility='visible';afterLoad();goTab('dash');window.scrollTo({top:0});toast('Bonne pratique !');return false}}}
+  go:()=>{DB.prefs.onboarded=true;DB.prefs.nouveautes_vues=APP_VERSION;touch();closeWizard();$('main').style.visibility='visible';afterLoad();goTab('dash');window.scrollTo({top:0});toast('Bonne pratique !');return false}}}
 };
 $('reTour').onclick=()=>openWizard(2,false);
 
+/* =========================================================
+   NOUVEAUTÉS : la version vue est stockée dans le carnet (prefs.nouveautes_vues).
+   À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
+   ========================================================= */
+const NEWS=[
+ {v:20,s:'1.2.3',d:'4 novembre 2026',items:[
+  {t:'Tableaux resserrés',p:'Les colonnes courtes (personne, date, type, durée, cases…) prennent juste la place nécessaire ; le texte libre récupère le reste.'},
+  {t:'Mes saisies : CR et synthèse avant « Ce qu\'on a vu »',p:'Les cases à cocher sont juste après la durée.',go:'list',b:'Voir'},
+  {t:'Personnes : pipeline par défaut',p:'L\'onglet Personnes s\'ouvre sur le pipeline ; le choix Pipeline / Liste est placé avant la recherche.',go:'people',b:'Voir'}]},
+ {v:19,s:'1.2.2',d:'4 novembre 2026',items:[
+  {t:'Affichage adapté à ton écran',p:'L\'application occupe toute la largeur disponible ; les graphiques se redessinent à la taille réelle de leur cadre, le pipeline gagne de la place, et sur grand écran « À relancer » et « Objectif prioritaire » se placent côte à côte.'}]},
+ {v:18,s:'1.2.1',d:'4 novembre 2026',items:[
+  {t:'Téléphone lisible',p:'Le numéro s\'espace automatiquement : 01 23 45 67 89, ou +33 1 23 45 67 89 avec l\'indicatif.'},
+  {t:'Nouvelle étape « Superviseur.e »',p:'Une personne avec qui tu as fait des supervisions est classée automatiquement Superviseur.e (sauf si elle a un contrat accepté). « Client » devient « Client.e ».',go:'people',b:'Ouvrir Personnes'},
+  {t:'Tuiles des personnes plus compactes',p:'Mêmes informations, moins d\'espace vide : plus de personnes visibles d\'un coup d\'œil.'}]},
+ {v:17,s:'1.2.0',d:'4 novembre 2026',items:[
+  {t:'Propositions en attente dans « À relancer »',p:'Chaque proposition sans réponse et sans action prévue apparaît sur le tableau de bord : marque-la acceptée ou refusée en un clic, planifie une relance, ou reporte-la d\'une semaine.',go:'dash',b:'Voir'},
+  {t:'Site web sur la fiche',p:'Le champ LinkedIn devient « Site web » (tes liens LinkedIn sont repris), cliquable depuis la fiche et les tuiles des personnes.',go:'people',b:'Ouvrir Personnes'},
+  {t:'Mes saisies plus lisible',p:'Notes d\'aisance et contrat repliés par défaut, à déplier d\'un clic ; CR et synthèse juste après « Ce qu\'on a vu ».',go:'list',b:'Voir'},
+  {t:'Correctif : fiche personne',p:'Téléphone, e-mail et site pouvaient ne pas être enregistrés quand la sauvegarde tombait pendant la frappe. C\'est corrigé.'}]},
+ {v:16,s:'1.1.2',d:'4 novembre 2026',items:[
+  {t:'Écran des nouveautés',p:'À chaque nouvelle version, cet écran te présente ce qui a changé. Il reste accessible par le lien « Nouveautés » en bas de page.'},
+  {t:'« Compte dans » modifiable pour tous les types',p:'Dans Paramètres > Types d\'activité, choisis pour chaque type s\'il compte dans les heures de coaching, la pratique délibérée, le développement ou autre.',go:'settings',b:'Voir le réglage'},
+  {t:'Parcours de démarrage complété',p:'Nouvelle étape « Personnes et coûts », et un affichage plus large, lisible sur tous les écrans.',go:'tour',b:'Revoir le parcours'},
+  {t:'Nouvelle numérotation',p:'Les versions sont désormais numérotées x.y.z : version majeure, nouvelle fonctionnalité, correctif.'}]},
+ {v:14,s:'1.1.1',d:'4 novembre 2026',items:[
+  {t:'Charges : en entier ou au prorata',p:'Un bouton dans Paramètres > Coûts de l\'activité, avec les deux taux horaires affichés côte à côte.',go:'settings',b:'Voir le réglage'}]},
+ {v:13,s:'1.1.0',d:'4 novembre 2026',items:[
+  {t:'Fiche personne',p:'Photo recadrée, téléphone, e-mail, LinkedIn, fonction, provenance, notes, prochaines actions et contrat en cours.',go:'people',b:'Ouvrir Personnes'},
+  {t:'Étapes automatiques et pipeline',p:'Contact, En conversation, Proposition envoyée, Client, Accompagnement terminé : déduites de tes saisies, en liste ou en pipeline (glisse une carte pour changer son étape).',go:'people',b:'Voir le pipeline'},
+  {t:'Bloc « À relancer »',p:'Sur le tableau de bord : relances dues, fins d\'accompagnement et personnes sans contact depuis 30 jours (réglable).',go:'dash',b:'Voir'}]},
+ {v:11,s:'1.0',d:'2 novembre 2026',items:[
+  {t:'Catalogue de 19 indicateurs',p:'Choisis et ordonne jusqu\'à 6 indicateurs.',go:'kcat',b:'Choisir'},
+  {t:'Enregistrements sécurisés',p:'Fusion au lieu d\'écrasement, copies de sécurité horaires puis quotidiennes, lecture seule pour les anciennes versions.'},
+  {t:'Jusqu\'à 10 types d\'activité, archivage des clients, durée libre',p:'Ajoute tes propres types, archive les clients sans perdre leur historique, saisis 2,5 / 2h30 / 150min.'},
+  {t:'Coûts et taux horaire réel',p:'Coût des supervisions et charges annuelles déduits de ton taux horaire.'}]}];
+function openNews(from,all){const L=NEWS.filter(n=>all?true:n.v>from).sort((a,b)=>b.v-a.v);if(!L.length)return false;
+ const blk=n=>`<div class="nwv"><h3>Version ${n.s}<small>${n.d}</small></h3>${n.items.map(i=>`<div class="nwi"><div><b>${esc(i.t)}</b><p>${esc(i.p)}</p></div>${i.go?`<button class="btn2" data-nwgo="${i.go}">${esc(i.b||'Voir')}</button>`:''}</div>`).join('')}</div>`;
+ const head=all?L.slice(0,3):L.slice(0,4),rest=all?L.slice(3):L.slice(4);
+ $('nwTitle').textContent=all?'Nouveautés':'Quoi de neuf depuis ta dernière visite';
+ $('nwLead').textContent=all?`Tu utilises la version ${APP_SEMVER}.`:`L'application est passée en version ${APP_SEMVER}. Voici ce qui a changé depuis ta dernière visite ; tes données n'ont pas bougé.`;
+ $('nwBody').innerHTML=head.map(blk).join('')+(rest.length?`<details class="nwold"><summary>Versions précédentes (${rest.length})</summary>${rest.map(blk).join('')}</details>`:'');
+ $('nwBody').querySelectorAll('[data-nwgo]').forEach(b=>b.onclick=()=>{const g=b.dataset.nwgo;closeNews();if(g=='tour')openWizard(2,false);else if(g=='kcat')openKcat();else{goTab(g);window.scrollTo({top:0})}});
+ $('newsM').classList.add('show');return true}
+function closeNews(){$('newsM').classList.remove('show');if(DB&&!READONLY&&(+DB.prefs.nouveautes_vues||0)<APP_VERSION){DB.prefs.nouveautes_vues=APP_VERSION;touch()}}
+$('nwClose').onclick=closeNews;$('nwOk').onclick=closeNews;$('newsLink').onclick=()=>openNews(0,true);
+function checkNews(){if(!DB||READONLY)return;const v=+DB.prefs.nouveautes_vues||0;if(v>=APP_VERSION)return;
+ if(!openNews(v,false)){DB.prefs.nouveautes_vues=APP_VERSION;touch()}}
+
 /* ---------- démarrage ---------- */
 async function afterLoad(){
- $('appVer').textContent=`Version ${APP_VERSION} (${APP_DATE})`;
+ $('appVer').textContent=`Version ${APP_SEMVER} (${APP_DATE})`;
  $('lock').classList.add('hide');$('main').style.visibility='visible';applyConfig();renderAll();updLockBtn();
  if(!FS_OK){banner('nofs');setStatus('local')}
  else if(DIR&&NEEDPERM){banner('reconnect');setStatus('local')}
@@ -1530,12 +1934,15 @@ async function boot(){
  if(!isEnc(base)){await setDEK(null);ENV=null}
  const plain=await open(base,true);DB=migrate(plain);let added=0;
  if(other){const op=await open(other,false);if(op){const m=mergeDB(DB,migrate(op));DB=m.db;added=m.added}}
+ if(DB.prefs.nouveautes_vues==null){DB.prefs.nouveautes_vues=+plain.app_version||9;added=added||0}
  READONLY=(+plain.app_version||0)>APP_VERSION;LASTSEEN=fileRaw?fileRaw.enregistre_le||'':null;
  await afterLoad();if(READONLY){banner('old');setStatus('err','Lecture seule');return}
  if(added)toast(`${added} saisie(s) gardée(s) dans ce navigateur ont été réunies dans ton carnet`);
- if(added||base!==fileRaw||plain.version_schema!==VERSION||(+plain.app_version||0)<APP_VERSION||!plain.id){if(added)DB.enregistre_le=new Date().toISOString();clearTimeout(saveT);await persist()}
+ if(added||base!==fileRaw||plain.version_schema!==VERSION||(+plain.app_version||0)<APP_VERSION||!plain.id||plain.prefs?.nouveautes_vues==null){if(added)DB.enregistre_le=new Date().toISOString();clearTimeout(saveT);await persist()}
+ checkNews()
 }
 if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
  let had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had)toast('Nouvelle version de l\'application disponible','Recharger',()=>location.reload());had=true})}
+let RZT=0;window.addEventListener('resize',()=>{clearTimeout(RZT);RZT=setTimeout(()=>{try{if(DB&&TAB=='metrics'){renderMonthly();renderEase()}}catch(e){}},150)});
 boot();
 </script></body></html>
