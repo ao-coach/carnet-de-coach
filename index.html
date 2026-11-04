@@ -357,8 +357,8 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 .ppc .nm{font-family:'Noto Serif',serif;font-size:15.5px;line-height:1.25} .ppc .ti{font-size:12px;color:var(--grey);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .ppc .ti .site{font-size:12px}
 .ppc .ln{font-size:12px;color:var(--grey);line-height:1.4} .ppc .ln b{color:var(--jet)} .ppc .ln.late b{color:var(--am)}
 .stp{display:inline-block;font-size:11px;font-weight:800;border-radius:7px;padding:2px 8px;color:#fff;letter-spacing:.02em}
-.modal.pfm{width:min(820px,100%)}
-.pfgrid{display:grid;grid-template-columns:150px 1fr;gap:22px;margin-top:6px}
+.modal.pfm{width:min(1220px,100%)}
+.pfgrid{display:grid;grid-template-columns:128px 1fr;gap:18px;margin-top:6px}
 .pfav{width:130px;height:130px;border-radius:50%;background:var(--soft) center/cover;cursor:pointer;display:grid;place-items:center;font-size:38px;font-family:'Noto Serif',serif;color:#fff;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
 .pfavb{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px}
 .pfnom{font-family:'Noto Serif',serif;font-size:21px}
@@ -370,7 +370,7 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 .pfsec{margin-top:18px;border-top:1px solid var(--line);padding-top:12px} .pfsec h3{margin:0 0 8px}
 .pfa{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px} .pfa .ck{margin:0} .pfa .d{font-size:12px;font-weight:800;color:var(--grey);margin-left:auto} .pfa .d.late{color:var(--am)}
 .pfadd{display:grid;grid-template-columns:1fr 150px auto;gap:8px;margin-top:8px}
-.pfsum{display:flex;gap:24px;flex-wrap:wrap;font-size:12.5px;color:var(--grey)} .pfsum b{display:block;font-family:'Noto Serif',serif;font-weight:400;font-size:19px;color:var(--jet)}
+.pfsum{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 16px;font-size:12.5px;color:var(--grey)} .pfsum b{display:block;font-family:'Noto Serif',serif;font-weight:400;font-size:19px;color:var(--jet)}
 .pffoot{display:flex;gap:10px;margin-top:20px} .pffoot .save{width:auto;margin:0 0 0 auto;padding:11px 26px}
 .crwrap{display:grid;place-items:center;margin-top:8px} #crCv{border-radius:16px;cursor:grab;touch-action:none;background:#222;max-width:100%}
 .pc .nm .av{margin-right:4px}
@@ -415,6 +415,72 @@ table .fit{width:1%;white-space:nowrap}
 .ent .plink{white-space:nowrap} .ent td{white-space:nowrap} .ent td.grow{white-space:normal}
 .act td select.ed{width:auto;max-width:260px}
 .seg.big{padding:4px} .seg.big button{padding:8px 20px;font-size:14px;border-radius:8px}
+/* blocs repliables */
+.card.fold>h2.fh{cursor:pointer;user-select:none;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.chev{width:16px;height:16px;display:inline-grid;place-items:center;flex:none;color:var(--jet)}
+.chev::before{content:'';border-left:5.5px solid transparent;border-right:5.5px solid transparent;border-top:8px solid currentColor;transition:transform .15s}
+.card.fold.closed .chev::before{transform:rotate(-90deg)}
+.fsum{font-family:Nunito,sans-serif;font-size:12.5px;font-weight:600;color:var(--grey);display:none}
+.card.fold.closed .fsum{display:inline}
+.card.fold.closed>.fbody{display:none}
+.card.fold.closed>h2 .pills,.card.fold.closed>h2 select{display:none}
+.card.fold.closed{padding-bottom:18px}
+/* paramètres */
+.lab2{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+.imgpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.imgbox{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.imgbox .imgprev.tall{height:58px;width:40px}
+.colors label{font-size:12px;font-weight:700;color:var(--grey);display:flex;flex-direction:column;gap:4px}
+.tscroll{overflow-x:auto}
+#setTypes .pt.tight input.ed[data-tl]{width:150px} #setMets .pt.tight input.ed{width:150px} #setMets .pt.tight input.ed[data-f=l]{width:180px}
+.fingrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;margin-top:12px;align-items:center}
+.fint td{white-space:nowrap} .fint input.ed{width:100%;min-width:96px} .fint tr.fixed td{background:#FAF8FC}
+.fdot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.finpie{display:flex;gap:18px;align-items:center;justify-content:center}
+.pielg{display:grid;gap:6px;font-size:12.5px} .pielg span{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px} .pielg small{color:var(--grey)}
+.fintiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ftile{position:relative;text-align:left;border:1px solid var(--line);border-radius:12px;padding:12px 40px 12px 14px;background:#fff;cursor:pointer;font-family:inherit;color:var(--jet)}
+.ftile b{display:block;font-family:'Noto Serif',serif;font-weight:400;font-size:21px;color:var(--grey)} .ftile span{font-size:12px;color:var(--grey)}
+.ftile i{position:absolute;top:12px;right:12px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line)}
+.ftile.on{border:2px solid var(--am);background:color-mix(in srgb,var(--am) 4%,#fff)} .ftile.on b{color:var(--jet)}
+.ftile.on i{background:var(--am);border-color:var(--am)} .ftile.on i::after{content:'✓';color:#fff;font-size:11px;font-style:normal;display:grid;place-items:center;height:100%}
+@media(max-width:1100px){.fingrid,.fintiles,.imgpair{grid-template-columns:1fr}}
+.pfcols{display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:26px;margin-top:8px}
+.pfsep{background:var(--line);margin:14px 0}
+.pfL .pflab{margin-top:14px} .pfL .pflab .fin{width:100%} .pfL #pfEt{width:auto}
+.pfav{width:118px;height:118px}
+.pfnrow{display:flex;gap:6px;align-items:stretch} .pfnrow .fin{flex:1;min-width:0}
+.pfic{display:flex;gap:6px} .pfi{width:44px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;color:var(--afb);background:#fff;flex:none;transition:.12s} .pfi:hover{border-color:var(--afb);background:#F3F8FB}
+.pflab2{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);margin:16px 0 6px}
+.pfais{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;font-size:12.5px}
+.pfais .ar{display:grid;grid-template-columns:minmax(0,1fr) 70px 22px;gap:8px;align-items:center} .pfais .ar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .pfais .ar>b{text-align:right}
+.pfais .bar{height:6px} .pfais .bar b{background:var(--afb)}
+.pffoot{border-top:1px solid var(--line);padding-top:16px}
+@media(max-width:980px){.pfcols{grid-template-columns:1fr}.pfsep{display:none}.pfais{grid-template-columns:1fr}}
+.lstop.has{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}
+.lstop.has .pcards{margin-top:0;display:block}
+.pc2{padding:0;overflow:hidden} .pc2>.pc2g,.pc2>.pc2tl{padding:16px 18px} .pc2tl{padding-top:0!important}
+.pctabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 12px;overflow-x:auto}
+.pctabs button{border:0;background:none;padding:10px 14px;font:800 13px Nunito,sans-serif;color:var(--grey);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap} .pctabs button.on{color:var(--jet);border-bottom-color:var(--am)}
+.pc2g{display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:18px}
+.pc2sep{background:var(--line)}
+.pc2 .nm{display:flex;gap:10px;align-items:center} .pc2 .pn2{font-family:'Noto Serif',serif;font-size:18px;line-height:1.2}
+.pc2 .nums{grid-template-columns:repeat(2,1fr);gap:8px 14px}
+.pcb{display:flex;gap:6px;flex-wrap:wrap} .pcb .arch-btn{margin:0}
+.pfais.one{grid-template-columns:1fr}
+.pcard{display:block}
+.pch2{display:flex;gap:10px;align-items:center;margin-bottom:6px} .pch2 .pn{font-size:13.5px}
+.pcard .pt2.pl{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.psite{color:var(--afb);display:grid;place-items:center;flex:none} .psite svg{width:15px;height:15px}
+@media(max-width:1100px){.lstop.has{grid-template-columns:1fr}.pc2g{grid-template-columns:1fr}.pc2sep{display:none}}
+.wzline{display:grid;grid-template-columns:1.4fr 1fr 90px 28px;gap:6px;margin-bottom:6px;align-items:center}
+.pgrid{align-items:start} .pgrid>*{min-width:0}
+.fint input#finSup{min-width:0;width:72px} .fint tr.fixed td:first-child{white-space:nowrap}
+.pfL .pf3{grid-template-columns:minmax(150px,1.1fr) 1fr 1fr}
+.pfR .pfk{grid-template-columns:repeat(3,1fr)} .pfR .pfk>div:first-child{grid-column:1/-1}
+.pch2 .pn{font-size:13px;letter-spacing:-.01em;overflow-wrap:normal;word-break:normal;hyphens:auto}
+.fsm{font-size:12px;color:var(--grey);font-weight:600}
+@media(max-width:1500px){.pgrid.tm{grid-template-columns:1fr}}
 </style></head><body>
 <div class="side" id="side"></div>
 <main id="main">
@@ -436,12 +502,12 @@ table .fit{width:1%;white-space:nowrap}
   <div class="khint" style="justify-content:flex-end"><button class="lnk" data-kcat>Changer mes indicateurs</button></div>
   <div class="dashpair"><div class="card sec" id="relCard"><h2>À relancer <span class="cntb" id="relN"></span></h2><div id="relList"></div></div>
   <div class="card sec" id="prioCard"><h2>Objectif prioritaire</h2><ul class="prios" id="prios"></ul><button class="addl" id="addPrio">+ Ajouter un objectif prioritaire</button></div></div>
-  <div class="card sec" id="actCard">
+  <div class="card sec fold" id="actCard" data-fold="1">
     <h2>Plan d'action <div class="pills" id="pills"></div></h2>
     <table class="act"><thead><tr><th class="fit">Objectif prioritaire</th><th>Action</th><th class="fit">Personne</th><th class="fit">Date prévue</th><th style="width:28%">Résultat</th><th class="fit">Statut</th></tr></thead><tbody id="acts"></tbody></table>
     <button class="addl" id="addAct">+ Ajouter une action</button>
   </div>
-  <div class="card sec" id="objCard"><h2>Suivi indicateurs<select class="sel" id="qSel"></select></h2><table class="obj" id="obj"></table></div>
+  <div class="card sec fold" id="objCard" data-fold="0"><h2>Suivi indicateurs<select class="sel" id="qSel"></select></h2><table class="obj" id="obj"></table></div>
 </div>
 
 <!-- ===== MÉTRIQUES ===== -->
@@ -458,6 +524,7 @@ table .fit{width:1%;white-space:nowrap}
 
 <!-- ===== MES SAISIES ===== -->
 <div id="list" class="hide">
+ <div class="lstop" id="lsTop">
   <div class="card">
     <div class="filt">
       <span class="flab">Année</span><div class="chips" id="fY"></div>
@@ -467,6 +534,7 @@ table .fit{width:1%;white-space:nowrap}
     <div class="sumrow" id="sum"></div>
   </div>
   <div class="pcards" id="pcards"></div>
+ </div>
   <div class="card sec">
     <h2>Détail des saisies <em id="cnt"></em><label class="small" style="margin-left:auto"><input type="checkbox" id="showArch"> Afficher les métriques archivées</label></h2>
     <div class="tblwrap"><table class="ent"><thead id="rowsHead"></thead><tbody id="rows"></tbody></table></div>
@@ -483,54 +551,73 @@ table .fit{width:1%;white-space:nowrap}
 
 <!-- ===== PARAMÈTRES ===== -->
 <div id="settings" class="hide">
-  <div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:22px"><div><b>Parcours de démarrage</b><div class="hint" style="margin:2px 0 0">Revois pas à pas ton identité, tes entretiens, tes axes de progression, tes priorités, tes actions et ta sécurité.</div></div><button class="btn2" id="reTour" style="margin-left:auto;white-space:nowrap">Relancer le parcours</button></div>
   <div class="pgrid">
-    <div class="card" id="setIdent">
+    <div class="card fold" id="setIdent" data-fold="0">
       <h2>Identité</h2>
       <div class="field"><label>Nom</label><input class="fin" data-c="nom" placeholder="Ex. AO Coach"></div>
       <div class="field"><label>Nom de l'outil</label><input class="fin" data-c="outil" placeholder="Suivi de pratique"></div>
-      <div class="field"><label>Sous-titre</label><input class="fin" data-c="sousTitre"></div>
+      <div class="field"><label>Phrase de motivation</label><input class="fin" data-c="sousTitre"></div>
     </div>
-    <div class="card" id="setLook">
+    <div class="card fold" id="setLook" data-fold="0">
       <h2>Apparence</h2>
-      <div class="field"><label>Logo</label><div class="imgrow"><div class="imgprev" id="pLogo"></div><button class="btn2" data-img="logo">Choisir une image</button><button class="btn2 warn" data-imgdel="logo">Retirer</button></div></div>
-      <div class="field"><label>Bandeau de gauche</label><div class="imgrow"><div class="imgprev tall" id="pBand"></div><button class="btn2" data-img="bandeau">Choisir une image</button><button class="btn2 warn" data-imgdel="bandeau">Retirer</button></div></div>
+      <div class="imgpair">
+        <div class="imgbox"><div class="imgprev" id="pLogo"></div><div><div class="lab2">Logo</div><button class="btn2" data-img="logo">Changer</button> <button class="btn2 warn" data-imgdel="logo">Retirer</button></div></div>
+        <div class="imgbox"><div class="imgprev tall" id="pBand"></div><div><div class="lab2">Bandeau de gauche</div><button class="btn2" data-img="bandeau">Changer</button> <button class="btn2 warn" data-imgdel="bandeau">Retirer</button></div></div>
+      </div>
       <input type="file" id="imgFile" accept="image/*" class="hide">
-      <h3>Couleurs</h3>
+      <div class="lab2" style="margin:16px 0 6px">Couleurs</div>
       <div class="colors" id="brandColors"></div>
-      <button class="btn2" id="resetColors" style="margin-top:10px">Revenir à la palette par défaut</button>
+      <button class="btn2" id="resetColors" style="margin-top:12px">Revenir à la palette par défaut</button>
     </div>
-  </div>
-  <div class="card sec" id="setTypes">
-    <h2>Types d'activité</h2>
-    <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Tant que tu n'as pas retouché une couleur de type, elles suivent automatiquement tes couleurs de marque et ce classement. Tu peux ajouter jusqu'à 10 types : choisis pour chacun le calcul où il compte (heures de coaching, pratique délibérée, développement ou autre).</div>
-    <table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée par défaut</th><th class="fit">Notes d'aisance</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table>
-    <button class="addl" id="addType">+ Ajouter un type</button>
-  </div>
-  <div class="card sec" id="setMets">
-    <h2>Métriques d'aisance</h2>
-    <div class="hint">Une métrique « non suivie » disparaît de la saisie mais garde tout son historique : elle reste visible dans les graphiques des périodes où tu l'as notée, et dans Mes saisies avec « Afficher les métriques archivées ». Renommer une métrique conserve ses notes. Une métrique ne peut être supprimée que si elle n'a aucune note.</div>
-    <table class="pt tight" style="margin-top:12px"><thead><tr><th class="fit">Ordre</th><th class="fit">Libellé</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th class="fit">Suivie</th><th class="fit">Notes</th><th></th></tr></thead><tbody id="metRows"></tbody></table>
-    <button class="addl" id="addMet">+ Ajouter une métrique</button>
   </div>
   <div class="pgrid sec">
-    <div class="card" id="setSec"><h2>Sécurité</h2><div id="secBody"></div></div>
-    <div class="card" id="setStore"><h2>Stockage des données</h2><div id="storeBody"></div></div>
+    <div class="card fold" id="setSec" data-fold="0"><h2>Sécurité</h2><div id="secBody"></div></div>
+    <div class="card fold" id="setStore" data-fold="0"><h2>Stockage des données</h2><div id="storeBody"></div></div>
   </div>
-  <div class="card sec" id="setCrm"><h2>Suivi des personnes</h2>
-    <div class="field" style="max-width:560px"><label>Alerte « sans contact »</label><div style="display:flex;align-items:center;gap:10px"><input class="fin" type="number" min="7" id="crmFroid" style="width:100px"><span class="hint" style="margin:0">jours sans contact pour une personne en conversation ou en attente de proposition</span></div></div>
+  <div class="pgrid sec tm">
+    <div class="card fold" id="setTypes" data-fold="0">
+      <h2>Types d'activité</h2>
+      <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Les couleurs suivent ta palette et ce classement tant que tu n'en retouches pas une. Jusqu'à 10 types ; « Compte dans » indique le calcul où chaque type est additionné.</div>
+      <div class="tscroll"><table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Aisance</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table></div>
+      <button class="addl" id="addType">+ Ajouter un type</button>
+    </div>
+    <div class="card fold" id="setMets" data-fold="0">
+      <h2>Métriques d'aisance</h2>
+      <div class="hint">Une métrique « non suivie » disparaît de la saisie mais garde son historique. Renommer une métrique conserve ses notes ; elle n'est supprimable que si elle n'a aucune note.</div>
+      <div class="tscroll"><table class="pt tight" style="margin-top:12px"><thead><tr><th class="fit">Ordre</th><th class="fit">Libellé</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th class="fit">Suivie</th><th class="fit">Notes</th><th></th></tr></thead><tbody id="metRows"></tbody></table></div>
+      <button class="addl" id="addMet">+ Ajouter une métrique</button>
+    </div>
   </div>
-  <div class="card sec" id="setFin"><h2>Coûts de l'activité</h2>
-    <div class="hint">Déduits du taux horaire réel. Les charges annuelles sont réparties sur l'ensemble des contrats payants signés dans l'année.</div>
-    <div class="field" style="max-width:560px"><label>Charges annuelles moyennes</label><input class="fin" type="number" min="0" id="finCh" placeholder="€ par an (assurance, formation, outils, cotisations…)"></div>
-    <div class="field" style="max-width:720px"><label>Charges dans le taux horaire</label><div><span class="seg" id="finMode" style="margin-left:0"><button data-m="entier">En entier</button><button data-m="prorata">Au prorata</button></span><div class="finprev" id="finPrev"></div></div></div>
-    <div class="field" style="max-width:560px"><label>Coût habituel d'une supervision</label><input class="fin" type="number" min="0" id="finSup" placeholder="€ par séance (pré-rempli à la saisie)"></div>
+  <div class="pgrid sec">
+    <div class="card fold" id="setCrm" data-fold="0"><h2>Suivi des personnes</h2>
+      <div class="field"><label>Alerte « sans contact »</label><div style="display:flex;align-items:center;gap:10px"><input class="fin" type="number" min="7" id="crmFroid" style="width:100px"><span class="hint" style="margin:0">jours sans contact pour une personne en conversation ou en attente de réponse</span></div></div>
+    </div>
+    <div class="card fold" id="setKpi" data-fold="0"><h2>Indicateurs suivis en bandeaux</h2>
+      <div class="hint">Les indicateurs affichés en bandeaux en haut du tableau de bord et des Métriques : jusqu'à 6 parmi 19, classés par pilier ; les 3 premiers sont les principaux.</div>
+      <button class="btn2" data-kcat style="margin-top:10px">Choisir mes indicateurs</button>
+    </div>
   </div>
-  <div class="card sec" style="display:flex;align-items:center;gap:14px"><div><h2>Mes indicateurs</h2><div class="hint" style="margin:2px 0 0">Choisis jusqu'à 6 indicateurs parmi 19, classés par pilier, et leur ordre.</div></div><button class="btn2" data-kcat style="margin-left:auto;white-space:nowrap">Choisir mes indicateurs</button></div>
-  <div class="card sec">
-    <h2>Partager à un pair</h2>
-    <div class="hint">L'application ne contient aucune donnée : tu peux l'envoyer telle quelle. Pour donner en plus ta configuration (types, couleurs, métriques) sans tes données, ton nom ni ton logo, exporte un modèle : ton pair le choisit dans « Importer un fichier » à l'accueil.</div>
-    <button class="btn2" id="expModel" style="margin-top:10px">Exporter un modèle sans données</button>
+  <div class="card sec fold" id="setFin" data-fold="0"><h2>Coûts de l'activité</h2>
+    <div class="hint">Tes charges sont la somme de ces lignes. Elles sont déduites du taux horaire réel : (CA accepté − charges) ÷ toutes tes heures. La supervision est calculée à partir de tes séances payantes de l'année.</div>
+    <div class="fingrid">
+      <div><div class="tscroll"><table class="pt fint"><thead><tr><th>Description</th><th>Fournisseur</th><th class="fit" style="text-align:right">Coût annuel</th><th class="fit"></th></tr></thead><tbody id="finRows"></tbody><tfoot id="finFoot"></tfoot></table></div>
+        <button class="addl" id="finAdd">+ Ajouter un coût</button></div>
+      <div class="finpie" id="finPie"></div>
+    </div>
+    <div class="lab2" style="margin:20px 0 8px">Charges dans le taux horaire <span class="hint" style="margin:0;text-transform:none;letter-spacing:0;font-weight:600">· clique sur le calcul à utiliser</span></div>
+    <div class="fintiles" id="finPrev"></div>
+  </div>
+  <div class="pgrid sec">
+    <div class="card fold" id="setShare" data-fold="0">
+      <h2>Partager à un pair</h2>
+      <div class="hint">L'application ne contient aucune donnée : envoie simplement son adresse. Pour transmettre aussi ta configuration (types, couleurs, métriques) sans tes données, ton nom ni ton logo, exporte un modèle : ton pair le choisit dans « Importer une sauvegarde ou un modèle » à l'accueil.</div>
+      <button class="btn2" id="expModel" style="margin-top:10px">Exporter un modèle sans données</button>
+    </div>
+    <div class="card fold" id="setTour" data-fold="0">
+      <h2>Parcours de démarrage</h2>
+      <div class="hint">Revois pas à pas ton identité, tes entretiens, tes axes de progression, tes priorités, tes actions, tes coûts et ta sécurité.</div>
+      <button class="btn2" id="reTour" style="margin-top:10px">Relancer le parcours</button>
+    </div>
   </div>
 </div>
 <div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · <a id="newsLink">Nouveautés</a> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
@@ -547,7 +634,7 @@ table .fit{width:1%;white-space:nowrap}
     <select class="sel hide" id="mPA" style="margin-top:8px;margin-left:0"></select>
     <input class="fin hide" id="newP" placeholder="Prénom Nom, puis Entrée" style="margin-top:8px"></div>
   <div class="lab">Ce qu'on a vu</div><input class="fin" id="mCom" placeholder="1 ligne : thème, déclic, pattern repéré…">
-  <div id="mSup" class="hide"><div class="lab">Coût de la supervision</div><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"></div>
+  <div id="mSup" class="hide"><div class="lab">Coût de cette supervision <span style="text-transform:none;letter-spacing:0;font-weight:600">· vide = prix moyen</span></div><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"><label class="small" style="display:flex;align-items:center;gap:7px;font-weight:700;cursor:pointer"><input type="checkbox" id="mFree"> Supervision non payante</label></div></div>
   <div id="mProp" class="hide"><div class="lab">Proposition · montant et durée d'engagement</div>
     <div class="two"><input type="number" class="fin" id="mEur" placeholder="Montant €" style="width:140px;flex:none"><input type="number" min="1" class="fin" id="mSea" placeholder="Séances" title="Nombre de séances prévues" style="width:110px;flex:none"><div class="chips" id="mCdur"></div></div></div>
   <div id="mCR"><div class="lab">Suivi</div>
@@ -560,23 +647,32 @@ table .fit{width:1%;white-space:nowrap}
 <!-- fiche personne -->
 <div class="ov" id="pfM"><div class="modal pfm">
   <div class="mh"><h2 id="pfTitle">Fiche</h2><button class="x" id="pfClose">✕</button></div>
-  <div class="pfgrid">
-    <div class="pfleft"><div class="pfav" id="pfAv" title="Changer la photo"></div>
+  <div class="pfcols">
+   <div class="pfL">
+    <div class="pfgrid">
+     <div class="pfleft"><div class="pfav" id="pfAv" title="Changer la photo"></div>
       <div class="pfavb"><button class="btn2" id="pfPh">Photo</button><button class="lnk" id="pfPhDel">Retirer</button></div>
       <input type="file" id="pfFile" accept="image/*" class="hide"></div>
-    <div class="pfright">
-      <input class="fin pfnom" id="pfNom" placeholder="Prénom Nom">
+     <div class="pfright">
+      <div class="pfnrow"><input class="fin pfnom" id="pfNom" placeholder="Prénom Nom"><span class="pfic" id="pfIcons"></span></div>
       <input class="fin" id="pfTit" placeholder="En une ligne : ex. Chef de projet chez Michel Musique" style="margin-top:8px">
       <div class="pf3"><input class="fin" id="pfTel" placeholder="Téléphone" inputmode="tel"><input class="fin" id="pfMail" placeholder="E-mail" inputmode="email"><input class="fin" id="pfWeb" placeholder="Site web (lien)" inputmode="url"></div>
-      <div class="pflinks" id="pfLinks"></div>
-      <div class="pf2"><label class="pflab">Étape<select class="fin" id="pfEt"></select></label><label class="pflab">Provenance<input class="fin" id="pfSrc" list="pfSrcL" placeholder="Recommandation de…, réseau, LinkedIn, atelier…"><datalist id="pfSrcL"></datalist></label></div>
-      <label class="pflab">Description<textarea class="fin" id="pfNotes" rows="4" placeholder="Contexte, enjeux, ce qu'il faut savoir…"></textarea></label>
+     </div>
     </div>
+    <label class="pflab">Étape<br><select class="fin" id="pfEt" style="width:auto;max-width:100%"></select></label>
+    <label class="pflab">Provenance<input class="fin" id="pfSrc" list="pfSrcL" placeholder="Recommandation de…, réseau, LinkedIn, atelier…"><datalist id="pfSrcL"></datalist></label>
+    <label class="pflab">Description<textarea class="fin" id="pfNotes" rows="6" placeholder="Contexte, enjeux, ce qu'il faut savoir…"></textarea></label>
+   </div>
+   <div class="pfsep"></div>
+   <div class="pfR">
+    <div class="pfsum" id="pfSum"></div>
+    <div id="pfKS"><div class="pflab2">Contrat</div><div id="pfK"></div></div>
+    <div class="pflab2">Échanges</div><div id="pfTL"></div>
+    <div class="pflab2">Aisance moyenne</div><div class="pfais" id="pfAis"></div>
+    <div class="pflab2">Plan d'action</div><div id="pfActs"></div>
+    <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div>
+   </div>
   </div>
-  <div class="pfsec"><h3>Prochaines actions</h3><div id="pfActs"></div>
-    <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div></div>
-  <div class="pfsec" id="pfKS"><h3>Contrat</h3><div id="pfK"></div></div>
-  <div class="pfsec"><h3>En bref</h3><div class="pfsum" id="pfSum"></div></div>
   <div class="pffoot"><button class="btn2" id="pfArch"></button><button class="btn2" id="pfSeeE">Voir ses saisies</button><button class="save" id="pfOk">Terminé</button></div>
 </div></div>
 
@@ -658,7 +754,7 @@ const VERSION=3, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
 /* Version affichée : x.y.z (x = version majeure, y = nouvelle fonctionnalité, z = correctif).
    APP_VERSION = numéro de publication interne, +1 à chaque publication quelle qu'elle soit :
    il est enregistré dans le carnet (app_version) et met en lecture seule les versions plus anciennes. */
-const APP_SEMVER='1.2.3', APP_VERSION=20, APP_DATE='4 novembre 2026';
+const APP_SEMVER='1.3.1', APP_VERSION=22, APP_DATE='4 novembre 2026';
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
@@ -743,7 +839,7 @@ function migrate(d){
   c.metriques=c.metriques||D.metriques;
   if(!Array.isArray(c.kpis)||c.kpis.some(k=>k=='prop'||k=='ca'))c.kpis=[...KPI_DEFAULT];   // ancienne liste fixe → nouvelle sélection par défaut
   c.kpis=[...new Set(c.kpis.filter(k=>KPI_ALL.includes(k)))].slice(0,6);if(!c.kpis.length)c.kpis=[...KPI_DEFAULT];
-  c.finances={charges:0,supDefaut:0,mode:'entier',...(c.finances||{})};c.crm={froid:30,...(c.crm||{})};
+  c.finances={charges:0,supDefaut:0,mode:'entier',...(c.finances||{})};if(!Array.isArray(c.finances.lignes)){c.finances.lignes=+c.finances.charges>0?[{id:'c1',l:'Charges diverses',f:'',eur:+c.finances.charges}]:[]}c.crm={froid:30,...(c.crm||{})};
   if(!Array.isArray(c.ordre))c.ordre=[...DEF_ORDER];c.ordre=[...new Set(c.ordre.filter(k=>KK.includes(k)))];KK.forEach(k=>{if(!c.ordre.includes(k))c.ordre.push(k)});['nom','outil','sousTitre'].forEach(k=>{if(c[k]==null)c[k]=D[k]});
   delete d.prefs.aisOrdre;delete d.prefs.kpiStyle;
   d.actions.forEach((a,i)=>{if(!a.id)a.id=i+1});
@@ -1007,7 +1103,7 @@ function stats(list){const c=t=>list.filter(e=>t.includes(e.type)),P=c(['proposi
  coach:new Set(c(COACH).filter(e=>e.pid!=null).map(e=>e.pid)).size,
  delib:H(c(DELIB)),prop:P.reduce((s,e)=>s+(+e.eur||0),0),
  nprop:P.filter(e=>+e.eur>0).length,nacc:A.filter(e=>+e.eur>0).length,   // une proposition = un montant proposé (> 0 €)
- ca:A.reduce((s,e)=>s+(+e.eur||0),0),sup:c(['supervision']).reduce((s,e)=>s+(+e.cout||0),0),mois:A.reduce((s,e)=>s+(+e.engagement_mois||0),0)}}
+ ca:A.reduce((s,e)=>s+(+e.eur||0),0),sup:c(['supervision']).reduce((s,e)=>s+supCost(e),0),mois:A.reduce((s,e)=>s+(+e.engagement_mois||0),0)}}
 const range=(a,b)=>E().filter(e=>e.date>=a&&e.date<=b);
 const yearData=y=>E().filter(e=>e.date.startsWith(y));
 const years=()=>{const s=new Set(E().map(e=>e.date.slice(0,4)));s.add(today().slice(0,4));return[...s].sort()};
@@ -1023,7 +1119,7 @@ function kpiBg(i){const K=CFG().couleurs,base=mix(K.fonce,K.bleu,[0,.12,.24][i])
    CATALOGUE D'INDICATEURS
    Chaque indicateur : pilier, libellé, fenêtre de calcul, valeur, détail, courbe (facultative), utilité.
    ========================================================= */
-const num=v=>Math.round(v||0).toLocaleString('fr-FR');
+const num=v=>(Math.round(v||0)||0).toLocaleString('fr-FR');
 const pl=(n,w)=>`${n} ${w}${n>1?'s':''}`;
 const pct=v=>v==null||isNaN(v)?'—':Math.round(v*100);
 const PILLARS=[{k:1,l:'Coacher beaucoup',c:'var(--jet)'},{k:2,l:'Pratiquer délibérément',c:'var(--am)'},{k:3,l:'Développer ton activité',c:'var(--afb)'},{k:4,l:'Piloter',c:'var(--grey)'}];
@@ -1069,10 +1165,10 @@ const KPIDEF={
    d:D=>{const P=yearData(D.Y).filter(e=>e.type=='proposition'&&+e.eur>0);return `<b>${P.filter(e=>e.statut=='acceptee').length}</b> acceptée(s) · ${P.filter(e=>e.statut=='refusee').length} refusée(s) · ${P.filter(e=>e.statut=='attente').length} en attente`}},
  basket:{p:3,l:'Panier moyen',w:'an',u:'La valeur moyenne d\'un contrat signé.',v:D=>[D.s.nacc?num(D.s.ca/D.s.nacc):'—',D.s.nacc?'€':''],
    d:D=>{const A=yearData(D.Y).filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0);return A.length?`par contrat · engagement moyen <b>${n1(A.reduce((s,e)=>s+(+e.engagement_mois||0),0)/A.length)} mois</b>`:'aucun contrat signé cette année'}},
- rate:{p:3,l:'Taux horaire réel',w:'an',u:'Ce que vaut vraiment ton heure : CA moins supervision et charges, rapporté à toutes tes heures.',
-   v:D=>{const h=H(yearData(D.Y)),net=D.s.ca-D.s.sup-(D.s.nacc?chargesYTD(D).v:0);return[h&&D.s.ca?num(net/h):'—',h&&D.s.ca?'€/h':'']},
+ rate:{p:3,l:'Taux horaire réel',w:'an',u:'Ce que vaut vraiment ton heure : CA moins tes charges (supervisions comprises), rapporté à toutes tes heures.',
+   v:D=>{const h=H(yearData(D.Y)),C=chargesYTD(D),net=D.s.ca-C.sup-(D.s.nacc?C.lines:0);return[h&&D.s.ca?num(net/h):'—',h&&D.s.ca?'€/h':'']},
    d:D=>{const C=chargesYTD(D),h=H(yearData(D.Y));if(!D.s.nacc)return `aucun contrat payant signé en ${D.Y}`;
-    return `(${eur(D.s.ca)} CA − ${eur(D.s.sup)} supervision − ${eur(C.v)} charges${C.pr?` (${C.pr} % de l'année)`:''}, soit ${eur(C.v/D.s.nacc)} par contrat payant) ÷ <b>${n1(h)} h</b>`}},
+    return `(${eur(D.s.ca)} CA − ${eur(C.v)} charges, dont ${eur(C.sup)} de supervision${C.pr?` · autres charges à ${C.pr} % de l'année`:''} ; soit ${eur(C.v/D.s.nacc)} par contrat payant) ÷ <b>${n1(h)} h</b>`}},
  late:{p:4,l:'Actions en retard',w:'now',u:'Ce qui glisse dans ton plan d\'action.',v:D=>[DB.actions.filter(a=>a.s=='encours'&&a.d&&a.d<D.t).length,''],
    d:()=>`${pl(DB.actions.filter(a=>a.s=='encours').length,'action')} en cours · ${DB.actions.filter(a=>a.s=='realisee').length} réalisée(s)`},
  target:{p:4,l:'Cibles du trimestre',w:'tri',u:'Où tu en es de tes objectifs chiffrés.',
@@ -1081,7 +1177,14 @@ const KPIDEF={
  share:{p:4,l:'Part du coaching',w:'an',u:'La place du coaching dans tout ton temps.',v:D=>{const h=H(yearData(D.Y));return[h?pct(D.s.h/h):'—',h?'%':'']},
    d:D=>{const h=H(yearData(D.Y));return h?`pratique délibérée <b>${pct(D.s.delib/h)} %</b> · annexe ${pct(H(yearData(D.Y).filter(e=>e.type=='annexe'))/h)} %`:'aucune saisie cette année'}}};
 /* charges de l'année : en entier, ou au prorata des jours écoulés */
-function chargesYTD(D){const F=CFG().finances,c=+F.charges||0;if(F.mode!='prorata')return{v:c,pr:0};
+/* coût d'une supervision : 0 si non payante, sinon son coût saisi, ou à défaut le prix moyen */
+function supCost(e){if(e.gratuit)return 0;return +e.cout>0?+e.cout:(+CFG().finances.supDefaut||0)}
+const linesTotal=()=>(CFG().finances.lignes||[]).reduce((s,l)=>s+(+l.eur||0),0);
+const supYear=Y=>E().filter(e=>e.type=='supervision'&&e.date.startsWith(Y)),supYearCost=Y=>supYear(Y).reduce((s,e)=>s+supCost(e),0);
+function chargesYTD(D){const F=CFG().finances,sup=supYearCost(D.Y),L=linesTotal();let r=1,pr=0;
+ if(F.mode=='prorata'){const y=+D.Y,start=Date.UTC(y,0,1),end=Date.UTC(y+1,0,1),now=new Date(D.t+'T12:00:00Z').getTime();r=Math.min(1,(now-start)/(end-start));pr=Math.round(r*100)}
+ return{sup,lines:L*r,v:sup+L*r,pr,full:sup+L}}
+function chargesYTD_old(D){const F=CFG().finances,c=+F.charges||0;if(F.mode!='prorata')return{v:c,pr:0};
  const y=+D.Y,start=Date.UTC(y,0,1),end=Date.UTC(y+1,0,1),now=new Date(D.t+'T12:00:00Z').getTime(),r=Math.min(1,(now-start)/(end-start));return{v:c*r,pr:Math.round(r*100)}}
 function targetProgress(D){const q=`${D.Y}T${D.Q}`,O=DB.objectifs[q]||{},per=periods(q)[0],st=stats(range(per.a,per.b));
   return OROWS.filter(r=>+O[r.k]>0).map(r=>({l:r.l.split(' ')[0],p:Math.min(1,st[r.k]/O[r.k])}))}
@@ -1260,7 +1363,7 @@ function chipRow(el,items,set,cls){$(el).innerHTML=items.map((it,i)=>`<button cl
  const r=$(el).querySelector('[data-r]');if(r)r.onclick=()=>{set.clear();renderList()}}
 function renderList(){
  const cY=filtered('y'),cT=filtered('t'),cP=filtered('p');
- chipRow('fY',years().map(y=>({v:y,l:y,n:cY.filter(e=>e.date.startsWith(y)).length})),F.y);
+ chipRow('fY',years().reverse().map(y=>({v:y,l:y,n:cY.filter(e=>e.date.startsWith(y)).length})),F.y);
  chipRow('fT',T.map(t=>({v:t.k,l:t.l,c:t.c,n:cT.filter(e=>e.type==t.k).length})),F.t,'type');
  const pc=DB.personnes.filter(p=>!p.archive||F.p.has(p.id)).map(p=>({v:p.id,l:p.nom,n:cP.filter(e=>e.pid==p.id).length})).filter(x=>x.n||F.p.has(x.v)).sort((a,b)=>b.n-a.n||byName(a.l,b.l));
  chipRow('fP',pc,F.p);
@@ -1275,17 +1378,22 @@ function badge(all){const P=all.filter(e=>e.type=='proposition'&&e.statut=='acce
  if(all.some(e=>e.type=='conversation'))return['Pro bono','pb'];
  return[all.some(e=>e.type=='supervision')?'Superviseur.e':'Réseau','ot']}
 function bindArch(){$('pcards').querySelectorAll('[data-pfo]').forEach(b=>b.onclick=()=>openFiche(b.dataset.pfo));$('pcards').querySelectorAll('[data-arch]').forEach(b=>b.onclick=()=>{const p=DB.personnes.find(x=>String(x.id)===b.dataset.arch);if(!p)return;p.archive=!p.archive;p.maj=new Date().toISOString();touch();renderList();toast(p.archive?`${p.nom} archivé : retrouvable dans « Clients archivés »`:`${p.nom} réactivé`)})}
-function renderPCards(){
- $('pcards').innerHTML=[...F.p].map(pid=>{const all=E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));if(!all.length)return'';
-  const s=stats(all),ai=all.filter(hasAis),[bl,bc]=badge(all),first=all[0].date,last=all.at(-1).date;
-  const t0=new Date(first).getTime(),t1=Math.max(new Date(today()).getTime(),t0+1),props=all.filter(e=>e.type=='proposition');
-  const ms=metrics().filter(m=>ai.some(e=>e.ais[m.id]));
-  const per=DB.personnes.find(x=>x.id==pid);
-  return `<div class="pc"><div class="nm">${avatar(per,34)}${esc(pname(pid))}<span class="bd ${bc}">${bl}</span>${per?.archive?'<span class="bd ar">Archivé</span>':''}<button class="arch-btn" data-pfo="${pid}">Fiche</button><button class="arch-btn" style="margin-left:6px" data-arch="${pid}">${per?.archive?'Réactiver':'Archiver'}</button></div>${per?.titre||per?.site?`<div class="meta" style="margin-top:0">${per?.titre?esc(per.titre):''}${per?.titre&&per?.site?' · ':''}${siteLink(per)}</div>`:''}
-  <div class="meta">Depuis le ${dShort(first)} · dernière fois le ${dShort(last)}</div>
-  <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · engagement '+s.mois+' mois':''}</div></div>
-  ${ms.length?`<div class="ais">${ms.map(m=>{const a=ai.filter(e=>e.ais[m.id]),v=a.reduce((x,e)=>x+e.ais[m.id],0)/a.length;return `<span>${esc(m.l)}${m.actif?'':' <small style="color:#B5B7BA">(archivée)</small>'}</span><div class="bar"><b style="width:${(v-1)/4*100}%"></b></div><b>${n1(v)}</b>`}).join('')}</div>`:'<div style="font-size:12px;color:var(--grey)">Aisance : pas encore de notes</div>'}
-  <div class="tl">${all.map(e=>`<i title="${dShort(e.date)} · ${esc(TM[e.type]?.l)}" style="left:${(new Date(e.date)-t0)/(t1-t0)*96}%;background:${TM[e.type]?.c}"></i>`).join('')}</div></div>`}).join('')}
+let PCTAB=null;
+function renderPCards(){const ids=[...F.p].filter(pid=>E().some(e=>e.pid==pid));$('lsTop').classList.toggle('has',ids.length>0);
+ if(!ids.length){$('pcards').innerHTML='';return}
+ if(!ids.some(x=>String(x)===String(PCTAB)))PCTAB=ids[0];
+ const pid=ids.find(x=>String(x)===String(PCTAB)),all=E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));
+ const s=stats(all),[bl,bc]=badge(all),first=all[0].date,last=all.at(-1).date,props=all.filter(e=>e.type=='proposition'),per=DB.personnes.find(x=>x.id==pid);
+ const tabs=ids.length>1?`<div class="pctabs">${ids.map(id=>`<button data-pct="${id}" class="${String(id)===String(pid)?'on':''}">${esc(pname(id))}</button>`).join('')}</div>`:'';
+ $('pcards').innerHTML=`<div class="pc pc2">${tabs}<div class="pc2g"><div class="pc2l">
+   <div class="nm">${avatar(per,42)}<div style="min-width:0"><div class="pn2">${esc(pname(pid))}</div><div style="margin-top:3px"><span class="bd ${bc}">${bl}</span>${per?.archive?' <span class="bd ar">Archivé</span>':''}</div></div></div>
+   ${per?.titre||per?.site?`<div class="meta" style="margin-top:8px">${per?.titre?esc(per.titre):''}${per?.titre&&per?.site?' · ':''}${siteLink(per)}</div>`:''}
+   <div class="meta">Depuis le ${dShort(first)} · dernière fois le ${dShort(last)}</div>
+   <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · '+s.mois+' mois':''}</div></div>
+   <div class="pcb"><button class="arch-btn" data-pfo="${pid}">Fiche</button><button class="arch-btn" data-arch="${pid}">${per?.archive?'Réactiver':'Archiver'}</button></div>
+  </div><div class="pc2sep"></div><div style="min-width:0"><div class="lab2">Aisance moyenne</div><div class="pfais one">${aisBlock(all)}</div></div></div>
+  <div class="pc2tl"><div class="lab2">Échanges</div>${timelineSVG(all,700)}</div></div>`;
+ $('pcards').querySelectorAll('[data-pct]').forEach(b=>b.onclick=()=>{PCTAB=b.dataset.pct;renderPCards();bindArch()})}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
 const short=s=>s.length>12?s.slice(0,11)+'.':s;
 const LV={notes:false,k:false};
@@ -1309,12 +1417,13 @@ function renderRows(L){
    <td class="kk"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€" style="width:80px"></td>
    <td class="kk"><select class="ed" data-k="engagement_mois" style="width:auto">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></td>
    <td class="kk"><input class="ed" type="number" min="1" data-k="seances" value="${e.seances??''}" placeholder="—" title="Séances prévues" style="width:62px"></td>`
-   :e.type=='supervision'?`<td class="kk"></td><td class="kk"><input class="ed" type="number" min="0" data-k="cout" value="${e.cout??''}" placeholder="coût €" style="width:80px"></td><td class="kk"></td><td class="kk"></td>`:'<td class="kk"></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>')
-   :`<td class="kk sumc" data-open="k">${e.type=='proposition'?`<b style="color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${STAT[e.statut]||'En attente'}</b> · ${eur(e.eur)}${e.engagement_mois?' · '+e.engagement_mois+' mois':''}${e.seances?' · '+e.seances+' séances':''}`:e.type=='supervision'&&e.cout!=null&&e.cout!==''?`coût ${eur(e.cout)}`:''}</td>`}
+   :e.type=='supervision'?`<td class="kk"><label class="small" style="display:flex;gap:5px;align-items:center;white-space:nowrap;cursor:pointer"><input type="checkbox" data-free ${e.gratuit?'checked':''}> non payante</label></td><td class="kk"><input class="ed" type="number" min="0" data-k="cout" value="${+e.cout>0?e.cout:''}" placeholder="${e.gratuit?'—':(+CFG().finances.supDefaut?'moy. '+CFG().finances.supDefaut+' €':'coût €')}" title="Vide = prix moyen" style="width:90px" ${e.gratuit?'disabled':''}></td><td class="kk"></td><td class="kk"></td>`:'<td class="kk"></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>')
+   :`<td class="kk sumc" data-open="k">${e.type=='proposition'?`<b style="color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${STAT[e.statut]||'En attente'}</b> · ${eur(e.eur)}${e.engagement_mois?' · '+e.engagement_mois+' mois':''}${e.seances?' · '+e.seances+' séances':''}`:e.type=='supervision'?(e.gratuit?'non payante':`coût ${eur(supCost(e))}${+e.cout>0?'':' (prix moyen)'}`):''}</td>`}
  <td><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${8+(MS.length?(LV.notes?MS.length:1):0)+(LV.k?4:1)}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
  $('rows').querySelectorAll('[data-open]').forEach(c=>c.ondblclick=c.onclick=()=>{LV[c.dataset.open]=true;renderRows(L)});
  $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
   tr.querySelectorAll('.ck').forEach(c=>c.onclick=()=>{e[c.dataset.c]=!e[c.dataset.c];c.classList.toggle('on');fl()});
+  const fr=tr.querySelector('[data-free]');if(fr)fr.onchange=()=>{if(fr.checked)e.gratuit=true;else delete e.gratuit;fl();renderList()};
   tr.querySelectorAll('select.as').forEach(s=>s.onchange=()=>{e.ais=e.ais||{};if(s.value)e.ais[s.dataset.m]=+s.value;else delete e.ais[s.dataset.m];if(!Object.keys(e.ais).length)e.ais=null;s.style.background=AC[+s.value||0];fl()});
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
    e[k]=['dur','eur','engagement_mois','cout','seances'].includes(k)?(i.value===''?null:+i.value):i.value;
@@ -1323,6 +1432,7 @@ function renderRows(L){
   tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
   const p=tr.querySelector('.plink');if(p)p.onclick=()=>{const v=+p.dataset.p;F.p.has(v)?F.p.delete(v):F.p.add(v);renderList();window.scrollTo({top:0,behavior:'smooth'})}})}
 $('showArch').onchange=renderList;
+$('mFree').onchange=e=>{$('mCout').disabled=e.target.checked};
 
 /* ---------- types ajoutés par l'utilisateur ---------- */
 function roleCell(k,C){
@@ -1367,16 +1477,35 @@ function renderSecurity(){const on=!!DEKK,al=DB.prefs.autolock??15;
  if($('stDir'))$('stDir').onclick=()=>connectDir(false);
  if($('stOther'))$('stOther').onclick=()=>connectDir(false);
  $('stNew').onclick=async()=>{if(!confirm('Créer un nouveau carnet vide ?'+(DIR?` Ton carnet actuel reste dans le dossier « ${DIR.name} ».`:'')))return;if(await startFresh())openWizard(0,false)}}
+const finColor=i=>{const K=CFG().couleurs,L=[K.bleu,K.fonce,mix(K.bleu,'#ffffff',.45),K.gris,mix(K.fonce,K.bleu,.5),mix(K.gris,'#ffffff',.5),mix(K.accent,K.bleu,.5),mix(K.fonce,'#ffffff',.6)];return L[i%L.length]};
+function donut(parts){const tot=parts.reduce((s,p)=>s+p.v,0);if(!tot)return '<div class="hint" style="text-align:center">Le graphique de répartition apparaîtra dès qu\'un coût sera renseigné.</div>';
+ let off=0;const segs=parts.map(p=>{const pc=p.v/tot*100,c=`<circle r="15.915" cx="21" cy="21" fill="none" stroke="${p.c}" stroke-width="8" stroke-dasharray="${pc} ${100-pc}" stroke-dashoffset="${-off}"><title>${esc(p.l)} : ${eur(p.v)}</title></circle>`;off+=pc;return c}).join('');
+ const lg=[...parts].sort((a,b)=>b.v-a.v).map(p=>`<div><span style="background:${p.c}"></span>${esc(p.l)} <b>${Math.round(p.v/tot*100)} %</b> <small>${eur(p.v)}</small></div>`).join('');
+ return `<svg viewBox="0 0 42 42" width="170" height="170" style="transform:rotate(-90deg);flex:none">${segs}</svg><div class="pielg">${lg}</div>`}
 function renderSettings(){const C=CFG();
- const finUI=()=>{const m=C.finances.mode||'entier',D=kctx(),keep=C.finances.mode,res={};
-  ['entier','prorata'].forEach(x=>{C.finances.mode=x;res[x]={v:KPIDEF.rate.v(D),c:chargesYTD(D)}});C.finances.mode=keep;
-  $('finMode').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.m==m);b.onclick=()=>{C.finances.mode=b.dataset.m;touch();finUI()}});
+ const F=C.finances,Y=today().slice(0,4);
+ const finUI=()=>{const m=F.mode||'entier',D=kctx(),keep=F.mode,res={};
+  ['entier','prorata'].forEach(x=>{F.mode=x;res[x]={v:KPIDEF.rate.v(D),c:chargesYTD(D)}});F.mode=keep;
   const t=x=>`${res[x].v[0]} ${res[x].v[1].replace(/<[^>]+>/g,'')}`.trim();
-  $('finPrev').innerHTML=`<div class="${m=='entier'?'on':''}"><b>${t('entier')}</b>en entier · ${eur(res.entier.c.v)} de charges déduites</div><div class="${m=='prorata'?'on':''}"><b>${t('prorata')}</b>au prorata · ${eur(res.prorata.c.v)} (${res.prorata.c.pr} % de l'année)</div>`};
- finUI();$('finCh').addEventListener('change',()=>setTimeout(finUI,0));
+  $('finPrev').innerHTML=`<button class="ftile ${m=='entier'?'on':''}" data-m="entier"><i></i><b>En entier : ${t('entier')}</b><span>${eur(res.entier.c.v)} de charges déduites dès le premier contrat de l'année</span></button>
+   <button class="ftile ${m=='prorata'?'on':''}" data-m="prorata"><i></i><b>Au prorata : ${t('prorata')}</b><span>${eur(res.prorata.c.v)} déduits (autres charges à ${res.prorata.c.pr} % de l'année écoulée)</span></button>`;
+  $('finPrev').querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{F.mode=b.dataset.m;touch();finUI();foldSums()});
+  const sc=supYearCost(Y),paid=supYear(Y).filter(e=>!e.gratuit).length,tot=sc+linesTotal();
+  $('finFoot').innerHTML=`<tr><td colspan="2" style="font-weight:800">Charges moyennes annuelles</td><td class="fit" style="text-align:right;font-family:'Noto Serif',serif;font-size:19px">${eur(tot)}</td><td></td></tr>`;
+  const sl=$('finSupLine');if(sl)sl.innerHTML=`${eur(sc)}`;const sn=$('finSupN');if(sn)sn.textContent=`${paid} séance${paid>1?'s':''} payante${paid>1?'s':''} en ${Y}`;
+  const parts=[{l:'Supervision',v:sc,c:TM.supervision?.c||'#C98593'},...F.lignes.map((x,i)=>({l:x.l||'Sans nom',v:+x.eur||0,c:finColor(i)}))].filter(x=>x.v>0);
+  $('finPie').innerHTML=donut(parts)};
+ const finRows=()=>{$('finRows').innerHTML=`<tr class="fixed"><td><b>Supervision</b> <span class="fsm">prix moyen</span> <input class="ed" type="number" min="0" id="finSup" value="${F.supDefaut||''}" placeholder="€" style="width:72px;display:inline-block;border-color:var(--line)"> <span class="fsm">€ · <span id="finSupN"></span></span></td><td class="fsm">selon tes saisies</td><td class="fit" style="text-align:right;font-weight:800" id="finSupLine"></td><td class="fit small" title="Ligne fixe, calculée à partir de tes saisies">🔒</td></tr>`+
+  F.lignes.map((x,i)=>`<tr data-i="${i}"><td><span class="fdot" style="background:${finColor(i)}"></span><input class="ed" style="width:calc(100% - 20px);display:inline-block" data-fl="l" value="${esc(x.l||'')}" placeholder="Ex. Assurance RC Pro"></td><td><input class="ed" data-fl="f" value="${esc(x.f||'')}" placeholder="Fournisseur"></td><td class="fit"><input class="ed" type="number" min="0" data-fl="eur" value="${x.eur||''}" placeholder="€/an" style="width:90px;text-align:right"></td><td class="fit"><button class="ibtn del" data-fdel title="Supprimer">✕</button></td></tr>`).join('');
+  $('finSup').onchange=e=>{F.supDefaut=+e.target.value||0;touch();finUI();foldSums()};
+  $('finRows').querySelectorAll('tr[data-i]').forEach(tr=>{const x=F.lignes[+tr.dataset.i];
+   tr.querySelectorAll('[data-fl]').forEach(inp=>inp.onchange=()=>{const k=inp.dataset.fl;x[k]=k=='eur'?(+inp.value||0):inp.value.trim();F.charges=linesTotal();touch();finUI();foldSums()});
+   tr.querySelector('[data-fdel]').onclick=()=>{F.lignes.splice(+tr.dataset.i,1);F.charges=linesTotal();touch();finRows();finUI();foldSums()}});
+  finUI()};
+ finRows();
+ $('finAdd').onclick=()=>{F.lignes.push({id:'c'+Date.now(),l:'',f:'',eur:0});touch();finRows();const ins=$('finRows').querySelectorAll('[data-fl=l]');ins[ins.length-1]?.focus()};
  $('crmFroid').value=C.crm.froid;$('crmFroid').onchange=e=>{C.crm.froid=Math.max(7,+e.target.value||30);touch()};
- $('finCh').value=C.finances.charges||'';$('finSup').value=C.finances.supDefaut||'';
- $('finCh').onchange=e=>{C.finances.charges=+e.target.value||0;touch()};$('finSup').onchange=e=>{C.finances.supDefaut=+e.target.value||0;touch()};renderSecurity();
+ renderSecurity();
  document.querySelectorAll('[data-c]').forEach(i=>{i.value=C[i.dataset.c]||'';i.oninput=()=>{C[i.dataset.c]=i.value;touch();applyConfig()}});
  $('pLogo').style.backgroundImage=C.logo?`url("${C.logo}")`:'';$('pBand').style.backgroundImage=C.bandeau?`url("${C.bandeau}")`:'';
  document.querySelectorAll('[data-img]').forEach(b=>b.onclick=()=>{IMGT=b.dataset.img;$('imgFile').click()});
@@ -1486,9 +1615,10 @@ function renderPipe(base){const t=today(),q=PF.q.trim().toLowerCase();
  $('ppPipe').innerHTML=ETAPES.map(([k,l])=>{const C=L.filter(x=>x.st==k),tot=k=='proposition'?C.reduce((s,x)=>s+pEntries(x.p.id).filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((a,e)=>a+(+e.eur||0),0),0):k=='client'?C.reduce((s,x)=>s+(contractOf(x.p.id)?.eur||0),0):0;
   return `<div class="pcol" data-col="${k}"><div class="pch"><span class="dot" style="background:${ETC[k]}"></span>${l}<span class="n">${C.length}</span></div>${tot?`<div class="pct">${eur(tot)}</div>`:''}
    ${C.map(({p,last,next})=>{const K=contractOf(p.id),pend=pEntries(p.id).filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((a,e)=>a+(+e.eur||0),0);
-    return `<div class="pcard" draggable="true" data-pid="${p.id}">${avatar(p,30)}<div style="min-width:0;flex:1"><div class="pn">${esc(p.nom)}</div>${p.titre?`<div class="pt2">${esc(p.titre)}</div>`:''}${siteLink(p)}
+    return `<div class="pcard" draggable="true" data-pid="${p.id}"><div class="pch2">${avatar(p,46)}<div class="pn">${esc(p.nom)}</div></div>
+     ${p.titre?`<div class="pt2">${esc(p.titre)}</div>`:''}
      ${k=='client'&&K?`<div class="pt2"><b>${contractTxt(K)}</b></div>${contractBar(K)}`:''}${k=='proposition'&&pend?`<div class="pt2"><b>${eur(pend)}</b> en attente</div>`:''}
-     <div class="pt2 ${next&&next.d&&next.d<t?'late':''}">${next?'→ '+esc(next.a||'Action')+(next.d?' · '+dShort(next.d):''):last?'Dernier contact '+dShort(last.date):''}</div></div></div>`}).join('')||'<div class="pempty">—</div>'}</div>`}).join('');
+     <div class="pt2 pl ${next&&next.d&&next.d<t?'late':''}"><span>${next?'→ '+esc(next.a||'Action')+(next.d?' · '+dShort(next.d):''):last?'Dernier contact '+dShort(last.date):''}</span>${p.site?`<a class="psite" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener" title="${esc(webHost(p.site))}">${SVGI.web}</a>`:''}</div></div>`}).join('')||'<div class="pempty">—</div>'}</div>`}).join('');
  let dragP=null;
  $('ppPipe').querySelectorAll('.pcard').forEach(c=>{c.onclick=e=>{if(e.target.closest('a'))return;openFiche(c.dataset.pid)};c.ondragstart=e=>{dragP=c.dataset.pid;c.classList.add('drag');try{e.dataTransfer.setData('text/plain',dragP)}catch(_){}};c.ondragend=()=>c.classList.remove('drag')});
  $('ppPipe').querySelectorAll('.pcol').forEach(col=>{col.ondragover=e=>{e.preventDefault();col.classList.add('over')};col.ondragleave=e=>{if(!col.contains(e.relatedTarget))col.classList.remove('over')};
@@ -1520,6 +1650,21 @@ let PFID=null;
 function fmtTel(v){const raw=String(v||'').trim();if(!raw)return'';const plus=raw.startsWith('+')||raw.startsWith('00'),d=raw.replace(/\D/g,'').replace(/^00/,'');
  if(d.length<6||d.length>15)return raw;const pairs=x=>{const o=x.length%2?[x[0]]:[];for(let i=x.length%2;i<x.length;i+=2)o.push(x.slice(i,i+2));return o.join(' ')};
  if(!plus)return pairs(d);const cl=/^(1|7)/.test(d)?1:/^(35|37|38|42|50|59|67|68|69|85|88|96|97|99)/.test(d)?3:2;return '+'+d.slice(0,cl)+' '+pairs(d.slice(cl))}
+const SVGI={mail:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+ web:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+ tel:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'};
+const IS_TOUCH=(()=>{try{return matchMedia('(pointer:coarse)').matches}catch(e){return false}})();
+/* frise des échanges : jj/mm au-dessus, année au milieu de son segment */
+function timelineSVG(all,W=520){if(!all.length)return '<div class="hint" style="margin:4px 0 0">Aucun échange pour l\'instant.</div>';
+ const ms=d=>new Date(d+'T12:00:00').getTime(),t0=ms(all[0].date),t1=Math.max(ms(today()),ms(all.at(-1).date),t0+864e5),l=14,r=W-14,x=d=>l+(ms(d)-t0)/(t1-t0)*(r-l),y=34;let g=`<line x1="${l}" x2="${r}" y1="${y}" y2="${y}" stroke="#ECEAF0" stroke-width="3" stroke-linecap="round"/>`;
+ const y0=+all[0].date.slice(0,4),y1=+new Date(t1).getFullYear();
+ for(let a=y0;a<=y1;a++){const s=Math.max(t0,ms(a+'-01-01')),e=Math.min(t1,ms((a+1)+'-01-01'));if(e<=s)continue;const xs=l+(s-t0)/(t1-t0)*(r-l),xe=l+(e-t0)/(t1-t0)*(r-l);
+  if(a>y0)g+=`<line x1="${xs}" x2="${xs}" y1="${y-8}" y2="${y+8}" stroke="#C9CBCE"/>`;if(xe-xs>26)g+=`<text x="${(xs+xe)/2}" y="${y+19}" text-anchor="middle" font-size="10" fill="#B5B7BA">${a}</text>`}
+ let last=-99;all.forEach(e=>{const xx=x(e.date),c=TM[e.type]?.c||'#ccc',tx=Math.min(r-12,Math.max(l+12,xx));g+=`<circle cx="${xx}" cy="${y}" r="5.5" fill="${c}" stroke="#fff" stroke-width="1.5"><title>${dShort(e.date)} · ${esc(TM[e.type]?.l||e.type)}${e.com?' · '+esc(e.com):''}</title></circle>`;
+  if(tx-last>=36){g+=`<text x="${tx}" y="${y-11}" text-anchor="middle" font-size="10" fill="#797D81">${e.date.slice(8,10)}/${e.date.slice(5,7)}</text>`;last=tx}});
+ return `<svg viewBox="0 0 ${W} 56" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
+function aisBlock(all){const M=mActive().length?mActive():metrics();return M.map(m=>{const a=all.filter(e=>e.ais?.[m.id]),v=a.length?a.reduce((x,e)=>x+e.ais[m.id],0)/a.length:null;
+  return `<div class="ar"><span title="${esc(m.l)}">${esc(m.l)}</span><div class="bar"><b style="width:${v?(v-1)/4*100:0}%"></b></div><b>${v?n1(v):'—'}</b></div>`}).join('')}
 const webUrl=v=>!v?'':/^https?:\/\//i.test(v.trim())?v.trim():'https://'+v.trim().replace(/^\/+/,'');
 const webHost=v=>{try{return new URL(webUrl(v)).hostname.replace(/^www\./,'')}catch(e){return v}};
 const siteLink=p=>p?.site?`<a class="site" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">${esc(webHost(p.site))} ↗</a>`:'';
@@ -1532,10 +1677,10 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
  if(p.photo){$('pfAv').style.backgroundImage=`url("${p.photo}")`;$('pfAv').style.backgroundSize='cover'}
  $('pfPhDel').classList.toggle('hide',!p.photo);
  [['pfNom','nom'],['pfTit','titre'],['pfTel','tel'],['pfMail','email'],['pfWeb','site'],['pfSrc','provenance'],['pfNotes','notes']].forEach(([id,k])=>{$(id).value=p[k]||'';
-  $(id).oninput=e=>{p[k]=e.target.value;if(k=='nom'&&!p.nom.trim())return;mk();if(['email','site'].includes(k))links()}});
+  $(id).oninput=e=>{p[k]=e.target.value;if(k=='nom'&&!p.nom.trim())return;mk();if(['email','site','tel'].includes(k))links()}});
  $('pfTel').value=fmtTel(p.tel);$('pfTel').onchange=e=>{const f=fmtTel(e.target.value);if(f!==e.target.value){e.target.value=f;p.tel=f;mk()}};
  $('pfNom').onchange=e=>{if(!e.target.value.trim()){p.nom='Sans nom';e.target.value=p.nom;mk()}};
- const links=()=>{$('pfLinks').innerHTML=[p.email?`<a href="mailto:${esc(p.email)}">Écrire un e-mail</a>`:'',p.site?`<a href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">Voir le site</a>`:''].join('')};links();
+ const links=()=>{$('pfIcons').innerHTML=[p.email?`<a class="pfi" href="mailto:${esc(p.email)}" title="Écrire un e-mail">${SVGI.mail}</a>`:'',p.site?`<a class="pfi" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener" title="Voir le site">${SVGI.web}</a>`:'',p.tel&&IS_TOUCH?`<a class="pfi" href="tel:${esc(p.tel.replace(/[^\d+]/g,''))}" title="Appeler">${SVGI.tel}</a>`:''].join('')};links();
  $('pfSrcL').innerHTML=[...new Set(DB.personnes.map(x=>x.provenance).filter(Boolean))].sort(byName).map(v=>`<option value="${esc(v)}">`).join('');
  const auto=autoStage(p.id),cur=stageOf(p),manual=p.etape?.v&&cur==p.etape.v;
  $('pfEt').innerHTML=`<option value="">Automatique : ${ETL[auto]}</option>`+ETAPES.map(([k,l])=>`<option value="${k}" ${manual&&k==cur?'selected':''}>${l}</option>`).join('');
@@ -1548,7 +1693,8 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
   DB.actions.push({id:nextId(DB.actions),p:'Relance',a:txt,d:$('pfADate').value||'',r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderFiche()};
  $('pfANew').onkeydown=e=>{if(e.key=='Enter')$('pfAAdd').click()};
  const all=pEntries(p.id),st=stats(all),l=lastContact(p.id);
- $('pfSum').innerHTML=[[all.filter(e=>e.type=='conversation').length,'conversations'],[all.filter(e=>e.type=='session').length,'sessions'],[n1(st.h)+' h','de coaching'],[st.ca?eur(st.ca):'—','contrat'],[all[0]?dShort(all[0].date):'—','premier contact'],[l?dShort(l.date):'—','dernier contact']].map(([v,k])=>`<div><b>${v}</b>${k}</div>`).join('');
+ $('pfSum').innerHTML=[[l?dShort(l.date):'—','dernier contact'],[n1(st.h)+' h','de coaching'],[all.filter(e=>e.type=='conversation').length,'conversations'],[all.filter(e=>e.type=='session').length,'sessions'],[st.ca?eur(st.ca):'—','contrat'],[all[0]?dShort(all[0].date):'—','premier contact']].map(([v,k])=>`<div><b>${v}</b>${k}</div>`).join('');
+ $('pfTL').innerHTML=timelineSVG(all);$('pfAis').innerHTML=aisBlock(all);
  const K=contractOf(p.id);$('pfKS').classList.toggle('hide',!K);
  if(K){$('pfK').innerHTML=`<div class="pfk"><div><b>${eur(K.eur)}</b>${K.e.engagement_mois?` · ${K.e.engagement_mois} mois`:''} · ${contractTxt(K)}${contractBar(K)}</div>
    <label class="pflab">Début<input class="fin" type="date" id="pfKD" value="${K.debut}"></label><label class="pflab">Séances prévues<input class="fin" type="number" min="1" id="pfKN" value="${K.prevues||''}" placeholder="—"></label>
@@ -1605,7 +1751,7 @@ function renderModal(){const t=TM[S.type];
  mChips('mPeople',[...recent.map(id=>({v:id,l:pname(id)})),{v:'+',l:'+ Nouvelle',add:1}],S.pid,'',v=>{if(v=='+'){$('newP').classList.remove('hide');$('newP').focus()}else{S.pid=S.pid===v?null:v;renderModal()}});
  mChips('mCdur',[1,2,3,6,9,12].map(n=>({v:n,l:n+' mois'})),S.cdur,'',v=>{S.cdur=v;renderModal()});
  $('mPB').classList.toggle('hide',!t.p);$('mCR').classList.toggle('hide',!t.cr);$('mProp').classList.toggle('hide',!t.prop);$('mSup').classList.toggle('hide',S.type!='supervision');
- if(S.type=='supervision'&&$('mCout').value===''){const last=[...E()].filter(e=>e.type=='supervision'&&+e.cout>0).sort((a,b)=>b.date.localeCompare(a.date))[0];const v=last?.cout||CFG().finances.supDefaut;if(v)$('mCout').value=v}
+ if(S.type=='supervision'){const d=+CFG().finances.supDefaut||0;$('mCout').placeholder=d?`Prix moyen : ${d} €`:'Montant €'}
  const MA=mActive();$('mAis').classList.toggle('hide',!t.ais||!MA.length);
  $('mRates').innerHTML=MA.map(m=>`<div class="rate"><span>${esc(m.l)}${m.min||m.max?`<small>1 = ${esc(m.min)} · 5 = ${esc(m.max)}</small>`:''}</span><div class="dots">${[1,2,3,4,5].map(n=>`<span class="${n<=(S.ais[m.id]||0)?'on':''}" data-m="${m.id}" data-n="${n}">${n}</span>`).join('')}</div></div>`).join('');
  $('mRates').querySelectorAll('span[data-n]').forEach(s=>s.onclick=()=>{const k=s.dataset.m,n=+s.dataset.n;if(S.ais[k]==n)delete S.ais[k];else S.ais[k]=n;renderModal()})}
@@ -1618,7 +1764,7 @@ $('mSave').onclick=()=>{const t=TM[S.type];
  if(t.p&&S.pid==null&&['conversation','session','proposition','debrief'].includes(S.type)){toast('Choisis la personne');return}
  const e={id:nextId(E()),maj:new Date().toISOString(),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),
   cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on'),ais:t.ais&&Object.keys(S.ais).length?{...S.ais}:null};
- if(S.type=='supervision'){e.cout=+$('mCout').value||0;$('mCout').value=''}
+ if(S.type=='supervision'){if($('mFree').checked){e.gratuit=true;e.cout=0}else if($('mCout').value!==''&&+$('mCout').value>0)e.cout=+$('mCout').value;$('mCout').value='';$('mFree').checked=false;$('mCout').disabled=false}
  if(t.prop){if(+$('mSea').value)e.seances=+$('mSea').value;$('mSea').value='';e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}
  E().push(e);$('mCom').value='';['tCR','tSY'].forEach(i=>$(i).classList.remove('on'));
  closeM();touch();renderAll();toast(`${t.l} · ${fmtD(S.dur)} enregistré`)};
@@ -1631,6 +1777,7 @@ function renderAll(){
  if(TAB=='list')renderList();
  if(TAB=='people')renderPeople();
  if(TAB=='settings')renderSettings();
+ foldSums();
 }
 
 function goTab(t){document.querySelector(`.tabs button[data-tab="${t}"]`).click()}
@@ -1794,16 +1941,20 @@ const WS={
     <p>Sur le tableau de bord, « À relancer » te signale les relances dues, les fins d'accompagnement et les personnes restées sans nouvelles.</p>
     <label class="wzl">Alerte « sans contact » après</label><div class="wzfld" style="margin-top:0"><input class="fin" type="number" min="7" id="wFroid" value="${C.crm.froid}"> jours sans nouvelles</div></div>
    <div class="wzc"><div class="ic">€</div><b>Connaître ton taux horaire réel</b>
-    <p>(CA accepté − coûts de supervision − charges) ÷ toutes tes heures de l'année, y compris le temps non facturé.</p>
-    <label class="wzl">Coût habituel d'une supervision</label><input class="fin" type="number" min="0" id="wSup" value="${F.supDefaut||''}" placeholder="€ par séance">
-    <label class="wzl">Charges annuelles moyennes</label><input class="fin" type="number" min="0" id="wCh" value="${F.charges||''}" placeholder="€ par an">
+    <p>Ce que te rapporte vraiment une heure de pratique : <strong>(CA accepté − charges) ÷ toutes tes heures</strong>, y compris le temps non facturé. Tes charges sont la somme de tes lignes de coût : supervisions payantes, assurance, formation, outils, cotisations… Tu les détailles dans Paramètres, avec un graphique de répartition.</p>
+    <label class="wzl">Prix moyen d'une supervision</label><input class="fin" type="number" min="0" id="wSup" value="${F.supDefaut||''}" placeholder="€ par séance">
+    <label class="wzl">Tes autres coûts annuels</label><div id="wLines">${F.lignes.map((x,i)=>`<div class="wzline"><input class="fin" data-wl="l" data-i="${i}" value="${esc(x.l||'')}" placeholder="Ex. Assurance RC Pro"><input class="fin" data-wl="f" data-i="${i}" value="${esc(x.f||'')}" placeholder="Fournisseur"><input class="fin" type="number" min="0" data-wl="eur" data-i="${i}" value="${x.eur||''}" placeholder="€/an"><button class="ibtn del" data-wld="${i}">✕</button></div>`).join('')}</div>
+    <button class="addl" id="wAddL" style="margin-top:6px">+ Ajouter une ligne</button>
     <label class="wzl">Charges dans le taux horaire</label><span class="seg" id="wMode" style="margin-left:0"><button data-m="entier">En entier</button><button data-m="prorata">Au prorata</button></span>
     <div class="hint" id="wModeH"></div></div></div>`,
   bind:()=>{const mh=()=>{const m=F.mode||'entier';$('wMode').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.m==m));
     $('wModeH').textContent=m=='entier'?'Toutes les charges de l\'année sont déduites dès le premier contrat : le taux est prudent en début d\'année.':'Seule la part de charges correspondant à l\'année écoulée est déduite : le taux reflète mieux le rythme en cours.'};mh();
    $('wMode').querySelectorAll('button').forEach(b=>b.onclick=()=>{F.mode=b.dataset.m;touch();mh()});
    $('wFroid').onchange=e=>{C.crm.froid=Math.max(7,+e.target.value||30);touch()};
-   $('wSup').onchange=e=>{F.supDefaut=+e.target.value||0;touch()};$('wCh').onchange=e=>{F.charges=+e.target.value||0;touch()}}}},
+   $('wSup').onchange=e=>{F.supDefaut=+e.target.value||0;touch()};
+   $('wzBody').querySelectorAll('[data-wl]').forEach(inp=>inp.onchange=()=>{const x=F.lignes[+inp.dataset.i],k=inp.dataset.wl;x[k]=k=='eur'?(+inp.value||0):inp.value.trim();F.charges=linesTotal();touch()});
+   $('wzBody').querySelectorAll('[data-wld]').forEach(b=>b.onclick=()=>{F.lignes.splice(+b.dataset.wld,1);F.charges=linesTotal();touch();renderWiz()});
+   $('wAddL').onclick=()=>{F.lignes.push({id:'c'+Date.now(),l:'',f:'',eur:0});touch();renderWiz();const ins=$('wzBody').querySelectorAll('[data-wl=l]');ins[ins.length-1]?.focus()}}}},
 
  first:()=>{const f=WTMP.f=WTMP.f||{type:'session',dur:TM.session.d,date:today(),nom:'',com:'',ais:{}},t=TM[f.type],MA=mActive();
   if(WTMP.saved)return{t:'Ton premier entretien',html:`<div class="ok-box">✓ Entretien enregistré. Bravo, ton carnet est lancé.</div><div class="hint" style="margin-top:12px">Ensuite, tu enregistreras chaque entretien avec le bouton « + Enregistrer un temps », en haut à droite.</div>`};
@@ -1850,7 +2001,7 @@ const WS={
  done:()=>{const n=(a,x)=>a.length+' '+x+(a.length>1?'s':''),it=(ok,txt)=>`<li class="${ok?'':'no'}"><i>${ok?'✓':'–'}</i>${txt}</li>`;
   return{t:'C\'est prêt',lead:'Ton carnet est configuré. Tout reste modifiable dans Paramètres, et le parcours peut être relancé à tout moment.',next:'Ouvrir mon tableau de bord',
   html:`<ul class="sumlist">
-   ${it(true,'Identité : '+esc(CFG().nom))}${it(true,CFG().ordre.length+' types d\'entretien, dans ton ordre')}${it(CFG().finances.charges||CFG().finances.supDefaut,CFG().finances.charges||CFG().finances.supDefaut?'Coûts de l\'activité renseignés':'Coûts de l\'activité à renseigner (Paramètres)')}
+   ${it(true,'Identité : '+esc(CFG().nom))}${it(true,CFG().ordre.length+' types d\'entretien, dans ton ordre')}${it(linesTotal()||CFG().finances.supDefaut,linesTotal()||CFG().finances.supDefaut?'Coûts de l\'activité renseignés':'Coûts de l\'activité à renseigner (Paramètres)')}
    ${it(mActive().length,n(mActive(),'axe')+' de progression')}${it(DB.priorites.length,DB.priorites.length+(DB.priorites.length>1?' objectifs prioritaires':' objectif prioritaire'))}
    ${it(DB.actions.filter(a=>a.s=='encours').length,n(DB.actions.filter(a=>a.s=='encours'),'action'))}${it(E().length,E().length?'Premier entretien enregistré':'Premier entretien à saisir')}
    ${it(DIR&&!NEEDPERM,DIR?'Dossier « '+esc(DIR.name)+' »':'Pas de dossier : gardé dans ce navigateur')}${it(DEKK,DEKK?'Chiffré par mot de passe':'Non chiffré')}</ul>
@@ -1864,6 +2015,14 @@ $('reTour').onclick=()=>openWizard(2,false);
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:22,s:'1.3.1',d:'4 novembre 2026',items:[
+  {t:'Montant personnalisé par supervision',p:'À chaque saisie de supervision, laisse le champ vide pour compter le prix moyen, ou saisis le montant réel de la séance : il prend le pas sur le prix moyen. Modifiable aussi dans Mes saisies.'}]},
+ {v:21,s:'1.3.0',d:'4 novembre 2026',items:[
+  {t:'Coûts de l\'activité détaillés',p:'Saisis tes coûts ligne par ligne (description, fournisseur, coût annuel). La supervision est calculée à partir de tes séances payantes. Le total et sa répartition s\'affichent dans un graphique.',go:'settings',b:'Voir'},
+  {t:'Supervision non payante',p:'Une case dans la saisie d\'une supervision : la séance n\'entre alors pas dans tes coûts.'},
+  {t:'Nouvelle fiche personne',p:'Infos à gauche ; à droite le suivi : chiffres, contrat, frise datée des échanges, aisance sur tous tes axes et plan d\'action. Icônes e-mail, site et appel (sur téléphone) à côté du nom.',go:'people',b:'Ouvrir Personnes'},
+  {t:'Mes saisies : tuile à côté des filtres',p:'La personne sélectionnée s\'affiche à droite des filtres, sur deux colonnes, avec un onglet par personne si tu en sélectionnes plusieurs.',go:'list',b:'Voir'},
+  {t:'Blocs repliables',p:'Plan d\'action et Suivi indicateurs sur le tableau de bord, et tous les blocs des Paramètres, se replient d\'un clic sur le titre. Les Paramètres sont réorganisés.',go:'settings',b:'Paramètres'}]},
  {v:20,s:'1.2.3',d:'4 novembre 2026',items:[
   {t:'Tableaux resserrés',p:'Les colonnes courtes (personne, date, type, durée, cases…) prennent juste la place nécessaire ; le texte libre récupère le reste.'},
   {t:'Mes saisies : CR et synthèse avant « Ce qu\'on a vu »',p:'Les cases à cocher sont juste après la durée.',go:'list',b:'Voir'},
@@ -1908,6 +2067,27 @@ $('nwClose').onclick=closeNews;$('nwOk').onclick=closeNews;$('newsLink').onclick
 function checkNews(){if(!DB||READONLY)return;const v=+DB.prefs.nouveautes_vues||0;if(v>=APP_VERSION)return;
  if(!openNews(v,false)){DB.prefs.nouveautes_vues=APP_VERSION;touch()}}
 
+/* ---------- blocs repliables (chevron avant le titre) ---------- */
+const FOLDK='aocoach.fold.';
+function foldGet(id,def){try{const v=localStorage.getItem(FOLDK+id);return v==null?def:v=='1'}catch(e){return def}}
+function foldSet(id,v){try{localStorage.setItem(FOLDK+id,v?'1':'0')}catch(e){}}
+function initFolds(){document.querySelectorAll('.card.fold').forEach(c=>{if(c.dataset.ready)return;c.dataset.ready=1;const h=c.querySelector('h2'),body=document.createElement('div');body.className='fbody';
+  while(h.nextSibling)body.appendChild(h.nextSibling);c.appendChild(body);
+  h.classList.add('fh');h.insertAdjacentHTML('afterbegin','<span class="chev"></span>');const sm=document.createElement('span');sm.className='fsum';h.appendChild(sm);
+  const open=foldGet(c.id,c.dataset.fold=='1');c.classList.toggle('closed',!open);
+  h.addEventListener('click',e=>{if(e.target.closest('button,select,input,a,.pills,label'))return;const o=c.classList.contains('closed');c.classList.toggle('closed',!o);foldSet(c.id,o);if(o)renderAll()})})}
+function foldSums(){if(!DB)return;const C=CFG(),set=(id,t)=>{const el=document.querySelector('#'+id+' .fsum');if(el)el.textContent=t||''};
+ const A=DB.actions.filter(a=>a.s=='encours'),late=A.filter(a=>a.d&&a.d<today()).length;
+ set('actCard',`${A.length} en cours${late?` · ${late} en retard`:''}`);
+ try{const D=kctx(),v=KPIDEF.target.v(D);set('objCard',`${$('qSel')?.selectedOptions[0]?.text||''} · cibles du trimestre : ${v[0]} ${String(v[1]).replace(/<[^>]+>/g,'')}`)}catch(e){}
+ set('setIdent',[C.nom,C.outil].filter(Boolean).join(' · '));
+ set('setLook',`${C.logo?'logo':'sans logo'} · ${C.bandeau?'bandeau':'sans bandeau'} · ${C.couleursAuto?'palette':'couleurs personnalisées'}`);
+ set('setSec',DEKK?`chiffré · verrouillage ${DB.prefs.autolock?'après '+DB.prefs.autolock+' min':'manuel'}`:'non chiffré');
+ set('setStore',DIR?`dossier « ${DIR.name} »${NEEDPERM?' (à reconnecter)':''}`:'aucun dossier relié');
+ set('setTypes',`${keysOf(C).length} types`);set('setMets',`${mActive().length} axes suivis`);
+ set('setCrm',`alerte après ${C.crm.froid} j sans contact`);set('setKpi',`${kOrder().length} indicateurs, dont ${Math.min(3,kOrder().length)} principaux`);
+ try{const Y=today().slice(0,4),r=KPIDEF.rate.v(kctx());set('setFin',`${eur(supYearCost(Y)+linesTotal())} de charges · ${C.finances.mode=='prorata'?'au prorata':'en entier'} : ${r[0]} ${String(r[1]).replace(/<[^>]+>/g,'')}`)}catch(e){}}
+
 /* ---------- démarrage ---------- */
 async function afterLoad(){
  $('appVer').textContent=`Version ${APP_SEMVER} (${APP_DATE})`;
@@ -1944,5 +2124,6 @@ async function boot(){
 if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
  let had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had)toast('Nouvelle version de l\'application disponible','Recharger',()=>location.reload());had=true})}
 let RZT=0;window.addEventListener('resize',()=>{clearTimeout(RZT);RZT=setTimeout(()=>{try{if(DB&&TAB=='metrics'){renderMonthly();renderEase()}}catch(e){}},150)});
+initFolds();
 boot();
 </script></body></html>

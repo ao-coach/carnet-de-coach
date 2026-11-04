@@ -1,6 +1,6 @@
 # Suivi de pratique de coaching
 
-**Version 1.2.3 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+**Version 1.3.1 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
 Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, tes objectifs et tes relances.
 
@@ -71,7 +71,7 @@ Un carnet neuf s'ouvre sur un parcours en 11 étapes, d'environ 5 minutes. Le pa
 | Tes axes de progression | Les dimensions que tu notes de 1 à 5 après un entretien, avec des suggestions. |
 | Priorités et objectifs | Tes objectifs prioritaires (3 au maximum, c'est l'idéal), l'ambition et les cibles du trimestre. |
 | Premières actions | Les prochains pas concrets, avec une date. |
-| Personnes et coûts | Seuil d'alerte « sans contact », coût d'une supervision, charges annuelles, mode de calcul. Cette étape peut être passée. |
+| Personnes et coûts | Seuil d'alerte « sans contact », prix moyen d'une supervision, tes autres coûts annuels ligne par ligne, mode de calcul des charges. Cette étape peut être passée. |
 | Premier entretien | Une vraie saisie, pour prendre le geste. Elle peut être passée. |
 | Sécurité | Dossier où ranger le carnet et mot de passe (recommandé). La clé de secours t'est remise à ce moment-là. |
 
@@ -95,7 +95,7 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
 - **Aisance.** Une note de 1 à 5 pour chacun de tes axes de progression, pour les types où l'aisance est activée.
 - **Proposition.** Montant, nombre de séances prévues, durée d'engagement. Une proposition est enregistrée « En attente » (voir la [partie 8](#8-propositions-et-contrats)).
-- **Supervision.** Coût de la séance. Il est pré-rempli avec le dernier coût saisi, ou à défaut avec le coût habituel indiqué dans les Paramètres.
+- **Supervision.** Coût de cette séance. Laisse le champ vide pour compter le prix moyen indiqué dans les Paramètres (il s'affiche en grisé), ou saisis le montant réel : il prend le pas sur le prix moyen. Si tu changes ensuite le prix moyen, toutes les séances sans montant personnalisé suivent. Coche **« Supervision non payante »** pour une séance offerte ou incluse ailleurs : elle n'entre alors pas dans tes coûts.
 
 ---
 
@@ -126,6 +126,8 @@ Tes priorités du moment, avec pour chacune son objet et ce qu'elle veut dire po
 
 ### Plan d'action
 
+Ce bloc est ouvert par défaut. Clique sur son titre pour le replier : il affiche alors un résumé, avec le nombre d'actions en cours et en retard.
+
 Chaque action a un objectif prioritaire, une description, une personne (facultative), une date prévue, un résultat et un statut : En cours, Réalisée ou Annulée.
 
 - Une action en retard s'affiche en rouge.
@@ -135,6 +137,8 @@ Chaque action a un objectif prioritaire, une description, une personne (facultat
 ### Suivi indicateurs
 
 Tes cibles par trimestre, semestre et année : heures de coaching, conversations, personnes coachées, pratique délibérée, CA accepté. Chaque période a une phrase d'ambition. Une barre montre l'avancement. Le menu en haut à droite permet de choisir la période.
+
+Ce bloc est replié par défaut. Clique sur son titre pour l'ouvrir : replié, il affiche la période et l'avancement des cibles du trimestre. Ton choix d'ouverture est mémorisé sur ton ordinateur.
 
 > Sur un écran large (1700 px et plus), « À relancer » et « Objectif prioritaire » s'affichent côte à côte.
 
@@ -195,14 +199,14 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
   - Clique sur une année, un type ou une ou plusieurs personnes. Clique à nouveau pour retirer le filtre.
   - Les clients archivés sont dans une liste déroulante.
 - **Résumé.** Nombre de saisies, temps total, dont coaching, pratique délibérée, et pourcentages de CR et de synthèses faits.
-- **Fiches.** Quand une personne est sélectionnée, sa carte s'affiche :
-  - son badge (Client.e, Pro bono, Superviseur.e ou Réseau), sa fonction et son site ;
-  - ses chiffres et son aisance moyenne par axe ;
-  - une frise de ses entretiens ;
-  - les boutons Fiche et Archiver.
+- **Tuile de la personne.** Quand tu sélectionnes une personne, sa tuile s'affiche à droite des filtres. Si tu en sélectionnes plusieurs, un onglet par personne permet de passer de l'une à l'autre.
+  - **À gauche :** son badge (Client.e, Pro bono, Superviseur.e ou Réseau), sa fonction et son site, ses dates, ses chiffres, et les boutons Fiche et Archiver.
+  - **À droite :** son aisance moyenne sur chacun de tes axes suivis.
+  - **En dessous :** la frise de ses échanges, avec la date (jj/mm) au-dessus de chaque échange et l'année au milieu de sa période.
+- **Années.** Elles sont classées de la plus récente à la plus ancienne.
 - **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
   - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
-  - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances.
+  - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut.
   - Chaque modification est enregistrée aussitôt.
   - ✕ supprime une saisie. L'annulation est possible quelques secondes.
 - **Afficher les métriques archivées.** Fait réapparaître les axes que tu ne suis plus.
@@ -215,6 +219,7 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 ### Vues
 
 - **Pipeline** (par défaut) : une colonne par étape, avec son nombre de personnes et ses totaux (propositions en attente, contrats en cours).
+  - Chaque carte montre la photo et le nom, puis, sur toute la largeur : la fonction, le montant en attente ou l'avancement du contrat, la prochaine action ou le dernier contact. Une icône ouvre le site de la personne.
   - Glisse une carte dans une autre colonne pour changer son étape à la main.
   - Remettre « Automatique » sur la fiche efface ce choix manuel.
 - **Liste** : des tuiles compactes, avec la photo, le nom, l'étape, la provenance, la fonction, le site, le dernier contact, le contrat et la prochaine action.
@@ -241,26 +246,37 @@ Une étape choisie à la main, sur la fiche ou par glisser-déposer, reste valab
 
 ### La fiche personne
 
-Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « + Nouvelle personne ».
+Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « Fiche » dans Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ». La fiche est organisée en deux moitiés.
+
+**À gauche, qui est la personne :**
 
 - **Photo.**
   - Clique sur le rond ou sur « Photo », choisis une image, puis cadre-la dans le disque : glisse pour centrer, puis zoome avec le curseur ou la molette.
   - La photo est compressée (environ 5 Ko) et stockée dans ton carnet, donc chiffrée avec lui.
-- **Coordonnées.**
-  - **Téléphone** : il s'espace automatiquement. `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
-  - **E-mail** : le lien « Écrire un e-mail » ouvre ta messagerie.
-  - **Site web** : le lien « Voir le site » l'ouvre. Il est aussi cliquable depuis les tuiles.
-- **Description.**
-  - En une ligne : la fonction, par exemple « Cheffe de projet chez Michel Musique ».
-  - Élargie : contexte, enjeux, ce qu'il faut savoir.
+- **Nom.** Des icônes apparaissent à côté du nom dès que l'information correspondante est renseignée :
+  - l'enveloppe ouvre ta messagerie ;
+  - le globe ouvre le site ;
+  - le combiné lance l'appel, seulement sur un téléphone ou une tablette.
+- **Fonction**, en une ligne : par exemple « Cheffe de projet chez Michel Musique ».
+- **Téléphone, e-mail, site web.** Le téléphone s'espace automatiquement : `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
 - **Étape** (automatique ou manuelle) et **provenance**. La provenance propose les valeurs déjà utilisées sur tes autres fiches.
-- **Prochaines actions.** Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action.
-- **En bref.** Conversations, sessions, heures de coaching, contrat, premier et dernier contact.
-- **Contrat.** Si la personne a un contrat : début, séances prévues, durée, et une barre d'avancement.
+- **Description.** Contexte, enjeux, ce qu'il faut savoir.
+
+**À droite, où vous en êtes :**
+
+- **Chiffres.** Dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
+- **Contrat**, s'il y en a un. Montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
+- **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
+- **Aisance moyenne** sur tous tes axes suivis, en deux colonnes.
+- **Plan d'action.** Les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
+
+**En bas :**
+
 - **Archiver / Réactiver.** Une personne archivée sort des boutons de saisie et des filtres, mais garde tout son historique.
 - **Voir ses saisies.** Ouvre Mes saisies, filtré sur elle.
+- **Terminé.** Ferme la fiche.
 
-Tout est enregistré pendant la frappe. « Terminé » ferme la fiche.
+Tout est enregistré pendant la frappe.
 
 ---
 
@@ -287,40 +303,45 @@ Seules les propositions de plus de 0 € comptent dans les indicateurs commercia
 
 Réglages dans **Paramètres > Coûts de l'activité**.
 
-- **Coût habituel d'une supervision.** Il pré-remplit le coût à la saisie, et chaque séance reste modifiable.
-- **Charges annuelles moyennes.** Assurance, formation, outils, cotisations…
-- **Charges dans le taux horaire :**
+- **Tes lignes de coût.** Pour chaque coût : une description, un fournisseur et un coût annuel. Par exemple : assurance RC Pro, formation continue, outils, cotisations. « + Ajouter un coût » crée une ligne, et ✕ la supprime.
+- **La ligne Supervision**, fixe et non supprimable.
+  - Tu y indiques le **prix moyen** d'une supervision.
+  - Son coût annuel est calculé à partir de tes saisies de l'année : le montant personnalisé de chaque séance s'il y en a un, sinon le prix moyen.
+  - Les séances marquées « non payante » ne comptent pas.
+- **Charges moyennes annuelles.** C'est la somme de toutes les lignes, supervision comprise.
+- **Répartition.** Un graphique en anneau montre la part de chaque coût, avec la supervision dans la couleur de son type d'activité.
+- **Charges dans le taux horaire.** Clique sur la tuile du calcul que tu veux utiliser :
   - **En entier** : toutes les charges de l'année sont déduites dès le premier contrat payant. Le taux est prudent en début d'année.
-  - **Au prorata** : seule la part des charges correspondant à l'année écoulée est déduite. Le taux reflète le rythme en cours.
+  - **Au prorata** : les supervisions déjà payées, plus la part des autres charges correspondant à l'année écoulée. Le taux reflète le rythme en cours.
 
-  L'aperçu affiche les deux taux côte à côte. C'est le mode actif qui alimente l'indicateur.
+  Chaque tuile affiche le taux obtenu, par exemple « En entier : 2 €/h ». La tuile choisie est bordée et cochée : c'est elle qui alimente l'indicateur.
 
-**Taux horaire réel = (CA accepté − coûts de supervision − charges) ÷ toutes tes heures de l'année.** Toutes les heures comptent, y compris le temps non facturé. Le détail de l'indicateur montre aussi les charges rapportées à chaque contrat payant.
+**Taux horaire réel = (CA accepté − charges) ÷ toutes tes heures de l'année.** Toutes les heures comptent, y compris le temps non facturé. Le détail de l'indicateur montre la part de supervision et les charges rapportées à chaque contrat payant.
+
+> Si tu avais indiqué un montant de « charges annuelles » dans une version précédente, il a été repris dans une ligne « Charges diverses », que tu peux détailler.
 
 ---
 
 ## 10. Paramètres
 
-- **Identité.** Nom du cabinet, nom de l'outil et phrase de motivation. Le bouton **Relancer le parcours** est ici.
-- **Apparence.**
-  - Logo et bandeau (la photo du panneau latéral).
-  - Les 5 couleurs de marque, et « Revenir à la palette par défaut ».
-  - Les couleurs des types suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
-- **Types d'activité** (10 au maximum).
-  - Pour chaque type : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut et notes d'aisance.
-  - **Compte dans** : heures de coaching, pratique délibérée, développement ou autre. Ce choix décide dans quel indicateur les heures du type sont additionnées.
-  - Un type ajouté ne peut être supprimé que s'il n'a aucune saisie.
-- **Métriques d'aisance.**
-  - Pour chaque axe : libellé, repères du 1 et du 5, et ordre.
-  - Un axe « non suivi » disparaît de la saisie mais garde son historique.
-  - Renommer un axe conserve ses notes.
-  - Un axe n'est supprimable que s'il n'a aucune note.
-- **Sécurité.** Chiffrement, verrouillage automatique, mot de passe et clé de secours (voir la [partie 11](#11-sécurité-et-chiffrement)).
-- **Stockage des données.** Dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ».
-- **Suivi des personnes.** Seuil de l'alerte « sans contact », en jours.
-- **Coûts de l'activité.** Voir la [partie 9](#9-coûts-et-taux-horaire-réel).
-- **Mes indicateurs.** Ouvre le catalogue.
-- **Partager à un pair.** « Exporter un modèle sans données ».
+Tous les blocs sont **repliés par défaut**. Clique sur un titre, ou sur le triangle placé avant lui, pour ouvrir ou fermer le bloc. Replié, chaque bloc affiche un résumé d'une ligne. Ton choix est mémorisé sur ton ordinateur.
+
+Les blocs vont par deux, dans cet ordre :
+
+| Gauche | Droite |
+|---|---|
+| **Identité** : nom du cabinet, nom de l'outil, phrase de motivation. | **Apparence** : logo et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
+| **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 11](#11-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
+| **Types d'activité** (10 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. | **Métriques d'aisance** : libellé, repères du 1 et du 5, ordre. Un axe « non suivi » disparaît de la saisie mais garde son historique. Renommer un axe conserve ses notes. Un axe n'est supprimable que s'il n'a aucune note. |
+| **Suivi des personnes** : seuil de l'alerte « sans contact », en jours. | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
+| **Coûts de l'activité**, sur toute la largeur (voir la [partie 9](#9-coûts-et-taux-horaire-réel)). | |
+| **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : « Relancer le parcours ». |
+
+Quelques précisions :
+
+- **Compte dans** décide dans quel indicateur les heures d'un type sont additionnées : heures de coaching, pratique délibérée, développement ou autre.
+- **Les couleurs des types** suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
+- **Sur un écran de moins de 1500 px de large**, Types d'activité et Métriques d'aisance passent l'un sous l'autre.
 
 En bas de chaque page :
 
@@ -403,7 +424,7 @@ L'outil est publié sous **licence PolyForm Shield 1.0.0** (fichier `LICENSE`).
 - **Interdit sans accord** : le revendre, ou en tirer un produit ou un service concurrent (version payante, marque blanche…).
 - En le partageant, transmets aussi le fichier `LICENSE`.
 
-Pour un usage commercial (revente, intégration dans une offre payante, marque blanche), contacte Allan Oudomphong. 
+Pour un usage commercial (revente, intégration dans une offre payante, marque blanche), contacte Allan Oudomphong.
 
 ---
 
@@ -411,7 +432,9 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **1.2.3** | 04/11/2026 | Tableaux resserrés (colonnes courtes au plus juste). CR et Synth. avant « Ce qu'on a vu ». Personnes : pipeline par défaut, sélecteur avant la recherche. Manuel d'utilisation complet. |
+| **1.3.1** | 04/11/2026 | Montant personnalisé par supervision : vide = prix moyen, sinon le montant saisi prend le pas. |
+| 1.3.0 | 04/11/2026 | Coûts de l'activité ligne par ligne, avec répartition en anneau, supervision calculée sur les séances payantes, case « non payante » et choix du calcul par tuile. Nouvelle fiche personne en deux moitiés (icônes de contact, frise datée, aisance sur tous les axes, plan d'action). Mes saisies : tuile à côté des filtres, onglets, années décroissantes. Pipeline : cartes agrandies. Blocs repliables sur le tableau de bord et dans les Paramètres, Paramètres réorganisés. |
+| 1.2.3 | 04/11/2026 | Tableaux resserrés (colonnes courtes au plus juste). CR et Synth. avant « Ce qu'on a vu ». Personnes : pipeline par défaut, sélecteur avant la recherche. Manuel d'utilisation complet. |
 | 1.2.2 | 04/11/2026 | Affichage adapté à la résolution : toute la largeur, graphiques à la taille de leur cadre, « À relancer » et priorités côte à côte sur grand écran. |
 | 1.2.1 | 04/11/2026 | Étape Superviseur.e, « Client.e », tuiles compactes, téléphone espacé automatiquement. |
 | 1.2.0 | 04/11/2026 | Propositions en attente dans « À relancer ». Site web à la place de LinkedIn. Notes et contrat repliables dans Mes saisies. Correctif : coordonnées de la fiche parfois non enregistrées. |
