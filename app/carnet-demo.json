@@ -2298,23 +2298,6 @@
    "ais": null
   },
   {
-   "id": 230,
-   "date": "2026-06-02",
-   "type": "conversation",
-   "dur": 60,
-   "pid": 7,
-   "com": "Exploration : réalité, enjeux, envies",
-   "cr": false,
-   "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m3": 3,
-    "m4": 4,
-    "m5": 4
-   }
-  },
-  {
    "id": 103,
    "date": "2026-06-03",
    "type": "invitation",
@@ -2400,20 +2383,6 @@
    "cr": false,
    "syn": false,
    "ais": null
-  },
-  {
-   "id": 231,
-   "date": "2026-06-11",
-   "type": "conversation",
-   "dur": 90,
-   "pid": 7,
-   "com": "Vraie séance de coaching offerte",
-   "cr": true,
-   "syn": true,
-   "ais": {
-    "m1": 4,
-    "m5": 3
-   }
   },
   {
    "id": 105,
@@ -3374,6 +3343,26 @@
    "ais": null
   },
   {
+   "id": 230,
+   "date": "2026-10-12",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 7,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 5,
+    "m3": 4,
+    "m4": 5,
+    "m5": 4
+   },
+   "pa": {
+    "1": 1
+   }
+  },
+  {
    "id": 124,
    "date": "2026-10-13",
    "type": "invitation",
@@ -3399,7 +3388,7 @@
     "m5": 4
    },
    "pa": {
-    "1": 1
+    "1": 2
    }
   },
   {
@@ -3417,7 +3406,7 @@
     "m5": 5
    },
    "pa": {
-    "1": 2
+    "1": 1
    }
   },
   {
@@ -3469,7 +3458,7 @@
     "m5": 5
    },
    "pa": {
-    "1": 1
+    "1": 0
    }
   },
   {
@@ -3504,6 +3493,23 @@
    }
   },
   {
+   "id": 231,
+   "date": "2026-10-21",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 7,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 5,
+    "m5": 4
+   },
+   "pa": {
+    "1": 1
+   }
+  },
+  {
    "id": 253,
    "date": "2026-10-23",
    "type": "conversation",
@@ -3520,7 +3526,7 @@
     "m5": 4
    },
    "pa": {
-    "1": 0
+    "1": 1
    }
   },
   {
@@ -3563,7 +3569,7 @@
     "m5": 4
    },
    "pa": {
-    "1": 1
+    "1": 2
    }
   },
   {
@@ -3594,7 +3600,7 @@
     "m5": 4
    },
    "pa": {
-    "1": 1
+    "1": 0
    }
   },
   {
@@ -3785,6 +3791,6 @@
  },
  "prefs": {
   "onboarded": true,
-  "simple": false
+  "simple": true
  }
 }

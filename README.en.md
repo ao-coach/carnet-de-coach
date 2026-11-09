@@ -44,7 +44,7 @@ The app opens from its web address and installs on your computer like an app. Th
 
 ### Install the app (2 minutes, once)
 
-1. Open **the app's address** in Chrome or Edge: the website, then “Open the notebook”. The app itself lives in the site's `app/` subfolder.
+1. Open **[carnet-de-coach.fr](https://carnet-de-coach.fr)** in Chrome or Edge, then “Open the notebook”. The app itself lives at **carnet-de-coach.fr/app/**.
 2. Click the **Install** icon, to the right of the address bar: a screen with a downward arrow. In Edge, the option is also in the menu **⋯ > Apps > Install this site as an app**.
 3. The app appears in your Start menu, or in the Dock and Launchpad on a Mac. It opens in its own window and **works even offline**.
 
@@ -87,11 +87,11 @@ A new notebook opens on three screens:
 
 “Enter my notebook” takes you straight to the tool, and the first mission is shown to you.
 
-The welcome screen can be reopened at any time with the **small house**, left of the tabs: “Back to my notebook” returns you where you were, without locking the notebook again. The full tour (name, logo, colours) can be replayed from **Settings > Getting started > Replay the welcome**.
+The **small house**, left of the tabs, opens the [carnet-de-coach.fr](https://carnet-de-coach.fr) website in a new tab. The welcome screen and the full tour (name, logo, colours) can be replayed from **Settings > Getting started > Replay the welcome**; “Back to my notebook” returns you where you were, without locking the notebook again.
 
 ### The demo notebook
 
-“Explore a demo notebook”, on the welcome screen, opens the notebook of Camille Martin, a **fictional** coach of managers: fourteen months of practice, people at every stage, a filled-in coach profile. Everything can be explored freely. A banner reminds you it is a demo; “Create my own notebook” closes it and starts the welcome of a new notebook. The demo notebook is never written to a folder. It exists in English and in French, depending on the language chosen.
+“Explore a demo notebook”, on the welcome screen, opens the notebook of Camille Martin, a **fictional** coach of managers: fourteen months of practice, people at every stage, a filled-in coach profile. It opens in simple mode, with a short presentation of the approach followed by a nine-step tour of the pages (to follow or skip). Everything can be explored freely. A banner reminds you it is a demo; “Replay the tour” restarts the presentation; “Create my own notebook” closes it and starts the welcome of a new notebook. The demo notebook is never written to a folder. It exists in English and in French, depending on the language chosen.
 
 ### The roadmap
 
@@ -635,7 +635,7 @@ At the bottom of every page:
 
 ## 16. Sharing with a peer
 
-Just send them **the app's address**. They install it in turn (see [part 1](#1-getting-started)) and start with “Start”. Their data stays with them, and yours with you.
+Just send them the address **carnet-de-coach.fr**. They install it in turn (see [part 1](#1-getting-started)) and start with “Start”. Their data stays with them, and yours with you.
 
 To also pass on your setup (types, colours, skills, indicators) without your data, go to **Settings > Share with a peer > Export a template without data**, and send them the resulting file. Your peer then chooses “Import a backup or a template” on the welcome screen.
 
@@ -672,7 +672,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.0.0** | 11/2026 | Carnet de coach has its own website (presentation, approach, screenshots, FAQ, in French and English). The app moves to the `app/` subfolder: reinstall it from its new address; your data does not move. |
+| **2.1.0** | 09/11/2026 | Guided tour of the demo notebook: the approach in one screen, then the pages in nine steps; “Replay the tour” in the bar. The demo opens in simple mode. The small house opens the carnet-de-coach.fr website. |
+| 2.0.0 | 11/2026 | Carnet de coach has its own website (presentation, approach, screenshots, FAQ, in French and English). New address: **carnet-de-coach.fr**, with the app at carnet-de-coach.fr/app/. Reinstall it from that address, then choose “I already have a notebook: open its folder” and select your folder; your data does not move. |
 | 1.12.2 | 08/11/2026 | Direct link to the demo notebook (address ending in ?demo=1). The “Explore a demo notebook” link is hidden when your notebook is open. |
 | 1.12.1 | 08/11/2026 | Home button (small house) left of the tabs. Instant language switch, without locking an encrypted notebook again. |
 | 1.12.0 | 08/11/2026 | The app in English: an FR / EN button to switch language at any time; demo notebook and architecture page in English; English manual (README.en.md). |

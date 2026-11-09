@@ -44,7 +44,7 @@ L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur co
 
 ### Installer l'application (2 minutes, une seule fois)
 
-1. Ouvre **l'adresse de l'application** dans Chrome ou Edge : la page du site, puis « Ouvrir le carnet ». L'application elle-même est dans le sous-dossier `app/` du site.
+1. Ouvre **[carnet-de-coach.fr](https://carnet-de-coach.fr)** dans Chrome ou Edge, puis « Ouvrir le carnet ». L'application elle-même est à l'adresse **carnet-de-coach.fr/app/**.
 2. Clique sur l'icône **Installer**, à droite de la barre d'adresse : un écran avec une flèche vers le bas. Dans Edge, l'option est aussi dans le menu **⋯ > Applications > Installer ce site en tant qu'application**.
 3. L'application apparaît dans ton menu Démarrer, ou dans le Dock et le Launchpad sur Mac. Elle s'ouvre dans sa propre fenêtre et **fonctionne même hors ligne**.
 
@@ -87,11 +87,11 @@ Un carnet neuf s'ouvre sur trois écrans :
 
 « Entrer dans mon carnet » t'amène directement sur l'outil, et la première mission t'est montrée.
 
-L'écran d'accueil se rouvre à tout moment avec la **petite maison**, à gauche des onglets : « Revenir à mon carnet » te ramène où tu étais, sans reverrouiller le carnet. Le parcours complet (nom, logo, couleurs) se rejoue depuis **Paramètres > Parcours de démarrage > Revoir l'accueil**.
+La **petite maison**, à gauche des onglets, ouvre le site [carnet-de-coach.fr](https://carnet-de-coach.fr) dans un nouvel onglet. L'écran d'accueil et le parcours complet (nom, logo, couleurs) se rejouent depuis **Paramètres > Parcours de démarrage > Revoir l'accueil** ; « Revenir à mon carnet » te ramène où tu étais, sans reverrouiller le carnet.
 
 ### Le carnet de démonstration
 
-« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
+« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Il s'ouvre en mode simplifié, sur une courte présentation de la démarche suivie d'une visite des pages en neuf étapes (à suivre ou à passer). Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Revoir la visite » relance la présentation ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
 
 ### Le carnet de route
 
@@ -635,7 +635,7 @@ En bas de chaque page :
 
 ## 16. Partager à un pair
 
-Envoie-lui simplement **l'adresse de l'application**. Il l'installe à son tour (voir la [partie 1](#1-mise-en-route)) et démarre avec « Commencer ». Ses données restent chez lui, et les tiennes chez toi.
+Envoie-lui simplement l'adresse **carnet-de-coach.fr**. Il l'installe à son tour (voir la [partie 1](#1-mise-en-route)) et démarre avec « Commencer ». Ses données restent chez lui, et les tiennes chez toi.
 
 Pour lui transmettre aussi ta configuration (types, couleurs, axes, indicateurs) sans tes données, va dans **Paramètres > Partager à un pair > Exporter un modèle sans données**, et envoie-lui le fichier obtenu. Ton pair choisit ensuite « Importer une sauvegarde ou un modèle » à l'accueil.
 
@@ -672,7 +672,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.0.0** | 11/2026 | Carnet de coach a son site (présentation, démarche, captures, questions fréquentes, en français et en anglais). L'application déménage dans le sous-dossier `app/` : réinstalle-la depuis sa nouvelle adresse ; tes données ne bougent pas. |
+| **2.1.0** | 09/11/2026 | Visite guidée du carnet de démonstration : la démarche en un écran, puis les pages en neuf étapes ; « Revoir la visite » dans le bandeau. La démonstration s'ouvre en mode simplifié. La petite maison ouvre le site carnet-de-coach.fr. |
+| 2.0.0 | 11/2026 | Carnet de coach a son site (présentation, démarche, captures, questions fréquentes, en français et en anglais). Nouvelle adresse : **carnet-de-coach.fr**, avec l'application sur carnet-de-coach.fr/app/. Réinstalle-la depuis cette adresse, puis choisis « J'ai déjà un carnet : ouvrir son dossier » et sélectionne ton dossier ; tes données ne bougent pas. |
 | 1.12.2 | 08/11/2026 | Lien direct vers le carnet de démonstration (adresse se terminant par ?demo=1). Le lien « Explorer un carnet de démonstration » est masqué quand ton carnet est ouvert. |
 | 1.12.1 | 08/11/2026 | Bouton Accueil (petite maison) à gauche des onglets. Changement de langue instantané, sans reverrouiller un carnet chiffré. |
 | 1.12.0 | 08/11/2026 | L'application en anglais : bouton FR / EN pour changer de langue à tout moment ; carnet de démonstration et page d'architecture en anglais ; manuel en anglais (README.en.md). |
