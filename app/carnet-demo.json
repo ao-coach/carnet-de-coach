@@ -1,0 +1,3790 @@
+{
+ "version_schema": 3,
+ "enregistre_le": "",
+ "demo": true,
+ "config": {
+  "nom": "Camille Martin Coaching",
+  "outil": "Carnet de coach",
+  "sousTitre": "Coacher beaucoup, pratiquer délibérément, développer mon activité",
+  "metriques": [
+   {
+    "id": "m1",
+    "l": "Atteinte de l'objectif du rdv",
+    "actif": true,
+    "min": "Pas atteint",
+    "max": "Atteint",
+    "disc": "Coaching"
+   },
+   {
+    "id": "m2",
+    "l": "Écoute active",
+    "actif": true,
+    "min": "Challengée",
+    "max": "À l'aise",
+    "disc": "Coaching"
+   },
+   {
+    "id": "m3",
+    "l": "Questionnement",
+    "actif": true,
+    "min": "Challengée",
+    "max": "À l'aise",
+    "disc": "Coaching"
+   },
+   {
+    "id": "m4",
+    "l": "Recadrage",
+    "actif": true,
+    "min": "Challengée",
+    "max": "À l'aise",
+    "disc": "Coaching"
+   },
+   {
+    "id": "m5",
+    "l": "Présence",
+    "actif": true,
+    "min": "Dispersée",
+    "max": "Pleinement là",
+    "disc": "Coaching"
+   }
+  ],
+  "finances": {
+   "supDefaut": 90,
+   "mode": "entier",
+   "urssaf": 24,
+   "lignes": [
+    {
+     "id": "c1",
+     "l": "Assurance RC pro",
+     "f": "",
+     "eur": 350
+    },
+    {
+     "id": "c2",
+     "l": "Formation continue",
+     "f": "",
+     "eur": 900
+    },
+    {
+     "id": "c3",
+     "l": "Outils et abonnements",
+     "f": "",
+     "eur": 240
+    }
+   ]
+  },
+  "crm": {
+   "froid": 30
+  }
+ },
+ "personnes": [
+  {
+   "id": 0,
+   "nom": "Julien BERTRAND",
+   "titre": "Responsable de production, PME agroalimentaire",
+   "provenance": "Réseau d'anciens collègues",
+   "public": "Managers de proximité",
+   "probl": "Prise de poste",
+   "reco_in": true
+  },
+  {
+   "id": 1,
+   "nom": "Sophie LEMAIRE",
+   "titre": "Directrice commerciale, éditeur de logiciels",
+   "provenance": "Recommandation",
+   "public": "Dirigeants",
+   "probl": "Leadership",
+   "reco_in": true,
+   "reco_dem": true
+  },
+  {
+   "id": 2,
+   "nom": "Karim HADDAD",
+   "titre": "Chef de projet, bureau d'études",
+   "provenance": "Club d'entrepreneurs",
+   "public": "Managers de proximité",
+   "probl": "Confiance en soi"
+  },
+  {
+   "id": 3,
+   "nom": "Élodie FAURE",
+   "titre": "DRH, groupe de distribution",
+   "provenance": "Conférence RH",
+   "public": "Dirigeants",
+   "probl": "Équilibre pro / perso"
+  },
+  {
+   "id": 4,
+   "nom": "Thomas GIRAUD",
+   "titre": "Manager d'équipe support, banque",
+   "provenance": "Recommandation",
+   "public": "Managers de proximité",
+   "probl": "Gestion des conflits",
+   "reco_in": true
+  },
+  {
+   "id": 5,
+   "nom": "Nadia BENALI",
+   "titre": "Cheffe de service, hôpital",
+   "provenance": "Atelier découverte",
+   "public": "Managers de proximité",
+   "probl": "Prise de poste"
+  },
+  {
+   "id": 6,
+   "nom": "Vincent ROUX",
+   "titre": "Fondateur, start-up",
+   "provenance": "Club d'entrepreneurs",
+   "public": "Dirigeants",
+   "probl": "Leadership"
+  },
+  {
+   "id": 7,
+   "nom": "Claire MOREL",
+   "titre": "Responsable marketing, PME",
+   "provenance": "Réseau d'anciens collègues",
+   "public": "Managers de proximité",
+   "probl": "Confiance en soi"
+  },
+  {
+   "id": 8,
+   "nom": "Antoine DUBOIS",
+   "titre": "Directeur d'usine",
+   "provenance": "Recommandation",
+   "public": "Dirigeants",
+   "probl": "Gestion des conflits",
+   "reco_in": true,
+   "reco_dem": true
+  },
+  {
+   "id": 9,
+   "nom": "Léa GARNIER",
+   "titre": "Manager transverse, assurance",
+   "provenance": "Atelier découverte",
+   "public": "Managers de proximité",
+   "probl": "Équilibre pro / perso"
+  },
+  {
+   "id": 10,
+   "nom": "Mathieu PERRIN",
+   "titre": "Chef d'agence, BTP",
+   "provenance": "Club d'entrepreneurs",
+   "public": "Managers de proximité",
+   "probl": "Prise de poste"
+  },
+  {
+   "id": 11,
+   "nom": "Inès CHEVALIER",
+   "titre": "Directrice financière",
+   "provenance": "Conférence RH",
+   "public": "Dirigeants",
+   "probl": "Leadership"
+  },
+  {
+   "id": 12,
+   "nom": "Paul LAMBERT",
+   "titre": "Superviseur, coach senior",
+   "provenance": "Fédération de coachs"
+  },
+  {
+   "id": 13,
+   "nom": "Hugo MERCIER",
+   "titre": "Consultant indépendant",
+   "provenance": "Réseau d'anciens collègues"
+  },
+  {
+   "id": 14,
+   "nom": "Sarah FONTAINE",
+   "titre": "Responsable qualité",
+   "provenance": "Atelier découverte",
+   "public": "Managers de proximité",
+   "probl": "Confiance en soi"
+  },
+  {
+   "id": 15,
+   "nom": "Romain BLANC",
+   "titre": "Directeur des opérations",
+   "provenance": "Recommandation",
+   "public": "Dirigeants",
+   "probl": "Gestion des conflits"
+  }
+ ],
+ "entrees": [
+  {
+   "id": 1,
+   "date": "2025-09-08",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 11,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 62,
+   "date": "2025-09-11",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 8,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 2,
+   "date": "2025-09-14",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 63,
+   "date": "2025-09-15",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 6,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 64,
+   "date": "2025-09-19",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 6,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 3,
+   "date": "2025-09-22",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 4,
+   "date": "2025-09-30",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 6,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 130,
+   "date": "2025-10-02",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 0,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 2,
+    "m2": 2,
+    "m3": 2,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 65,
+   "date": "2025-10-04",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 6,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 5,
+   "date": "2025-10-08",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 13,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 66,
+   "date": "2025-10-12",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 10,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 131,
+   "date": "2025-10-13",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 0,
+   "com": "Vraie séance de coaching offerte",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m4": 2,
+    "m5": 3
+   }
+  },
+  {
+   "id": 6,
+   "date": "2025-10-15",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 7,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 255,
+   "date": "2025-10-15",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : un client qui piétine",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 67,
+   "date": "2025-10-18",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 7,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 7,
+   "date": "2025-10-22",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 15,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 132,
+   "date": "2025-10-24",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 0,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 2
+   },
+   "eur": 2400,
+   "engagement_mois": 6,
+   "seances": 12,
+   "statut": "acceptee",
+   "debut": "2025-11-03"
+  },
+  {
+   "id": 68,
+   "date": "2025-10-25",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 10,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 8,
+   "date": "2025-10-29",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 69,
+   "date": "2025-11-02",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 133,
+   "date": "2025-11-03",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 1",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 2,
+    "m2": 2,
+    "m4": 3
+   }
+  },
+  {
+   "id": 9,
+   "date": "2025-11-04",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 70,
+   "date": "2025-11-08",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 15,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 10,
+   "date": "2025-11-10",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 2,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 153,
+   "date": "2025-11-10",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 1,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m3": 3,
+    "m4": 3,
+    "m5": 2
+   }
+  },
+  {
+   "id": 71,
+   "date": "2025-11-12",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 5,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 11,
+   "date": "2025-11-17",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 134,
+   "date": "2025-11-18",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 2",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m3": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 72,
+   "date": "2025-11-19",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 15,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 154,
+   "date": "2025-11-21",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 1,
+   "com": "Vraie séance de coaching offerte",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m4": 2
+   }
+  },
+  {
+   "id": 12,
+   "date": "2025-11-23",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Café avec un ancien collègue",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 256,
+   "date": "2025-11-27",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : cadre et accords",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 13,
+   "date": "2025-11-28",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 13,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 73,
+   "date": "2025-11-28",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 14,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 155,
+   "date": "2025-11-29",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 1,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 178,
+   "date": "2025-12-01",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 2,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 2
+   }
+  },
+  {
+   "id": 135,
+   "date": "2025-12-02",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 3",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 136,
+   "date": "2025-12-03",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 3",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 14,
+   "date": "2025-12-04",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Café avec un ancien collègue",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 74,
+   "date": "2025-12-05",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 8,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 15,
+   "date": "2025-12-09",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 6,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 179,
+   "date": "2025-12-09",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 2,
+   "com": "Vraie séance de coaching offerte",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m1": 2,
+    "m2": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 75,
+   "date": "2025-12-11",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 156,
+   "date": "2025-12-11",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 1,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3
+   },
+   "eur": 3600,
+   "engagement_mois": 6,
+   "seances": 12,
+   "statut": "acceptee",
+   "debut": "2025-12-21"
+  },
+  {
+   "id": 16,
+   "date": "2025-12-16",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 10,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 137,
+   "date": "2025-12-16",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 4",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 2,
+    "m4": 3,
+    "m5": 2
+   }
+  },
+  {
+   "id": 76,
+   "date": "2025-12-17",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 6,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 138,
+   "date": "2025-12-17",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 4",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 180,
+   "date": "2025-12-18",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 2,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3
+   },
+   "eur": 1800,
+   "engagement_mois": 4,
+   "seances": 8,
+   "statut": "refusee"
+  },
+  {
+   "id": 157,
+   "date": "2025-12-21",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 1",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m3": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 17,
+   "date": "2025-12-22",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 77,
+   "date": "2025-12-22",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 14,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 78,
+   "date": "2025-12-29",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 14,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 18,
+   "date": "2025-12-30",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Café avec un ancien collègue",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 139,
+   "date": "2025-12-31",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 5",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 140,
+   "date": "2026-01-01",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 5",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 158,
+   "date": "2026-01-05",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 2",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 79,
+   "date": "2026-01-06",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 0,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 159,
+   "date": "2026-01-06",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 2",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 19,
+   "date": "2026-01-07",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 80,
+   "date": "2026-01-10",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 11,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 181,
+   "date": "2026-01-12",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 4,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m3": 2,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 20,
+   "date": "2026-01-13",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 81,
+   "date": "2026-01-15",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 15,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 141,
+   "date": "2026-01-15",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 6",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 2,
+    "m2": 3,
+    "m3": 2,
+    "m4": 2,
+    "m5": 2
+   }
+  },
+  {
+   "id": 257,
+   "date": "2026-01-16",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : cadre et accords",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 160,
+   "date": "2026-01-18",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 3",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m3": 3
+   }
+  },
+  {
+   "id": 21,
+   "date": "2026-01-19",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 82,
+   "date": "2026-01-19",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 10,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 182,
+   "date": "2026-01-19",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 4,
+   "com": "Vraie séance de coaching offerte",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m2": 2,
+    "m3": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 22,
+   "date": "2026-01-28",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 2,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 83,
+   "date": "2026-01-29",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 5,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 142,
+   "date": "2026-01-31",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 7",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m3": 3,
+    "m4": 2,
+    "m5": 4
+   }
+  },
+  {
+   "id": 143,
+   "date": "2026-02-01",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 7",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 23,
+   "date": "2026-02-02",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 6,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 161,
+   "date": "2026-02-02",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 4",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 2,
+    "m2": 2,
+    "m3": 3,
+    "m4": 4
+   }
+  },
+  {
+   "id": 183,
+   "date": "2026-02-02",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 4,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3
+   },
+   "eur": 2400,
+   "engagement_mois": 6,
+   "seances": 12,
+   "statut": "acceptee",
+   "debut": "2026-02-12"
+  },
+  {
+   "id": 162,
+   "date": "2026-02-03",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 4",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 200,
+   "date": "2026-02-03",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 5,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m4": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 84,
+   "date": "2026-02-04",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 24,
+   "date": "2026-02-07",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 15,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 85,
+   "date": "2026-02-11",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 201,
+   "date": "2026-02-11",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 5,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m2": 3,
+    "m3": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 184,
+   "date": "2026-02-12",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 1",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 185,
+   "date": "2026-02-13",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 4,
+   "com": "Réécoute et synthèse de la séance 1",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 25,
+   "date": "2026-02-16",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 144,
+   "date": "2026-02-17",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 8",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 86,
+   "date": "2026-02-18",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 3,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 145,
+   "date": "2026-02-18",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 8",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 163,
+   "date": "2026-02-18",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 5",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 2,
+    "m4": 3,
+    "m5": 2
+   }
+  },
+  {
+   "id": 164,
+   "date": "2026-02-19",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 5",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 202,
+   "date": "2026-02-20",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 3,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 3,
+    "m4": 2,
+    "m5": 3
+   }
+  },
+  {
+   "id": 87,
+   "date": "2026-02-23",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 26,
+   "date": "2026-02-25",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 6,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 186,
+   "date": "2026-02-25",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 2",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 258,
+   "date": "2026-02-25",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : un client qui piétine",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 187,
+   "date": "2026-02-26",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 4,
+   "com": "Réécoute et synthèse de la séance 2",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 88,
+   "date": "2026-02-28",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 14,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 27,
+   "date": "2026-03-03",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 13,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 203,
+   "date": "2026-03-03",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 3,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m2": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 146,
+   "date": "2026-03-06",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 9",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m2": 3,
+    "m3": 4,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 165,
+   "date": "2026-03-06",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 6",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 4,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 147,
+   "date": "2026-03-07",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 9",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 166,
+   "date": "2026-03-07",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 6",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 28,
+   "date": "2026-03-09",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 204,
+   "date": "2026-03-10",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 3,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 2,
+    "m4": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 188,
+   "date": "2026-03-13",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 3",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m5": 2
+   }
+  },
+  {
+   "id": 29,
+   "date": "2026-03-15",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 6,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 89,
+   "date": "2026-03-17",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 14,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 148,
+   "date": "2026-03-21",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 10",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m4": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 205,
+   "date": "2026-03-21",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 3,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3
+   },
+   "eur": 3000,
+   "engagement_mois": 6,
+   "seances": 12,
+   "statut": "refusee"
+  },
+  {
+   "id": 149,
+   "date": "2026-03-22",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 10",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 90,
+   "date": "2026-03-23",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 167,
+   "date": "2026-03-23",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 7",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 30,
+   "date": "2026-03-24",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 10,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 168,
+   "date": "2026-03-24",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 7",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 189,
+   "date": "2026-03-28",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 4",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m4": 4
+   }
+  },
+  {
+   "id": 190,
+   "date": "2026-03-29",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 4,
+   "com": "Réécoute et synthèse de la séance 4",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 91,
+   "date": "2026-03-31",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 31,
+   "date": "2026-04-02",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 92,
+   "date": "2026-04-04",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 2,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 150,
+   "date": "2026-04-05",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 11",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m2": 3,
+    "m3": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 169,
+   "date": "2026-04-06",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 8",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 4,
+    "m3": 3
+   }
+  },
+  {
+   "id": 170,
+   "date": "2026-04-07",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 8",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 206,
+   "date": "2026-04-07",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 8,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 93,
+   "date": "2026-04-08",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 1,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 32,
+   "date": "2026-04-11",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 11,
+   "com": "Café avec un ancien collègue",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 191,
+   "date": "2026-04-13",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 5",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m4": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 94,
+   "date": "2026-04-16",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 15,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 259,
+   "date": "2026-04-16",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : annoncer son prix",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 207,
+   "date": "2026-04-17",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 8,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 4,
+    "m3": 4,
+    "m4": 3
+   }
+  },
+  {
+   "id": 33,
+   "date": "2026-04-19",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 6,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 95,
+   "date": "2026-04-20",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 7,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 151,
+   "date": "2026-04-22",
+   "type": "session",
+   "dur": 90,
+   "pid": 0,
+   "com": "Séance 12",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 152,
+   "date": "2026-04-23",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 0,
+   "com": "Réécoute et synthèse de la séance 12",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 171,
+   "date": "2026-04-23",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 9",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m3": 4,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 172,
+   "date": "2026-04-24",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 9",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 96,
+   "date": "2026-04-25",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 7,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 34,
+   "date": "2026-04-26",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 7,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 192,
+   "date": "2026-04-26",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 6",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m3": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 193,
+   "date": "2026-04-27",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 4,
+   "com": "Réécoute et synthèse de la séance 6",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 97,
+   "date": "2026-04-29",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 1,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 208,
+   "date": "2026-04-30",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 8,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m2": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 35,
+   "date": "2026-05-04",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 13,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 229,
+   "date": "2026-05-05",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 6,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m4": 4
+   }
+  },
+  {
+   "id": 98,
+   "date": "2026-05-07",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 11,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 173,
+   "date": "2026-05-07",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 10",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 3,
+    "m4": 3
+   }
+  },
+  {
+   "id": 209,
+   "date": "2026-05-07",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 8,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3
+   },
+   "eur": 4200,
+   "engagement_mois": 6,
+   "seances": 12,
+   "statut": "acceptee",
+   "debut": "2026-05-17"
+  },
+  {
+   "id": 194,
+   "date": "2026-05-09",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 7",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 3,
+    "m4": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 99,
+   "date": "2026-05-12",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 36,
+   "date": "2026-05-13",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 15,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 210,
+   "date": "2026-05-17",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 1",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m2": 3,
+    "m3": 3
+   }
+  },
+  {
+   "id": 37,
+   "date": "2026-05-18",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 100,
+   "date": "2026-05-20",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 11,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 195,
+   "date": "2026-05-21",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 8",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m3": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 101,
+   "date": "2026-05-24",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 1,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 174,
+   "date": "2026-05-24",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 11",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 175,
+   "date": "2026-05-25",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 11",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 38,
+   "date": "2026-05-27",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 102,
+   "date": "2026-05-30",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 8,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 211,
+   "date": "2026-05-30",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 2",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m3": 4,
+    "m4": 4
+   }
+  },
+  {
+   "id": 260,
+   "date": "2026-05-30",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : annoncer son prix",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 230,
+   "date": "2026-06-02",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 7,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m3": 3,
+    "m4": 4,
+    "m5": 4
+   }
+  },
+  {
+   "id": 103,
+   "date": "2026-06-03",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 1,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 39,
+   "date": "2026-06-04",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 196,
+   "date": "2026-06-06",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 9",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 3,
+    "m4": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 104,
+   "date": "2026-06-08",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 3,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 176,
+   "date": "2026-06-09",
+   "type": "session",
+   "dur": 90,
+   "pid": 1,
+   "com": "Séance 12",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m5": 4
+   }
+  },
+  {
+   "id": 177,
+   "date": "2026-06-10",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 1,
+   "com": "Réécoute et synthèse de la séance 12",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 40,
+   "date": "2026-06-11",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 231,
+   "date": "2026-06-11",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 7,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 105,
+   "date": "2026-06-12",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 0,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 212,
+   "date": "2026-06-15",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 3",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 4,
+    "m3": 3,
+    "m5": 3
+   }
+  },
+  {
+   "id": 213,
+   "date": "2026-06-16",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 3",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 41,
+   "date": "2026-06-19",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 106,
+   "date": "2026-06-21",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 6,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 197,
+   "date": "2026-06-22",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 10",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m4": 4
+   }
+  },
+  {
+   "id": 107,
+   "date": "2026-06-25",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 15,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 42,
+   "date": "2026-06-26",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 2,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 214,
+   "date": "2026-06-30",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 4",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 4,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   }
+  },
+  {
+   "id": 108,
+   "date": "2026-07-01",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 0,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 232,
+   "date": "2026-07-01",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 9,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m5": 4
+   }
+  },
+  {
+   "id": 43,
+   "date": "2026-07-05",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 109,
+   "date": "2026-07-08",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 3,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 198,
+   "date": "2026-07-08",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 11",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m2": 4,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   }
+  },
+  {
+   "id": 233,
+   "date": "2026-07-09",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 9,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m4": 4,
+    "m5": 4
+   }
+  },
+  {
+   "id": 44,
+   "date": "2026-07-10",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 13,
+   "com": "Café avec un ancien collègue",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 261,
+   "date": "2026-07-10",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : un client qui piétine",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 215,
+   "date": "2026-07-12",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 5",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m2": 4,
+    "m3": 3,
+    "m4": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 110,
+   "date": "2026-07-13",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 7,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 45,
+   "date": "2026-07-17",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Café avec un ancien collègue",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 199,
+   "date": "2026-07-20",
+   "type": "session",
+   "dur": 90,
+   "pid": 4,
+   "com": "Séance 12",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 111,
+   "date": "2026-07-21",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 46,
+   "date": "2026-07-22",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 6,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 234,
+   "date": "2026-07-23",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 9,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 4
+   },
+   "eur": 2700,
+   "engagement_mois": 6,
+   "seances": 12,
+   "statut": "acceptee",
+   "debut": "2026-08-02",
+   "pa": {
+    "2": 2
+   }
+  },
+  {
+   "id": 216,
+   "date": "2026-07-28",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 6",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m3": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 47,
+   "date": "2026-07-29",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 112,
+   "date": "2026-07-29",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 217,
+   "date": "2026-07-29",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 6",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 235,
+   "date": "2026-08-02",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 1",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 4,
+    "m3": 3,
+    "m4": 4,
+    "m5": 4
+   }
+  },
+  {
+   "id": 48,
+   "date": "2026-08-04",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 13,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 113,
+   "date": "2026-08-06",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 11,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 218,
+   "date": "2026-08-10",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 7",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 49,
+   "date": "2026-08-11",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 7,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 114,
+   "date": "2026-08-11",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 219,
+   "date": "2026-08-11",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 7",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 236,
+   "date": "2026-08-16",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 2",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 4,
+    "m4": 4,
+    "m5": 3
+   }
+  },
+  {
+   "id": 50,
+   "date": "2026-08-17",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 10,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 237,
+   "date": "2026-08-17",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 9,
+   "com": "Réécoute et synthèse de la séance 2",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 115,
+   "date": "2026-08-18",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 220,
+   "date": "2026-08-23",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 8",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m3": 4,
+    "m4": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 221,
+   "date": "2026-08-24",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 8",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 51,
+   "date": "2026-08-25",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Salon RH",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 116,
+   "date": "2026-08-26",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 0,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 262,
+   "date": "2026-08-27",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : cadre et accords",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 238,
+   "date": "2026-08-28",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 3",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 4,
+    "m4": 3,
+    "m5": 4
+   }
+  },
+  {
+   "id": 117,
+   "date": "2026-08-30",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 52,
+   "date": "2026-09-02",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 13,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 247,
+   "date": "2026-09-02",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 10,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m3": 3,
+    "m4": 3,
+    "m5": 4
+   },
+   "pa": {
+    "1": 2
+   }
+  },
+  {
+   "id": 222,
+   "date": "2026-09-06",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 9",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 4,
+    "m4": 4
+   },
+   "pa": {
+    "1": 0
+   }
+  },
+  {
+   "id": 118,
+   "date": "2026-09-07",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 13,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 223,
+   "date": "2026-09-07",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 9",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 53,
+   "date": "2026-09-10",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 248,
+   "date": "2026-09-11",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 10,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m3": 3,
+    "m4": 3,
+    "m5": 4
+   },
+   "pa": {
+    "1": 2
+   }
+  },
+  {
+   "id": 119,
+   "date": "2026-09-13",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 7,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 239,
+   "date": "2026-09-13",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 4",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 3,
+    "m2": 3,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   },
+   "pa": {
+    "1": 2
+   }
+  },
+  {
+   "id": 240,
+   "date": "2026-09-14",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 9,
+   "com": "Réécoute et synthèse de la séance 4",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 54,
+   "date": "2026-09-15",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 13,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 224,
+   "date": "2026-09-18",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 10",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 5,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   },
+   "pa": {
+    "1": 2
+   }
+  },
+  {
+   "id": 225,
+   "date": "2026-09-19",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 10",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 55,
+   "date": "2026-09-20",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 120,
+   "date": "2026-09-20",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 8,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 249,
+   "date": "2026-09-22",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 14,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m5": 4
+   },
+   "pa": {
+    "1": 0
+   }
+  },
+  {
+   "id": 56,
+   "date": "2026-09-25",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 15,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 121,
+   "date": "2026-09-25",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 11,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 241,
+   "date": "2026-09-26",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 5",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m3": 4,
+    "m4": 3,
+    "m5": 4
+   },
+   "pa": {
+    "1": 0
+   }
+  },
+  {
+   "id": 242,
+   "date": "2026-09-27",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 9,
+   "com": "Réécoute et synthèse de la séance 5",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 122,
+   "date": "2026-09-30",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 57,
+   "date": "2026-10-02",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 2,
+   "com": "Atelier d'une consœur",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 226,
+   "date": "2026-10-03",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 11",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   },
+   "pa": {
+    "1": 0
+   }
+  },
+  {
+   "id": 250,
+   "date": "2026-10-04",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 14,
+   "com": "Vraie séance de coaching offerte",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 3,
+    "m2": 5,
+    "m4": 5,
+    "m5": 5
+   },
+   "pa": {
+    "1": 2
+   }
+  },
+  {
+   "id": 123,
+   "date": "2026-10-06",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 5,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 263,
+   "date": "2026-10-06",
+   "type": "supervision",
+   "dur": 90,
+   "pid": 12,
+   "com": "Supervision : un client qui piétine",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 58,
+   "date": "2026-10-10",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 2,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 124,
+   "date": "2026-10-13",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 9,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 243,
+   "date": "2026-10-13",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 6",
+   "cr": true,
+   "syn": false,
+   "ais": {
+    "m4": 4,
+    "m5": 4
+   },
+   "pa": {
+    "1": 1
+   }
+  },
+  {
+   "id": 252,
+   "date": "2026-10-13",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 15,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m4": 3,
+    "m5": 5
+   },
+   "pa": {
+    "1": 2
+   }
+  },
+  {
+   "id": 244,
+   "date": "2026-10-14",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 9,
+   "com": "Réécoute et synthèse de la séance 6",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 59,
+   "date": "2026-10-16",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 11,
+   "com": "Petit-déjeuner du club",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 125,
+   "date": "2026-10-17",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 5,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 227,
+   "date": "2026-10-17",
+   "type": "session",
+   "dur": 90,
+   "pid": 8,
+   "com": "Séance 12",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m2": 4,
+    "m3": 4,
+    "m4": 4,
+    "m5": 5
+   },
+   "pa": {
+    "1": 1
+   }
+  },
+  {
+   "id": 228,
+   "date": "2026-10-18",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 8,
+   "com": "Réécoute et synthèse de la séance 12",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 251,
+   "date": "2026-10-18",
+   "type": "proposition",
+   "dur": 60,
+   "pid": 14,
+   "com": "Rendez-vous de proposition",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 4
+   },
+   "eur": 2400,
+   "engagement_mois": 6,
+   "seances": 10,
+   "statut": "attente",
+   "pa": {
+    "2": 1
+   }
+  },
+  {
+   "id": 253,
+   "date": "2026-10-23",
+   "type": "conversation",
+   "dur": 90,
+   "pid": 15,
+   "com": "Vraie séance de coaching offerte",
+   "cr": false,
+   "syn": false,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 4,
+    "m4": 3,
+    "m5": 4
+   },
+   "pa": {
+    "1": 0
+   }
+  },
+  {
+   "id": 126,
+   "date": "2026-10-24",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 6,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 60,
+   "date": "2026-10-25",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 13,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 245,
+   "date": "2026-10-26",
+   "type": "session",
+   "dur": 90,
+   "pid": 9,
+   "com": "Séance 7",
+   "cr": false,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 4,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   },
+   "pa": {
+    "1": 1
+   }
+  },
+  {
+   "id": 246,
+   "date": "2026-10-27",
+   "type": "debrief",
+   "dur": 60,
+   "pid": 9,
+   "com": "Réécoute et synthèse de la séance 7",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 254,
+   "date": "2026-10-27",
+   "type": "conversation",
+   "dur": 60,
+   "pid": 11,
+   "com": "Exploration : réalité, enjeux, envies",
+   "cr": true,
+   "syn": true,
+   "ais": {
+    "m1": 4,
+    "m2": 3,
+    "m3": 4,
+    "m4": 4,
+    "m5": 4
+   },
+   "pa": {
+    "1": 1
+   }
+  },
+  {
+   "id": 127,
+   "date": "2026-10-28",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 2,
+   "com": "Proposé une conversation de coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 61,
+   "date": "2026-11-02",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 13,
+   "com": "Soirée réseau",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 128,
+   "date": "2026-11-02",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 1,
+   "com": "Invitée à découvrir le coaching",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  },
+  {
+   "id": 129,
+   "date": "2026-11-08",
+   "type": "invitation",
+   "dur": 0,
+   "pid": 1,
+   "com": "Proposé un échange offert",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "non": true
+  }
+ ],
+ "objectifs": {
+  "2026": {
+   "amb": "Vivre de mon activité de coach à mi-temps",
+   "h": 200,
+   "conv": 30,
+   "coach": 8,
+   "delib": 80,
+   "ca": 15000
+  }
+ },
+ "priorites": [
+  {
+   "o": "Développer mon activité",
+   "d": "Une invitation par semaine, au minimum"
+  },
+  {
+   "o": "Pratiquer délibérément",
+   "d": "Réécouter une séance sur deux"
+  },
+  {
+   "o": "Coacher beaucoup",
+   "d": "Deux clients en parallèle, en continu"
+  }
+ ],
+ "actions": [
+  {
+   "id": 1,
+   "p": "Développer mon activité",
+   "a": "Demander une recommandation à Sophie",
+   "d": "2026-11-20",
+   "r": "",
+   "s": "encours",
+   "pid": 1
+  },
+  {
+   "id": 2,
+   "p": "Pratiquer délibérément",
+   "a": "Préparer la prochaine supervision",
+   "d": "2026-11-14",
+   "r": "",
+   "s": "encours"
+  },
+  {
+   "id": 3,
+   "p": "Développer mon activité",
+   "a": "Relancer Sarah sur la proposition",
+   "d": "2026-11-12",
+   "r": "",
+   "s": "encours",
+   "pid": 14
+  }
+ ],
+ "pd": {
+  "focus": [
+   "m3"
+  ],
+  "lib": [
+   {
+    "id": 1,
+    "a": "Poser une seule question à la fois, puis me taire",
+    "mid": "m3",
+    "types": [
+     "conversation",
+     "session"
+    ],
+    "st": "cours",
+    "cree": "2026-09-01",
+    "maj": "2026-09-01T10:00:00.000Z"
+   },
+   {
+    "id": 2,
+    "a": "Annoncer mon prix, puis laisser le silence",
+    "mid": "m1",
+    "types": [
+     "proposition"
+    ],
+    "st": "cours",
+    "cree": "2026-06-10",
+    "maj": "2026-06-10T10:00:00.000Z"
+   },
+   {
+    "id": 3,
+    "a": "Reformuler avant de challenger",
+    "mid": "m2",
+    "types": [
+     "conversation",
+     "session"
+    ],
+    "st": "acquise",
+    "cree": "2025-11-02",
+    "maj": "2026-03-15T10:00:00.000Z"
+   },
+   {
+    "id": 4,
+    "a": "Nommer ce que je remarque dans le corps",
+    "mid": "m5",
+    "types": [
+     "session"
+    ],
+    "st": "pause",
+    "cree": "2026-04-01",
+    "maj": "2026-04-01T10:00:00.000Z"
+   }
+  ],
+  "prep": {}
+ },
+ "coach": {
+  "nom": "Camille Martin",
+  "titre": "Coach de managers et de dirigeants",
+  "naissance": "",
+  "debut": "2025-09-01",
+  "pitch": "J'accompagne les managers qui prennent un nouveau poste ou traversent une période de tension, pour qu'ils trouvent leur façon de diriger.",
+  "genre": "f",
+  "theme": "pro",
+  "formation": [
+   "Certification de coach professionnel (2025)"
+  ],
+  "parcours": [
+   "12 ans de management en industrie",
+   "Responsable d'équipe de 25 personnes"
+  ],
+  "victoires": [
+   {
+    "id": 1,
+    "t": "Premier client recommandé par un client",
+    "d": "2026-04-07",
+    "tier": "or",
+    "desc": "Antoine est venu sur la recommandation de Julien, après six mois de travail ensemble."
+   },
+   {
+    "id": 2,
+    "t": "Première intervention en comité de direction",
+    "d": "2026-09-15",
+    "tier": "ar",
+    "desc": "Un atelier de deux heures sur la prise de décision en équipe."
+   }
+  ],
+  "avant": {}
+ },
+ "prefs": {
+  "onboarded": true,
+  "simple": false
+ }
+}

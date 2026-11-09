@@ -1,8 +1,8 @@
 # Suivi de pratique de coaching
 
-**Version 1.4.0 (4 novembre 2026)** · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+**Version 2.0.0 (novembre 2026)** · *English version: [README.en.md](README.en.md)* · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
-Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, tes objectifs et tes relances.
+Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, ta pratique délibérée, tes objectifs et tes relances.
 
 L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur comme une application. Il n'y a ni compte à créer ni abonnement. **Tes données ne sont jamais en ligne** : elles restent sur ton ordinateur, dans **un seul fichier** `coaching-data.json`, rangé dans le dossier de ton choix.
 
@@ -12,25 +12,31 @@ L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur co
 
 **Navigateur requis :** Chrome ou Edge sur ordinateur. Firefox, Safari et les mobiles ne savent pas écrire dans un dossier.
 
+**Langue :** français ou anglais. Le bouton **FR / EN**, en haut à droite, change la langue de toute l'application à tout moment ; tes données ne changent pas.
+
 ## Sommaire
 
 1. [Mise en route](#1-mise-en-route)
-2. [Premier lancement : le parcours de démarrage](#2-premier-lancement--le-parcours-de-démarrage)
+2. [Premier lancement : l'accueil et le carnet de route](#2-premier-lancement--laccueil-et-le-carnet-de-route)
 3. [Enregistrer un temps](#3-enregistrer-un-temps)
-4. [Tableau de bord](#4-tableau-de-bord)
-5. [Métriques](#5-métriques)
-6. [Mes saisies](#6-mes-saisies)
-7. [Personnes](#7-personnes)
-8. [Propositions et contrats](#8-propositions-et-contrats)
-9. [Coûts et taux horaire réel](#9-coûts-et-taux-horaire-réel)
-10. [Paramètres](#10-paramètres)
-11. [Sécurité et chiffrement](#11-sécurité-et-chiffrement)
-12. [Tes données : enregistrement, sauvegardes, récupération](#12-tes-données--enregistrement-sauvegardes-récupération)
-13. [Nouveautés et versions](#13-nouveautés-et-versions)
-14. [Partager à un pair](#14-partager-à-un-pair)
-15. [En cas de souci](#15-en-cas-de-souci)
-16. [Licence et usage](#16-licence-et-usage)
-17. [Historique des versions](#17-historique-des-versions)
+4. [Pratique délibérée](#4-pratique-délibérée)
+5. [Coach : ta fiche](#5-coach--ta-fiche)
+6. [Tableau de bord](#6-tableau-de-bord)
+7. [Suivi d'activité](#7-suivi-dactivité)
+8. [Mes saisies](#8-mes-saisies)
+9. [Personnes](#9-personnes)
+10. [Propositions et contrats](#10-propositions-et-contrats)
+11. [Coûts et taux horaire réel](#11-coûts-et-taux-horaire-réel)
+12. [Paramètres](#12-paramètres)
+13. [Sécurité et chiffrement](#13-sécurité-et-chiffrement)
+14. [Tes données : enregistrement, sauvegardes, récupération](#14-tes-données--enregistrement-sauvegardes-récupération)
+15. [Nouveautés et versions](#15-nouveautés-et-versions)
+16. [Partager à un pair](#16-partager-à-un-pair)
+17. [En cas de souci](#17-en-cas-de-souci)
+18. [Licence et usage](#18-licence-et-usage)
+19. [Historique des versions](#19-historique-des-versions)
+20. [À propos](#20-à-propos)
+21. [Comment l'outil est construit](#21-comment-loutil-est-construit)
 
 ---
 
@@ -38,44 +44,103 @@ L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur co
 
 ### Installer l'application (2 minutes, une seule fois)
 
-1. Ouvre **l'adresse de l'application** dans Chrome ou Edge. C'est le lien qu'on t'a transmis.
+1. Ouvre **l'adresse de l'application** dans Chrome ou Edge : la page du site, puis « Ouvrir le carnet ». L'application elle-même est dans le sous-dossier `app/` du site.
 2. Clique sur l'icône **Installer**, à droite de la barre d'adresse : un écran avec une flèche vers le bas. Dans Edge, l'option est aussi dans le menu **⋯ > Applications > Installer ce site en tant qu'application**.
 3. L'application apparaît dans ton menu Démarrer, ou dans le Dock et le Launchpad sur Mac. Elle s'ouvre dans sa propre fenêtre et **fonctionne même hors ligne**.
 
 **Icônes.** L'icône de l'application installée (menu Démarrer, barre des tâches, Dock) est la même pour tout le monde. L'icône de l'onglet et de la barre de titre reprend le logo de ton carnet, si tu en as mis un (Paramètres > Apparence).
 
-**Les mises à jour sont automatiques.** Au lancement suivant, une bannière « Nouvelle version disponible » propose de recharger, puis un écran présente les nouveautés (voir la [partie 13](#13-nouveautés-et-versions)).
+**Les mises à jour sont automatiques.** Au lancement suivant, une bannière « Nouvelle version disponible » propose de recharger, puis un écran présente les nouveautés (voir la [partie 15](#15-nouveautés-et-versions)).
 
 ### Choisir où ranger son carnet
 
 Choisis un dossier sur ton ordinateur, de préférence synchronisé (OneDrive, Google Drive…) : ton carnet te suit alors d'un ordinateur à l'autre, et il est sauvegardé.
 
-- **Tu commences :** clique sur « Commencer ». Le parcours de démarrage te demandera le dossier à la fin.
+- **Tu commences :** clique sur « Commencer ». Le carnet de route te proposera de choisir le dossier, parmi tes premières missions.
 - **Tu as déjà un `coaching-data.json` :** à l'accueil, clique sur « J'ai déjà un carnet : ouvrir son dossier ».
 
 Quand le navigateur demande l'accès au dossier, choisis **« Autoriser à chaque visite »** si l'option est proposée. Tu n'auras plus rien à faire aux lancements suivants.
+
+### Changer de langue
+
+Le bouton **FR / EN**, en haut à droite (et le lien « English » de l'accueil), bascule toute l'application en anglais ou en français, instantanément : rien n'est rechargé, et un carnet chiffré reste déverrouillé. Ce choix est propre à chaque ordinateur et navigateur. Par défaut, l'application suit la langue du navigateur.
+
+- Seuls les textes de l'outil sont traduits : tes saisies, tes noms de types, tes compétences restent tels que tu les as écrits.
+- Un carnet créé en anglais démarre avec des libellés anglais (types, compétences proposées).
+- Le carnet de démonstration existe dans les deux langues.
 
 > Mets ton carnet dans un dossier à toi. Ne le dépose jamais dans un espace public ou partagé avec d'autres personnes.
 
 ---
 
-## 2. Premier lancement : le parcours de démarrage
+## 2. Premier lancement : l'accueil et le carnet de route
 
-Un carnet neuf s'ouvre sur un parcours en 11 étapes, d'environ 5 minutes. Le panneau de gauche montre en direct ton logo, ton nom et l'avancement. Tout reste modifiable ensuite, et le parcours se relance depuis **Paramètres > Relancer le parcours**.
+### L'accueil (moins d'une minute)
 
-| Étape | Ce que tu y fais |
+Un carnet neuf s'ouvre sur trois écrans :
+
+| Écran | Ce que tu y fais |
 |---|---|
-| Bienvenue | Lettre d'accueil. Liens pour ouvrir un carnet existant ou importer une sauvegarde ou un modèle. |
-| Le principe | Données chez toi, chiffrement, enregistrement continu. |
-| Ton identité | Nom du cabinet, nom de l'outil, phrase de motivation, logo, bandeau, palette de couleurs. |
-| Tes types d'entretien | Libellé, couleur, durée par défaut, notes d'aisance, rubrique où le type est compté (« Compte dans »), ordre d'importance par glisser-déposer, ajout de types (10 au maximum). |
-| Le suivi | Les 3 piliers (coacher beaucoup, pratiquer délibérément, développer ton activité), les 4 onglets et le choix de tes indicateurs. |
-| Tes axes de progression | Les dimensions que tu notes de 1 à 5 après un entretien, avec des suggestions. |
-| Priorités et objectifs | Tes objectifs prioritaires (3 au maximum, c'est l'idéal), l'ambition et les cibles du trimestre. |
-| Premières actions | Les prochains pas concrets, avec une date. |
-| Personnes et coûts | Seuil d'alerte « sans contact », prix moyen d'une supervision, taux moyen de prélèvement URSSAF, tes autres coûts annuels ligne par ligne, mode de calcul des charges. Cette étape peut être passée. |
-| Premier entretien | Une vraie saisie, pour prendre le geste. Elle peut être passée. |
-| Sécurité | Dossier où ranger le carnet et mot de passe (recommandé). La clé de secours t'est remise à ce moment-là. |
+| Bienvenue | Une lettre d'accueil. Un lien permet d'importer une sauvegarde ou un modèle transmis par un pair, un autre d'**explorer un carnet de démonstration**. |
+| Ton mode | **Simplifié** ou **complet** (voir ci-dessous). |
+| Ton identité | Ton nom ou celui de ton cabinet, ton logo, une palette de couleurs. |
+
+« Entrer dans mon carnet » t'amène directement sur l'outil, et la première mission t'est montrée.
+
+L'écran d'accueil se rouvre à tout moment avec la **petite maison**, à gauche des onglets : « Revenir à mon carnet » te ramène où tu étais, sans reverrouiller le carnet. Le parcours complet (nom, logo, couleurs) se rejoue depuis **Paramètres > Parcours de démarrage > Revoir l'accueil**.
+
+### Le carnet de démonstration
+
+« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
+
+### Le carnet de route
+
+Le reste se découvre en l'utilisant. Le **carnet de route**, en bas à droite, propose **une mission à la fois**, en quatre chapitres :
+
+| Chapitre | Missions |
+|---|---|
+| 1. Premiers pas | Enregistrer ton premier entretien, le relier à une personne, écrire une note, regarder ton suivi d'activité, ouvrir la fiche d'une personne, choisir où ranger ton carnet, le protéger par un mot de passe. |
+| 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse. En mode simplifié : découvrir le mode complet. |
+| 3. Pratiquer délibérément | Compléter ton profil de coach, nommer au moins 3 compétences, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
+| 4. Piloter | Choisir tes indicateurs, fixer ton objectif prioritaire, renseigner tes coûts. |
+
+- **« Montre-moi »** met en lumière l'endroit où agir, sur le bon onglet.
+- Une mission se coche **toute seule** quand tu fais l'action, d'où que tu la fasses.
+- Chaque chapitre terminé débloque un haut fait **« Carnet de route : … »**.
+- Les missions du mode complet n'apparaissent pas en mode simplifié.
+- **Carnet existant** : à la mise à jour, les missions déjà faites sont cochées en silence et le carnet de route reste replié.
+- Pour le masquer ou le réafficher : **Paramètres > Parcours de démarrage > Afficher le carnet de route**.
+
+### Créer tes clients par la relation
+
+La mission « Comprendre ton pipeline » ouvre deux pages, qu'on retrouve à tout moment avec le bouton **« ? Les étapes »** de l'onglet Personnes.
+
+1. **L'approche.** On conseille souvent aux coachs les réseaux sociaux, le contenu et le marketing : une voie légitime, avec son prix. Ce carnet suit celle de coachs qui en vivent depuis des années : le coaching se vend par le coaching, et l'on crée ses clients une discussion à la fois. Six principes, chacun avec le type de saisie qui lui correspond : rencontrer chaque jour, aider sans rien attendre, faire vivre le coaching, choisir tes clients, proposer et demander la recommandation, travailler sur un cycle de durée fixée à un prix juste. Avec les repères du carnet pour un contrat signé : environ 13 invitations, 4 personnes en conversation, 10 conversations, 2 propositions.
+2. **Les étapes.** Le chemin d'une personne, de la rencontre au contrat, et pour chaque étape **la saisie qui la fait avancer** (voir la [partie 9](#9-personnes)).
+
+### Les célébrations
+
+Quand tu franchis un cap, l'outil le salue, avec trois niveaux d'intensité :
+
+- un **bandeau** discret quand une statistique gagne un niveau ;
+- une **carte** pour un nouveau niveau global ;
+- une **célébration** plein écran pour un haut fait, avec son niveau (Bronze, Argent, Or, Légendaire).
+
+Plusieurs caps franchis d'un coup s'enchaînent, du plus grand au plus petit. Une mission accomplie est signalée par une petite notification du carnet de route. Pour couper les célébrations : **Paramètres > Parcours de démarrage > Célébrations animées**.
+
+### Mode simplifié ou complet
+
+Le bouton **Mode simplifié**, en haut à droite, s'active et se désactive à tout moment. **Rien n'est perdu** : il masque, il n'efface pas. Le mode est enregistré dans ton carnet.
+
+En mode simplifié :
+
+- **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres. Le tableau de bord, la fiche Coach et la Pratique délibérée sont masqués.
+- **Aucune notion d'aisance, d'objectif, d'action ni de coût.**
+- **Saisie** : les types sont présentés l'un sous l'autre, avec leur sens (« J'ai proposé à une personne de découvrir le coaching »…), puis tes autres types. Il reste la durée, la personne, « Ce qu'on a vu », les notes sur l'entretien et le suivi (CR, synthèse). Une proposition garde son montant et sa durée d'engagement.
+- **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors aisance, objectifs et coûts).
+- **Mes saisies** : identique, sans les notes d'aisance ni le coût des supervisions.
+- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche personne n'a plus l'aisance, le plan d'action, la description, le public ni la problématique.
+- **Paramètres** : ton nom, ton logo et une palette de couleurs proposée ; sécurité, stockage, partage et parcours. Les types d'activité, les compétences, les indicateurs, le suivi des personnes et les coûts sont masqués.
 
 ---
 
@@ -84,7 +149,7 @@ Un carnet neuf s'ouvre sur un parcours en 11 étapes, d'environ 5 minutes. Le pa
 C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistrer un temps »**, en haut à droite. Il faut moins de 30 secondes.
 
 - **Date.** Aujourd'hui par défaut.
-- **Type.** Un bouton par type d'activité, dans sa couleur.
+- **Type.** Un bouton par type d'activité, dans sa couleur, dans l'ordre du parcours d'un client : **Invitation › Conversation › Proposition › Session › Débrief › Supervision**, puis tes autres types (Rencontre réseau…) sur la ligne suivante. Le type **Invitation** sert à noter chaque fois que tu proposes à quelqu'un une conversation de coaching (sans durée par défaut).
 - **Durée.**
   - Des boutons proposent les durées courantes.
   - Le champ « Autre durée » accepte `2,5`, `2.5`, `2h30`, `2h`, `150min` ou `1:30`.
@@ -94,20 +159,175 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
   - Les personnes archivées sont dans une liste déroulante.
   - « + Nouvelle » crée une nouvelle personne : tape « Prénom Nom », puis Entrée.
 - **Ce qu'on a vu.** Une ligne : thème, déclic, pattern repéré.
+- **Notes sur l'entretien.** Une grande zone facultative, pour tout ce que tu veux garder en mémoire. Elle se retrouve dans Mes saisies (bouton ◎), dans l'export CSV et dans l'import CSV (colonne « Notes »).
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
-- **Aisance.** Une note de 1 à 5 pour chacun de tes axes de progression, pour les types où l'aisance est activée.
-- **Proposition.** Montant, nombre de séances prévues, durée d'engagement. Une proposition est enregistrée « En attente » (voir la [partie 8](#8-propositions-et-contrats)).
+- **Réponse** (Invitation). Case « Elle a dit non » si la personne décline. Tu peux la cocher plus tard, dans Mes saisies. Tes non sont comptés dans Suivi d'activité.
+- **Actions de pratique délibérée.** Pour chacune de tes actions en cours qui concerne ce type d'entretien : **Oui**, **En partie** ou **Non**. Un nouveau clic sur la réponse l'efface. C'est le plus rapide : commence par là.
+- **Focus.** Pour chacune de tes compétences en focus, une note d'aisance de 1 à 5, une grande zone **« Ce que j'ai remarqué »** et une case **« Retenir pour la prochaine supervision »**. Tout est facultatif.
+- **Aisance · autres compétences.** Une note de 1 à 5 pour tes autres compétences suivies, sur deux colonnes. « + Remarque sur… » ouvre une zone de remarque pour l'une d'elles.
+  - Ces blocs n'apparaissent que pour les types où l'aisance est activée (Paramètres > Types d'activité), sauf les actions, qui s'affichent pour les types que tu leur as associés.
+- **Proposition.** Montant, nombre de séances prévues, durée d'engagement. Une proposition est enregistrée « En attente » (voir la [partie 10](#10-propositions-et-contrats)).
 - **Supervision.** Coût de cette séance. Laisse le champ vide pour compter le prix moyen indiqué dans les Paramètres (il s'affiche en grisé), ou saisis le montant réel : il prend le pas sur le prix moyen. Si tu changes ensuite le prix moyen, toutes les séances sans montant personnalisé suivent. Coche **« Supervision non payante »** pour une séance offerte ou incluse ailleurs : elle n'entre alors pas dans tes coûts.
+  - Si des remarques sont retenues pour la supervision, elles s'affichent en dessous avec ce que tu en retiens (voir la [partie 4](#4-pratique-délibérée)). Décoche « Joindre les remarques… » pour une supervision qui n'a rien à voir.
 
 ---
 
-## 4. Tableau de bord
+## 4. Pratique délibérée
+
+L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce moment, à vérifier que tu le fais vraiment, et à préparer tes supervisions.
+
+### Boussole d'aisance
+
+- Le graphique en toile montre ton aisance sur chacune de tes compétences suivies.
+- **Gérer mes compétences** (en haut de la boussole) ouvre la liste de tes compétences : libellé, **discipline**, repères du 1 et du 5, suivie ou non, **focus**, nombre de notes. C'est le seul endroit où les gérer ; le bloc des Paramètres y renvoie.
+- Les compétences d'une même **discipline** (PNL, Analyse transactionnelle, Systémique…) sont regroupées sur la boussole, sous un arc de couleur portant son nom. La discipline est libre : des suggestions s'affichent quand tu la tapes.
+- **La note d'une compétence est la moyenne de tes 5 dernières notes**, pas de tout ton historique : elle reflète où tu en es aujourd'hui.
+- **↗ ou ↘** indique la tendance par rapport aux 5 notes précédentes (écart d'au moins 0,3).
+- Une compétence jamais notée reste au centre, avec la mention « jamais notée ».
+- Avec moins de 3 compétences suivies, la boussole devient une simple liste.
+- **Clique sur une compétence** pour ouvrir son historique (voir plus bas).
+
+### Focus du moment
+
+- Choisis **jusqu'à 3 compétences** à travailler. Elles sont entourées sur la boussole et apparaissent en tête de chaque saisie, avec une zone pour noter ce que tu remarques.
+- Retirer un focus (×) met en pause les actions qui lui sont liées. Elles restent dans la bibliothèque, avec leur historique.
+
+### Actions en cours
+
+- **Jusqu'à 3 actions en cours.** Une action est un geste précis à tenter : « faire reformuler l'objectif avec ses propres mots », « poser au moins un challenge explicite, et le tenir ».
+- Chaque action est liée (ou non) à une compétence, et à des types de saisie : c'est dans ces saisies qu'on te demandera si tu l'as faite.
+- Sous chaque action : les 10 dernières réponses (oui, en partie, non) et le **taux de réussite** (oui = 1, en partie = ½).
+- **changer** remplace l'action par une autre de la bibliothèque (l'ancienne passe en pause). **mettre en pause** la retire des saisies sans perdre son historique.
+
+### Bibliothèque d'actions
+
+- Toutes tes actions, gardées pour toujours : **en cours** d'abord, puis les autres, **du taux le plus faible au plus élevé**.
+- Statuts : **en cours**, **en pause**, **★ acquise** (quand le geste est devenu naturel). Change-le avec la liste à droite de l'action.
+- **+ Nouvelle action** : son texte, la compétence travaillée, les types de saisie concernés. Elle est ajoutée à la bibliothèque, et passe en cours s'il reste une place.
+- Une action jamais utilisée peut être supprimée (✕).
+
+### Historique d'une compétence
+
+En cliquant sur une compétence (boussole, focus, ou fiche) :
+
+- sa note actuelle, la note des 5 précédentes, et la courbe de tes 10 dernières notes ;
+- un bouton pour la mettre en focus ou l'en retirer ;
+- les actions qui lui sont liées, avec leur taux ;
+- **toutes tes remarques et tous tes retours de supervision**, du plus récent au plus ancien. Les retours de supervision sont alignés à droite, en couleur, avec la date de la supervision et la personne qui t'a supervisé. « modifier » rouvre la saisie d'une remarque.
+
+### Préparer la prochaine supervision
+
+- Toutes les remarques où tu as coché **« Retenir pour la prochaine supervision »** arrivent ici, de la plus récente à la plus ancienne.
+- **Décoche** celles que tu ne veux pas aborder.
+- Après la supervision, écris sous chaque remarque **ce que tu en retiens**. « → En faire une action » crée une action à partir de ce que tu as retenu.
+- **Enregistrer la supervision** ouvre la saisie de supervision : les remarques cochées et ce que tu en retiens y sont joints. Les remarques décochées sortent de la liste et restent dans l'historique de leur compétence.
+- Ce que tu en retiens réapparaît dans l'historique de chaque compétence, comme retour de supervision.
+
+---
+
+## 5. Coach : ta fiche
+
+L'onglet **Coach** (ou un clic sur ton logo, en haut à gauche) affiche ta fiche de coach. C'est ta page à toi, celle que tu pourras montrer.
+
+### Ton profil
+
+**Modifier mon profil** (ou un clic sur ta photo, ou sur un petit +) ouvre ton profil :
+
+- photo (recadrée en rond), nom, titre (ex. « Coach en leadership »), date de naissance (pour l'âge) ;
+- **début du coaching** : laisse vide pour prendre la date de ta première séance enregistrée ;
+- **micro-pitch** : une phrase sur ce que tu fais et pour qui ;
+- **accord des libellés** : féminin, masculin ou inclusif (« Praticienne confirmée », « Praticien confirmé », « Praticien·ne confirmé·e ») ;
+- **formation** (diplômes, certifications) et **parcours** : une ligne par élément.
+
+L'en-tête affiche ton titre, ton âge et ton ancienneté (« 2,7 années de coaching (depuis mars 2024) »).
+
+### Rang et niveau
+
+- **Chaque statistique a sa propre courbe**, construite sur le parcours d'un coach régulier. Sa 1re année : 80 invitations, 24 personnes en conversation, 60 conversations, 12 propositions, 6 contrats, 80 séances payantes, 300 h de coaching. Ensuite, son activité monte en charge sur deux ans.
+- Les niveaux suivent l'ancienneté de ce coach : niveau 10 ≈ 2 mois, 25 ≈ 1 an, 30 ≈ 1 an et demi, 40 ≈ 3 ans, 60 ≈ 8 ans, 100 ≈ 30 ans.
+
+| Statistique | 1re année (≈ niveau 25) | Rythme de croisière | Repère |
+|---|---|---|---|
+| Heures de coaching | 300 h | 300 h par an | 50 h = niveau 10 |
+| Conversations | 60 | 60 par an | 2 à 3 rendez-vous par personne |
+| Personnes coachées | 36 | 30 par an | |
+| Séances payantes | 80 | 200 par an | |
+| Pratique délibérée | 400 h | 100 h par an | forte au début, plus plate ensuite |
+| Supervision | 24 h | 12 h par an | 2 h par mois au début, tous les deux mois ensuite |
+| Invitations | 80 | 100 par an | 10 invitations ≈ 3 personnes en conversation |
+| Propositions | 12 | 12 par an | la 1re = niveau 5 |
+| Clients et renouvellements | 6 | 10 par an | chaque contrat signé compte, renouvellement compris ; le 1er = niveau 10 |
+
+- **Le CA en deux temps.** Jusqu'à 5 000 € cumulés, des paliers : premier euro = niveau 2, 100 € = 3, 200 € = 4, 500 € = 5, 800 € = 6, 1 000 € = 7, 1 500 € (un SMIC) = 8, 3 000 € = 10, 5 000 € = 12. Au-delà, ton **meilleur CA sur 12 mois glissants** : 10 000 € = 15, 30 000 € (2 500 € par mois) = 25, 60 000 € (en vivre à temps plein) = 33, 100 000 € = 50, 300 000 € = 100. Ton niveau ne redescend jamais ; la valeur actuelle des 12 derniers mois et son équivalent mensuel restent affichés.
+- **Ton niveau global est la moyenne des niveaux de tes statistiques déjà saisies.** Une statistique entre dans la moyenne à sa première saisie (par exemple ta première invitation).
+- **Ton rang change tous les 10 niveaux** :
+
+| Niveaux | Rang |
+|---|---|
+| 1–9 | Débutant·e |
+| 10–19 | Apprenti·e |
+| 20–29 | Praticien·ne |
+| 30–39 | Praticien·ne confirmé·e |
+| 40–49 | Praticien·ne aguerri·e |
+| 50–59 | Expert·e |
+| 60–69 | Expert·e reconnu·e |
+| 70–79 | Coach de référence |
+| 80–89 | Mentor·e |
+| 90–99 | Élite |
+| 100 | Légende |
+
+### Boussole d'aisance, focus et actions
+
+La même boussole que dans l'onglet Pratique délibérée, avec tes focus et tes actions en cours à droite (voir la [partie 4](#4-pratique-délibérée)).
+
+### Statistiques
+
+Trois colonnes, depuis le début de ta pratique. **Chaque statistique a son niveau**, jusqu'à 100, selon l'échelle ci-dessus :
+
+- **Coacher beaucoup** : heures de coaching, conversations, séances, personnes coachées ;
+- **Pratiquer délibérément** : heures de pratique délibérée, heures de supervision ;
+- **Développer l'activité** : invitations, propositions, clients et renouvellements, CA.
+
+Sous chaque statistique : sa barre vers le niveau suivant, et la valeur à atteindre.
+
+### Hauts faits
+
+Sous les statistiques, tes **hauts faits** :
+
+- **automatiques** : première séance, paliers de séances, d'heures de coaching (10 h, 50 h, 100 h… 10 000 h), de personnes coachées, de clients payants (dont le premier contrat), de CA signé, de semaines d'affilée avec au moins un entretien de coaching, d'heures de pratique délibérée, de supervisions, d'invitations, de **non reçus** (« Premier non », 10, 25, 50, 100), et tes actions de pratique délibérée « acquises » ;
+- **automatiques encore** : un haut fait par chapitre du carnet de route terminé ;
+- **tes victoires** : les réussites que l'outil ne peut pas compter seul (une promotion obtenue par un client, un premier dirigeant accompagné…). Ajoute-les avec le + du bloc : une image (recadrée en carré), un titre, une date, un niveau et un court récit « pour t'en souvenir ». Clique sur une victoire pour la revoir en grand ou la modifier. Son ajout est célébré comme un haut fait.
+- Chaque haut fait a un niveau : **Bronze**, **Argent**, **Or** ou **Légendaire**. « NOUVEAU » signale ceux des 30 derniers jours.
+- Les **3 prochains** à débloquer s'affichent, avec ce qu'il te reste.
+- Thème Jeu vidéo : des cartes sur trois colonnes, les 9 plus récentes d'abord (« Voir les autres »). Thème Professionnel : une frise espacée selon le temps, qui défile.
+
+### Affinités
+
+Un tableau croise tes **heures de coaching** par **public** (en lignes) et par **problématique** (en colonnes), à partir de la fiche de tes clients (onglet Personnes). Les 5 publics et les 5 problématiques les plus fréquents s'affichent. Une case de **50 h et plus** est une **spécialité**. Les heures des clients dont le public ou la problématique ne sont pas renseignés sont comptées à part.
+
+### Reprendre ton historique
+
+Tu coachais avant d'utiliser l'outil ? Dans **Modifier mon profil > Reprendre ton historique** :
+
+1. **Importer tes saisies** depuis un tableur : dans Excel, « Enregistrer sous » au format CSV, puis « Importer un fichier CSV » (aussi en bas de page : « Importer un CSV »).
+   - « Télécharger le modèle » donne un fichier avec les bonnes colonnes : Date, Type, Durée, Personne, Commentaire, Notes, Montant, Statut. Seules Date et Type sont obligatoires.
+   - Dates acceptées : `12/03/2024`, `12/03/24`, `2024-03-12`. Types : le libellé de tes types (Séance, Session, Conversation…). Durées : comme dans la saisie (`1h30`, `90`, `1,5`).
+   - Les personnes inconnues sont créées. Les lignes déjà présentes (même date, même type, même personne) sont ignorées. Un récapitulatif s'affiche avant d'importer.
+2. **Ou déclarer tes totaux** d'avant l'outil : heures, séances, conversations, personnes coachées, pratique délibérée, supervision, invitations, propositions, CA, clients payants. Ils comptent dans ta fiche (niveaux, rang, hauts faits), pas dans tes indicateurs ni tes graphiques.
+
+### Deux thèmes
+
+En haut de l'onglet : **Professionnel** (sobre, clair) ou **Jeu vidéo** (sombre, anneau de progression autour de la photo, étoiles, barres brillantes). Les couleurs de la fiche sont les mêmes pour tous les coachs : toutes les fiches se lisent de la même façon.
+
+---
+
+## 6. Tableau de bord
 
 C'est ton cap : à regarder une fois par semaine.
 
 ### Indicateurs principaux
 
-Ce sont les 3 premiers indicateurs que tu as choisis (voir la [partie 5](#5-métriques)). Ils affichent la valeur de l'année, celle des 31 derniers jours et une courbe de tendance. Pour les changer, clique sur « Changer mes indicateurs ».
+Ce sont les 3 premiers indicateurs que tu as choisis (voir la [partie 7](#7-suivi-dactivité)). Ils affichent la valeur de l'année, celle des 31 derniers jours et une courbe de tendance. Pour les changer, clique sur « Changer mes indicateurs ».
 
 ### À relancer
 
@@ -146,7 +366,9 @@ Ce bloc est replié par défaut. Clique sur son titre pour l'ouvrir : replié, i
 
 ---
 
-## 5. Métriques
+## 7. Suivi d'activité
+
+L'onglet s'appelait « Métriques » jusqu'à la version 1.7.
 
 ### Mes indicateurs
 
@@ -155,7 +377,7 @@ Tu choisis 6 indicateurs au maximum. Les 3 premiers sont **principaux** : ils s'
 - Pour échanger deux indicateurs, glisse l'un sur l'autre.
 - Pour en changer, ouvre « Choisir mes indicateurs ». Le catalogue affiche ta valeur réelle à date pour chacun.
 
-Le catalogue compte 19 indicateurs, répartis en 4 piliers :
+Le catalogue compte 20 indicateurs, répartis en 4 piliers :
 
 - **Coacher beaucoup :**
   - heures de coaching ;
@@ -185,15 +407,14 @@ Le catalogue compte 19 indicateurs, répartis en 4 piliers :
 
 - **Année.** Les boutons 2024, 2025, 2026… choisissent l'année affichée.
 - **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail.
-- **Aisance.** Deux vues :
-  - « Toutes les métriques » : une courbe par axe ;
-  - « Une métrique par type » : une courbe par type d'entretien pour l'axe choisi.
-
-  Clique sur un élément de la légende pour le masquer ou l'afficher. Glisse-le pour changer l'ordre.
+- **Développer ton activité.** Deux vues, pour l'année choisie :
+  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). À droite : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, ton **aisance commerciale** (moyenne et tendance de ta note d'atteinte de l'objectif sur tes invitations, conversations et propositions ; masquée en mode simplifié) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
+  - **Par mois** : invitations, conversations, propositions et signatures, mois par mois, pour voir ton rythme.
+- L'aisance ne se suit plus ici : elle se lit sur la boussole d'aisance, et en cliquant sur une compétence (courbe, tendance, remarques).
 
 ---
 
-## 6. Mes saisies
+## 8. Mes saisies
 
 Le détail de tous tes entretiens, filtrable et modifiable directement dans le tableau.
 
@@ -202,22 +423,27 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
   - Les clients archivés sont dans une liste déroulante.
 - **Résumé.** Nombre de saisies, temps total, dont coaching, pratique délibérée, et pourcentages de CR et de synthèses faits.
 - **Tuile de la personne.** Quand tu sélectionnes une personne, sa tuile s'affiche à droite des filtres. Si tu en sélectionnes plusieurs, un onglet par personne permet de passer de l'une à l'autre.
-  - **À gauche :** son badge (Client.e, Pro bono, Superviseur.e ou Réseau), sa fonction et son site, ses dates, ses chiffres, et les boutons Fiche et Archiver.
+  - **À gauche :** son étape dans le pipeline (Rencontre, En conversation, Client.e…), sa fonction et son site, ses dates, ses chiffres, et les boutons Fiche et Archiver.
   - **À droite :** son aisance moyenne sur chacun de tes axes suivis.
   - **En dessous :** la frise de ses échanges, avec la date (jj/mm) au-dessus de chaque échange et l'année au milieu de sa période.
 - **Années.** Elles sont classées de la plus récente à la plus ancienne.
 - **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
   - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
-  - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut.
+  - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut ; sur une invitation, la case « Elle a dit non ».
   - **Personne** est une liste : tu peux changer la personne d'une saisie ou la retirer (« — »), par exemple pour indiquer qui t'a supervisé. La petite loupe à côté filtre le tableau sur cette personne.
   - Chaque modification est enregistrée aussitôt.
+  - **◎** ouvre les détails de la saisie : notes sur l'entretien, et sa pratique délibérée (réponses aux actions, notes d'aisance, remarques, retours d'une supervision) pour la compléter ou la corriger. Il est coloré quand la saisie en contient.
   - ✕ supprime une saisie. L'annulation est possible quelques secondes.
 - **Afficher les métriques archivées.** Fait réapparaître les axes que tu ne suis plus.
 - **Exporter CSV** (en bas de page). Un tableur de toutes tes saisies.
 
 ---
 
-## 7. Personnes
+## 9. Personnes
+
+### À relancer
+
+Le bloc **À relancer** du tableau de bord est aussi en haut de l'onglet Personnes, avec les mêmes boutons (voir la [partie 6](#6-tableau-de-bord)). Clique sur son titre pour le replier.
 
 ### Vues
 
@@ -233,11 +459,13 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 
 ### Les étapes
 
-L'étape se calcule toute seule à partir de tes saisies :
+L'étape se calcule toute seule à partir de tes saisies. Le bouton **« ? Les étapes »** rappelle l'approche et ce qu'il faut saisir à chaque étape (voir la [partie 2](#créer-tes-clients-par-la-relation)).
+
+**Rencontre** : une prise de contact, une discussion formelle ou informelle où l'on se présente, une rencontre en soirée, un appel en visio ou au téléphone. Aucun engagement, aucune attente : le début d'une relation, quelles qu'en soient les perspectives (partenariat, client, recommandation…).
 
 | Étape | Règle automatique |
 |---|---|
-| Contact | Aucune conversation ni session. |
+| Rencontre | Aucune conversation ni session (Rencontre réseau, Invitation). |
 | En conversation | Au moins une conversation ou une session, sans proposition en attente. |
 | Proposition envoyée | Au moins une proposition « En attente ». |
 | Client.e | Un contrat en cours, ou une séance après la fin du contrat. |
@@ -260,9 +488,11 @@ Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », 
   - l'enveloppe ouvre ta messagerie ;
   - le globe ouvre le site ;
   - le combiné lance l'appel, seulement sur un téléphone ou une tablette.
-- **Fonction**, en une ligne : par exemple « Cheffe de projet chez Michel Musique ».
+- **Fonction**, en une ligne : fonction et organisation.
 - **Téléphone, e-mail, site web.** Le téléphone s'espace automatiquement : `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
-- **Étape** (automatique ou manuelle) et **provenance**. La provenance propose les valeurs déjà utilisées sur tes autres fiches.
+- **Étape** (automatique ou manuelle) et **provenance**. Le petit ▾ de la provenance déroule les valeurs déjà utilisées sur tes autres fiches ; en tapant, la liste se filtre. Une nouvelle valeur est ajoutée à la liste pour les fiches suivantes.
+- **Recommandations** : deux cases, « Vient d'une recommandation » (on t'a recommandé à elle) et « Je lui ai demandé une recommandation ».
+- **Public** et **problématique** : à quel public appartient la personne, et ce qu'elle vient travailler. Même liste déroulante que la provenance, pour garder des valeurs homogènes et des analyses propres. Ils alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)).
 - **Description.** Contexte, enjeux, ce qu'il faut savoir.
 
 **À droite, où vous en êtes :**
@@ -283,7 +513,7 @@ Tout est enregistré pendant la frappe.
 
 ---
 
-## 8. Propositions et contrats
+## 10. Propositions et contrats
 
 **Rien n'est automatique** : c'est toi qui indiques si une proposition est acceptée.
 
@@ -302,7 +532,7 @@ Seules les propositions de plus de 0 € comptent dans les indicateurs commercia
 
 ---
 
-## 9. Coûts et taux horaire réel
+## 11. Coûts et taux horaire réel
 
 Réglages dans **Paramètres > Coûts de l'activité**.
 
@@ -329,7 +559,7 @@ Réglages dans **Paramètres > Coûts de l'activité**.
 
 ---
 
-## 10. Paramètres
+## 12. Paramètres
 
 Tous les blocs sont **repliés par défaut**. Clique sur un titre, ou sur le triangle placé avant lui, pour ouvrir ou fermer le bloc. Replié, chaque bloc affiche un résumé d'une ligne. Ton choix est mémorisé sur ton ordinateur.
 
@@ -337,18 +567,18 @@ Les blocs vont par deux, dans cet ordre :
 
 | Gauche | Droite |
 |---|---|
-| **Identité** : nom du cabinet, nom de l'outil, phrase de motivation. | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
-| **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 11](#11-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
-| **Types d'activité** (10 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. | **Métriques d'aisance** : libellé, repères du 1 et du 5, ordre. Un axe « non suivi » disparaît de la saisie mais garde son historique. Renommer un axe conserve ses notes. Un axe n'est supprimable que s'il n'a aucune note. |
+| **Identité** : nom du cabinet, nom de l'outil, phrase de motivation, accord des libellés (féminin, masculin, inclusif). | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
+| **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 13](#13-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
+| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. | **Compétences d'aisance** : renvoie à « Gérer mes compétences », sur la boussole d'aisance (voir la [partie 4](#4-pratique-délibérée)). |
 | **Suivi des personnes** : seuil de l'alerte « sans contact », en jours. | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
-| **Coûts de l'activité**, sur toute la largeur (voir la [partie 9](#9-coûts-et-taux-horaire-réel)). | |
-| **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : « Relancer le parcours ». |
+| **Coûts de l'activité**, sur toute la largeur (voir la [partie 11](#11-coûts-et-taux-horaire-réel)). | |
+| **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : afficher le carnet de route, célébrations animées, « Revoir l'accueil ». |
 
 Quelques précisions :
 
 - **Compte dans** décide dans quel indicateur les heures d'un type sont additionnées : heures de coaching, pratique délibérée, développement ou autre.
 - **Les couleurs des types** suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
-- **Sur un écran de moins de 1500 px de large**, Types d'activité et Métriques d'aisance passent l'un sous l'autre.
+- **Sur un écran de moins de 1500 px de large**, Types d'activité et Compétences d'aisance passent l'un sous l'autre.
 
 En bas de chaque page :
 
@@ -360,7 +590,7 @@ En bas de chaque page :
 
 ---
 
-## 11. Sécurité et chiffrement
+## 13. Sécurité et chiffrement
 
 - **Activer le chiffrement** : Paramètres > Sécurité. Noms, notes, objectifs et photos deviennent illisibles sans ton mot de passe. Les sauvegardes existantes sont chiffrées elles aussi.
 - **Clé de secours** : elle t'est remise à l'activation. Garde-la **hors de l'ordinateur**, dans un gestionnaire de mots de passe ou sur papier. Sans le mot de passe ni la clé de secours, personne ne peut plus rouvrir les données, pas même l'auteur de l'outil.
@@ -370,30 +600,32 @@ En bas de chaque page :
 
 ---
 
-## 12. Tes données : enregistrement, sauvegardes, récupération
+## 14. Tes données : enregistrement, sauvegardes, récupération
 
 - **Enregistrement continu.** Chaque modification est enregistrée au bout d'une fraction de seconde. L'état s'affiche en haut à droite.
 - **Rien n'est jamais écrasé à l'aveugle.** Avant chaque enregistrement, l'application relit le fichier. S'il a été modifié ailleurs (autre fenêtre, autre ordinateur, autre version), elle **fusionne** au lieu de remplacer :
   - les saisies des deux côtés sont gardées ;
   - pour une même saisie modifiée des deux côtés, c'est la modification la plus récente qui l'emporte ;
-  - les suppressions sont respectées.
+  - les suppressions sont respectées ;
+  - pour les réglages (coûts, indicateurs, compétences, profil…), seuls les changements réellement faits dans chaque fenêtre sont gardés : une fenêtre restée ouverte depuis longtemps ne peut plus effacer ce que tu as saisi dans une autre.
 - **Copies de sécurité** dans `sauvegardes/` :
   - une par heure, gardée 48 h ;
   - puis une par jour, gardée 30 jours ;
   - plus une copie juste avant chaque fusion.
 - **Version périmée = lecture seule.** Une version de l'application plus ancienne que celle qui a enregistré ton carnet ne peut plus l'écrire. Un bandeau te le signale.
+- **Importer des saisies depuis un tableur** : en bas de page, **Importer un CSV** (voir la [partie 5](#5-coach--ta-fiche), « Reprendre ton historique »).
 - **Récupérer des saisies perdues.**
   1. En bas de page, clique sur **Importer un JSON**.
   2. Choisis une copie dans `sauvegardes/`.
   3. Réponds **OK (fusionner)**.
 
-  Les saisies manquantes reviennent, sans rien supprimer.
+  Les saisies manquantes reviennent, sans rien supprimer. Les réglages perdus (par exemple des lignes de coût) reviennent aussi : les lignes absentes sont ajoutées, et une valeur vide est complétée par celle de la copie.
 - **Plusieurs carnets.** Paramètres > Stockage des données > Ouvrir un autre carnet ou Nouveau carnet. Un dossier qui contient déjà un carnet n'est jamais écrasé par un autre.
 - **Sans dossier relié**, les données ne sont gardées que dans ce navigateur. Un bandeau jaune te propose alors d'en choisir un.
 
 ---
 
-## 13. Nouveautés et versions
+## 15. Nouveautés et versions
 
 - **Numérotation `x.y.z`** : x = version majeure, y = nouvelle fonctionnalité, z = correctif. La version s'affiche en bas de page.
 - **Écran des nouveautés.** Au premier lancement d'une nouvelle version, une fenêtre présente ce qui a changé depuis ta dernière visite, avec des boutons qui mènent à chaque fonction. La version déjà vue est enregistrée dans ton carnet. Le lien **Nouveautés**, en bas de page, permet de les revoir.
@@ -401,7 +633,7 @@ En bas de chaque page :
 
 ---
 
-## 14. Partager à un pair
+## 16. Partager à un pair
 
 Envoie-lui simplement **l'adresse de l'application**. Il l'installe à son tour (voir la [partie 1](#1-mise-en-route)) et démarre avec « Commencer ». Ses données restent chez lui, et les tiennes chez toi.
 
@@ -409,14 +641,14 @@ Pour lui transmettre aussi ta configuration (types, couleurs, axes, indicateurs)
 
 ---
 
-## 15. En cas de souci
+## 17. En cas de souci
 
 - **L'application ne se met plus à jour, ou se comporte bizarrement.** Ferme-la, rouvre l'adresse dans Chrome ou Edge, puis recharge avec Ctrl+F5.
 - **Bandeau jaune « Reconnecter le dossier ».** Clique dessus et autorise l'accès. Choisis « Autoriser à chaque visite » si l'option est proposée.
 - **L'ancienne icône reste affichée dans le menu Démarrer ou la barre des tâches.** Désinstalle l'application (clic droit sur l'icône, ou menu ⋯ de la fenêtre > Désinstaller), puis réinstalle-la depuis son adresse. Tes données ne bougent pas : elles sont dans ton dossier.
 - **La nouvelle version n'apparaît pas.** Ferme complètement l'application et rouvre-la, ou recharge avec Ctrl+F5. Le numéro en bas de page fait foi.
 - **Bandeau « lecture seule ».** Tu utilises une version plus ancienne que celle qui a enregistré ton carnet, par exemple une ancienne copie de l'application. Recharge (Ctrl+F5), ou ouvre l'application installée.
-- **Des saisies ont disparu.** Voir « Récupérer des saisies perdues » dans la [partie 12](#12-tes-données--enregistrement-sauvegardes-récupération).
+- **Des saisies ont disparu.** Voir « Récupérer des saisies perdues » dans la [partie 14](#14-tes-données--enregistrement-sauvegardes-récupération).
 - **Mot de passe oublié.** Utilise la clé de secours sur l'écran de verrouillage.
 - **Ouvrir un autre carnet ou en créer un nouveau.**
   - Si l'application est ouverte : Paramètres > Stockage des données.
@@ -424,7 +656,7 @@ Pour lui transmettre aussi ta configuration (types, couleurs, axes, indicateurs)
 
 ---
 
-## 16. Licence et usage
+## 18. Licence et usage
 
 L'outil est publié sous **licence PolyForm Shield 1.0.0** (fichier `LICENSE`).
 
@@ -436,11 +668,27 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 ---
 
-## 17. Historique des versions
+## 19. Historique des versions
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **1.4.0** | 04/11/2026 | Nouvelle icône de l'application. L'icône de l'onglet et de la fenêtre reprend le logo du carnet. |
+| **2.0.0** | 11/2026 | Carnet de coach a son site (présentation, démarche, captures, questions fréquentes, en français et en anglais). L'application déménage dans le sous-dossier `app/` : réinstalle-la depuis sa nouvelle adresse ; tes données ne bougent pas. |
+| 1.12.2 | 08/11/2026 | Lien direct vers le carnet de démonstration (adresse se terminant par ?demo=1). Le lien « Explorer un carnet de démonstration » est masqué quand ton carnet est ouvert. |
+| 1.12.1 | 08/11/2026 | Bouton Accueil (petite maison) à gauche des onglets. Changement de langue instantané, sans reverrouiller un carnet chiffré. |
+| 1.12.0 | 08/11/2026 | L'application en anglais : bouton FR / EN pour changer de langue à tout moment ; carnet de démonstration et page d'architecture en anglais ; manuel en anglais (README.en.md). |
+| 1.11.0 | 08/11/2026 | Carnet de démonstration (Camille Martin, coach fictive), à ouvrir depuis l'accueil. |
+| 1.10.1 | 08/11/2026 | Aisance commerciale dans Suivi d'activité. L'étape Contact devient Rencontre. Onglets Paramètres et À propos colorés. Accueil plus compact, sur le vert du carnet. Fiche personne aérée. Correctif : une pastille vide restait visible en haut de l'écran. |
+| 1.10.0 | 08/11/2026 | Onglet À propos : mot d'accueil, démarche, architecture et questions fréquentes. Compter tes non (invitation « Elle a dit non », propositions refusées) dans Suivi d'activité et en hauts faits. Fiche personne : listes déroulantes pour provenance, public et problématique ; cases de recommandation. Mes saisies affiche l'étape de la personne. Accueil avec photo. Hauts faits du thème Jeu vidéo sur trois colonnes. Démarche précisée : un cycle de durée fixée, à un prix juste. |
+| 1.9.1 | 08/11/2026 | Page « Créer tes clients par la relation » réécrite en six principes ; étapes du pipeline précisées (conversation de coaching, rendez-vous de proposition, recommandation). |
+| 1.9.0 | 08/11/2026 | Nouvel accueil en 3 écrans, puis un carnet de route : une mission à la fois, en 4 chapitres, avec « Montre-moi ». Pages « Développer ton activité par la relation » et étapes du pipeline reliées aux saisies (« ? Les étapes »). Célébrations des niveaux et des hauts faits, en trois intensités. Victoires avec image et récit. Page « Comment l'outil est construit ». |
+| 1.8.2 | 07/11/2026 | Niveaux recalibrés : une courbe par statistique, sur le parcours d'un coach régulier ; supervision en heures ; clients et renouvellements ; CA en deux temps (paliers puis meilleur CA sur 12 mois glissants) ; moyenne des seules statistiques déjà saisies. |
+| 1.8.1 | 07/11/2026 | Nouvelle échelle des niveaux, à l'essai : chaque statistique rapportée au rythme d'un coach régulier ; niveau global et rang = moyenne des statistiques. Coins des fenêtres de nouveau arrondis. |
+| 1.8.0 | 07/11/2026 | Mode simplifié, activable à tout moment (bouton en haut à droite) et proposé au premier lancement. Notes sur l'entretien dans la saisie. Types dans l'ordre du parcours (Invitation › … › Supervision), fenêtre de saisie élargie, aisance sur deux colonnes. « À relancer » dans Personnes. Métriques devient Suivi d'activité. Correctif : fond bleu derrière « via … » dans la vue Liste. |
+| 1.7.0 | 06/11/2026 | Métriques : graphique « Développer ton activité » (entonnoir invitations → conversations → propositions → clients, taux de passage, CA signé, panier moyen ; vue par mois) à la place du graphique d'aisance. Fiche coach : hauts faits automatiques et victoires, affinités public × problématique (nouveaux champs de la fiche personne). Reprise de l'historique : import CSV des saisies et déclaration des totaux d'avant l'outil. |
+| 1.6.1 | 06/11/2026 | Plus d'exemples tirés de la pratique d'un autre coach dans les champs ; un nouveau carnet démarre sans compétences ni phrase de motivation pré-remplies. |
+| 1.6.0 | 06/11/2026 | Onglet Coach : fiche avec profil, rang et niveau (1 à 100), boussole d'aisance par discipline avec focus et actions, statistiques avec niveaux ; thèmes Professionnel et Jeu vidéo ; accord des libellés. Compétences gérées depuis la boussole. Correctif : une fenêtre restée ouverte ne peut plus effacer les réglages saisis dans une autre (fusion à trois voies). Lignes fixes des coûts sans cadenas. |
+| 1.5.0 | 05/11/2026 | Onglet Pratique délibérée : boussole d'aisance (moyenne des 5 dernières notes et tendance), 3 focus, 3 actions en cours et bibliothèque d'actions, remarques par compétence dans chaque saisie, historique d'une compétence, préparation de la supervision avec ce qu'on en retient. Nouveau type Invitation et indicateur Invitations. « Métriques d'aisance » devient « Compétences d'aisance ». |
+| 1.4.0 | 04/11/2026 | Nouvelle icône de l'application. L'icône de l'onglet et de la fenêtre reprend le logo du carnet. |
 | 1.3.4 | 04/11/2026 | Coûts : taux moyen de prélèvement URSSAF, appliqué au CA accepté et compté comme une charge. |
 | 1.3.3 | 04/11/2026 | Frises : les pastilles des types les mieux classés passent au premier plan. |
 | 1.3.2 | 04/11/2026 | Personne modifiable dans Mes saisies (liste déroulante), loupe pour filtrer. |
@@ -454,3 +702,27 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 | 1.1.1 | 04/11/2026 | Bouton En entier / Au prorata pour les charges, avec les deux taux côte à côte. |
 | 1.1.0 | 04/11/2026 | CRM : fiches personnes, photo, étapes, pipeline, contrats, « À relancer ». |
 | 1.0 | 02/11/2026 | Version partagée aux pairs : catalogue de 19 indicateurs, enregistrements sécurisés (fusion, sauvegardes), 10 types, archivage, coûts et taux horaire. |
+
+---
+
+## 20. À propos
+
+Le dernier onglet, **À propos**, rassemble :
+
+- **le mot d'accueil**, celui du premier lancement ;
+- **la démarche** « Créer tes clients par la relation », avec le bouton « Lire la démarche » ;
+- **la façon dont l'outil est construit**, avec le bouton « Voir les schémas » (voir la [partie 21](#21-comment-loutil-est-construit)) ;
+- **les questions fréquentes**, en trois groupes : tes données, utiliser le carnet, l'outil.
+
+Les onglets Paramètres et À propos ont leur propre couleur, pour les distinguer des onglets de travail.
+
+---
+
+## 21. Comment l'outil est construit
+
+Pour les curieux, et pour qui voudrait l'auditer : la page **[Comment l'outil est construit](app/arch.html)**, livrée avec l'application, le montre en quatre schémas, en français ou en anglais (bouton FR / EN).
+
+- **Vue d'ensemble.** Un seul fichier `index.html`, sans serveur ni compte : l'application tourne dans ton navigateur et ne fait aucun appel réseau avec tes données. Un petit script (`sw.js`) la garde disponible hors ligne et installe les mises à jour.
+- **Tes données.** Un seul fichier `coaching-data.json` dans le dossier que tu choisis : saisies, personnes, réglages, profil de coach, pratique délibérée. Une copie est gardée dans le navigateur, au cas où le dossier serait momentanément inaccessible.
+- **Une saisie, du clic au fichier.** Chaque modification met à jour l'écran, puis est enregistrée au bout d'une fraction de seconde, après relecture et fusion du fichier si besoin.
+- **Sécurité.** Chiffrement AES-GCM par ton mot de passe, clé de secours, copies de sécurité horaires puis quotidiennes.

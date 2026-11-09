@@ -1,0 +1,31 @@
+{
+ "name": "Suivi de pratique de coaching",
+ "short_name": "Suivi coaching",
+ "description": "Carnet de suivi de pratique pour coachs. Les données restent sur ton ordinateur.",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#FBF9FF",
+ "theme_color": "#002327",
+ "lang": "fr",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

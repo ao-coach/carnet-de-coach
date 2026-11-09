@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comment l'outil est construit</title>
+<link rel="icon" href="icon-192.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=Inter:wght@400;600;800&display=swap');
+:root{--jet:#002327;--am:#822239;--afb:#508AA8;--teal:#2F8C93;--gold:#C9A04E;--grey:#797D81;--soft:#F4F2F7;--line:#E3E1E8;--bg:#FBFAFC}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--jet);font:15px/1.6 Inter,system-ui,sans-serif}
+.w{max-width:1040px;margin:0 auto;padding:40px 16px 70px}
+header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:10px}
+.k{font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--am)}
+h1{font:400 38px/1.15 'Noto Serif',Georgia,serif;margin:6px 0 10px}
+h2{font:400 26px/1.2 'Noto Serif',Georgia,serif;margin:46px 0 6px}
+.lead{font:400 18px/1.6 'Noto Serif',Georgia,serif;color:#33403F;max-width:780px;margin:0}
+p{max-width:780px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}nav a{font-size:13px;font-weight:600;color:var(--jet);background:var(--soft);border-radius:999px;padding:6px 12px;text-decoration:none}nav a:hover{background:#ECE9F1}
+.fig{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:Inter,system-ui,sans-serif;fill:var(--jet)}
+.box{fill:#fff;stroke:var(--line);stroke-width:1.5}.boxs{fill:var(--soft);stroke:none}
+.dk{fill:var(--jet)}.dk+text,.wt{fill:#fff}
+.t1{font-size:15px;font-weight:800}.t2{font-size:12.5px;fill:#4A5655}.t3{font-size:11px;font-weight:800;letter-spacing:.08em;fill:var(--grey)}
+.ar{stroke:var(--grey);stroke-width:1.6;fill:none;marker-end:url(#ah)}.ar2{stroke:var(--am);stroke-width:1.8;fill:none;marker-end:url(#ah2)}.dash{stroke-dasharray:5 5}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.c{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}.c b{display:block;font:400 17px 'Noto Serif',serif;margin-bottom:4px}.c p{margin:0;font-size:13.5px;color:#33403F}
+code{font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border-radius:5px;padding:1px 5px}
+.note{font-size:13px;color:var(--grey)}
+footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--grey)}footer a{color:var(--am)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}.fig{padding:10px;overflow-x:auto}.fig svg{min-width:640px}}
+.lsw{position:absolute;top:24px;right:16px;display:flex;border:1px solid var(--line);border-radius:9px;padding:2px;background:#fff}.lsw button{border:0;background:none;font:800 12px Inter,system-ui,sans-serif;color:var(--grey);padding:5px 8px;border-radius:7px;cursor:pointer}.lsw button.on{background:var(--jet);color:#fff}.w{position:relative}</style></head><body><div class="w">
+<header><div class="lsw" id="lsw"><button data-l="fr">FR</button><button data-l="en">EN</button></div>
+ <div class="k">Suivi de pratique de coaching · version 2.0.0</div>
+ <h1>Comment l'outil est construit</h1>
+ <p class="lead">Un seul fichier qui tourne dans ton navigateur, un seul fichier de données rangé chez toi. Ni serveur, ni compte, ni abonnement : quatre schémas pour voir où vont tes données, et pourquoi elles ne sortent pas de ton ordinateur.</p>
+ <nav><a href="#vue">1. Vue d'ensemble</a><a href="#donnees">2. Tes données</a><a href="#saisie">3. Une saisie, du clic au fichier</a><a href="#securite">4. Sécurité et sauvegardes</a></nav>
+</header>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+ <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#797D81"/></marker>
+ <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#822239"/></marker>
+</defs></svg>
+
+<h2 id="vue">1. Vue d'ensemble</h2>
+<p>L'adresse web ne sert qu'à <b>télécharger l'application</b>, une fois puis à chaque mise à jour. Ensuite, tout se passe sur ton ordinateur : l'application lit et écrit ton fichier de données directement dans le dossier que tu as choisi, sans jamais l'envoyer nulle part.</p>
+<div class="fig"><svg viewBox="0 0 1000 330" role="img" aria-label="Vue d'ensemble : le site web livre l'application ; tout le reste se passe sur l'ordinateur">
+ <rect x="10" y="20" width="230" height="290" rx="14" class="boxs"/>
+ <text x="30" y="48" class="t3">SUR INTERNET</text>
+ <rect x="30" y="70" width="190" height="96" rx="12" class="box"/>
+ <text x="48" y="98" class="t1">Site de l'application</text>
+ <text x="48" y="120" class="t2">index.html, sw.js,</text><text x="48" y="138" class="t2">icônes, manuel</text>
+ <text x="30" y="200" class="t2">Aucune donnée personnelle</text><text x="30" y="218" class="t2">n'y est jamais envoyée.</text>
+ <rect x="280" y="20" width="710" height="290" rx="14" fill="none" stroke="#002327" stroke-width="1.5" stroke-dasharray="6 5"/>
+ <text x="300" y="48" class="t3">SUR TON ORDINATEUR</text>
+ <rect x="300" y="70" width="300" height="220" rx="12" class="dk"/>
+ <text x="320" y="100" class="t1 wt">Navigateur (Chrome, Edge)</text>
+ <rect x="320" y="118" width="260" height="56" rx="10" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-opacity=".25"/>
+ <text x="336" y="141" class="t1 wt" style="font-size:13.5px">L'application</text><text x="336" y="160" class="wt" style="font-size:12px;fill:#CFE0E2">index.html : écrans, calculs, fusion</text>
+ <rect x="320" y="186" width="122" height="88" rx="10" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-opacity=".25"/>
+ <text x="334" y="208" class="t1 wt" style="font-size:13px">sw.js</text><text x="334" y="228" class="wt" style="font-size:11.5px;fill:#CFE0E2">hors ligne et</text><text x="334" y="244" class="wt" style="font-size:11.5px;fill:#CFE0E2">mises à jour</text>
+ <rect x="458" y="186" width="122" height="88" rx="10" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-opacity=".25"/>
+ <text x="472" y="208" class="t1 wt" style="font-size:13px">Copie locale</text><text x="472" y="228" class="wt" style="font-size:11.5px;fill:#CFE0E2">IndexedDB, si le</text><text x="472" y="244" class="wt" style="font-size:11.5px;fill:#CFE0E2">dossier manque</text>
+ <rect x="660" y="70" width="310" height="220" rx="12" class="box"/>
+ <text x="680" y="100" class="t1">Ton dossier</text><text x="680" y="120" class="t2">synchronisé si tu veux (OneDrive, Drive…)</text>
+ <rect x="680" y="138" width="270" height="52" rx="10" fill="#FFF7E0" stroke="#F1D98A"/>
+ <text x="696" y="160" class="t1" style="font-size:13.5px">coaching-data.json</text><text x="696" y="178" class="t2" style="font-size:11.5px">tout ton carnet, chiffré si tu le choisis</text>
+ <rect x="680" y="204" width="270" height="68" rx="10" class="boxs"/>
+ <text x="696" y="226" class="t1" style="font-size:13.5px">sauvegardes/</text><text x="696" y="244" class="t2" style="font-size:11.5px">copies horaires (48 h)</text><text x="696" y="260" class="t2" style="font-size:11.5px">puis quotidiennes (30 jours)</text>
+ <path d="M222,118 L316,146" class="ar"/><text x="236" y="104" class="t2" style="font-size:11px">téléchargé</text>
+ <path d="M582,146 L676,164" class="ar2"/><path d="M676,172 L582,154" class="ar2"/><text x="606" y="132" class="t2" style="font-size:11px;fill:#822239">lit / écrit</text>
+</svg></div>
+
+<h2 id="donnees">2. Tes données</h2>
+<p>Tout ton carnet tient dans <code>coaching-data.json</code>. Le fichier est structuré en grandes parties, que l'application relie entre elles : une saisie pointe vers une personne, une remarque vers une compétence, une supervision vers les remarques qu'elle traite.</p>
+<div class="fig"><svg viewBox="0 0 1000 360" role="img" aria-label="Modèle de données : saisies au centre, reliées aux personnes, aux types, aux compétences et à la pratique délibérée">
+ <rect x="370" y="120" width="260" height="120" rx="14" class="dk"/>
+ <text x="392" y="150" class="t1 wt">Saisies</text>
+ <text x="392" y="172" class="wt" style="font-size:12px;fill:#CFE0E2">date, type, durée, personne,</text>
+ <text x="392" y="190" class="wt" style="font-size:12px;fill:#CFE0E2">notes, aisance, remarques,</text>
+ <text x="392" y="208" class="wt" style="font-size:12px;fill:#CFE0E2">montant (propositions)</text>
+ <g><rect x="40" y="30" width="250" height="92" rx="12" class="box"/><text x="58" y="58" class="t1">Personnes</text><text x="58" y="80" class="t2">coordonnées, étape, public,</text><text x="58" y="98" class="t2">problématique, plan d'action</text></g>
+ <g><rect x="40" y="238" width="250" height="92" rx="12" class="box"/><text x="58" y="266" class="t1">Réglages</text><text x="58" y="288" class="t2">types d'activité, indicateurs,</text><text x="58" y="306" class="t2">couleurs, coûts, préférences</text></g>
+ <g><rect x="710" y="30" width="250" height="92" rx="12" class="box"/><text x="728" y="58" class="t1">Pratique délibérée</text><text x="728" y="80" class="t2">compétences, focus,</text><text x="728" y="98" class="t2">actions, bibliothèque</text></g>
+ <g><rect x="710" y="238" width="250" height="92" rx="12" class="box"/><text x="728" y="266" class="t1">Fiche coach</text><text x="728" y="288" class="t2">profil, parcours, victoires,</text><text x="728" y="306" class="t2">historique d'avant l'outil</text></g>
+ <g><rect x="395" y="290" width="210" height="58" rx="12" class="boxs"/><text x="413" y="314" class="t1" style="font-size:13.5px">Objectifs et actions</text><text x="413" y="334" class="t2" style="font-size:12px">priorités, plan d'action</text></g>
+ <path d="M368,160 L292,100" class="ar"/><text x="296" y="148" class="t2" style="font-size:11px">avec qui</text>
+ <path d="M368,206 L292,262" class="ar"/><text x="300" y="226" class="t2" style="font-size:11px">quel type</text>
+ <path d="M632,160 L708,100" class="ar"/><text x="600" y="150" class="t2" style="font-size:11px">compétences</text>
+ <path d="M632,206 L708,262" class="ar"/><text x="640" y="250" class="t2" style="font-size:11px">niveaux, hauts faits</text>
+ <text x="370" y="30" class="t3">UN SEUL FICHIER</text><text x="370" y="50" class="t2" style="font-size:12px">Tout est calculé à partir des saisies :</text><text x="370" y="68" class="t2" style="font-size:12px">indicateurs, étapes, niveaux, relances.</text>
+</svg></div>
+<p class="note">Rien n'est stocké en double : l'étape d'une personne, ton niveau ou tes indicateurs sont recalculés à chaque affichage à partir des saisies. Corriger une saisie corrige tout le reste.</p>
+
+<h2 id="saisie">3. Une saisie, du clic au fichier</h2>
+<p>Il n'y a pas de bouton « Enregistrer » : chaque modification est écrite au bout d'une fraction de seconde. Avant d'écrire, l'application <b>relit le fichier</b>. S'il a changé ailleurs (une autre fenêtre, un autre ordinateur), elle fusionne au lieu d'écraser.</p>
+<div class="fig"><svg viewBox="0 0 1000 250" role="img" aria-label="Chaîne d'enregistrement : saisie, mise à jour de l'écran, attente, relecture, fusion si besoin, copie de sécurité, écriture">
+ <g><rect x="10" y="40" width="150" height="80" rx="12" class="box"/><text x="26" y="68" class="t1">1. Tu saisis</text><text x="26" y="90" class="t2">un entretien,</text><text x="26" y="106" class="t2">une note, un réglage</text></g>
+ <g><rect x="190" y="40" width="150" height="80" rx="12" class="box"/><text x="206" y="68" class="t1">2. L'écran suit</text><text x="206" y="90" class="t2">indicateurs, étapes,</text><text x="206" y="106" class="t2">niveaux, missions</text></g>
+ <g><rect x="370" y="40" width="150" height="80" rx="12" class="box"/><text x="386" y="68" class="t1">3. 0,4 seconde</text><text x="386" y="90" class="t2">les modifications</text><text x="386" y="106" class="t2">proches sont groupées</text></g>
+ <g><rect x="550" y="40" width="190" height="80" rx="12" class="box"/><text x="566" y="68" class="t1">4. Relecture du fichier</text><text x="566" y="90" class="t2">a-t-il changé depuis</text><text x="566" y="106" class="t2">la dernière lecture ?</text></g>
+ <g><rect x="790" y="40" width="200" height="80" rx="12" class="dk"/><text x="806" y="68" class="t1 wt">5. Écriture</text><text x="806" y="90" class="wt" style="font-size:12.5px;fill:#CFE0E2">copie de sécurité,</text><text x="806" y="106" class="wt" style="font-size:12.5px;fill:#CFE0E2">puis nouveau fichier</text></g>
+ <path d="M162,80 L186,80" class="ar"/><path d="M342,80 L366,80" class="ar"/><path d="M522,80 L546,80" class="ar"/><path d="M742,80 L786,80" class="ar"/><text x="748" y="72" class="t2" style="font-size:11px">non</text>
+ <path d="M645,122 L645,160" class="ar2"/><text x="652" y="146" class="t2" style="font-size:11px;fill:#822239">oui</text>
+ <rect x="470" y="164" width="360" height="72" rx="12" fill="#F9EEF1" stroke="#E6C3CC"/>
+ <text x="488" y="190" class="t1" style="fill:#822239">Fusion à trois voies</text>
+ <text x="488" y="210" class="t2" style="font-size:12px">ta version, celle du fichier, et leur point commun :</text>
+ <text x="488" y="226" class="t2" style="font-size:12px">chaque changement réel est gardé, des deux côtés</text>
+ <path d="M832,200 L890,200 L890,124" class="ar2"/>
+</svg></div>
+<div class="grid">
+ <div class="c"><b>Les saisies</b><p>Celles des deux côtés sont gardées. Pour une même saisie modifiée des deux côtés, la modification la plus récente l'emporte. Les suppressions sont respectées.</p></div>
+ <div class="c"><b>Les réglages</b><p>Coûts, indicateurs, profil… : seuls les changements réellement faits dans chaque fenêtre sont gardés. Une fenêtre oubliée ne peut pas effacer le travail d'une autre.</p></div>
+ <div class="c"><b>Les garde-fous</b><p>Un fichier illisible, un autre carnet ou une version plus récente de l'application : rien n'est écrasé, l'application s'arrête et te prévient.</p></div>
+</div>
+
+<h2 id="securite">4. Sécurité et sauvegardes</h2>
+<p>Le chiffrement est facultatif et se règle dans Paramètres. Une fois activé, noms, notes, objectifs et photos sont illisibles sans ton mot de passe, dans le fichier comme dans les sauvegardes.</p>
+<div class="fig"><svg viewBox="0 0 1000 250" role="img" aria-label="Chiffrement : une clé de données chiffre le carnet ; elle est elle-même protégée par le mot de passe et par la clé de secours">
+ <g><rect x="10" y="30" width="200" height="74" rx="12" class="box"/><text x="28" y="58" class="t1">Ton mot de passe</text><text x="28" y="80" class="t2">jamais enregistré</text></g>
+ <g><rect x="10" y="140" width="200" height="74" rx="12" class="box"/><text x="28" y="168" class="t1">Ta clé de secours</text><text x="28" y="190" class="t2">gardée hors de l'ordinateur</text></g>
+ <g><rect x="290" y="80" width="230" height="84" rx="12" class="boxs"/><text x="308" y="108" class="t1">Clé de données</text><text x="308" y="130" class="t2">aléatoire, AES-GCM 256 bits,</text><text x="308" y="146" class="t2">rangée sous deux serrures</text></g>
+ <g><rect x="600" y="70" width="380" height="104" rx="12" fill="#FFF7E0" stroke="#F1D98A"/><text x="620" y="100" class="t1">coaching-data.json chiffré</text><text x="620" y="122" class="t2">et ses copies dans sauvegardes/</text><text x="620" y="146" class="t2">illisibles sans l'une des deux serrures,</text><text x="620" y="162" class="t2">y compris pour l'auteur de l'outil</text></g>
+ <path d="M212,67 L286,104" class="ar"/><path d="M212,177 L286,140" class="ar"/>
+ <text x="214" y="60" class="t2" style="font-size:11px">PBKDF2</text><text x="214" y="198" class="t2" style="font-size:11px">PBKDF2</text>
+ <path d="M522,122 L596,122" class="ar2"/><text x="530" y="112" class="t2" style="font-size:11px;fill:#822239">chiffre</text>
+</svg></div>
+<div class="grid">
+ <div class="c"><b>Chiffrement</b><p>AES-GCM 256 bits, standard du navigateur (Web Crypto). La clé est dérivée du mot de passe par PBKDF2-SHA-256, 600 000 itérations ; 200 000 pour la clé de secours.</p></div>
+ <div class="c"><b>Copies de sécurité</b><p>Dans <code>sauvegardes/</code> : une par heure gardée 48 h, puis une par jour gardée 30 jours. Une copie supplémentaire est faite avant chaque fusion.</p></div>
+ <div class="c"><b>Verrouillage</b><p>Automatique après 5 à 60 minutes d'inactivité, ou jamais. Déverrouillage par mot de passe ou par clé de secours.</p></div>
+</div>
+
+<footer>Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0 · <a href="./">Ouvrir l'application</a> · Le manuel complet est dans le fichier README.md.</footer>
+</div><script>
+(function(){var EN={"Suivi de pratique de coaching · version 1.11.0": "Coaching practice tracker · version 2.0.0", "Comment l'outil est construit": "How the tool is built", "Un seul fichier qui tourne dans ton navigateur, un seul fichier de données rangé chez toi. Ni serveur, ni compte, ni abonnement : quatre schémas pour voir où vont tes données, et pourquoi elles ne sortent pas de ton ordinateur.": "One file that runs in your browser, one data file kept on your side. No server, no account, no subscription: four diagrams to see where your data goes, and why it never leaves your computer.", "1. Vue d'ensemble": "1. Overview", "2. Tes données": "2. Your data", "3. Une saisie, du clic au fichier": "3. An entry, from click to file", "4. Sécurité et sauvegardes": "4. Security and backups", "L'adresse web ne sert qu'à": "The web address is only used to", "télécharger l'application": "download the app", ", une fois puis à chaque mise à jour. Ensuite, tout se passe sur ton ordinateur : l'application lit et écrit ton fichier de données directement dans le dossier que tu as choisi, sans jamais l'envoyer nulle part.": ", once and then at each update. After that, everything happens on your computer: the app reads and writes your data file directly in the folder you chose, without ever sending it anywhere.", "SUR INTERNET": "ON THE INTERNET", "Site de l'application": "App website", "icônes, manuel": "icons, manual", "Aucune donnée personnelle": "No personal data", "n'y est jamais envoyée.": "is ever sent there.", "SUR TON ORDINATEUR": "ON YOUR COMPUTER", "Navigateur (Chrome, Edge)": "Browser (Chrome, Edge)", "L'application": "The app", "index.html : écrans, calculs, fusion": "index.html: screens, calculations, merge", "hors ligne et": "offline and", "mises à jour": "updates", "Copie locale": "Local copy", "IndexedDB, si le": "IndexedDB, if the", "dossier manque": "folder is missing", "Ton dossier": "Your folder", "synchronisé si tu veux (OneDrive, Drive…)": "synced if you like (OneDrive, Drive…)", "tout ton carnet, chiffré si tu le choisis": "your whole notebook, encrypted if you choose", "sauvegardes/": "backups/", "copies horaires (48 h)": "hourly copies (48 h)", "puis quotidiennes (30 jours)": "then daily (30 days)", "téléchargé": "downloaded", "lit / écrit": "reads / writes", "Tout ton carnet tient dans": "Your whole notebook fits in", ". Le fichier est structuré en grandes parties, que l'application relie entre elles : une saisie pointe vers une personne, une remarque vers une compétence, une supervision vers les remarques qu'elle traite.": ". The file is organised in large parts that the app links together: an entry points to a person, a note to a skill, a supervision to the notes it covers.", "Saisies": "Entries", "date, type, durée, personne,": "date, type, length, person,", "notes, aisance, remarques,": "notes, ease, remarks,", "montant (propositions)": "amount (proposals)", "Personnes": "People", "coordonnées, étape, public,": "contact details, stage, audience,", "problématique, plan d'action": "topic, action plan", "Réglages": "Settings", "types d'activité, indicateurs,": "activity types, indicators,", "couleurs, coûts, préférences": "colours, costs, preferences", "Pratique délibérée": "Deliberate practice", "compétences, focus,": "skills, focus,", "actions, bibliothèque": "actions, library", "Fiche coach": "Coach profile", "profil, parcours, victoires,": "profile, background, victories,", "historique d'avant l'outil": "history from before the tool", "Objectifs et actions": "Goals and actions", "priorités, plan d'action": "priorities, action plan", "avec qui": "with whom", "quel type": "which type", "compétences": "skills", "niveaux, hauts faits": "levels, achievements", "UN SEUL FICHIER": "ONE SINGLE FILE", "Tout est calculé à partir des saisies :": "Everything is calculated from the entries:", "indicateurs, étapes, niveaux, relances.": "indicators, stages, levels, follow-ups.", "Rien n'est stocké en double : l'étape d'une personne, ton niveau ou tes indicateurs sont recalculés à chaque affichage à partir des saisies. Corriger une saisie corrige tout le reste.": "Nothing is stored twice: a person's stage, your level or your indicators are recalculated on every display from the entries. Correcting an entry corrects everything else.", "Il n'y a pas de bouton « Enregistrer » : chaque modification est écrite au bout d'une fraction de seconde. Avant d'écrire, l'application": "There is no “Save” button: every change is written within a fraction of a second. Before writing, the app", "relit le fichier": "rereads the file", ". S'il a changé ailleurs (une autre fenêtre, un autre ordinateur), elle fusionne au lieu d'écraser.": ". If it changed elsewhere (another window, another computer), it merges instead of overwriting.", "1. Tu saisis": "1. You log", "un entretien,": "a meeting,", "une note, un réglage": "a note, a setting", "2. L'écran suit": "2. The screen follows", "indicateurs, étapes,": "indicators, stages,", "niveaux, missions": "levels, missions", "3. 0,4 seconde": "3. 0.4 seconds", "les modifications": "changes made", "proches sont groupées": "close together are grouped", "4. Relecture du fichier": "4. File reread", "a-t-il changé depuis": "has it changed since", "la dernière lecture ?": "the last read?", "5. Écriture": "5. Write", "copie de sécurité,": "backup copy,", "puis nouveau fichier": "then new file", "non": "no", "oui": "yes", "Fusion à trois voies": "Three-way merge", "ta version, celle du fichier, et leur point commun :": "your version, the file's, and what they shared:", "chaque changement réel est gardé, des deux côtés": "every real change is kept, on both sides", "Les saisies": "Entries", "Celles des deux côtés sont gardées. Pour une même saisie modifiée des deux côtés, la modification la plus récente l'emporte. Les suppressions sont respectées.": "Those from both sides are kept. For the same entry changed on both sides, the most recent change wins. Deletions are respected.", "Les réglages": "Settings", "Coûts, indicateurs, profil… : seuls les changements réellement faits dans chaque fenêtre sont gardés. Une fenêtre oubliée ne peut pas effacer le travail d'une autre.": "Costs, indicators, profile…: only the changes actually made in each window are kept. A forgotten window cannot erase another one's work.", "Les garde-fous": "Safeguards", "Un fichier illisible, un autre carnet ou une version plus récente de l'application : rien n'est écrasé, l'application s'arrête et te prévient.": "An unreadable file, another notebook or a newer version of the app: nothing is overwritten, the app stops and warns you.", "Le chiffrement est facultatif et se règle dans Paramètres. Une fois activé, noms, notes, objectifs et photos sont illisibles sans ton mot de passe, dans le fichier comme dans les sauvegardes.": "Encryption is optional and set in Settings. Once on, names, notes, goals and photos are unreadable without your password, in the file as in the backups.", "Ton mot de passe": "Your password", "jamais enregistré": "never stored", "Ta clé de secours": "Your recovery key", "gardée hors de l'ordinateur": "kept off the computer", "Clé de données": "Data key", "aléatoire, AES-GCM 256 bits,": "random, AES-GCM 256-bit,", "rangée sous deux serrures": "kept under two locks", "coaching-data.json chiffré": "coaching-data.json encrypted", "et ses copies dans sauvegardes/": "and its copies in backups/", "illisibles sans l'une des deux serrures,": "unreadable without one of the two locks,", "y compris pour l'auteur de l'outil": "including for the tool's author", "chiffre": "encrypts", "Chiffrement": "Encryption", "AES-GCM 256 bits, standard du navigateur (Web Crypto). La clé est dérivée du mot de passe par PBKDF2-SHA-256, 600 000 itérations ; 200 000 pour la clé de secours.": "AES-GCM 256-bit, the browser standard (Web Crypto). The key is derived from the password with PBKDF2-SHA-256, 600,000 iterations; 200,000 for the recovery key.", "Copies de sécurité": "Backup copies", "Dans": "In", ": une par heure gardée 48 h, puis une par jour gardée 30 jours. Une copie supplémentaire est faite avant chaque fusion.": ": one per hour kept 48 h, then one per day kept 30 days. An extra copy is made before each merge.", "Verrouillage": "Lock", "Automatique après 5 à 60 minutes d'inactivité, ou jamais. Déverrouillage par mot de passe ou par clé de secours.": "Automatic after 5 to 60 minutes of inactivity, or never. Unlock with the password or the recovery key.", "Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0 ·": "Tool © 2026 Allan Oudomphong · PolyForm Shield 1.0.0 licence ·", "Ouvrir l'application": "Open the app", "· Le manuel complet est dans le fichier README.md.": "· The full manual is in the README file.", "Suivi de pratique de coaching · version 2.0.0": "Coaching practice tracker · version 2.0.0"},L='fr';try{var q=new URLSearchParams(location.search).get('lang');if(q==='fr'||q==='en'){L=q;localStorage.setItem('cdc-lang',q)}else{var st=localStorage.getItem('cdc-lang');L=st==='fr'||st==='en'?st:((navigator.language||'fr').slice(0,2)==='fr'?'fr':'en')}}catch(e){}
+function go(n){if(n.nodeType===3){var c=n.data.trim();if(c&&EN[c]!=null)n.data=n.data.replace(c,EN[c]);return}if(n.nodeName==='SCRIPT'||n.nodeName==='STYLE')return;for(var k=n.firstChild;k;k=k.nextSibling)go(k)}
+if(L==='en'){document.documentElement.lang='en';document.title='How the tool is built';go(document.body)}
+var sw=document.getElementById('lsw');if(sw){sw.querySelectorAll('button').forEach(function(b){b.className=b.dataset.l===L?'on':'';b.onclick=function(){try{localStorage.setItem('cdc-lang',b.dataset.l)}catch(e){}location.search='?lang='+b.dataset.l}})}})();
+</script></body></html>
