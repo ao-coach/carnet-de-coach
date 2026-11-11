@@ -158,6 +158,7 @@ This is the everyday gesture: after each meeting, click **“+ Log time”**, to
   - The most frequent people appear as buttons.
   - Archived people are in a drop-down list.
   - “+ New” creates a new person: type “First Last”, then Enter.
+  - It is **required** for a meeting, an invitation, a conversation, a proposal, a session or a debrief; optional for a supervision and for the types you add. The setting can be changed type by type (see [Settings](#12-settings), “Person” column).
 - **What came up.** One line: theme, insight, pattern spotted.
 - **Meeting notes.** A large optional area, for anything you want to remember. It shows up in My entries (◎ button), in the CSV export and in the CSV import (“Notes” column).
 - **Follow-up.** “Notes sent” and “Summary written” boxes, for face-to-face meetings.
@@ -288,7 +289,7 @@ Three columns, since the start of your practice. **Each statistic has its level*
 - **Practise deliberately**: deliberate practice hours, supervision hours;
 - **Grow the practice**: invitations, proposals, clients and renewals, revenue.
 
-Under each statistic: its bar towards the next level, and the value to reach.
+Under each statistic: its bar towards the next level, and the value to reach. The bar starts again from zero at each level: it fills between the threshold you just passed and the next one.
 
 ### Achievements
 
@@ -430,7 +431,8 @@ The detail of all your meetings, filterable and editable directly in the table.
 - **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., What came up, Ratings, Contract / cost.
   - **Ratings** is collapsed by default and shows a summary of values. A click on the header or a cell expands the skill columns, on a pale blue background, to edit them.
   - **Contract / cost** is collapsed by default. Once expanded, on a pinkish background, it shows: Accepted (status), Amount (or a supervision's cost), Length, Sessions. On a supervision, the “unpaid” box replaces the status; on an invitation, the “They said no” box.
-  - **Person** is a list: you can change an entry's person or remove it (“—”), for example to record who supervised you. The small magnifier next to it filters the table on that person.
+  - **Person** is a list: you can change an entry's person, or remove it (“—”) on a type where it is optional. An entry missing a required person is outlined in red; “Deleted person” marks an entry whose person was deleted. The small magnifier next to it filters the table on that person.
+  - **Length**: “Other…”, at the bottom of the list, lets you type any length (`2,5`, `2h30`, `150min`), then Enter.
   - Every change is saved immediately.
   - **◎** opens the entry's details: meeting notes, and its deliberate practice (action answers, ease ratings, notes, supervision feedback) to complete or correct it. It is coloured when the entry contains some.
   - ✕ deletes an entry. You can undo for a few seconds.
@@ -506,6 +508,7 @@ To open a profile, click a card, a name in “To follow up”, or “Profile” 
 **Bottom:**
 
 - **Archive / Reactivate.** An archived person leaves the entry buttons and filters, but keeps their whole history.
+- **Delete.** Removes the person from your notebook, after confirmation. Their entries remain (your hours and statistics do not change), marked “Deleted person”. This is final.
 - **See their entries.** Opens My entries, filtered on them.
 - **Done.** Closes the profile.
 
@@ -577,6 +580,7 @@ Blocks come in pairs, in this order:
 A few details:
 
 - **Counts in** decides which indicator a type's hours are added to: coaching hours, deliberate practice, business development or other.
+- **Person**: required or optional when logging. By default, required for meetings, invitations, conversations, proposals, sessions and debriefs; optional for supervisions and the types you add.
 - **Type colours** automatically follow the palette and the order of importance, as long as you don't edit a colour by hand.
 - **On a screen narrower than 1500 px**, Activity types and Ease skills stack one under the other.
 
@@ -672,7 +676,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.1.0** | 09/11/2026 | Guided tour of the demo notebook: the approach in one screen, then the pages in nine steps; “Replay the tour” in the bar. The demo opens in simple mode. The small house opens the carnet-de-coach.fr website. |
+| **2.2.0** | 11/11/2026 | Delete a person (their entries remain). Any length in My entries (“Other…”). Required person, set type by type. Level bars start again from zero at each level. |
+| 2.1.0 | 09/11/2026 | Guided tour of the demo notebook: the approach in one screen, then the pages in nine steps; “Replay the tour” in the bar. The demo opens in simple mode. The small house opens the carnet-de-coach.fr website. |
 | 2.0.0 | 11/2026 | Carnet de coach has its own website (presentation, approach, screenshots, FAQ, in French and English). New address: **carnet-de-coach.fr**, with the app at carnet-de-coach.fr/app/. Reinstall it from that address, then choose “I already have a notebook: open its folder” and select your folder; your data does not move. |
 | 1.12.2 | 08/11/2026 | Direct link to the demo notebook (address ending in ?demo=1). The “Explore a demo notebook” link is hidden when your notebook is open. |
 | 1.12.1 | 08/11/2026 | Home button (small house) left of the tabs. Instant language switch, without locking an encrypted notebook again. |

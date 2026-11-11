@@ -158,6 +158,7 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
   - Les personnes les plus fréquentes apparaissent en boutons.
   - Les personnes archivées sont dans une liste déroulante.
   - « + Nouvelle » crée une nouvelle personne : tape « Prénom Nom », puis Entrée.
+  - Elle est **obligatoire** pour une rencontre, une invitation, une conversation, une proposition, une séance ou un débrief ; facultative pour une supervision et pour les types que tu ajoutes. Le réglage se change type par type (voir [Paramètres](#12-paramètres), colonne « Personne »).
 - **Ce qu'on a vu.** Une ligne : thème, déclic, pattern repéré.
 - **Notes sur l'entretien.** Une grande zone facultative, pour tout ce que tu veux garder en mémoire. Elle se retrouve dans Mes saisies (bouton ◎), dans l'export CSV et dans l'import CSV (colonne « Notes »).
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
@@ -288,7 +289,7 @@ Trois colonnes, depuis le début de ta pratique. **Chaque statistique a son nive
 - **Pratiquer délibérément** : heures de pratique délibérée, heures de supervision ;
 - **Développer l'activité** : invitations, propositions, clients et renouvellements, CA.
 
-Sous chaque statistique : sa barre vers le niveau suivant, et la valeur à atteindre.
+Sous chaque statistique : sa barre vers le niveau suivant, et la valeur à atteindre. La barre repart de zéro à chaque niveau : elle se remplit entre le seuil que tu viens de passer et le suivant.
 
 ### Hauts faits
 
@@ -430,7 +431,8 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 - **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
   - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
   - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut ; sur une invitation, la case « Elle a dit non ».
-  - **Personne** est une liste : tu peux changer la personne d'une saisie ou la retirer (« — »), par exemple pour indiquer qui t'a supervisé. La petite loupe à côté filtre le tableau sur cette personne.
+  - **Personne** est une liste : tu peux changer la personne d'une saisie, ou la retirer (« — ») sur un type où elle est facultative. Une saisie à qui il manque une personne obligatoire est entourée en rouge ; « Personne supprimée » signale une saisie dont la personne a été effacée. La petite loupe à côté filtre le tableau sur cette personne.
+  - **Durée** : « Autre… », en bas de la liste, permet d'écrire n'importe quelle durée (`2,5`, `2h30`, `150min`), puis Entrée.
   - Chaque modification est enregistrée aussitôt.
   - **◎** ouvre les détails de la saisie : notes sur l'entretien, et sa pratique délibérée (réponses aux actions, notes d'aisance, remarques, retours d'une supervision) pour la compléter ou la corriger. Il est coloré quand la saisie en contient.
   - ✕ supprime une saisie. L'annulation est possible quelques secondes.
@@ -506,6 +508,7 @@ Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », 
 **En bas :**
 
 - **Archiver / Réactiver.** Une personne archivée sort des boutons de saisie et des filtres, mais garde tout son historique.
+- **Supprimer.** Efface la personne de ton carnet, après confirmation. Ses saisies restent (tes heures et statistiques ne bougent pas), marquées « Personne supprimée ». C'est définitif.
 - **Voir ses saisies.** Ouvre Mes saisies, filtré sur elle.
 - **Terminé.** Ferme la fiche.
 
@@ -577,6 +580,7 @@ Les blocs vont par deux, dans cet ordre :
 Quelques précisions :
 
 - **Compte dans** décide dans quel indicateur les heures d'un type sont additionnées : heures de coaching, pratique délibérée, développement ou autre.
+- **Personne** : obligatoire ou facultative à la saisie. Par défaut, obligatoire pour la rencontre, l'invitation, la conversation, la proposition, la séance et le débrief ; facultative pour la supervision et les types que tu ajoutes.
 - **Les couleurs des types** suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
 - **Sur un écran de moins de 1500 px de large**, Types d'activité et Compétences d'aisance passent l'un sous l'autre.
 
@@ -672,7 +676,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.1.0** | 09/11/2026 | Visite guidée du carnet de démonstration : la démarche en un écran, puis les pages en neuf étapes ; « Revoir la visite » dans le bandeau. La démonstration s'ouvre en mode simplifié. La petite maison ouvre le site carnet-de-coach.fr. |
+| **2.2.0** | 11/11/2026 | Supprimer une personne (ses saisies restent). Durée libre dans Mes saisies (« Autre… »). Personne obligatoire, réglable type par type. Les barres de niveau repartent de zéro à chaque niveau. |
+| 2.1.0 | 09/11/2026 | Visite guidée du carnet de démonstration : la démarche en un écran, puis les pages en neuf étapes ; « Revoir la visite » dans le bandeau. La démonstration s'ouvre en mode simplifié. La petite maison ouvre le site carnet-de-coach.fr. |
 | 2.0.0 | 11/2026 | Carnet de coach a son site (présentation, démarche, captures, questions fréquentes, en français et en anglais). Nouvelle adresse : **carnet-de-coach.fr**, avec l'application sur carnet-de-coach.fr/app/. Réinstalle-la depuis cette adresse, puis choisis « J'ai déjà un carnet : ouvrir son dossier » et sélectionne ton dossier ; tes données ne bougent pas. |
 | 1.12.2 | 08/11/2026 | Lien direct vers le carnet de démonstration (adresse se terminant par ?demo=1). Le lien « Explorer un carnet de démonstration » est masqué quand ton carnet est ouvert. |
 | 1.12.1 | 08/11/2026 | Bouton Accueil (petite maison) à gauche des onglets. Changement de langue instantané, sans reverrouiller un carnet chiffré. |
