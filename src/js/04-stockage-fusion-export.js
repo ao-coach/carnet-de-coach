@@ -127,7 +127,7 @@ async function connectDir(useExisting){
   if(other&&!prevDir&&!confirm(`Ce dossier contient un autre carnet.\nTon carnet actuel n'est enregistré que dans ce navigateur : il sera remplacé. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nOuvrir le carnet de ce dossier ?`))return;
   if(DB&&!other){clearTimeout(saveT);await idb.set('data',await payload())}
   DIR=nd;LASTSEEN=null;BASE=null;NEEDPERM=false;await idb.set('dir',nd);
-  if(other){await idb.set('data',null);DB=null;await setDEK(null);ENV=null;toast(`Carnet du dossier « ${nd.name} » ouvert`)}
+  if(other){await idb.set('data',null);DB=null;await setDEK(null);ENV=null;toast(LANG==='en'?`Notebook from the “${nd.name}” folder opened`:`Carnet du dossier « ${nd.name} » ouvert`)}/* i18n-ok : nom de dossier, traduit sur place */
   boot()}
 async function startFresh(){const c=await idb.get('data'),d=await idb.get('dir');
   if(c&&!d&&!confirm("Le carnet actuel n'est enregistré que dans ce navigateur et sera remplacé par un nouveau carnet. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nContinuer ?"))return false;
@@ -299,7 +299,16 @@ function dtPlace(){const s=DTS[DT.i],el=document.querySelector(s.sel),h=$('dtHol
  else{const right=r.left+r.width/2>W/2;L=right?x+w-tw:x;
   if(y+hh+g+th<H-8)T=y+hh+g;else if(y-g-th>8)T=y-g-th;else{T=Math.max(16,(H-th)/2);L=right?x-g-tw:x+w+g}}
  tp.style.left=Math.min(Math.max(L,16),W-tw-16)+'px';tp.style.top=Math.min(Math.max(T,16),H-th-16)+'px'}
-function demoTourAuto(){if(!DB?.demo)return;if(DT.on){DT.kind==='intro'?dtIntro(DT.i):dtTour(DT.i);return}
+/* 3.1.0 : captures du site (tools/captures.py). ?demo=1&shot=<clé> ouvre la démo dans un état précis, sans visite,
+   bandeau ni messages, puis pose html[data-shot=ready]. Clés : SHOTS ci-dessous. Sans effet hors du carnet de démonstration. */
+const SHOT=(()=>{try{return new URLSearchParams(location.search).get('shot')||''}catch(e){return ''}})();
+const SHOTS={dash:{tab:'dash'},log:{tab:'dash',log:1,wait:1500},coach:{tab:'coach'},practice:{tab:'pd'},xp:{tab:'pd',sel:'#pdXpCard'},
+ funnel:{tab:'metrics',sel:'#mFunnel'},pipeline:{tab:'people',simple:1},reseau:{tab:'reseau',wait:2500}};
+async function demoShot(){const k=SHOTS[SHOT],w=ms=>new Promise(r=>setTimeout(r,ms));dtClose();document.body.classList.add('shot');
+ DB.prefs.simple=!!k.simple;applyMode();goTab(k.tab);await w(400);if(k.log)openM();
+ const e=k.sel&&document.querySelector(k.sel);if(e)e.scrollIntoView({block:'start'});else scrollTo(0,0);
+ await w(k.wait||600);document.documentElement.dataset.shot='ready'}
+function demoTourAuto(){if(!DB?.demo)return;if(SHOT&&SHOTS[SHOT]){demoShot();return}if(DT.on){DT.kind==='intro'?dtIntro(DT.i):dtTour(DT.i);return}
  let seen=false;try{seen=sessionStorage.getItem('cdc-tour')==='1';sessionStorage.setItem('cdc-tour','1')}catch(e){}
  if(!seen)dtIntro(0)}
 

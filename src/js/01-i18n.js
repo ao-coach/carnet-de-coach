@@ -65,5 +65,5 @@ function i18nStart(){I18N_TITLE=document.title;document.documentElement.lang=LAN
 function i18nLocalizeDefaults(db){if(LANG!=='en'||!db?.config)return;const c=db.config;
  Object.values(c.types||{}).forEach(t=>{if(t?.l&&I18N_EN[t.l])t.l=I18N_EN[t.l]});
  (c.metriques||[]).forEach(m=>['l','min','max'].forEach(k=>{if(m?.[k]&&I18N_EN[m[k]])m[k]=I18N_EN[m[k]]}));
- ['outil','sousTitre'].forEach(k=>{if(c[k]&&I18N_EN[c[k]])c[k]=I18N_EN[c[k]]})}
+ ['nom','outil','sousTitre'].forEach(k=>{if(c[k]&&I18N_EN[c[k]])c[k]=I18N_EN[c[k]]})}
 

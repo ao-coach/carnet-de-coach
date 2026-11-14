@@ -1,0 +1,71 @@
+# Exceptions de tools/audit_i18n.py : chaînes relevées mais sans entrée I18N_EN à juste titre.
+# Une ligne par chaîne, telle que le script l'affiche (§ = trou), puis tabulation, « # », raison.
+# Ne rien ajouter ici sans avoir vérifié la phrase réellement affichée (formes composées dans I18N_EN).
+
+# --- code, sélecteurs, noms de touches, listes de mois servant à la conversion des dates
+août	# tableaux de mois FR/EN (01-i18n.js, 11-nouveautes.js) : conversion de dates, pas un texte
+January	# idem
+February	# idem
+March	# idem
+April	# idem
+June	# idem
+July	# idem
+August	# idem
+September	# idem
+October	# idem
+November	# idem
+December	# idem
+janvier|février|avril|juillet|septembre|octobre|novembre|décembre|january|february|march|april|june|july|august|september|october|november|december|janv|févr|mars|avr|mai|juin|juil|août|sept|oct|nov|déc|fév|sep|jan|feb|mar|apr|may|jun|jul|aug|dec	# expression régulière des mois
+[data-noi18n],[contenteditable]	# sélecteur CSS
+#pfM .pftab.on .gold	# sélecteur de la visite de démo
+line[data-l="§"]	# sélecteur
+linear-gradient(180deg,§d9,§f5),url("§") center/cover	# CSS
+Enter	# nom de touche
+Escape	# nom de touche
+cle-de-secours_§_§.txt	# nom du fichier téléchargé
+Sales skills	# déjà en anglais (nom de la compétence créée par la migration en anglais)
+Français	# sélecteur de langue, data-noi18n
+English	# idem
+y is	# branche anglaise écrite sur place (suppression d'une personne)
+
+# --- suppression d'une personne : message écrit en FR et en EN dans le code (const en=LANG==='en')
+Ses § saisies sont conservées	# branche FR, la branche EN est dans le code
+Sa saisie est conservée	# idem
+§ (tes heures et statistiques ne changent pas), sans personne associée.	# idem
+Aucune saisie ne lui est liée.	# idem
+Cette action est définitive.	# idem
+§ supprimé·e	# idem
+
+# --- fragments assemblés à l'exécution : la phrase complète a son entrée (vérifié le 14/11/2026)
+et § d'URSSAF	# « ({0} CA − {1} charges, dont … et {3} d'URSSAF ; soit … par contrat payant) ÷ » et variantes
+· autres charges à § % de l'année	# idem
+· glisser pour réordonner	# « Cliquer pour masquer / afficher · glisser pour réordonner »
+(en cours)	# « {0}T{1} (en cours) »
+séances	# « {0} séances » (segment après « · »)
+Accompagnement § (§) : bilan ou renouvellement ?	# « Accompagnement terminé / bientôt terminé ({0}/{1} séances · fin le {2}) : … » et variantes
+Relance au rythme : § sans nouvelles.	# « Relance au rythme : plus de {0} mois / d'un mois / d'un an sans nouvelles. »
+contact réseau	# pl() : « {0} contact réseau » / « {0} contacts réseau »
+contact réseaus	# idem (remplacement interne)
+contacts réseau	# idem
+Hors pipeline :§§§, trouvables par la recherche ci-dessus.	# nœuds « Hors pipeline : », « {0} contacts réseau », « et », « , trouvables par la recherche ci-dessus. »
+problématiques	# « {0} problématiques »
+échange	# pl() : « {0} échange » / « {0} échanges »
+actions liées mises	# « {0} actions liées mises en pause : elles restent dans la bibliothèque »
+Action liée mise	# « Action liée mise en pause : elle reste dans la bibliothèque »
+elle reste	# idem
+année	# « {0} année de coaching » / « {0} années de coaching »
+années	# idem
+deviennent des clients	# « des invitations / des conversations deviennent des clients »
+signé	# « {0} contrat signé » / « {0} contrats signés »
+sur §, invitations et propositions · § XP en moyenne	# « sur {0} rencontre(s), invitations et propositions · {1} XP en moyenne »
+avant l	# test interne (h.includes('avant l')), le libellé affiché est « avant l'outil »
+§ h de coaching ne sont pas encore classées.	# « … apparaîtront ici. {0} h de coaching ne sont pas encore classées. »
+(§ déjà présente§)	# « Aucune saisie à importer ({0} déjà présente(s)) »
+après	# « chiffré · verrouillage après {0} min »
+au prorata	# « {0} de charges · au prorata : {1}/h »
+en entier	# « {0} de charges · en entier : {1}/h »
+
+# --- textes affichés seulement avec ?cite=1 : la phrase complète a son entrée
+celle de Gianni Bergandi et Magali Wagner (Odyssée), et de Rich Litvin	# phrase complète de « La démarche » (deux versions) dans I18N_EN
+défendue par des coachs qui en vivent depuis des années	# idem
+Premier entretien	# libellé d'une étape morte du parcours de démarrage (WZL.first)

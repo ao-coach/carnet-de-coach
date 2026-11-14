@@ -967,7 +967,8 @@ body.simple .pcards .pc2{grid-template-columns:1fr}
 .xpr{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid #F1EFF3}
 .xpr .n{flex:1;font-weight:700;font-size:14px;min-width:0}.xpr .n small{color:var(--grey);font-weight:600}
 .fpill{display:inline-block;background:var(--am);color:#fff;font-size:9.5px;font-weight:900;border-radius:8px;padding:1px 7px;margin-left:6px;letter-spacing:.6px;text-transform:uppercase;vertical-align:2px}
-.stp{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
+/* 3.1.0 : sélecteur ± des XP seulement (la classe .stp sert aussi aux pastilles d'étape) */
+.stp:has(>button){display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
 .stp button{border:0;background:#fff;width:30px;height:28px;font-size:17px;font-weight:800;cursor:pointer;color:var(--jet);font-family:inherit}
 .stp button:hover:not(:disabled){background:var(--soft)}.stp button:disabled{color:#CFCBD4;cursor:default}
 .stp b{min-width:32px;text-align:center;font-size:14.5px;color:var(--jet);background:none;display:block;font-weight:800}
@@ -990,3 +991,9 @@ textarea.req{border-color:#E3A5AD}
 td.xps{white-space:nowrap}td.xps small,td.sumc small{display:block;font-size:11px;font-weight:800}td.sumc small{display:inline}
 small.na{color:#8A6100}small.ov{color:#C23B3B}small.ok{color:#2E7D5B}
 .cf.jeu .xpbar{background:rgba(255,255,255,.12)}
+.wzcards.val .wzc p{color:#33403F}.wzvalf{font-style:italic;font-family:'Noto Serif',serif;font-size:15px}
+.ab-val{margin-bottom:18px}.ab-val>p{font-size:14.5px}.ab-val .wzcards{margin:14px 0 4px}.ab-valf{font-style:italic;font-family:'Noto Serif',serif;margin:12px 0 0}
+@media(max-width:1100px){.ab-val .wzcards{grid-template-columns:1fr}}
+body.shot #demoBar,body.shot .toast,body.shot #toast,body.shot .banner,body.shot #qToast{display:none!important}
+body.shot #qOpen{display:none!important}
+body.shot .ov{background:transparent!important;backdrop-filter:none!important}

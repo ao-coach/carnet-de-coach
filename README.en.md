@@ -1,6 +1,18 @@
 # Coaching practice tracker (Carnet de coach)
 
-**Version 2.0.0 (November 2026)** · Tool © 2026 Allan Oudomphong · PolyForm Shield 1.0.0 licence · *Version française : [README.md](README.md)*
+**Version 3.1.0 (November 2026)** · Tool © 2026 Allan Oudomphong · PolyForm Shield 1.0.0 licence · *Version française : [README.md](README.md)*
+
+## What your notebook is for
+
+**Fewer distractions, more practice.** Your notebook helps you do the three things that make you a coach, and turns doing them into a game.
+
+1. **Coach a lot.** Marketing, courses, keeping up with the field: all interesting, but none of it replaces the heart of the job: meeting people, coaching, making offers. Your notebook counts those hours, turns them into charts and levels up your coach profile, one level at a time, just like in a game.
+2. **Sharpen a few skills.** You leave coaching school knowing a lot and mastering little. Pick one or two skills, pour every session and your supervision into them until they become second nature, then move on to the next ones. That is what gives weight to everything you have learned.
+3. **Build your practice through relationships.** Coaching sells through coaching. Your notebook nudges you towards the moves that lead to real conversations: keeping your network alive, inviting, making offers, surrounding yourself with peers who face the same challenges. What many coaches dread becomes a game.
+
+*Thirty seconds after each session is all it takes.*
+
+---
 
 A logbook to run your coaching practice. You log your meetings, your proposals and the people you work with, and you track your indicators, your practice XP, your deliberate practice, your goals and your follow-ups.
 
@@ -77,11 +89,12 @@ The **FR / EN** button, top right (and the “Français / English” link on the
 
 ### The welcome (less than a minute)
 
-A new notebook opens on three screens:
+A new notebook opens on four screens:
 
 | Screen | What you do there |
 |---|---|
 | Welcome | A welcome letter. One link imports a backup or a template passed on by a peer, another lets you **explore a demo notebook**. |
+| What your notebook is for | The notebook's three values on one page: coach a lot, sharpen a few skills, build your practice through relationships (the text [at the top of this manual](#what-your-notebook-is-for)). You can read it again at the top of the About tab. |
 | Your mode | **Simple** or **full** (see below). |
 | Your identity | Your name or your practice's name, your logo, a colour palette. |
 
@@ -91,7 +104,7 @@ The **small house**, left of the tabs, opens the [carnet-de-coach.fr](https://ca
 
 ### The demo notebook
 
-“Explore a demo notebook”, on the welcome screen, opens the notebook of Camille Martin, a **fictional** coach of managers: fourteen months of practice, people at every stage, a filled-in coach profile. It opens in simple mode, with a short presentation of the approach followed by a nine-step tour of the pages (to follow or skip). Everything can be explored freely. A banner reminds you it is a demo; “Replay the tour” restarts the presentation; “Create my own notebook” closes it and starts the welcome of a new notebook. The demo notebook is never written to a folder. It exists in English and in French, depending on the language chosen.
+“Explore a demo notebook”, on the welcome screen, opens the notebook of Camille Martin, a **fictional** coach of managers: fourteen months of practice, people at every stage, a filled-in coach profile. It opens in simple mode, with a short presentation of the approach followed by an eleven-step tour of the pages, thirteen in full mode (to follow or skip). Everything can be explored freely. A banner reminds you it is a demo; “Replay the tour” restarts the presentation; “Create my own notebook” closes it and starts the welcome of a new notebook. The demo notebook is never written to a folder. It exists in English and in French, depending on the language chosen.
 
 ### The roadmap
 
@@ -742,7 +755,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.0.0** | 14/11/2026 | Practice XP instead of 1-to-5 ease ratings: every meeting earns XP based on its length and type, to assign to your skills (focus first, shortcuts, unassigned XP flagged in My entries). Levels per skill, practice compass (share of XP and last 30 days), XP panel with transfers and history. Sales skills (0 to 5 XP and a comment after a meeting, an invitation or a proposal). Practice XP indicator, XP achievements, CSV export. Old ratings converted, with an automatic safety copy before the migration. |
+| **3.1.0** | 14/11/2026 | “What your notebook is for” screen in the onboarding (step 2) and at the top of the About tab. English version completed (messages, missions, reminders, older release notes). Three more questions in About (finding or fixing an entry, choosing your indicators, what's in Settings). Website rebuilt around the three values, new screenshots. |
+| 3.0.0 | 14/11/2026 | Practice XP instead of 1-to-5 ease ratings: every meeting earns XP based on its length and type, to assign to your skills (focus first, shortcuts, unassigned XP flagged in My entries). Levels per skill, practice compass (share of XP and last 30 days), XP panel with transfers and history. Sales skills (0 to 5 XP and a comment after a meeting, an invitation or a proposal). Practice XP indicator, XP achievements, CSV export. Old ratings converted, with an automatic safety copy before the migration. |
 | 2.5.0 | 14/11/2026 | Network tab (full mode): Circles, Audience, Topic and Orbits views, showing stage, number of exchanges, people to follow up, bridges and referrals; “What your network shows” panel (bridges, groups to warm up, growth leads, referral chains). The foundation of the approach: keeping your network alive. Demo enriched with ten network contacts. |
 | 2.4.0 | 14/11/2026 | “Handle” in To follow up (done, cancelled, reschedule, later, comment). Contact frequency per person and regular follow-up, with “Prepare”. Person profile in Info, Notes and Interactions tabs: circles, closeness, referred or introduced by, next topic to raise, notes from exchanges. Pipeline from the invitation (Invited column), network contacts outside the pipeline. Network kept alive, People seen and Referrals indicators; level and total in the banners. Adjustable “Later”. CSV export of people. |
 | 2.3.1 | 14/11/2026 | ↺ button in Settings to give a renamed built-in type its original name back. “Review or renewal” alert only once per contract. Delete an action from the action plan (✕, can be undone). |
@@ -786,6 +800,7 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 The last tab, **About**, brings together:
 
+- **what your notebook is for**, at the top of the tab: the three values shown when you start;
 - **the welcome note**, the one from the first launch;
 - **the approach** “Create your clients through relationships”, with the “Read about the approach” button;
 - **how the tool is built**, with the “See the diagrams” button (see [part 21](#21-how-the-tool-is-built));

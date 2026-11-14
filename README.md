@@ -1,6 +1,18 @@
 # Suivi de pratique de coaching
 
-**Version 2.0.0 (novembre 2026)** · *English version: [README.en.md](README.en.md)* · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+**Version 3.1.0 (novembre 2026)** · *English version: [README.en.md](README.en.md)* · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+
+## À quoi sert ton carnet
+
+**Moins de dispersion, plus de pratique.** Ton carnet t'aide à faire les trois choses qui font de toi un coach, et à les faire en jouant.
+
+1. **Coacher beaucoup.** Marketing, formations, veille : intéressant, mais ça ne remplace pas l'essentiel : rencontrer, coacher, proposer. Ton carnet compte ces heures-là, les met en graphiques et fait monter ta fiche de coach niveau après niveau, comme dans un jeu.
+2. **Affûter quelques compétences.** On sort de l'école en sachant beaucoup et en maîtrisant peu. Choisis une ou deux compétences, investis-y chaque séance et ta supervision jusqu'à en faire des automatismes, puis passe aux suivantes. C'est ce qui donne du poids à tout ce que tu as appris.
+3. **Créer ton activité par la relation.** Le coaching se vend en coachant. Ton carnet te pousse aux gestes qui créent des rencontres : entretenir ton réseau, inviter, proposer, t'entourer de pairs qui partagent tes défis. Ce qu'on vit souvent comme une épreuve devient un jeu.
+
+*Trente secondes après chaque entretien suffisent.*
+
+---
 
 Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, tes XP de pratique, ta pratique délibérée, tes objectifs et tes relances.
 
@@ -77,11 +89,12 @@ Le bouton **FR / EN**, en haut à droite (et le lien « English » de l'accueil)
 
 ### L'accueil (moins d'une minute)
 
-Un carnet neuf s'ouvre sur trois écrans :
+Un carnet neuf s'ouvre sur quatre écrans :
 
 | Écran | Ce que tu y fais |
 |---|---|
 | Bienvenue | Une lettre d'accueil. Un lien permet d'importer une sauvegarde ou un modèle transmis par un pair, un autre d'**explorer un carnet de démonstration**. |
+| À quoi sert ton carnet | Les trois valeurs du carnet en une page : coacher beaucoup, affûter quelques compétences, créer ton activité par la relation (le texte [en tête de ce manuel](#à-quoi-sert-ton-carnet)). Il reste lisible ensuite en tête de l'onglet À propos. |
 | Ton mode | **Simplifié** ou **complet** (voir ci-dessous). |
 | Ton identité | Ton nom ou celui de ton cabinet, ton logo, une palette de couleurs. |
 
@@ -91,7 +104,7 @@ La **petite maison**, à gauche des onglets, ouvre le site [carnet-de-coach.fr](
 
 ### Le carnet de démonstration
 
-« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Il s'ouvre en mode simplifié, sur une courte présentation de la démarche suivie d'une visite des pages en neuf étapes (à suivre ou à passer). Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Revoir la visite » relance la présentation ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
+« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Il s'ouvre en mode simplifié, sur une courte présentation de la démarche suivie d'une visite des pages en onze étapes, treize en mode complet (à suivre ou à passer). Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Revoir la visite » relance la présentation ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
 
 ### Le carnet de route
 
@@ -742,7 +755,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.0.0** | 14/11/2026 | XP de pratique à la place des notes d'aisance de 1 à 5 : chaque entretien rapporte des XP selon sa durée et son type, à répartir entre tes compétences (focus en tête, raccourcis, XP non répartis signalés dans Mes saisies). Niveaux par compétence, boussole de pratique (part des XP et 30 derniers jours), panneau XP avec transferts et historique. Compétence Facultés commerciales (0 à 5 XP et commentaire après une rencontre, une invitation ou une proposition). Indicateur XP de pratique, hauts faits d'XP, export CSV. Conversion des anciennes notes, avec une copie de sécurité automatique avant la migration. |
+| **3.1.0** | 14/11/2026 | Écran « À quoi sert ton carnet » dans le parcours de démarrage (2e étape) et en tête de l'onglet À propos. Version anglaise complétée (messages, missions, rappels, anciennes nouveautés). Trois questions de plus dans À propos (retrouver ou corriger une saisie, choisir tes indicateurs, contenu de Paramètres). Site refondu autour des trois valeurs, captures renouvelées. |
+| 3.0.0 | 14/11/2026 | XP de pratique à la place des notes d'aisance de 1 à 5 : chaque entretien rapporte des XP selon sa durée et son type, à répartir entre tes compétences (focus en tête, raccourcis, XP non répartis signalés dans Mes saisies). Niveaux par compétence, boussole de pratique (part des XP et 30 derniers jours), panneau XP avec transferts et historique. Compétence Facultés commerciales (0 à 5 XP et commentaire après une rencontre, une invitation ou une proposition). Indicateur XP de pratique, hauts faits d'XP, export CSV. Conversion des anciennes notes, avec une copie de sécurité automatique avant la migration. |
 | 2.5.0 | 14/11/2026 | Onglet Réseau (mode complet) : vues Cercles, Public, Problématique et Orbites, avec l'étape, le nombre d'échanges, les personnes à relancer, les passerelles et les recommandations ; panneau « Ce que montre ton réseau » (passerelles, groupes à réchauffer, pistes de développement, chaînes de recommandation). Le socle de la démarche : entretenir ton réseau. Démo enrichie de dix contacts réseau. |
 | 2.4.0 | 14/11/2026 | « Traiter » dans À relancer (fait, annulée, replanifier, plus tard, commentaire). Rythme de contact par personne et relance au rythme, avec « Préparer ». Fiche personne en onglets Infos, Notes et Échanges : cercles, proximité, recommandé·e ou présenté·e par, prochain sujet à évoquer, notes des échanges. Pipeline à partir de l'invitation (colonne Invité·e), contacts réseau hors pipeline. Indicateurs Réseau entretenu, Personnes vues et Recommandations ; niveau et total dans les bandeaux. « Plus tard » réglable. Export CSV des personnes. |
 | 2.3.1 | 14/11/2026 | Bouton ↺ dans Paramètres pour rendre son nom d'origine à un type intégré renommé. Alerte « bilan ou renouvellement » une seule fois par contrat. Supprimer une action du plan d'action (✕, annulable). |
@@ -786,6 +800,7 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 Le dernier onglet, **À propos**, rassemble :
 
+- **à quoi sert ton carnet**, en tête de l'onglet : les trois valeurs présentées au démarrage ;
 - **le mot d'accueil**, celui du premier lancement ;
 - **la démarche** « Créer tes clients par la relation », avec le bouton « Lire la démarche » ;
 - **la façon dont l'outil est construit**, avec le bouton « Voir les schémas » (voir la [partie 21](#21-comment-loutil-est-construit)) ;

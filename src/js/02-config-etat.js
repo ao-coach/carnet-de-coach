@@ -7,7 +7,7 @@ const VERSION=4, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
 /* Version affichée : x.y.z (x = version majeure, y = nouvelle fonctionnalité, z = correctif).
    APP_VERSION = numéro de publication interne, +1 à chaque publication quelle qu'elle soit :
    il est enregistré dans le carnet (app_version) et met en lecture seule les versions plus anciennes. */
-const APP_SEMVER='3.0.0', APP_VERSION=49, APP_DATE='14 novembre 2026';
+const APP_SEMVER='3.1.0', APP_VERSION=50, APP_DATE='14 novembre 2026';
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */

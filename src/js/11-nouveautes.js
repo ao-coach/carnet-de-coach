@@ -3,6 +3,10 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:50,s:'3.1.0',d:'14 novembre 2026',items:[
+  {t:'À quoi sert ton carnet',p:"En quelques lignes, ce que ton carnet t'apporte : coacher beaucoup, affûter quelques compétences, créer ton activité par la relation, et tout cela en jouant. Un carnet neuf le présente au démarrage ; le tien le garde en tête de l'onglet À propos.",go:'about',b:'Lire'},
+  {t:'Une version anglaise complète',p:"Les messages, missions, rappels et anciennes nouveautés qui restaient en français dans la version anglaise sont traduits."},
+  {t:'Trois questions de plus',p:"Dans l'onglet À propos : retrouver ou corriger une saisie, choisir tes indicateurs, ce que contient Paramètres.",go:'about',b:'À propos'}]},
  {v:49,s:'3.0.0',d:'14 novembre 2026',items:[
   {t:'Des XP de pratique à la place des notes de 1 à 5',p:"En mode complet, chaque entretien rapporte des XP selon sa durée : 10 minutes = 1 XP, ×2 pour une séance ou une conversation, ×3 pour une supervision, ×1 pour un débrief ou un entraînement. Dans la saisie, tu les répartis entre les compétences que tu as travaillées, ton focus en tête ; ce que tu ne répartis pas t'attend dans Mes saisies.",go:'pd',b:'Voir'},
   {t:'Un niveau par compétence',p:"Chaque compétence monte de niveau avec ses XP (10, 30, 60, 100, 150 XP…). La boussole de pratique montre la part de chacune et, en pointillé, tes 30 derniers jours. Un transfert, dans l'onglet Pratique délibérée, déplace des XP d'une compétence à l'autre sans en créer."},
@@ -168,7 +172,7 @@ function foldSums(){if(!DB)return;const C=CFG(),set=(id,t)=>{const el=document.q
  set('setIdent',[C.nom,C.outil].filter(Boolean).join(' · '));
  set('setLook',`${C.logo?'logo':'sans logo'} · ${C.bandeau?'bandeau':'sans bandeau'} · ${C.couleursAuto?'palette':'couleurs personnalisées'}`);
  set('setSec',DEKK?`chiffré · verrouillage ${DB.prefs.autolock?'après '+DB.prefs.autolock+' min':'manuel'}`:'non chiffré');
- set('setStore',DIR?`dossier « ${DIR.name} »${NEEDPERM?' (à reconnecter)':''}`:'aucun dossier relié');
+ set('setStore',DIR?(LANG==='en'?`“${DIR.name}” folder${NEEDPERM?' (to reconnect)':''}`:`dossier « ${DIR.name} »${NEEDPERM?' (à reconnecter)':''}`):'aucun dossier relié');/* i18n-ok : nom de dossier, traduit sur place */
  set('setTypes',`${keysOf(C).length} types`);set('setMets',`${mActive().length} axes suivis`);
  set('setCrm',`alerte après ${C.crm.froid} j sans contact · plus tard : ${C.crm.reporter||14} j`);set('setKpi',`${kOrder().length} indicateurs, dont ${Math.min(3,kOrder().length)} principaux`);
  try{const Y=today().slice(0,4),r=KPIDEF.rate.v(kctx());set('setFin',`${eur(supYearCost(Y)+urssafYear(Y)+linesTotal())} de charges · ${C.finances.mode=='prorata'?'au prorata':'en entier'} : ${r[0]} ${String(r[1]).replace(/<[^>]+>/g,'')}`)}catch(e){}}
