@@ -16,6 +16,7 @@ const QUESTS=[
  {id:'pipe',c:'act',t:'Comprendre ton pipeline',w:"Le chemin d'une personne, de la rencontre au contrat.",ok:()=>!!QS().f.pipe,act:()=>openPipe()},
  {id:'netc',c:'act',t:'Enregistrer un contact réseau',w:"Un café, un événement, un appel : entretenir ton réseau, sans rien vendre.",ok:()=>ANY(e=>e.type=='reseau'&&e.pid!=null),sel:'#openLog',how:"Type Rencontre réseau, avec la personne : qui, dans quel contexte, ce qui s'est dit."},
  {id:'ryth',c:'act',t:'Donner un rythme à une personne',w:"Tous les mois, tous les 3 mois, une fois par an : elle revient dans « À relancer » quand c'est le moment.",ok:()=>!!QS().f.rythme,tab:'people',sel:'#ppPipe .pcard, #ppList .ppc',how:"Ouvre sa fiche : « Rythme de contact », dans l'onglet Infos."},
+ {id:'reseau',c:'act',full:1,t:'Regarder ton réseau',w:"Tes personnes autour de leurs cercles : qui fait le pont, quel groupe réchauffer, où inviter.",ok:()=>!!QS().f.reseau,tab:'reseau',sel:'.tabs [data-tab=reseau]',how:"L'onglet Réseau, en mode complet : un clic sur un point ouvre la fiche, un clic sur un groupe le met en avant."},
  {id:'inv',c:'act',t:'Enregistrer une invitation',w:"Proposer une conversation : le geste qui nourrit tout le reste.",ok:()=>ANY(e=>e.type=='invitation'),sel:'#openLog',how:"Chaque fois que tu proposes à quelqu'un de découvrir le coaching : type Invitation."},
  {id:'prop',c:'act',t:'Envoyer une proposition',w:"Le montant, les séances, la durée d'engagement.",ok:()=>ANY(e=>e.type=='proposition'),sel:'#openLog',how:"Type Proposition : le montant, le nombre de séances, la durée. Elle part « En attente »."},
  {id:'propend',c:'act',t:'Suivre une proposition jusqu\'au bout',w:"Acceptée ou refusée : ton entonnoir se met à jour.",ok:()=>ANY(e=>e.type=='proposition'&&e.statut&&e.statut!='attente'),tab:'people',sel:'#ppRelCard',how:"Dans « À relancer », note la réponse : Acceptée ou Refusée."},
@@ -29,7 +30,7 @@ const QUESTS=[
  {id:'kpi',c:'pil',t:'Choisir tes indicateurs',w:"Peu d'indicateurs, regardés souvent.",ok:()=>!!QS().f.kpi||JSON.stringify(CFG().kpis)!=JSON.stringify(KPI_DEFAULT),tab:'dash',sel:'#dash [data-kcat]',how:"Jusqu'à 6 indicateurs ; les 3 premiers sont les principaux."},
  {id:'obj',c:'pil',t:'Fixer ton objectif prioritaire',w:"Ton cap pour les mois qui viennent.",ok:()=>DB.priorites.length>0,tab:'dash',sel:'#prioCard',how:"Un à trois objectifs, pas plus : c'est ce qui donne le cap."},
  {id:'cost',c:'pil',t:'Renseigner tes coûts',w:"Pour connaître ton vrai taux horaire.",ok:()=>(CFG().finances.lignes||[]).length>0||+CFG().finances.urssaf>0||+CFG().finances.supDefaut>0,tab:'settings',sel:'#setFin',how:"Tes coûts annuels, ton taux URSSAF, le prix moyen d'une supervision."}];
-const qAvail=q=>SIMPLE()?(!CHAP.find(c=>c.k==q.c).full):!q.simple;
+const qAvail=q=>SIMPLE()?(!CHAP.find(c=>c.k==q.c).full&&!q.full):!q.simple;
 const qOfChap=c=>QUESTS.filter(q=>q.c==c&&qAvail(q));
 function qCheck(silent){if(!DB||READONLY)return;const Q=QS();let ch=false,news=[];
  QUESTS.forEach(q=>{if(!Q.done[q.id]){let ok=false;try{ok=q.ok()}catch(e){}if(ok){Q.done[q.id]=today();ch=true;if(!silent&&qAvail(q))news.push(q)}}});
@@ -130,6 +131,7 @@ function renderPipeM(){const B=$('pipeB'),L=k=>esc(TM[k]?.l||k),TP=k=>TM[k]?`<sp
    <div><i>4</i><b>Choisir tes clients</b><p>La conversation sert les deux côtés : la personne découvre ton coaching, toi tu sens s'il serait juste de l'accompagner. Tu as besoin de clients, pas forcément de cette personne-là.</p></div>
    <div>${TP('proposition')}<i>5</i><b>Proposer, et demander</b><p>Une proposition se fait dans un rendez-vous dédié, jamais en fin de séance. Un non vaut pour ce moment-là. Et la recommandation ne s'attend pas : elle se demande.</p></div>
    <div>${TP('session')}<i>6</i><b>Un cycle, un prix juste</b><p>Tes clients viennent pour des enjeux forts : vous travaillez le fond plutôt que le seul court terme. Cela vous engage dans des cycles de coaching de plusieurs mois plutôt qu'à la séance, à un prix qui reflète cette valeur. Avec moins de clients payants, mais plus engagés dans leur transformation, tu gardes du temps pour faire découvrir le coaching.</p></div></div>
+  <div class="mf-net"><b>Le socle : entretenir ton réseau.</b> Rencontrer ne s'arrête pas au premier café. Les personnes que tu connais déjà sont ton terrain le plus fertile : donne à chacune un rythme de contact, et le carnet te la rappelle dans « À relancer » quand c'est le moment, avec le sujet à reprendre. En mode complet, l'onglet Réseau montre tes cercles, les personnes qui font le pont entre eux, les groupes à réchauffer et ceux où personne n'a encore vécu une conversation de coaching.</div>
   <div class="mf-fun"><span>Les repères du carnet, pour un contrat signé</span><b>≈ 13 invitations</b>›<b>4 personnes en conversation</b>›<b>10 conversations</b>›<b>2 propositions</b>›<b>1 contrat</b></div>
   <div class="mf-note">Compte tes non autant que tes oui : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui, parce qu'ils ont fait le plus de propositions.</div>
   <div class="mf-f"><span></span><button class="cta" id="pipeNx" style="margin:0">Les étapes du pipeline →</button></div>`;
@@ -161,6 +163,7 @@ function renderAll(){
  if(TAB=='metrics'){bigKPI('kpisM',true);smallKPI();renderYears();renderMonthly();renderBiz()}
  if(TAB=='list')renderList();
  if(TAB=='people')renderPeople();
+ if(TAB=='reseau')renderNet();
  if(TAB=='settings')renderSettings();
  foldSums();
  if(DB.prefs.q&&DB.prefs.q.init)qCheck(false);renderQuest();

@@ -135,7 +135,10 @@
     "pid": 0,
     "mode": "reco"
    },
-   "sujet": "His new team since September: how is it going?"
+   "sujet": "His new team since September: how is it going?",
+   "cercles": [
+    "Former colleagues network"
+   ]
   },
   {
    "id": 5,
@@ -151,7 +154,11 @@
    "titre": "Founder, start-up",
    "provenance": "Entrepreneurs club",
    "public": "Executives",
-   "probl": "Leadership"
+   "probl": "Leadership",
+   "cercles": [
+    "Entrepreneurs club",
+    "Town-centre coworking"
+   ]
   },
   {
    "id": 7,
@@ -173,7 +180,10 @@
    "reco_par": {
     "pid": 0,
     "mode": "reco"
-   }
+   },
+   "cercles": [
+    "Entrepreneurs club"
+   ]
   },
   {
    "id": 9,
@@ -239,7 +249,10 @@
    "reco_par": {
     "pid": 8,
     "mode": "reco"
-   }
+   },
+   "cercles": [
+    "Entrepreneurs club"
+   ]
   },
   {
    "id": 16,
@@ -257,7 +270,8 @@
     "mode": "presente"
    },
    "notes": "James's former colleague. Took over his father's workshop in 2023: proud, but worn out by the admin.\nOpen to coaching “one day”, not for himself right now.",
-   "sujet": "His plan to train an apprentice: has he found one?"
+   "sujet": "His plan to train an apprentice: has he found one?",
+   "public": "Executives"
   },
   {
    "id": 17,
@@ -288,7 +302,8 @@
     "pid": 16,
     "mode": "presente"
    },
-   "sujet": "Ask him which of his clients are handing over their business"
+   "sujet": "Ask him which of his clients are handing over their business",
+   "public": "Executives"
   },
   {
    "id": 19,
@@ -300,6 +315,152 @@
    ],
    "proximite": "proche",
    "rythme": 1
+  },
+  {
+   "id": 20,
+   "nom": "Elise MARCHAND",
+   "titre": "Manager, independent bookshop",
+   "provenance": "Entrepreneurs club",
+   "cercles": [
+    "Entrepreneurs club",
+    "Parents' association"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "public": "Executives",
+   "reco_par": {
+    "pid": 13,
+    "mode": "presente"
+   },
+   "notes": "Introduced by Hugo. Two children at Pauline's school.\nThinking of opening a second shop.",
+   "sujet": "Her second shop: is the project moving?"
+  },
+  {
+   "id": 21,
+   "nom": "Oliver BROWN",
+   "titre": "Sales director, industrial SME",
+   "provenance": "Former colleagues network",
+   "cercles": [
+    "Former colleagues network",
+    "Running club"
+   ],
+   "proximite": "proche",
+   "rythme": 1,
+   "public": "Front-line managers",
+   "probl": "Leadership",
+   "notes": "Former colleague, we run together on Sundays."
+  },
+  {
+   "id": 22,
+   "nom": "Fanny LEROY",
+   "titre": "Nurse manager, private clinic",
+   "provenance": "Parents' association",
+   "cercles": [
+    "Parents' association"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 6,
+   "public": "Front-line managers",
+   "probl": "New role",
+   "sujet": "Her new manager role: how is it going?"
+  },
+  {
+   "id": 23,
+   "nom": "Ian GUERIN",
+   "titre": "Freelance developer",
+   "provenance": "Town-centre coworking",
+   "cercles": [
+    "Town-centre coworking"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "notes": "Desk neighbour at the coworking space."
+  },
+  {
+   "id": 24,
+   "nom": "Laura MEUNIER",
+   "titre": "CSR manager, transport group",
+   "provenance": "HR conference",
+   "cercles": [
+    "HR conference"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 12,
+   "public": "Executives",
+   "reco_par": {
+    "pid": 17,
+    "mode": "presente"
+   },
+   "notes": "Introduced by Chloe at the HR conference."
+  },
+  {
+   "id": 25,
+   "nom": "Remy FAVRE",
+   "titre": "Physiotherapist",
+   "provenance": "Running club",
+   "cercles": [
+    "Running club"
+   ],
+   "proximite": "proche",
+   "rythme": 3,
+   "notes": "Training for his first marathon.",
+   "sujet": "His November marathon"
+  },
+  {
+   "id": 26,
+   "nom": "Sandra BARON",
+   "titre": "Coach, training as a supervisor",
+   "provenance": "Coaching school",
+   "cercles": [
+    "Coaching school",
+    "Coaching federation"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "notes": "Same cohort as Maggie."
+  },
+  {
+   "id": 27,
+   "nom": "Nicholas ARNAUD",
+   "titre": "Architect",
+   "provenance": "Town-centre coworking",
+   "cercles": [
+    "Town-centre coworking",
+    "Running club"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 3,
+   "public": "Executives",
+   "reco_par": {
+    "pid": 25,
+    "mode": "reco"
+   },
+   "sujet": "The competition he was preparing in January"
+  },
+  {
+   "id": 28,
+   "nom": "Pauline RENAUD",
+   "titre": "Head teacher",
+   "provenance": "Parents' association",
+   "cercles": [
+    "Parents' association"
+   ],
+   "proximite": "regulier",
+   "rythme": 6
+  },
+  {
+   "id": 29,
+   "nom": "Terry CARON",
+   "titre": "Chair of the entrepreneurs club",
+   "provenance": "Entrepreneurs club",
+   "cercles": [
+    "Entrepreneurs club"
+   ],
+   "proximite": "proche",
+   "rythme": 1,
+   "public": "Executives",
+   "notes": "Knows everyone at the club. Likes introducing people to each other.",
+   "sujet": "Ask him who, at the club, is going through a handover"
   }
  ],
  "entrees": [
@@ -3808,6 +3969,171 @@
    "syn": false,
    "ais": null,
    "non": true
+  },
+  {
+   "id": 9001,
+   "date": "2026-03-12",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 20,
+   "com": "Coffee after the club meeting. Lots of energy, little time for herself.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9002,
+   "date": "2026-06-20",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 20,
+   "com": "School fair: we talked about her shop project again.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9003,
+   "date": "2026-09-28",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 21,
+   "com": "Long Sunday run. He manages a team that doubled in a year.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9004,
+   "date": "2026-10-26",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 21,
+   "com": "Run then coffee: he wonders how to delegate without losing control.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9005,
+   "date": "2026-02-05",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 22,
+   "com": "Association meeting. Just promoted to manager.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9006,
+   "date": "2026-09-15",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 23,
+   "com": "Lunch at the coworking space.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9007,
+   "date": "2026-11-03",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 23,
+   "com": "He is organising a freelancers' drinks evening in December.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9008,
+   "date": "2026-04-10",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 24,
+   "com": "HR conference: panel on remote management.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9009,
+   "date": "2026-05-02",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 25,
+   "com": "Club training session. Told me about Nicholas, an architect.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9010,
+   "date": "2026-07-14",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 25,
+   "com": "Bastille Day race.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9011,
+   "date": "2026-10-02",
+   "type": "reseau",
+   "dur": 90,
+   "pid": 26,
+   "com": "Federation day: workshop on coaching stance.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9012,
+   "date": "2026-05-20",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 27,
+   "com": "Coffee at the coworking space, recommended by Remy.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9013,
+   "date": "2026-06-30",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 28,
+   "com": "End of school year: a tired team, departures to prepare.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9014,
+   "date": "2026-09-04",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 29,
+   "com": "Club's back-to-work meeting.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9015,
+   "date": "2026-10-09",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 29,
+   "com": "Call to prepare the December evening.",
+   "cr": false,
+   "syn": false,
+   "ais": null
   }
  ],
  "objectifs": {

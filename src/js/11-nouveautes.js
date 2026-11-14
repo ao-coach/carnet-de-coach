@@ -3,6 +3,10 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:48,s:'2.5.0',d:'14 novembre 2026',items:[
+  {t:'Un onglet Réseau',p:"En mode complet, tes personnes autour de leurs cercles, de leur public ou de leur problématique, ou en orbites autour de toi selon la proximité. La couleur dit l'étape, la taille le nombre d'échanges ; les pointillés rouges signalent qui relancer, le contour doré qui fait le pont entre deux cercles, les flèches dorées qui t'a recommandé qui."},
+  {t:'Ce que montre ton réseau',p:"À côté du graphe : les passerelles, les groupes à réchauffer, les pistes de développement (aucune conversation de coaching encore) et les chaînes de recommandation. Un clic sur un nom ouvre la fiche, un clic sur un groupe le met en avant."},
+  {t:'Archivé·es et sans suite',p:"Absent·es du graphe par défaut : la case « Inclure archivé·es et sans suite » les affiche en gris. Le dessin est recalculé à l'identique à chaque ouverture ; rien n'est ajouté à ton carnet."}]},
  {v:47,s:'2.4.0',d:'14 novembre 2026',items:[
   {t:'Traiter une relance',p:"Dans « À relancer », chaque ligne a un bouton « Traiter » : c'est fait, annulée, une autre date (+2 j, +1 semaine, +1 mois ou la date de ton choix), plus tard, et un commentaire. Les propositions et les fins d'accompagnement gardent leurs boutons."},
   {t:'Un rythme de contact par personne',p:"Tous les mois, tous les 3 mois (par défaut), tous les 6 mois, une fois par an ou pas de relance. Quand il est dépassé, la personne revient dans « À relancer », avec ses cercles et le sujet à reprendre ; « Préparer » ouvre ses notes."},
@@ -200,7 +204,7 @@ async function boot(){setTimeout(()=>{try{if(/[?&]demo=1/.test(location.search)&
 }
 if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
  let had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had)toast('Nouvelle version de l\'application disponible','Recharger',()=>location.reload());had=true})}
-let RZT=0;window.addEventListener('resize',()=>{clearTimeout(RZT);RZT=setTimeout(()=>{try{if(DB&&TAB=='metrics'){renderMonthly();renderBiz()}}catch(e){}},150)});
+let RZT=0;window.addEventListener('resize',()=>{clearTimeout(RZT);RZT=setTimeout(()=>{try{if(DB&&TAB=='metrics'){renderMonthly();renderBiz()}if(DB&&TAB=='reseau')renderNet()}catch(e){}},150)});
 document.querySelectorAll('.langsw [data-lg]').forEach(b=>{b.classList.toggle('on',b.dataset.lg===LANG);b.onclick=()=>setLang(b.dataset.lg)});
 $('homeBtn').onclick=()=>window.open('../?lang='+LANG,'_blank','noopener');
 initFolds();

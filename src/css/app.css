@@ -655,7 +655,7 @@ td.nw2{white-space:nowrap}
 .palpick{display:flex;flex-wrap:wrap;gap:8px}.palb{display:inline-flex;align-items:center;gap:3px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px 6px 8px;cursor:pointer;font:700 12.5px Nunito,sans-serif}.palb i{width:14px;height:14px;border-radius:4px}.palb span{margin-left:6px}.palb.on{border-color:var(--jet);box-shadow:0 0 0 1px var(--jet)}
 .wzmode{display:grid;grid-template-columns:1fr 1fr;gap:14px}.wzmc{text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:16px 18px;cursor:pointer;font:inherit}.wzmc b{font:400 20px 'Noto Serif',Georgia,serif;color:var(--jet)}.wzmc p{margin:6px 0 0;color:var(--grey);font-size:13.5px;line-height:1.5}.wzmc.on{border-color:var(--am);background:#FBF6F7}
 @media(max-width:700px){.wzmode{grid-template-columns:1fr}}
-body.simple .cx,body.simple .tabs [data-tab=dash],body.simple .tabs [data-tab=coach],body.simple .tabs [data-tab=pd]{display:none!important}
+body.simple .cx,body.simple .tabs [data-tab=dash],body.simple .tabs [data-tab=coach],body.simple .tabs [data-tab=pd],body.simple .tabs [data-tab=reseau]{display:none!important}
 body.simple #mAis,body.simple #mSup,body.simple #kpis2,body.simple #metrics .khint,body.simple #metrics .row2>.card:nth-child(2),body.simple #ppView,body.simple #showArch,body.simple label:has(>#showArch){display:none!important}
 body.simple #metrics .row2{grid-template-columns:1fr}
 body.simple #settings .pgrid:not(:has(>.card:not(#setTypes):not(#setMets):not(#setCrm):not(#setKpi):not(#setFin))){display:none}
@@ -911,3 +911,52 @@ body.simple .pcards .pc2{grid-template-columns:1fr}
 .kpi .lvb small{display:block;font-size:11.5px;color:#B5D2E0;font-weight:700;margin-top:4px}
 .kpi .lvb small.alone{margin-top:0}
 .kpi:has(.lvb) .l{padding-right:70px}
+/* 2.5.0 : onglet Réseau */
+.nethead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-bottom:12px}
+.netbox{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.netg{position:relative;min-width:0}
+.netsvg{display:block;width:100%;height:clamp(440px,calc(100vh - 250px),820px);background:var(--soft);border-radius:12px;touch-action:none;user-select:none}
+.netsvg text{font-family:Nunito,sans-serif;pointer-events:none}
+.netsvg .nbg{fill:transparent}
+.netsvg .nln{stroke-width:1.4;stroke-opacity:.38}
+.netsvg .ntk{stroke-width:2.2;stroke-opacity:.8;stroke-linecap:round}
+.netsvg .nra{fill:none;stroke:#C9A04E;stroke-width:1.8;stroke-opacity:.9}
+.netsvg .nra.pres{stroke-dasharray:5 4}
+.netsvg .ngp{cursor:pointer}
+.netsvg .ngp circle{fill-opacity:.2;stroke-width:1.6;stroke-opacity:.75}
+.netsvg .ngp.on circle{fill-opacity:.38;stroke-width:3}
+.netsvg .ngn{font-size:13px;font-weight:800;fill:var(--jet);text-anchor:middle}
+.netsvg .nglb{font-size:13px;font-weight:800;fill:var(--jet);text-anchor:middle;paint-order:stroke;stroke:var(--soft);stroke-width:4px;stroke-linejoin:round}
+.netsvg .nnd{cursor:pointer}
+.netsvg .nnd .nbody{stroke:#fff;stroke-width:1.5}
+.netsvg .npass,.netleg .npass{stroke:#D9B66A;stroke-width:3}
+.netsvg .nrel,.netleg .nrel{fill:none;stroke:#C8414B;stroke-width:1.6;stroke-dasharray:3 2.5}
+.netsvg .nin{font-weight:800;text-anchor:middle}
+.netsvg .nlb{font-size:11px;font-weight:700;fill:var(--jet);text-anchor:middle;paint-order:stroke;stroke:var(--soft);stroke-width:3px;stroke-linejoin:round}
+.netsvg .nlb.off{fill:var(--grey)}
+.netsvg .nnd:hover .nbody,.netsvg .nnd:hover .npass{stroke:var(--jet)}
+.netsvg .dim{opacity:.13}
+.netsvg .nsec{fill-opacity:.07;stroke-opacity:.35;stroke-width:1;cursor:pointer}
+.netsvg .nring{fill:none;stroke:var(--grey);stroke-opacity:.35;stroke-dasharray:4 5}
+.netsvg .nrlb{font-size:11px;font-weight:800;fill:var(--grey);letter-spacing:.05em;text-transform:uppercase;paint-order:stroke;stroke:var(--soft);stroke-width:3px}
+.netsvg .nolb{font-size:12.5px;font-weight:800;cursor:pointer;pointer-events:auto}
+.netsvg .nme{fill:var(--jet)} .netsvg .nmet{fill:#fff;font-family:'Noto Serif',serif;font-size:17px;text-anchor:middle}
+.netsvg .nempty{font-size:15px;fill:var(--grey)}
+.netleg{gap:6px 16px;margin:10px 2px 4px} .netleg span{display:inline-flex;align-items:center;gap:6px} .netleg .nlsep{width:1px;height:16px;background:var(--line)}
+.nethint{font-size:12px;color:var(--grey);margin:2px 2px 0}
+.nettip{position:absolute;z-index:5;pointer-events:none;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.12);padding:9px 12px;font-size:12.5px;max-width:280px;display:none;line-height:1.45}
+.nettip.show{display:block} .nettip .ntt{display:flex;align-items:center;gap:8px;flex-wrap:wrap} .nettip .ntt b{font-size:13.5px}
+.nettip .nts{color:var(--grey)} .nettip .ntg{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0} .nettip .crp{font-size:11px;padding:2px 7px}
+.nettip .ntr{color:#C8414B;font-weight:700}
+.netside h2{font-size:17px;margin:0 0 8px}
+.netside h3{margin:16px 0 4px;display:flex;align-items:center;gap:6px}
+.netside .nsum{display:flex;gap:12px;font-size:13px;color:var(--grey);font-weight:700}
+.netside .nhint{font-size:12.5px;color:var(--grey);margin:0 0 6px}
+.netside ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.netside li{line-height:1.6} .netside li .crp{font-size:11.5px;padding:1px 8px;cursor:pointer} .netside .nmore{color:var(--grey)}
+.netside .npl{font-weight:800;color:var(--jet);cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.netside .npl:hover{text-decoration-color:var(--jet)} .netside .nch i{font-style:normal;color:#C9A04E;font-weight:800}
+.netside .nfil{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--soft);border-radius:10px;padding:6px 10px;margin:4px 0 10px;font-size:12.5px;font-weight:700;color:var(--grey)}
+@media(max-width:1000px){.netbox{grid-template-columns:1fr}.netsvg{height:clamp(340px,70vh,640px)}}
+@media(max-width:1500px){.top{gap:12px;flex-wrap:wrap}.tabs{flex-wrap:wrap}.tabs button{padding:7px 10px;font-size:13.5px}}
+.mf-net{font-size:13.5px;color:var(--jet);background:var(--bluebg);border-radius:12px;padding:12px 14px;margin:0 0 12px;line-height:1.55}.mf-net b{color:var(--am)}

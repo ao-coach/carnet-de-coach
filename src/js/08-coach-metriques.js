@@ -277,7 +277,7 @@ $('impCsv').onclick=()=>$('csvFile').click();
 /* ---------- mode simplifié (1.8.0) : masque l'aisance, les objectifs, les actions et les coûts ---------- */
 const SIMPLE=()=>!!(DB&&DB.prefs&&DB.prefs.simple);
 function applyMode(){document.body.classList.toggle('simple',SIMPLE());$('modeBtn').classList.toggle('on',SIMPLE());
- if(SIMPLE()&&['dash','coach','pd'].includes(TAB))goTab('metrics')}
+ if(SIMPLE()&&['dash','coach','pd','reseau'].includes(TAB))goTab('metrics')}
 $('modeBtn').onclick=()=>{if(!DB)return;DB.prefs.simple=!SIMPLE();if(!SIMPLE())qFlag('full');touch();applyMode();renderAll();toast(SIMPLE()?'Mode simplifié : l\'essentiel seulement. Rien n\'est perdu.':'Mode complet : toutes les fonctions sont de retour.')};
 const TORD=['reseau','invitation','conversation','proposition','session','debrief','supervision'];
 const TDESC={reseau:"J'ai rencontré une personne de mon réseau (café, événement, appel)",invitation:"J'ai proposé à une personne de découvrir le coaching",conversation:"J'ai fait découvrir mon coaching lors d'une session offerte",proposition:"J'ai proposé un contrat de coaching",

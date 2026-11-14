@@ -135,7 +135,10 @@
     "pid": 0,
     "mode": "reco"
    },
-   "sujet": "Sa nouvelle équipe depuis septembre : comment ça se passe ?"
+   "sujet": "Sa nouvelle équipe depuis septembre : comment ça se passe ?",
+   "cercles": [
+    "Réseau d'anciens collègues"
+   ]
   },
   {
    "id": 5,
@@ -151,7 +154,11 @@
    "titre": "Fondateur, start-up",
    "provenance": "Club d'entrepreneurs",
    "public": "Dirigeants",
-   "probl": "Leadership"
+   "probl": "Leadership",
+   "cercles": [
+    "Club d'entrepreneurs",
+    "Coworking du centre-ville"
+   ]
   },
   {
    "id": 7,
@@ -173,7 +180,10 @@
    "reco_par": {
     "pid": 0,
     "mode": "reco"
-   }
+   },
+   "cercles": [
+    "Club d'entrepreneurs"
+   ]
   },
   {
    "id": 9,
@@ -239,7 +249,10 @@
    "reco_par": {
     "pid": 8,
     "mode": "reco"
-   }
+   },
+   "cercles": [
+    "Club d'entrepreneurs"
+   ]
   },
   {
    "id": 16,
@@ -257,7 +270,8 @@
     "mode": "presente"
    },
    "notes": "Ancien collègue de Julien. A repris l'atelier de son père en 2023 : fier, mais épuisé par la gestion.\nOuvert au coaching « un jour », pas pour lui maintenant.",
-   "sujet": "Son projet de former un apprenti : a-t-il trouvé ?"
+   "sujet": "Son projet de former un apprenti : a-t-il trouvé ?",
+   "public": "Dirigeants"
   },
   {
    "id": 17,
@@ -288,7 +302,8 @@
     "pid": 16,
     "mode": "presente"
    },
-   "sujet": "Lui demander qui, parmi ses clients, vit une transmission d'entreprise"
+   "sujet": "Lui demander qui, parmi ses clients, vit une transmission d'entreprise",
+   "public": "Dirigeants"
   },
   {
    "id": 19,
@@ -300,6 +315,152 @@
    ],
    "proximite": "proche",
    "rythme": 1
+  },
+  {
+   "id": 20,
+   "nom": "Élise MARCHAND",
+   "titre": "Gérante, librairie indépendante",
+   "provenance": "Club d'entrepreneurs",
+   "cercles": [
+    "Club d'entrepreneurs",
+    "Association de parents d'élèves"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "public": "Dirigeants",
+   "reco_par": {
+    "pid": 13,
+    "mode": "presente"
+   },
+   "notes": "Présentée par Hugo. Deux enfants dans l'école de Pauline.\nPense à ouvrir une deuxième boutique.",
+   "sujet": "Sa deuxième boutique : le projet avance ?"
+  },
+  {
+   "id": 21,
+   "nom": "Olivier BRUN",
+   "titre": "Directeur commercial, PME industrielle",
+   "provenance": "Réseau d'anciens collègues",
+   "cercles": [
+    "Réseau d'anciens collègues",
+    "Club de course à pied"
+   ],
+   "proximite": "proche",
+   "rythme": 1,
+   "public": "Managers de proximité",
+   "probl": "Leadership",
+   "notes": "Ancien collègue, on court ensemble le dimanche."
+  },
+  {
+   "id": 22,
+   "nom": "Fanny LEROY",
+   "titre": "Cadre de santé, clinique",
+   "provenance": "Association de parents d'élèves",
+   "cercles": [
+    "Association de parents d'élèves"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 6,
+   "public": "Managers de proximité",
+   "probl": "Prise de poste",
+   "sujet": "Sa prise de poste de cadre : comment ça se passe ?"
+  },
+  {
+   "id": 23,
+   "nom": "Yann GUÉRIN",
+   "titre": "Développeur indépendant",
+   "provenance": "Coworking du centre-ville",
+   "cercles": [
+    "Coworking du centre-ville"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "notes": "Voisin de bureau au coworking."
+  },
+  {
+   "id": 24,
+   "nom": "Laura MEUNIER",
+   "titre": "Responsable RSE, groupe de transport",
+   "provenance": "Conférence RH",
+   "cercles": [
+    "Conférence RH"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 12,
+   "public": "Dirigeants",
+   "reco_par": {
+    "pid": 17,
+    "mode": "presente"
+   },
+   "notes": "Présentée par Chloé à la conférence RH."
+  },
+  {
+   "id": 25,
+   "nom": "Rémi FAVRE",
+   "titre": "Kinésithérapeute",
+   "provenance": "Club de course à pied",
+   "cercles": [
+    "Club de course à pied"
+   ],
+   "proximite": "proche",
+   "rythme": 3,
+   "notes": "Prépare son premier marathon.",
+   "sujet": "Son marathon de novembre"
+  },
+  {
+   "id": 26,
+   "nom": "Sandrine BARON",
+   "titre": "Coach, en formation de superviseure",
+   "provenance": "École de coaching",
+   "cercles": [
+    "École de coaching",
+    "Fédération de coachs"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "notes": "Même promotion que Margaux."
+  },
+  {
+   "id": 27,
+   "nom": "Nicolas ARNAUD",
+   "titre": "Architecte",
+   "provenance": "Coworking du centre-ville",
+   "cercles": [
+    "Coworking du centre-ville",
+    "Club de course à pied"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 3,
+   "public": "Dirigeants",
+   "reco_par": {
+    "pid": 25,
+    "mode": "reco"
+   },
+   "sujet": "Le concours qu'il préparait en janvier"
+  },
+  {
+   "id": 28,
+   "nom": "Pauline RENAUD",
+   "titre": "Directrice d'école",
+   "provenance": "Association de parents d'élèves",
+   "cercles": [
+    "Association de parents d'élèves"
+   ],
+   "proximite": "regulier",
+   "rythme": 6
+  },
+  {
+   "id": 29,
+   "nom": "Thierry CARON",
+   "titre": "Président du club d'entrepreneurs",
+   "provenance": "Club d'entrepreneurs",
+   "cercles": [
+    "Club d'entrepreneurs"
+   ],
+   "proximite": "proche",
+   "rythme": 1,
+   "public": "Dirigeants",
+   "notes": "Connaît tout le monde au club. Aime présenter les gens entre eux.",
+   "sujet": "Lui demander qui, au club, vit une transmission"
   }
  ],
  "entrees": [
@@ -3808,6 +3969,171 @@
    "syn": false,
    "ais": null,
    "non": true
+  },
+  {
+   "id": 9001,
+   "date": "2026-03-12",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 20,
+   "com": "Café après la réunion du club. Beaucoup d'énergie, peu de temps pour elle.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9002,
+   "date": "2026-06-20",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 20,
+   "com": "Kermesse de l'école : on a reparlé de son projet de boutique.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9003,
+   "date": "2026-09-28",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 21,
+   "com": "Sortie longue du dimanche. Il manage une équipe qui a doublé en un an.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9004,
+   "date": "2026-10-26",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 21,
+   "com": "Course puis café : il se demande comment déléguer sans tout perdre.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9005,
+   "date": "2026-02-05",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 22,
+   "com": "Réunion de l'association. Vient d'être nommée cadre.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9006,
+   "date": "2026-09-15",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 23,
+   "com": "Déjeuner au coworking.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9007,
+   "date": "2026-11-03",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 23,
+   "com": "Il organise un apéro des indépendants en décembre.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9008,
+   "date": "2026-04-10",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 24,
+   "com": "Conférence RH : table ronde sur le management à distance.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9009,
+   "date": "2026-05-02",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 25,
+   "com": "Entraînement du club. M'a parlé de Nicolas, architecte.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9010,
+   "date": "2026-07-14",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 25,
+   "com": "Course du 14 juillet.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9011,
+   "date": "2026-10-02",
+   "type": "reseau",
+   "dur": 90,
+   "pid": 26,
+   "com": "Journée de la fédération : atelier sur la posture.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9012,
+   "date": "2026-05-20",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 27,
+   "com": "Café au coworking, recommandé par Rémi.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9013,
+   "date": "2026-06-30",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 28,
+   "com": "Fin d'année scolaire : une équipe fatiguée, des départs à préparer.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9014,
+   "date": "2026-09-04",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 29,
+   "com": "Rentrée du club.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 9015,
+   "date": "2026-10-09",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 29,
+   "com": "Appel pour préparer la soirée de décembre.",
+   "cr": false,
+   "syn": false,
+   "ais": null
   }
  ],
  "objectifs": {

@@ -498,6 +498,6 @@ $('addMet').onclick=()=>{const M=CFG().metriques,n=M.reduce((x,m)=>Math.max(x,+m
 
 /* ---------- onglets ---------- */
 let TAB='dash';
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;if(TAB=='metrics')qFlag('metrics');document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x==b));
- ['dash','coach','pd','metrics','list','people','settings','about'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));if(TAB=='about')renderAbout();renderAll()});
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;if(TAB=='metrics')qFlag('metrics');if(TAB=='reseau')qFlag('reseau');document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x==b));
+ ['dash','coach','pd','metrics','list','people','reseau','settings','about'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));if(TAB=='about')renderAbout();renderAll()});
 

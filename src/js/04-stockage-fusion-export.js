@@ -200,6 +200,7 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
   ['Le chemin de chaque personne',"De la rencontre à l'accompagnement : chaque personne change de colonne à mesure que tu enregistres vos échanges. Le bouton « ? Les étapes » explique chaque colonne."],
   ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
   ['Simplifié ou complet',"Camille est en mode simplifié : l'essentiel. Le mode complet ajoute le tableau de bord, la pratique délibérée, la fiche de coach, les objectifs et le taux horaire réel."],
+  ['Ton réseau',"En mode complet, l'onglet Réseau dessine tes personnes autour de leurs cercles : la couleur dit l'étape, la taille le nombre d'échanges, les pointillés rouges qui relancer, le contour doré qui fait le pont entre deux cercles. À droite, ce que ton réseau montre : qui réchauffer, où inviter, qui remercier."],
   ['À toi de jouer',"Explore librement : rien n'est enregistré. Quand tu le souhaites, « Créer mon propre carnet » démarre le tien, vide et rien qu'à toi. Pour revoir ce tour : « Revoir la visite », ici."]],
  openPeople:'Ouvrir Personnes',stay:'Rester en simplifié',full:'Voir le mode complet',stayFull:'Garder le mode complet',simpleBack:'Revenir au simplifié',end:'Terminer',
  fullT:'Le mode complet',fullP:"Le tableau de bord, la pratique délibérée et la fiche de coach sont maintenant visibles dans les onglets. Le bouton « Mode simplifié » permet de revenir à l'essentiel à tout moment."},
@@ -226,6 +227,7 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
   ["Each person's path","From first meeting to engagement: each person moves from one column to the next as you log your exchanges. The “? The stages” button explains each column."],
   ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
   ['Simple or full','Camille is in simple mode: the essentials. Full mode adds the dashboard, deliberate practice, the coach profile, goals and the real hourly rate.'],
+  ['Your network',"In full mode, the Network tab draws your people around their circles: colour shows the stage, size the number of exchanges, red dots who to follow up, a gold outline who bridges two circles. On the right, what your network shows: who to warm up, where to invite, who to thank."],
   ['Your turn','Explore freely: nothing is saved. Whenever you like, “Create my own notebook” starts yours, empty and yours alone. To see this tour again: “Replay the tour”, here.']],
  openPeople:'Open People',stay:'Stay in simple mode',full:'See full mode',stayFull:'Keep full mode',simpleBack:'Back to simple mode',end:'Finish',
  fullT:'Full mode',fullP:'The dashboard, deliberate practice and the coach profile are now visible in the tabs. The “Simple mode” button takes you back to the essentials at any time.'}};
@@ -257,21 +259,24 @@ const DTS=[
  {sel:'#ppPipe',pre:()=>{dtFicheX();goTab('people');const e=$('ppPipe');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-110)},big:true},
  {sel:'#qOpen',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
  {sel:'#modeBtn',mode:true},
+ {sel:'#netSvg',full:true,big:true,pre:()=>{dtFicheX();goTab('reseau');const e=$('netView');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
  {sel:'#demoBar',last:true}];
+/* une bulle marquée full n'apparaît qu'en mode complet (l'onglet Réseau est masqué en simplifié) */
+const dtVis=()=>DTS.filter(s=>!s.full||!SIMPLE());
 const dtFicheX=()=>{if($('pfM')?.classList.contains('show'))closeFiche()};
-function dtTour(i=0){DT.on=true;DT.kind='tip';DT.i=i;DT.fullNote=false;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];
+function dtTour(i=0,dir=1){if(DTS[i]?.full&&SIMPLE()){dtTour(i+dir,dir);return}DT.on=true;DT.kind='tip';DT.i=i;DT.fullNote=false;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];
  if(s.pre)try{s.pre()}catch(e){}requestAnimationFrame(()=>requestAnimationFrame(dtDraw))}
-function dtDraw(){const X=dtX(),i=DT.i,s=DTS[i],r=$('dtour');const n=DTS.length;
+function dtDraw(){const X=dtX(),i=DT.i,s=DTS[i],r=$('dtour');const V=dtVis(),n=V.length,vi=Math.max(0,V.indexOf(s));
  let t=X.t[i][0],p=X.t[i][1],btns;
  if(DT.fullNote){t=X.fullT;p=X.fullP;btns=`<button id="dtSimple">${X.simpleBack}</button><button class="p" id="dtNext">${X.stayFull}</button>`}
  else if(s.mode)btns=`<button id="dtNext">${X.stay}</button><button class="p" id="dtFull">${X.full}</button>`;
  else if(s.btn)btns=`<button id="dtPrev">${X.back}</button><button class="p" id="dtNext">${X[s.btn]}</button>`;
  else btns=`${i>0?`<button id="dtPrev">${X.back}</button>`:''}<button class="p" id="dtNext">${s.last?X.end:X.suiv}</button>`;
  const stop=s.mode||s.last?'':`<a href="#" id="dtStop">${X.stop}</a>`;
- r.innerHTML=`<div class="dt-catch"></div><div class="dt-hole" id="dtHole"></div><div class="dt-tip" id="dtTip" role="dialog"><div class="k">${X.step(i+1,n)}</div><h3>${t}</h3><p>${p}</p><div class="b">${stop||'<span></span>'}${btns}</div></div>`;
+ r.innerHTML=`<div class="dt-catch"></div><div class="dt-hole" id="dtHole"></div><div class="dt-tip" id="dtTip" role="dialog"><div class="k">${X.step(vi+1,n)}</div><h3>${t}</h3><p>${p}</p><div class="b">${stop||'<span></span>'}${btns}</div></div>`;
  dtPlace();
  if($('dtStop'))$('dtStop').onclick=e=>{e.preventDefault();dtClose()};
- if($('dtPrev'))$('dtPrev').onclick=()=>dtTour(i-1);
+ if($('dtPrev'))$('dtPrev').onclick=()=>dtTour(i-1,-1);
  if($('dtFull'))$('dtFull').onclick=()=>{if(document.body.classList.contains('simple'))$('modeBtn').click();DT.fullNote=true;requestAnimationFrame(dtDraw)};
  if($('dtSimple'))$('dtSimple').onclick=()=>{if(!document.body.classList.contains('simple'))$('modeBtn').click();DT.fullNote=false;dtTour(i+1)};
  $('dtNext').onclick=()=>{if(s.last){dtClose();return}if(DT.fullNote){DT.fullNote=false}dtTour(i+1)};$('dtNext').focus()}

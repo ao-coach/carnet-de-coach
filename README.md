@@ -118,6 +118,8 @@ La mission « Comprendre ton pipeline » ouvre deux pages, qu'on retrouve à tou
 1. **L'approche.** On conseille souvent aux coachs les réseaux sociaux, le contenu et le marketing : une voie légitime, avec son prix. Ce carnet suit celle de coachs qui en vivent depuis des années : le coaching se vend par le coaching, et l'on crée ses clients une discussion à la fois. Six principes, chacun avec le type de saisie qui lui correspond : rencontrer chaque jour, aider sans rien attendre, faire vivre le coaching, choisir tes clients, proposer et demander la recommandation, travailler sur un cycle de durée fixée à un prix juste. Avec les repères du carnet pour un contrat signé : environ 13 invitations, 4 personnes en conversation, 10 conversations, 2 propositions.
 2. **Les étapes.** Le chemin d'une personne, de la rencontre au contrat, et pour chaque étape **la saisie qui la fait avancer** (voir la [partie 9](#9-personnes)).
 
+Entre les deux, **le socle : entretenir ton réseau.** Rencontrer ne s'arrête pas au premier café : les personnes que tu connais déjà sont ton terrain le plus fertile. Donne à chacune un rythme de contact, et le carnet te la rappelle dans « À relancer » quand c'est le moment ; en mode complet, l'onglet Réseau montre tes cercles, les passerelles entre eux et les groupes à réchauffer.
+
 ### Les célébrations
 
 Quand tu franchis un cap, l'outil le salue, avec trois niveaux d'intensité :
@@ -134,7 +136,7 @@ Le bouton **Mode simplifié**, en haut à droite, s'active et se désactive à t
 
 En mode simplifié :
 
-- **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres. Le tableau de bord, la fiche Coach et la Pratique délibérée sont masqués.
+- **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres. Le tableau de bord, la fiche Coach, la Pratique délibérée et le Réseau sont masqués.
 - **Aucune notion d'aisance, d'objectif, d'action ni de coût.**
 - **Saisie** : les types sont présentés l'un sous l'autre, avec leur sens (« J'ai proposé à une personne de découvrir le coaching »…), puis tes autres types. Il reste la durée, la personne, « Ce qu'on a vu », les notes sur l'entretien et le suivi (CR, synthèse). Une proposition garde son montant et sa durée d'engagement.
 - **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors aisance, objectifs et coûts).
@@ -553,6 +555,17 @@ Puis trois onglets.
 
 Tout est enregistré pendant la frappe.
 
+### L'onglet Réseau (mode complet)
+
+L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il est masqué en mode simplifié. Rien n'y est saisi : tout vient des fiches (cercles, proximité, public, problématique, « Recommandé·e ou présenté·e par ») et de tes saisies.
+
+- **Quatre vues.** **Cercles**, **Public** et **Problématique** regroupent les personnes autour de pivots : un disque par groupe, avec son nombre de membres, et chaque personne reliée à ses groupes. Une personne sans groupe est reliée au pivot gris « Sans cercle » (ou « Non renseigné »). **Orbites** te place au centre : les anneaux disent la proximité (proche, régulier, occasionnel), les parts du disque les cercles, proportionnelles à leur nombre de membres. Une personne de plusieurs cercles est placée dans le premier, avec de petits traits vers les autres.
+- **Ce que montre chaque point.** La **couleur** dit l'étape (contact réseau, invité·e, en conversation, proposition envoyée, client·e, accompagnement terminé, superviseur·e) ; la **taille**, le nombre d'échanges. Un point **pâle entouré de pointillés rouges** est à relancer (rythme de contact dépassé, ou pas de nouvelles depuis un moment). Un **contour doré** signale une **passerelle** : une personne dans plusieurs groupes. Les **flèches dorées** vont de la personne qui recommande à la personne recommandée (en pointillés : présentée).
+- **Options.** « Recommandations » affiche ou masque les flèches ; « Signaler les personnes à relancer », les pointillés ; « Inclure archivé·es et sans suite » ajoute en gris les personnes archivées ou « Sans suite », absentes sinon.
+- **Survol et clic.** Survole un point : nom, étape, nombre d'échanges, dernier contact, groupes, relance, recommandé·e par. Clique : sa fiche s'ouvre. Clique sur un groupe : ses membres sont mis en avant, le reste s'estompe ; « Tout afficher », ou un clic dans le vide, revient à l'ensemble. Tu peux déplacer un point à la souris, le temps de la consultation : rien n'est enregistré, et le dessin est recalculé à l'identique à chaque ouverture.
+- **Grands carnets.** Au-delà d'une soixantaine de personnes, seuls les prénoms des passerelles, des personnes à relancer et des plus gros points sont écrits ; les autres apparaissent au survol.
+- **Ce que montre ton réseau.** Le panneau de droite (sous le graphe sur un écran étroit) tire quatre pistes du regroupement choisi : les **passerelles** (« Bastien relie Club d'entrepreneurs et Réseau d'anciens collègues »), les groupes **à réchauffer** (au moins la moitié des membres à relancer), les **pistes de développement** (groupes où personne n'a encore vécu une conversation de coaching : une invitation ?) et les **chaînes de recommandation** (Julien → Antoine → Romain). Un nom ouvre la fiche, un groupe le met en avant.
+
 ---
 
 ## 10. Propositions et contrats
@@ -715,7 +728,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.4.0** | 14/11/2026 | « Traiter » dans À relancer (fait, annulée, replanifier, plus tard, commentaire). Rythme de contact par personne et relance au rythme, avec « Préparer ». Fiche personne en onglets Infos, Notes et Échanges : cercles, proximité, recommandé·e ou présenté·e par, prochain sujet à évoquer, notes des échanges. Pipeline à partir de l'invitation (colonne Invité·e), contacts réseau hors pipeline. Indicateurs Réseau entretenu, Personnes vues et Recommandations ; niveau et total dans les bandeaux. « Plus tard » réglable. Export CSV des personnes. |
+| **2.5.0** | 14/11/2026 | Onglet Réseau (mode complet) : vues Cercles, Public, Problématique et Orbites, avec l'étape, le nombre d'échanges, les personnes à relancer, les passerelles et les recommandations ; panneau « Ce que montre ton réseau » (passerelles, groupes à réchauffer, pistes de développement, chaînes de recommandation). Le socle de la démarche : entretenir ton réseau. Démo enrichie de dix contacts réseau. |
+| 2.4.0 | 14/11/2026 | « Traiter » dans À relancer (fait, annulée, replanifier, plus tard, commentaire). Rythme de contact par personne et relance au rythme, avec « Préparer ». Fiche personne en onglets Infos, Notes et Échanges : cercles, proximité, recommandé·e ou présenté·e par, prochain sujet à évoquer, notes des échanges. Pipeline à partir de l'invitation (colonne Invité·e), contacts réseau hors pipeline. Indicateurs Réseau entretenu, Personnes vues et Recommandations ; niveau et total dans les bandeaux. « Plus tard » réglable. Export CSV des personnes. |
 | 2.3.1 | 14/11/2026 | Bouton ↺ dans Paramètres pour rendre son nom d'origine à un type intégré renommé. Alerte « bilan ou renouvellement » une seule fois par contrat. Supprimer une action du plan d'action (✕, annulable). |
 | 2.3.0 | 13/11/2026 | Recherche de personne au fil de la frappe (accents et majuscules ignorés, « + Créer ») dans la saisie, Mes saisies et le plan d'action. Rencontre réseau en tête du parcours, avec « Ce qu'on a vu » sur plusieurs lignes. « Personnes archivées » au lieu de « Clients archivés ». |
 | 2.2.0 | 11/11/2026 | Supprimer une personne (ses saisies restent). Durée libre dans Mes saisies (« Autre… »). Personne obligatoire, réglable type par type. Les barres de niveau repartent de zéro à chaque niveau. |

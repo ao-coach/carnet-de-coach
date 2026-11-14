@@ -2,7 +2,7 @@
 <main id="main">
 <div class="banner hide" id="banner"><span id="bannerTxt"></span><button id="bannerBtn"></button></div>
 <div class="top">
-  <nav class="tabs"><button class="homebtn" id="homeBtn" title="Site Carnet de coach" aria-label="Site Carnet de coach"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></button><button class="on" data-tab="dash">Tableau de bord</button><button data-tab="coach">Coach</button><button data-tab="pd">Pratique délibérée</button><button data-tab="metrics">Suivi d'activité</button><button data-tab="list">Mes saisies</button><button data-tab="people">Personnes</button><button data-tab="settings">Paramètres</button><button data-tab="about">À propos</button></nav>
+  <nav class="tabs"><button class="homebtn" id="homeBtn" title="Site Carnet de coach" aria-label="Site Carnet de coach"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></button><button class="on" data-tab="dash">Tableau de bord</button><button data-tab="coach">Coach</button><button data-tab="pd">Pratique délibérée</button><button data-tab="metrics">Suivi d'activité</button><button data-tab="list">Mes saisies</button><button data-tab="people">Personnes</button><button data-tab="reseau">Réseau</button><button data-tab="settings">Paramètres</button><button data-tab="about">À propos</button></nav>
   <span class="status" id="status"><i></i><span>Chargement…</span></span>
   <span class="langsw" data-noi18n><button data-lg="fr">FR</button><button data-lg="en">EN</button></span><button class="modebtn" id="modeBtn" title="Masque l'aisance, les objectifs, les actions et les coûts. Rien n'est perdu : tu peux revenir au mode complet à tout moment."><i></i>Mode simplifié</button><button class="lockbtn hide" id="lockBtn" title="Verrouiller le carnet"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Verrouiller</button>
 </div>
@@ -80,6 +80,15 @@
   <div class="ppgrid sec" id="ppList"></div>
   <div class="pipe sec hide" id="ppPipe"></div>
   <div class="pipeout hide" id="ppOut"></div>
+</div>
+
+<!-- ===== RÉSEAU (2.5.0) ===== -->
+<div id="reseau" class="hide">
+  <div class="card netcard">
+    <div class="nethead"><span class="seg big" id="netView" style="margin-left:0"><button data-nv="cercles" class="on">Cercles</button><button data-nv="public">Public</button><button data-nv="probl">Problématique</button><button data-nv="orbites">Orbites</button></span>
+      <label class="small"><input type="checkbox" id="netReco" checked> Recommandations</label><label class="small"><input type="checkbox" id="netRel" checked> Signaler les personnes à relancer</label><label class="small"><input type="checkbox" id="netArch"> Inclure archivé·es et sans suite</label></div>
+    <div class="netbox"><div class="netg" id="netG"><svg id="netSvg" class="netsvg" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet"></svg><div class="nettip" id="netTip"></div><div class="legend netleg" id="netLeg"></div><div class="nethint">Survole un point pour le détail, clique pour ouvrir la fiche ; clique sur un groupe pour le mettre en avant. Les points se déplacent à la souris, le temps de la consultation.</div></div><aside class="netside" id="netSide"></aside></div>
+  </div>
 </div>
 
 <!-- ===== PARAMÈTRES ===== -->

@@ -118,6 +118,8 @@ The “Understand your pipeline” mission opens two pages, available at any tim
 1. **The approach.** Coaches are often advised to use social media, content and marketing: a legitimate path, with its price. This notebook follows that of coaches who have been making a living from it for years: coaching sells through coaching, and you create your clients one conversation at a time. Six principles, each with the entry type that goes with it: meet people every day, help with no strings attached, let people experience coaching, choose your clients, make the offer and ask for referrals, work in a cycle of set length at a fair price. With the notebook's benchmarks for one signed contract: about 13 invitations, 4 people in conversation, 10 conversations, 2 proposals.
 2. **The stages.** A person's path, from first meeting to contract, and for each stage **the entry that moves it forward** (see [part 9](#9-people)).
 
+In between, **the foundation: keeping your network alive.** Meeting people does not stop at the first coffee: the people you already know are your most fertile ground. Give each of them a contact frequency, and the notebook brings them back in “To follow up” when the time comes; in full mode, the Network tab shows your circles, the bridges between them and the groups to warm up.
+
 ### Celebrations
 
 When you pass a milestone, the tool celebrates it, at three levels of intensity:
@@ -134,7 +136,7 @@ The **Simple mode** button, top right, can be switched on and off at any time. *
 
 In simple mode:
 
-- **Tabs**: Activity (the main screen), My entries, People, Settings. The dashboard, the Coach profile and Deliberate practice are hidden.
+- **Tabs**: Activity (the main screen), My entries, People, Settings. The dashboard, the Coach profile, Deliberate practice and Network are hidden.
 - **No notion of ease, goals, actions or costs.**
 - **Entry form**: types are shown one below the other, with their meaning (“I invited someone to experience coaching”…), then your other types. What remains: length, person, “What came up”, meeting notes and follow-up (notes sent, summary). A proposal keeps its amount and commitment length.
 - **Activity**: the time-spent-per-month chart and your 3 main indicators (excluding ease, goals and costs).
@@ -553,6 +555,17 @@ Then three tabs.
 
 Everything is saved as you type.
 
+### The Network tab (full mode)
+
+The **Network** tab draws the people in your notebook and what links them. It is hidden in simple mode. Nothing is entered there: everything comes from the profiles (circles, closeness, audience, topic, “Referred or introduced by”) and from your entries.
+
+- **Four views.** **Circles**, **Audience** and **Topic** group people around hubs: one disc per group, with its number of members, and each person linked to their groups. A person with no group is linked to the grey “No circle” (or “Not specified”) hub. **Orbits** puts you in the centre: the rings show closeness (close, regular, occasional), the slices of the disc the circles, in proportion to their number of members. A person in several circles is placed in the first one, with short strokes towards the others.
+- **What each dot shows.** **Colour** shows the stage (network contact, invited, in conversation, proposal sent, client, engagement ended, supervisor); **size**, the number of exchanges. A **pale dot circled with red dots** needs a follow-up (contact frequency overdue, or no news for a while). A **gold outline** marks a **bridge**: a person in several groups. **Gold arrows** go from the person who referred to the person referred (dashed: introduced).
+- **Options.** “Referrals” shows or hides the arrows; “Flag people to follow up”, the red dots; “Include archived and no follow-up” adds, in grey, archived people and those marked “No follow-up”, otherwise left out.
+- **Hover and click.** Hover a dot: name, stage, number of exchanges, last contact, groups, follow-up, referred by. Click: their profile opens. Click a group: its members are highlighted, the rest fades; “Show all”, or a click on an empty area, brings everything back. You can drag a dot with the mouse while you look: nothing is saved, and the drawing is recomputed identically each time it opens.
+- **Large notebooks.** Beyond about sixty people, only the first names of bridges, people to follow up and the largest dots are written; the others appear on hover.
+- **What your network shows.** The right-hand panel (below the graph on a narrow screen) draws four leads from the chosen grouping: **bridges** (“Ben links Entrepreneurs club and Former colleagues network”), groups **to warm up** (at least half of their members to follow up), **growth leads** (groups where nobody has yet experienced a coaching conversation: an invitation?) and **referral chains** (James → Anthony → Roman). A name opens the profile, a group highlights it.
+
 ---
 
 ## 10. Proposals and contracts
@@ -715,7 +728,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.4.0** | 14/11/2026 | “Handle” in To follow up (done, cancelled, reschedule, later, comment). Contact frequency per person and regular follow-up, with “Prepare”. Person profile in Info, Notes and Interactions tabs: circles, closeness, referred or introduced by, next topic to raise, notes from exchanges. Pipeline from the invitation (Invited column), network contacts outside the pipeline. Network kept alive, People seen and Referrals indicators; level and total in the banners. Adjustable “Later”. CSV export of people. |
+| **2.5.0** | 14/11/2026 | Network tab (full mode): Circles, Audience, Topic and Orbits views, showing stage, number of exchanges, people to follow up, bridges and referrals; “What your network shows” panel (bridges, groups to warm up, growth leads, referral chains). The foundation of the approach: keeping your network alive. Demo enriched with ten network contacts. |
+| 2.4.0 | 14/11/2026 | “Handle” in To follow up (done, cancelled, reschedule, later, comment). Contact frequency per person and regular follow-up, with “Prepare”. Person profile in Info, Notes and Interactions tabs: circles, closeness, referred or introduced by, next topic to raise, notes from exchanges. Pipeline from the invitation (Invited column), network contacts outside the pipeline. Network kept alive, People seen and Referrals indicators; level and total in the banners. Adjustable “Later”. CSV export of people. |
 | 2.3.1 | 14/11/2026 | ↺ button in Settings to give a renamed built-in type its original name back. “Review or renewal” alert only once per contract. Delete an action from the action plan (✕, can be undone). |
 | 2.3.0 | 13/11/2026 | Search for a person as you type (accents and capitals ignored, “+ Create”) in the entry form, My entries and the action plan. Networking at the start of the journey, with “What came up” on several lines. “Archived people” instead of “Archived clients”. |
 | 2.2.0 | 11/11/2026 | Delete a person (their entries remain). Any length in My entries (“Other…”). Required person, set type by type. Level bars start again from zero at each level. |
