@@ -961,7 +961,7 @@ main{max-width:1280px;padding-top:24px}
 <div class="mq-top">
   <h1>Maquette v2.4.0 : relances, fiche personne, pipeline, indicateurs</h1>
   <p>Maquette statique (quelques onglets et boutons sont cliquables), au style de l'application. Données fictives de la démo de Camille Martin, au 14 novembre 2026. Les encadrés pointillés dorés expliquent un choix. Mise à jour du 14/11 : réponses et remarques d'Allan intégrées ; trois dernières questions en bas.</p>
-  <nav><a href="#fiche">1. Fiche personne</a><a href="#relancer">2. À relancer</a><a href="#traiter">3. Traiter</a><a href="#pipeline">4. Pipeline</a><a href="#kpi">5. Bandeaux d'indicateurs</a><a href="#param">6. Paramètres</a><a href="#questions">Réponses et questions</a></nav>
+  <nav><a href="#fiche">1. Fiche personne</a><a href="#relancer">2. À relancer</a><a href="#pastille">2 bis. Pastille</a><a href="#traiter">3. Traiter</a><a href="#pipeline">4. Pipeline</a><a href="#kpi">5. Bandeaux d'indicateurs</a><a href="#param">6. Paramètres</a><a href="#questions">Réponses et questions</a></nav>
 </div>
 
 <!-- ================= 1. FICHE ================= -->
@@ -1142,6 +1142,57 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <li><b>Relance au rythme</b> : cercles, rythme, « À reprendre : … » (si le prochain sujet est rempli), et <b>« Préparer »</b> : avant d'appeler ou d'écrire, ouvre la fiche sur l'onglet Notes pour relire « À garder en tête », le prochain sujet et les dernières notes ; le curseur est placé dans « Prochain sujet à évoquer » (essaie le bouton). Elle s'applique à toutes les personnes ayant un rythme (3 mois par défaut pour tout le monde, réponse 8 : les séances d'un client en cours comptent comme contacts). <b>Pastille dorée « Au rythme » sur toute relance au rythme</b> (réponse 5) : seule pour un contact réseau (Bastien, hors pipeline), à côté de l'étape pour les autres (Julien).</li>
 <li>Une personne n'apparaît qu'une fois : si elle a une action prévue, seule l'action s'affiche (règle actuelle) ; une relance au rythme ne s'ajoute pas à une ligne « sans nouvelles » ou « proposition » de la même personne.</li>
 </ul></div>
+
+<div class="mq-sec" id="pastille"><span class="n">2 bis</span><h2>Pastille des relances au rythme : objectif et options</h2></div>
+<div class="mq-note"><span class="mq-tag">De quoi s'agit-il</span>
+Dans À relancer, chaque ligne a aujourd'hui <b>une pastille de couleur = l'étape de la personne</b> (Client.e, En conversation…) et <b>une phrase = la raison de la relance</b> (proposition en attente, pas de nouvelles, fin de contrat, action prévue). La v2.4.0 ajoute une nouvelle raison : <b>le rythme de contact est dépassé</b>. Deux problèmes : un contact réseau (Bastien) n'a <b>pas d'étape</b> (il sort du pipeline), donc pas de pastille ; et une relance au rythme d'un ancien client (Julien) ressemble à une relance « sans nouvelles ». L'objectif de la pastille : qu'on comprenne d'un coup d'œil <b>qui</b> est la personne et <b>pourquoi</b> elle est là, sans surcharger la ligne.
+</div>
+<div class="card" style="margin-top:14px">
+  <h2 style="font-size:17px">Option A : pastille « Réseau » seulement pour les contacts réseau</h2>
+  <div class="hint" style="margin:2px 0 6px">Proposition de la session pilote. La pastille dit <i>qui</i> est la personne quand elle n'a pas d'étape ; le rythme se lit dans la ligne grise.</div>
+  <div>
+    <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#6E8C6A">BC</span>
+      <div><span class="who">Bastien COLLIN</span> <span class="rzp">Réseau</span>
+        <div class="what"></div><div class="meta"><span class="crp" style="--c:#2F8C93">Club d'entrepreneurs du Val</span><span class="crp" style="--c:#C8553D">Anciens collègues</span><span>· tous les 3 mois</span></div><div class="sj"><b>À reprendre :</b> son projet de former un apprenti : a-t-il trouvé ?</div></div>
+      <div style="text-align:right"><div class="when late">Sans contact depuis 104 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2">Préparer</button><button class="btn2 tr">Traiter</button></div></div></div>
+    <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#D98E73">JB</span>
+      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span>
+        <div class="what"></div><div class="meta"><span class="crp" style="--c:#8B78A8">Anciens clients</span><span>· tous les 6 mois</span></div></div>
+      <div style="text-align:right"><div class="when late">Sans contact depuis 214 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2">Préparer</button><button class="btn2 tr">Traiter</button></div></div></div>
+  </div>
+  <div class="mq-pair" style="margin-top:8px;font-size:13px;line-height:1.5"><div><b style="color:var(--afb)">+</b> une seule pastille par ligne ; les contacts réseau ne restent pas sans pastille.</div><div><b style="color:var(--am)">−</b> « Réseau » (doré) ne ressemble pas aux étapes : on mélange deux sortes de pastilles ; rien ne distingue d'un coup d'œil la ligne de Julien d'une ligne « sans nouvelles ».</div></div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h2 style="font-size:17px">Option B : pastille « Au rythme » sur toutes les relances au rythme</h2>
+  <div class="hint" style="margin:2px 0 6px">Ce que montre la maquette depuis ta réponse « au rythme ». La pastille dit <i>pourquoi</i> la ligne est là.</div>
+  <div>
+    <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#6E8C6A">BC</span>
+      <div><span class="who">Bastien COLLIN</span> <span class="rzp">Au rythme</span>
+        <div class="what"></div><div class="meta"><span class="crp" style="--c:#2F8C93">Club d'entrepreneurs du Val</span><span class="crp" style="--c:#C8553D">Anciens collègues</span><span>· tous les 3 mois</span></div><div class="sj"><b>À reprendre :</b> son projet de former un apprenti : a-t-il trouvé ?</div></div>
+      <div style="text-align:right"><div class="when late">Sans contact depuis 104 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2">Préparer</button><button class="btn2 tr">Traiter</button></div></div></div>
+    <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#D98E73">JB</span>
+      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span> <span class="rzp">Au rythme</span>
+        <div class="what"></div><div class="meta"><span class="crp" style="--c:#8B78A8">Anciens clients</span><span>· tous les 6 mois</span></div></div>
+      <div style="text-align:right"><div class="when late">Sans contact depuis 214 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2">Préparer</button><button class="btn2 tr">Traiter</button></div></div></div>
+  </div>
+  <div class="mq-pair" style="margin-top:8px;font-size:13px;line-height:1.5"><div><b style="color:var(--afb)">+</b> les relances au rythme se repèrent tout de suite dans la liste.</div><div><b style="color:var(--am)">−</b> deux pastilles chez Julien ; Bastien n'a rien qui dise qu'il est un contact réseau ; les autres lignes (proposition, sans nouvelles…) n'ont pas de pastille de motif, donc incohérence.</div></div>
+</div>
+<div class="card" style="margin-top:14px;outline:2px solid var(--am);outline-offset:2px">
+  <h2 style="font-size:17px">Option C : la pastille reste l'étape, le motif est dans le texte <span class="cntb">recommandée</span></h2>
+  <div class="hint" style="margin:2px 0 6px">Même logique que les lignes actuelles : la pastille dit <i>où en est</i> la personne (son étape, ou « Contact réseau », gris, pour celles hors pipeline) ; la phrase dit <i>pourquoi</i> on relance, comme « Pas de nouvelles depuis un moment : une relance ? » aujourd'hui.</div>
+  <div>
+    <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#6E8C6A">BC</span>
+      <div><span class="who">Bastien COLLIN</span> <span class="stp" style="background:#9A9DA1">Contact réseau</span>
+        <div class="what">Relance au rythme : ça fait plus de 3 mois sans nouvelles.</div><div class="meta"><span class="crp" style="--c:#2F8C93">Club d'entrepreneurs du Val</span><span class="crp" style="--c:#C8553D">Anciens collègues</span><span>· tous les 3 mois</span></div><div class="sj"><b>À reprendre :</b> son projet de former un apprenti : a-t-il trouvé ?</div></div>
+      <div style="text-align:right"><div class="when late">Sans contact depuis 104 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2">Préparer</button><button class="btn2 tr">Traiter</button></div></div></div>
+    <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#D98E73">JB</span>
+      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span>
+        <div class="what">Relance au rythme : ça fait plus de 6 mois sans nouvelles.</div><div class="meta"><span class="crp" style="--c:#8B78A8">Anciens clients</span><span>· tous les 6 mois</span></div></div>
+      <div style="text-align:right"><div class="when late">Sans contact depuis 214 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2">Préparer</button><button class="btn2 tr">Traiter</button></div></div></div>
+  </div>
+  <div class="mq-pair" style="margin-top:8px;font-size:13px;line-height:1.5"><div><b style="color:var(--afb)">+</b> une seule pastille, toujours du même genre (l'étape) ; le motif est écrit comme pour les autres lignes ; « Contact réseau » servira aussi en v2.5 (onglet Réseau, liste, recherche).</div><div><b style="color:var(--am)">−</b> le motif se lit au lieu de se voir en couleur ; « Contact réseau » devient une pseudo-étape (affichée, mais pas une colonne du pipeline).</div></div>
+</div>
+<div class="mq-note"><span class="mq-tag">Ce que ça change ailleurs</span>Le choix vaut aussi pour la fenêtre « Traiter » (en-tête) et, en v2.5, pour la liste de l'onglet Réseau. Aucune incidence sur les données : c'est de l'affichage seulement.</div>
 
 <!-- ================= 3. TRAITER ================= -->
 <div class="mq-sec" id="traiter"><span class="n">3</span><h2>Fenêtre « Traiter »</h2></div>
