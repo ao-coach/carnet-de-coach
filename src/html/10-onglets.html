@@ -4,7 +4,7 @@
 <div class="top">
   <nav class="tabs"><button class="homebtn" id="homeBtn" title="Site Carnet de coach" aria-label="Site Carnet de coach"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></button><button class="on" data-tab="dash">Tableau de bord</button><button data-tab="coach">Coach</button><button data-tab="pd">Pratique délibérée</button><button data-tab="metrics">Suivi d'activité</button><button data-tab="list">Mes saisies</button><button data-tab="people">Personnes</button><button data-tab="reseau">Réseau</button><button data-tab="settings">Paramètres</button><button data-tab="about">À propos</button></nav>
   <span class="status" id="status"><i></i><span>Chargement…</span></span>
-  <span class="langsw" data-noi18n><button data-lg="fr">FR</button><button data-lg="en">EN</button></span><button class="modebtn" id="modeBtn" title="Masque l'aisance, les objectifs, les actions et les coûts. Rien n'est perdu : tu peux revenir au mode complet à tout moment."><i></i>Mode simplifié</button><button class="lockbtn hide" id="lockBtn" title="Verrouiller le carnet"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Verrouiller</button>
+  <span class="langsw" data-noi18n><button data-lg="fr">FR</button><button data-lg="en">EN</button></span><button class="modebtn" id="modeBtn" title="Masque les XP de pratique, les objectifs, les actions et les coûts. Rien n'est perdu : tu peux revenir au mode complet à tout moment."><i></i>Mode simplifié</button><button class="lockbtn hide" id="lockBtn" title="Verrouiller le carnet"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Verrouiller</button>
 </div>
 <header>
   <div id="logoBox"></div>
@@ -35,9 +35,10 @@
 
 <!-- ===== PRATIQUE DÉLIBÉRÉE ===== -->
 <div id="pd" class="hide">
-  <div class="card"><h2>Boussole d'aisance <button class="btn2" data-mets style="margin-left:auto">Gérer mes compétences</button></h2>
+  <div class="card"><h2>Boussole de pratique <button class="btn2" data-mets style="margin-left:auto">Gérer mes compétences</button></h2>
     <div class="pdbx"><div id="pdBous"></div><div id="pdSide"></div></div>
   </div>
+  <div class="card" id="pdXpCard"><h2>XP de pratique</h2><div id="pdXp"></div></div>
   <div class="card sec fold" id="pdSupCard" data-fold="1"><h2>Préparer la prochaine supervision <span class="cntb" id="pdSupN"></span></h2><div id="pdSup"></div></div>
 </div>
 
@@ -122,12 +123,12 @@
     <div class="card fold" id="setTypes" data-fold="0">
       <h2>Types d'activité</h2>
       <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Les couleurs suivent ta palette et ce classement tant que tu n'en retouches pas une. Jusqu'à 11 types ; « Compte dans » indique le calcul où chaque type est additionné.</div>
-      <div class="tscroll"><table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Aisance</th><th class="fit">Personne</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table></div>
+      <div class="tscroll"><table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Personne</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table></div>
       <button class="addl" id="addType">+ Ajouter un type</button>
     </div>
     <div class="card fold" id="setMets" data-fold="0">
-      <h2>Compétences d'aisance</h2>
-      <div class="hint">Les compétences que tu notes de 1 à 5 après un entretien. Elles forment ta boussole d'aisance : c'est depuis la boussole (onglets Coach et Pratique délibérée) qu'on les gère, avec leur discipline et tes focus.</div>
+      <h2>Compétences</h2>
+      <div class="hint">Les compétences entre lesquelles tu répartis tes XP de pratique après un entretien. Elles forment ta boussole de pratique : c'est depuis la boussole (onglets Coach et Pratique délibérée) qu'on les gère, avec leur discipline et tes focus.</div>
       <button class="btn2" data-mets style="margin-top:10px">Gérer mes compétences</button>
     </div>
   </div>

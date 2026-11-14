@@ -2,7 +2,7 @@
 
 **Version 2.0.0 (November 2026)** · Tool © 2026 Allan Oudomphong · PolyForm Shield 1.0.0 licence · *Version française : [README.md](README.md)*
 
-A logbook to run your coaching practice. You log your meetings, your proposals and the people you work with, and you track your indicators, your ease, your deliberate practice, your goals and your follow-ups.
+A logbook to run your coaching practice. You log your meetings, your proposals and the people you work with, and you track your indicators, your practice XP, your deliberate practice, your goals and your follow-ups.
 
 The app opens from its web address and installs on your computer like an app. There is no account to create and no subscription. **Your data is never online**: it stays on your computer, in **a single file** `coaching-data.json`, kept in the folder of your choice.
 
@@ -101,7 +101,7 @@ The rest is discovered by using it. The **roadmap**, at the bottom right, sugges
 |---|---|
 | 1. First steps | Log your first meeting, link it to a person, write a note, look at your activity, open a person's profile, choose where to keep your notebook, protect it with a password. |
 | 2. Grow your practice | Understand your pipeline (see below), log a network contact, give a person a contact frequency, log an invitation, send a proposal, follow it through to the answer. In simple mode: discover full mode. |
-| 3. Practise deliberately | Complete your coach profile, name at least 3 skills, choose a focus, create an action, write a note and keep it for supervision, log a prepared supervision. |
+| 3. Practise deliberately | Complete your coach profile, name at least 3 skills, assign your first XP, choose a focus, create an action, write a note and keep it for supervision, log a prepared supervision. |
 | 4. Steer | Choose your indicators, set your priority goal, enter your costs. |
 
 - **“Show me”** highlights where to act, on the right tab.
@@ -137,11 +137,11 @@ The **Simple mode** button, top right, can be switched on and off at any time. *
 In simple mode:
 
 - **Tabs**: Activity (the main screen), My entries, People, Settings. The dashboard, the Coach profile, Deliberate practice and Network are hidden.
-- **No notion of ease, goals, actions or costs.**
+- **No notion of practice XP, goals, actions or costs.** The XP of your entries stay “to assign”, with no warning at all, and nothing is ever required.
 - **Entry form**: types are shown one below the other, with their meaning (“I invited someone to experience coaching”…), then your other types. What remains: length, person, “What came up”, meeting notes and follow-up (notes sent, summary). A proposal keeps its amount and commitment length.
-- **Activity**: the time-spent-per-month chart and your 3 main indicators (excluding ease, goals and costs).
-- **My entries**: the same, without ease ratings or supervision costs.
-- **People**: Pipeline view only, with “To follow up” above. The person profile no longer has closeness, ease, audience or topic.
+- **Activity**: the time-spent-per-month chart and your 3 main indicators (excluding practice XP, goals and costs).
+- **My entries**: the same, without the XP columns or supervision costs.
+- **People**: Pipeline view only, with “To follow up” above. The person profile no longer has closeness, invested XP, audience or topic.
 - **Settings**: your name, your logo and a suggested colour palette; security, storage, sharing and getting started. Activity types, skills, indicators, people tracking and costs are hidden.
 
 ---
@@ -167,9 +167,15 @@ This is the everyday gesture: after each meeting, click **“+ Log time”**, to
 - **Follow-up.** “Notes sent” and “Summary written” boxes, for face-to-face meetings.
 - **Answer** (Invitation). “They said no” box if the person declines. You can tick it later, in My entries. Your noes are counted in Activity.
 - **Deliberate practice actions.** For each of your actions in progress that concerns this meeting type: **Yes**, **Partly** or **No**. Clicking the answer again clears it. It is the quickest part: start there.
-- **Focus.** For each of your focus skills, an ease rating from 1 to 5, a large **“What I noticed”** area and a **“Keep for the next supervision”** box. Everything is optional.
-- **Ease · other skills.** A rating from 1 to 5 for your other tracked skills, on two columns. “+ Note on…” opens a note area for one of them.
-  - These blocks only appear for types where ease is switched on (Settings > Activity types), except actions, which show for the types you linked them to.
+- **Practice XP** (full mode). Every meeting earns XP based on its length and type: **10 minutes = 1 XP**, rounded to the nearest, multiplied by **2** for a session or a conversation, **3** for a supervision, **1** for a debrief or a training type you added (role “Deliberate practice”; an added type with the role “Coaching hours” counts ×2). A 1h30 session earns 18 XP, a 1-hour conversation 12 XP, a 1h30 supervision 27 XP, a 1h30 debrief 9 XP. The multipliers are fixed.
+  - The header shows “18 XP to assign” and how it is calculated; it follows the type and length live.
+  - All your tracked skills are listed, **your focus first**, with **−** and **+**. The counter shows “6 left”, then “all assigned ✓”; you cannot go over the budget.
+  - Shortcuts: **All on focus** and **Split evenly**.
+  - You can save without assigning everything: the remaining XP wait in My entries and in the ◎ details. They count for no skill until they are assigned.
+  - A networking meeting, an invitation, a proposal or an extra earns no practice XP.
+- **Sales skills** (full mode). After a networking meeting, an invitation or a proposal: **0 to 5 XP** depending on how at ease you were, and **what was easy, what was hard**. This comment is required, even at 0 XP; in simple mode the block does not appear and nothing is required.
+- **Focus.** For each of your focus skills, a large **“What I noticed”** area and a **“Keep for the next supervision”** box. Everything is optional.
+- **Notes · other skills.** “+ Note” opens a note area for one of your other skills.
 - **Proposal.** Amount, number of planned sessions, commitment length. A proposal is saved as “Pending” (see [part 10](#10-proposals-and-contracts)).
 - **Supervision.** Cost of this session. Leave the field empty to count the average price set in Settings (shown greyed out), or enter the actual amount: it takes precedence over the average price. If you later change the average price, all sessions without a custom amount follow. Tick **“Unpaid supervision”** for a session offered or included elsewhere: it is then not counted in your costs.
   - If notes are kept for supervision, they show below with what you take from them (see [part 4](#4-deliberate-practice)). Untick “Attach the notes…” for an unrelated supervision.
@@ -180,15 +186,23 @@ This is the everyday gesture: after each meeting, click **“+ Log time”**, to
 
 The **Deliberate practice** tab is for choosing what you are working on right now, checking you are really doing it, and preparing your supervisions.
 
-### Ease compass
+### Practice compass
 
-- The radar chart shows your ease on each of your tracked skills.
-- **Manage my skills** (at the top of the compass) opens the list of your skills: label, **discipline**, benchmarks for 1 and 5, tracked or not, **focus**, number of ratings. It is the only place to manage them; the Settings block points there.
+- The radar chart shows **the share of your XP on each of your tracked skills**, relative to the skill with the most. Dotted, the same over **your last 30 days**: where you are investing right now.
+- Next to each skill: its **level** and its XP total.
+- **Manage my skills** (at the top of the compass) opens the list of your skills: label, **discipline**, tracked or not, **focus**, number of entries. It is the only place to manage them; the Settings block points there. The **Sales skills** skill is always there: it can be renamed, but not deleted.
 - Skills of the same **discipline** (NLP, Transactional Analysis, Systemic…) are grouped on the compass, under a coloured arc bearing its name. The discipline is free text: suggestions appear as you type.
-- **A skill's score is the average of your last 5 ratings**, not your whole history: it reflects where you stand today.
-- **↗ or ↘** shows the trend compared with the 5 previous ratings (a gap of at least 0.3).
-- A skill never rated stays at the centre, marked “never rated”.
+- A skill with no XP stays at the centre, marked “no XP”.
 - With fewer than 3 tracked skills, the compass becomes a simple list.
+
+### Practice XP: totals, levels, transfers
+
+Below the compass, the **Practice XP** panel:
+
+- **at the top**: your XP earned in total, those of the last 30 days, and the **XP to assign** (with the number of entries concerned and a link to My entries);
+- **for each skill**: its total (XP assigned in your entries, plus transfers received, minus transfers given), its **level**, a bar that **starts again from zero at each level**, its XP of the last 30 days and the threshold of the next level. All skills follow the same curve: level 1 at 10 XP, then 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), up to level 100;
+- **Transfer XP**: “Transfer N XP from A to B”, with an optional reason. A transfer moves XP already earned, without creating any: useful when you merge two skills, or when a meeting mostly served another skill. N cannot exceed A's total; an archived skill can be the source or the target;
+- **Transfer history**: date, A → B, number of XP, reason. “undo” stays possible as long as B still has enough XP.
 - **Click a skill** to open its history (see below).
 
 ### Current focus
@@ -214,7 +228,7 @@ The **Deliberate practice** tab is for choosing what you are working on right no
 
 By clicking a skill (compass, focus, or profile):
 
-- its current score, the score of the 5 before, and the curve of your last 10 ratings;
+- its level, its bar, its XP total, its XP of the last 30 days and the threshold of the next level;
 - a button to put it in focus or remove it;
 - the actions linked to it, with their rate;
 - **all your notes and all your supervision feedback**, newest first. Supervision feedback is right-aligned, in colour, with the date of the supervision and the person who supervised you. “edit” reopens the entry of a note.
@@ -280,7 +294,7 @@ The header shows your title, your age and your seniority (“2.7 years of coachi
 | 90–99 | Elite |
 | 100 | Legend |
 
-### Ease compass, focus and actions
+### Practice compass, focus and actions
 
 The same compass as in the Deliberate practice tab, with your focus and actions in progress on the right (see [part 4](#4-deliberate-practice)).
 
@@ -290,7 +304,7 @@ Three columns, since the start of your practice. **Each statistic has its level*
 
 - **Coach a lot**: coaching hours, conversations, sessions, people coached;
 - **Practise deliberately**: deliberate practice hours, supervision hours;
-- **Grow the practice**: invitations, proposals, clients and renewals, revenue.
+- **Grow the practice**: invitations, proposals, clients and renewals, revenue, and **Sales skills** (the total of those XP, on the common XP curve).
 
 Under each statistic: its bar towards the next level, and the value to reach. The bar starts again from zero at each level: it fills between the threshold you just passed and the next one.
 
@@ -298,7 +312,7 @@ Under each statistic: its bar towards the next level, and the value to reach. Th
 
 Under the statistics, your **achievements**:
 
-- **automatic**: first session, steps of sessions, coaching hours (10 h, 50 h, 100 h… 10,000 h), people coached, paying clients (including the first contract), revenue signed, weeks in a row with at least one coaching meeting, deliberate practice hours, supervisions, invitations, **noes received** (“First no”, 10, 25, 50, 100), and your “mastered” deliberate practice actions;
+- **automatic**: first session, steps of sessions, coaching hours (10 h, 50 h, 100 h… 10,000 h), people coached, paying clients (including the first contract), revenue signed, weeks in a row with at least one coaching meeting, deliberate practice hours, supervisions, invitations, **noes received** (“First no”, 10, 25, 50, 100), **practice XP** (100, 500, 1,000, 5,000, 10,000 XP), the **first level 5, 10 and 20** reached in a skill, and your “mastered” deliberate practice actions;
 - **also automatic**: one achievement per completed roadmap chapter;
 - **your victories**: the successes the tool cannot count on its own (a promotion won by a client, a first executive coached…). Add them with the block's +: an image (cropped square), a title, a date, a tier and a short story “to remember it”. Click a victory to see it large or edit it. Adding one is celebrated like an achievement.
 - Each achievement has a tier: **Bronze**, **Silver**, **Gold** or **Legendary**. “NEW” flags those from the last 30 days.
@@ -408,9 +422,8 @@ The catalogue has 23 indicators, in 4 pillars:
   - active clients (31 days).
 - **Practise deliberately:**
   - deliberate practice;
-  - post-session discipline (notes, summary and ratings, over 90 rolling days);
-  - average ease;
-  - meeting goal reached.
+  - post-session discipline (notes, summary and XP assigned, over 90 rolling days);
+  - practice XP (XP earned over 90 days, compared with the previous 90 days; level and total at the top right of the banner).
 - **Grow the practice:**
   - revenue accepted / proposed;
   - conversion rate;
@@ -432,9 +445,9 @@ The catalogue has 23 indicators, in 4 pillars:
 - **Year.** The 2024, 2025, 2026… buttons select the year shown.
 - **Time spent per month.** One stacked bar per month, with your number 1 type at the base. Hover a bar to see the detail.
 - **Grow your practice.** Two views, for the selected year:
-  - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). On the right: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **commercial ease** (average and trend of your goal-reached rating on invitations, conversations and proposals; hidden in simple mode) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
+  - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). On the right: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **Sales skills** (the year's XP on your networking meetings, invitations and proposals; hidden in simple mode) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
   - **By month**: invitations, conversations, proposals and signatures, month by month, to see your pace.
-- Ease is no longer tracked here: you read it on the ease compass, and by clicking a skill (curve, trend, notes).
+- Practice XP are read on the practice compass and in the XP panel of the Deliberate practice tab.
 
 ---
 
@@ -448,16 +461,17 @@ The detail of all your meetings, filterable and editable directly in the table.
 - **Summary.** Number of entries, total time, of which coaching, deliberate practice, and percentages of notes and summaries done.
 - **Person tile.** When you select a person, their tile shows to the right of the filters. If you select several, one tab per person lets you switch between them.
   - **Left:** their pipeline stage (Met, In conversation, Client…), role and website, dates, figures, and the Profile and Archive buttons.
-  - **Right:** their average ease on each of your tracked skills.
+  - **Right:** the XP invested with this person, skill by skill.
   - **Below:** the timeline of their interactions, with the date (dd/mm) above each one and the year in the middle of its period.
 - **Years.** Sorted from most recent to oldest.
-- **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., What came up, Ratings, Contract / cost.
-  - **Ratings** is collapsed by default and shows a summary of values. A click on the header or a cell expands the skill columns, on a pale blue background, to edit them.
+- **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., What came up, XP, Contract / cost.
+  - **XP** (full mode) is collapsed by default and shows a summary: “18 XP · Q 12 · L 6” (the initials of your skills). A click on the header or a cell expands one column per skill, with a small number field, and a column giving the XP earned and what is left to assign. You cannot go over the entry's budget; Sales skills go from 0 to 5.
+  - An entry with XP still **to assign** has its XP cells in yellow. If you shorten the length or change the type of an entry already assigned, the budget is recalculated: an **overrun** turns the row red, without deleting anything, until you adjust. In simple mode, nothing is flagged.
   - **Contract / cost** is collapsed by default. Once expanded, on a pinkish background, it shows: Accepted (status), Amount (or a supervision's cost), Length, Sessions. On a supervision, the “unpaid” box replaces the status; on an invitation, the “They said no” box.
   - **Person**: a click on the name opens a search field (recent people first) to change an entry's person, create one, or remove it (“— No person”) on a type where it is optional. An entry missing a required person is outlined in red; “Deleted person” marks an entry whose person was deleted. The small magnifier next to it filters the table on that person.
   - **Length**: “Other…”, at the bottom of the list, lets you type any length (`2,5`, `2h30`, `150min`), then Enter.
   - Every change is saved immediately.
-  - **◎** opens the entry's details: meeting notes, and its deliberate practice (action answers, ease ratings, notes, supervision feedback) to complete or correct it. It is coloured when the entry contains some.
+  - **◎** opens the entry's details: meeting notes, and its deliberate practice (action answers, XP assignment or Sales skills and their comment, notes, supervision feedback) to complete or correct it. It is coloured when the entry contains some.
   - ✕ deletes an entry. You can undo for a few seconds.
 - **Show archived metrics.** Brings back the skills you no longer track.
 - **Export CSV** (bottom of the page). A spreadsheet of all your entries.
@@ -543,7 +557,7 @@ Then three tabs.
 - **Figures.** Last contact, coaching hours, conversations, sessions, contract, first contact.
 - **Contract**, if there is one. Amount, length and progress, with the start, planned sessions and length, all editable.
 - **Interactions.** A timeline with one dot per interaction, in its type's colour. When dots overlap, those of the types ranked highest in Settings > Activity types come on top: for example sessions above debriefs. The date (dd/mm) is above each dot and the year in the middle of its period. Hover a dot to see the detail.
-- **Average ease** on all your tracked skills (full mode).
+- **XP invested with this person**, skill by skill (full mode).
 - **Action plan.** The actions linked to the person. You can add some with a date and tick them once done. They also appear in the dashboard's action plan.
 
 **Bottom:**
@@ -624,17 +638,17 @@ Blocks come in pairs, in this order:
 |---|---|
 | **Identity**: practice name, tool name, motto, label wording (feminine, masculine, inclusive). | **Appearance**: logo (also used as the tab and window icon) and banner side by side, the 5 brand colours (Accent, Dark, Background, Grey, Blue), “Back to the default palette”. |
 | **Security**: encryption, automatic lock, password, recovery key (see [part 13](#13-security-and-encryption)). | **Data storage**: linked folder, “Open another notebook”, “New notebook”. |
-| **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, ease ratings, **Counts in**. An added type can only be deleted if it has no entries. A renamed built-in type shows ↺ at the end of its row: it gives the type its original name back (for example “Networking”). | **Ease skills**: points to “Manage my skills”, on the ease compass (see [part 4](#4-deliberate-practice)). |
+| **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, **Person**, **Counts in**. An added type can only be deleted if it has no entries. A renamed built-in type shows ↺ at the end of its row: it gives the type its original name back (for example “Networking”). | **Skills**: points to “Manage my skills”, on the practice compass (see [part 4](#4-deliberate-practice)). |
 | **People tracking**: “no contact” alert threshold, in days; how long “Later” lasts in To follow up (14 days by default). | **Indicators shown as banners**: choice of the 6 indicators shown at the top of the dashboard and Activity. |
 | **Practice costs**, full width (see [part 11](#11-costs-and-real-hourly-rate)). | |
 | **Share with a peer**: “Export a template without data”. | **Getting started**: show the roadmap, animated celebrations, “Replay the welcome”. |
 
 A few details:
 
-- **Counts in** decides which indicator a type's hours are added to: coaching hours, deliberate practice, business development or other.
+- **Counts in** decides which indicator a type's hours are added to: coaching hours, deliberate practice, business development or other. For a type you added, it also sets its XP: ×2 for coaching hours, ×1 for deliberate practice, none otherwise.
 - **Person**: required or optional when logging. By default, required for meetings, invitations, conversations, proposals, sessions and debriefs; optional for supervisions and the types you add.
 - **Type colours** automatically follow the palette and the order of importance, as long as you don't edit a colour by hand.
-- **On a screen narrower than 1500 px**, Activity types and Ease skills stack one under the other.
+- **On a screen narrower than 1500 px**, Activity types and Skills stack one under the other.
 
 At the bottom of every page:
 
@@ -728,7 +742,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.5.0** | 14/11/2026 | Network tab (full mode): Circles, Audience, Topic and Orbits views, showing stage, number of exchanges, people to follow up, bridges and referrals; “What your network shows” panel (bridges, groups to warm up, growth leads, referral chains). The foundation of the approach: keeping your network alive. Demo enriched with ten network contacts. |
+| **3.0.0** | 14/11/2026 | Practice XP instead of 1-to-5 ease ratings: every meeting earns XP based on its length and type, to assign to your skills (focus first, shortcuts, unassigned XP flagged in My entries). Levels per skill, practice compass (share of XP and last 30 days), XP panel with transfers and history. Sales skills (0 to 5 XP and a comment after a meeting, an invitation or a proposal). Practice XP indicator, XP achievements, CSV export. Old ratings converted, with an automatic safety copy before the migration. |
+| 2.5.0 | 14/11/2026 | Network tab (full mode): Circles, Audience, Topic and Orbits views, showing stage, number of exchanges, people to follow up, bridges and referrals; “What your network shows” panel (bridges, groups to warm up, growth leads, referral chains). The foundation of the approach: keeping your network alive. Demo enriched with ten network contacts. |
 | 2.4.0 | 14/11/2026 | “Handle” in To follow up (done, cancelled, reschedule, later, comment). Contact frequency per person and regular follow-up, with “Prepare”. Person profile in Info, Notes and Interactions tabs: circles, closeness, referred or introduced by, next topic to raise, notes from exchanges. Pipeline from the invitation (Invited column), network contacts outside the pipeline. Network kept alive, People seen and Referrals indicators; level and total in the banners. Adjustable “Later”. CSV export of people. |
 | 2.3.1 | 14/11/2026 | ↺ button in Settings to give a renamed built-in type its original name back. “Review or renewal” alert only once per contract. Delete an action from the action plan (✕, can be undone). |
 | 2.3.0 | 13/11/2026 | Search for a person as you type (accents and capitals ignored, “+ Create”) in the entry form, My entries and the action plan. Networking at the start of the journey, with “What came up” on several lines. “Archived people” instead of “Archived clients”. |

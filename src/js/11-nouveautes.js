@@ -3,6 +3,11 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:49,s:'3.0.0',d:'14 novembre 2026',items:[
+  {t:'Des XP de pratique à la place des notes de 1 à 5',p:"En mode complet, chaque entretien rapporte des XP selon sa durée : 10 minutes = 1 XP, ×2 pour une séance ou une conversation, ×3 pour une supervision, ×1 pour un débrief ou un entraînement. Dans la saisie, tu les répartis entre les compétences que tu as travaillées, ton focus en tête ; ce que tu ne répartis pas t'attend dans Mes saisies.",go:'pd',b:'Voir'},
+  {t:'Un niveau par compétence',p:"Chaque compétence monte de niveau avec ses XP (10, 30, 60, 100, 150 XP…). La boussole de pratique montre la part de chacune et, en pointillé, tes 30 derniers jours. Un transfert, dans l'onglet Pratique délibérée, déplace des XP d'une compétence à l'autre sans en créer."},
+  {t:'Facultés commerciales',p:"Une compétence à part : après chaque rencontre réseau, invitation ou proposition, de 0 à 5 XP selon ton aisance, avec ce qui a été facile ou difficile. Elle se retrouve dans Suivi d'activité et sur ta fiche de coach."},
+  {t:'Tes anciennes notes converties',p:"Chaque entretien noté a reçu ses XP, répartis à parts égales entre les compétences que tu avais notées (le reste va à ton focus) ; une rencontre, une invitation ou une proposition notée donne sa note en XP de Facultés commerciales. Une copie de ton carnet a été faite juste avant, dans le dossier sauvegardes, et tes notes d'origine restent gardées dans chaque saisie. L'indicateur « Atteinte de l'objectif » laisse la place à « XP de pratique »."}]},
  {v:48,s:'2.5.0',d:'14 novembre 2026',items:[
   {t:'Un onglet Réseau',p:"En mode complet, tes personnes autour de leurs cercles, de leur public ou de leur problématique, ou en orbites autour de toi selon la proximité. La couleur dit l'étape, la taille le nombre d'échanges ; les pointillés rouges signalent qui relancer, le contour doré qui fait le pont entre deux cercles, les flèches dorées qui t'a recommandé qui."},
   {t:'Ce que montre ton réseau',p:"À côté du graphe : les passerelles, les groupes à réchauffer, les pistes de développement (aucune conversation de coaching encore) et les chaînes de recommandation. Un clic sur un nom ouvre la fiche, un clic sur un groupe le met en avant."},
@@ -180,10 +185,10 @@ async function afterLoad(){
 async function boot(){setTimeout(()=>{try{if(/[?&]demo=1/.test(location.search)&&(!DB||DB.demo)&&!DB?.demo){openDemo();return}if(DB?.demo&&DB.demoLang&&DB.demoLang!==LANG)openDemo();else demoBar()}catch(e){}},1500);
  $('main').style.visibility='hidden';closeWizard();
  try{if(!idb.db)await idb.open()}catch(e){}
- const cached=await idb.get('data');let fileRaw=null;NEEDPERM=false;
+ const cached=await idb.get('data');let fileRaw=null,fileTxt=null;NEEDPERM=false;
  if(FS_OK){DIR=DIR||await idb.get('dir')||null;
   if(DIR){let p='prompt';try{p=await DIR.queryPermission({mode:'readwrite'})}catch(e){}
-   if(p==='granted'){const t=await readFile(DIR,FILE);if(t){try{fileRaw=JSON.parse(t)}catch(e){toast(`${FILE} est illisible : il n'a pas été modifié. Restaure une sauvegarde.`);setStatus('err','Fichier illisible');return}}}
+   if(p==='granted'){const t=await readFile(DIR,FILE);fileTxt=t;if(t){try{fileRaw=JSON.parse(t)}catch(e){toast(`${FILE} est illisible : il n'a pas été modifié. Restaure une sauvegarde.`);setStatus('err','Fichier illisible');return}}}
    else NEEDPERM=true}}
  /* le fichier du dossier fait foi ; si la copie du navigateur est le même carnet, on FUSIONNE les deux (rien n'est perdu) */
  const other=fileRaw&&cached&&compatBook(fileRaw,cached)?cached:null,base=fileRaw||cached;
@@ -199,6 +204,11 @@ async function boot(){setTimeout(()=>{try{if(/[?&]demo=1/.test(location.search)&
  READONLY=(+plain.app_version||0)>APP_VERSION;LASTSEEN=fileRaw?fileRaw.enregistre_le||'':null;
  await afterLoad();if(READONLY){banner('old');setStatus('err','Lecture seule');return}
  if(added)toast(`${added} saisie(s) gardée(s) dans ce navigateur ont été réunies dans ton carnet`);
+ /* 3.0.0 : avant le passage aux XP, copie de sécurité du carnet tel qu'il était (une seule fois : ensuite version_schema vaut 4) */
+ if((+plain.version_schema||0)<4&&(plain.entrees||[]).length&&!plain.demo){let ok=false;
+  try{if(DIR&&!NEEDPERM&&fileTxt&&base===fileRaw){await snapshot(fileTxt,'avant-xp');ok=true}else{await idb.set('data_avant_xp',base);ok=true}}catch(e){}
+  if(ok)toast(`Ton carnet passe aux XP : une sauvegarde a été faite${DIR&&!NEEDPERM&&base===fileRaw?` (dossier ${BKDIR})`:''}`,'OK',()=>{});
+  else toast('Ton carnet passe aux XP. La copie de sécurité a échoué : tes anciennes notes restent gardées dans chaque saisie.','OK',()=>{})}
  if(added||base!==fileRaw||plain.version_schema!==VERSION||(+plain.app_version||0)<APP_VERSION||!plain.id||plain.prefs?.nouveautes_vues==null){if(added)DB.enregistre_le=new Date().toISOString();clearTimeout(saveT);await persist()}
  checkNews()
 }

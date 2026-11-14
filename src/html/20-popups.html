@@ -1,9 +1,9 @@
 <!-- ===== POPUP PROFIL COACH ===== -->
 <div class="ov" id="coM"><div class="modal" style="width:min(620px,100%)"><div class="mh"><h2>Mon profil de coach</h2><button class="x" id="coX">✕</button></div><div id="coB"></div><input type="file" id="coFile" accept="image/*" class="hide"><button class="save" id="coOk">Terminer</button></div></div>
 <!-- ===== POPUP MES COMPÉTENCES ===== -->
-<div class="ov" id="metM"><div class="modal" style="width:min(980px,100%)"><div class="mh"><h2>Mes compétences d'aisance</h2><button class="x" id="metX">✕</button></div>
-  <div class="hint" style="margin-top:6px">Tu notes ces compétences de 1 à 5 dans tes saisies ; elles forment ta boussole d'aisance. La <b>discipline</b> les regroupe sur la boussole, avec un arc de couleur. Le <b>focus</b> (3 au maximum) les place en tête de chaque saisie. Une compétence « non suivie » disparaît des saisies mais garde son historique ; renommer une compétence conserve ses notes ; elle n'est supprimable que si elle n'a aucune note.</div>
-  <div class="tscroll"><table class="pt tight" style="margin-top:12px"><thead><tr><th class="fit">Ordre</th><th class="fit">Compétence</th><th class="fit">Discipline</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th class="fit">Suivie</th><th class="fit">Focus</th><th class="fit">Notes</th><th></th></tr></thead><tbody id="metRows"></tbody></table></div>
+<div class="ov" id="metM"><div class="modal" style="width:min(980px,100%)"><div class="mh"><h2>Mes compétences</h2><button class="x" id="metX">✕</button></div>
+  <div class="hint" style="margin-top:6px">Tu répartis tes XP de pratique entre ces compétences dans tes saisies ; elles forment ta boussole de pratique. « Facultés commerciales » reçoit les XP de tes rencontres réseau, invitations et propositions : elle se renomme mais ne se supprime pas. La <b>discipline</b> les regroupe sur la boussole, avec un arc de couleur. Le <b>focus</b> (3 au maximum) les place en tête de chaque saisie. Une compétence « non suivie » disparaît des saisies mais garde son historique ; renommer une compétence conserve ses XP ; elle n'est supprimable que si elle n'a encore aucun XP.</div>
+  <div class="tscroll"><table class="pt tight" style="margin-top:12px"><thead><tr><th class="fit">Ordre</th><th class="fit">Compétence</th><th class="fit">Discipline</th><th class="fit">Suivie</th><th class="fit">Focus</th><th class="fit">Saisies</th><th></th></tr></thead><tbody id="metRows"></tbody></table></div>
   <button class="addl" id="addMet">+ Ajouter une compétence</button></div></div>
 <!-- ===== POPUP COMPÉTENCE ===== -->
 <div class="ov" id="cmpM"><div class="modal" style="width:min(680px,100%)"><div class="mh"><h2>Compétence</h2><button class="x" id="cmpX">✕</button></div><div id="cmpB"></div></div></div>
@@ -92,7 +92,7 @@
    </div>
    <div class="pfsep"></div>
    <div class="pfR">
-    <div class="pflab2 cx" style="margin-top:4px">Aisance moyenne</div><div class="pfais cx" id="pfAis"></div>
+    <div class="pflab2 cx" style="margin-top:4px">XP investis avec cette personne</div><div class="pfais cx" id="pfAis"></div>
     <div class="pflab2">Plan d'action</div><div id="pfActs"></div>
     <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div>
    </div>

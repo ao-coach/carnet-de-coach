@@ -51,7 +51,9 @@ const FAQ=()=>[
   ["Je change d'ordinateur.","Si ton dossier est synchronisé (OneDrive, Google Drive…), ouvre l'application sur le nouvel ordinateur et choisis « J'ai déjà un carnet ». Sinon, « Exporter JSON » sur l'ancien, « Importer » sur le nouveau."],
   ['Ça marche sur téléphone, Safari ou Firefox ?',"Pas encore : il faut Chrome ou Edge sur ordinateur pour écrire dans un dossier. Ailleurs, les saisies restent dans le navigateur : exporte-les régulièrement."]]],
  ['Utiliser le carnet',[
-  ['Que faut-il saisir, au minimum ?',"Chaque entretien : le type, la durée et la personne. Trente secondes. Les notes, l'aisance et le suivi sont facultatifs et enrichissent ta fiche."],
+  ['Que faut-il saisir, au minimum ?',"Chaque entretien : le type, la durée et la personne. Trente secondes. Les notes, les XP de pratique et le suivi sont facultatifs et enrichissent ta fiche."],
+  ['Que sont les XP de pratique ?',"En mode complet, chaque entretien rapporte des XP selon sa durée : 10 minutes = 1 XP, multiplié par 2 pour une séance ou une conversation, par 3 pour une supervision, par 1 pour un débrief ou un entraînement. Tu les répartis entre les compétences que tu as travaillées, et chacune monte de niveau (10, 30, 60, 100, 150 XP…). Les rencontres réseau, invitations et propositions rapportent de 0 à 5 XP de Facultés commerciales, avec ce qui a été facile ou difficile. Un transfert, dans l'onglet Pratique délibérée, déplace des XP d'une compétence à une autre sans en créer."],
+  ['Que sont devenues mes notes de 1 à 5 ?',"À la mise à jour 3.0.0, chaque entretien noté a reçu ses XP, répartis à parts égales entre les compétences que tu avais notées (le reste va à ton focus). Une rencontre, une invitation ou une proposition notée donne sa note en XP de Facultés commerciales. Une copie de ton carnet a été faite juste avant, dans le dossier sauvegardes, et tes notes d'origine restent gardées dans chaque saisie."],
   ['Invitation, conversation, séance : quelle différence ?',`<b>${esc(TM.invitation?.l||'Invitation')}</b> : tu proposes à quelqu'un de découvrir le coaching. <b>${esc(TM.conversation?.l||'Conversation')}</b> : un échange offert, une vraie séance de découverte. <b>${esc(TM.session?.l||'Séance')}</b> : une séance sous contrat, après une proposition acceptée.`],
   ['Comment noter un non ?',"Pour une invitation déclinée, coche « Elle a dit non » dans la saisie (ou plus tard dans Mes saisies). Pour une proposition, passe-la à « Refusée ». Tes non sont comptés dans Suivi d'activité : ils prouvent que tu proposes."],
   ["Comment l'étape d'une personne change-t-elle ?","Toute seule, au fil de tes saisies : une conversation la fait passer « En conversation », une proposition « Proposition envoyée », etc. Tu peux aussi la choisir à la main dans sa fiche. Le bouton « ? Les étapes » de l'onglet Personnes détaille tout."],
@@ -60,7 +62,7 @@ const FAQ=()=>[
   ["À quoi sert l'onglet Réseau ?","En mode complet, il dessine tes personnes autour de leurs cercles (ou de leur public, de leur problématique), ou en orbites autour de toi selon la proximité. La couleur dit l'étape, la taille le nombre d'échanges ; les pointillés rouges signalent les personnes à relancer, le contour doré les passerelles entre deux cercles. Le panneau de droite repère les passerelles, les groupes à réchauffer, les pistes de développement et les chaînes de recommandation. Un clic sur un point ouvre la fiche, un clic sur un groupe le met en avant."],
   ['Les personnes archivées ou « Sans suite » sont-elles dans le réseau ?',"Pas par défaut. La case « Inclure archivé·es et sans suite » les affiche en gris. Le dessin est recalculé à l'identique à chaque ouverture ; tu peux déplacer un point à la souris, le temps de la consultation, sans que rien soit enregistré."],
   ['Pourquoi certaines personnes ne sont pas dans le pipeline ?',"Le pipeline commence à l'invitation. Une personne seulement rencontrée (Rencontre réseau), ou sans aucune saisie, est un contact réseau : elle garde sa fiche, ses cercles et son rythme, et se retrouve par la recherche de l'onglet Personnes. Une invitation la fait entrer dans la colonne « Invité·e »."],
-  ['Mode simplifié ou complet ?',"Le simplifié garde l'essentiel : tes entretiens, tes personnes, ton activité. Le complet ajoute l'aisance, la pratique délibérée, les objectifs et les coûts. Bascule à tout moment, en haut à droite : rien n'est perdu."],
+  ['Mode simplifié ou complet ?',"Le simplifié garde l'essentiel : tes entretiens, tes personnes, ton activité. Le complet ajoute les XP de pratique, la pratique délibérée, les objectifs et les coûts. Bascule à tout moment, en haut à droite : rien n'est perdu."],
   ['Comment sont calculés mon niveau et mon rang ?',"Chaque statistique a son niveau, de 1 à 100, calé sur le parcours d'un coach régulier : le niveau 25 correspond à environ un an de pratique, le niveau 100 à une trentaine d'années. Ton niveau global est la moyenne des statistiques que tu as déjà commencé à remplir."],
   ["J'ai déjà des années de pratique : je repars de zéro ?","Non. Dans Coach > Reprendre ton historique, importe tes anciennes saisies en CSV ou déclare simplement tes totaux d'avant l'outil."]]],
  ["L'outil",[
@@ -89,7 +91,7 @@ const WS={
 
  mode:()=>({t:'Comment veux-tu commencer ?',lead:'Tu pourras changer à tout moment avec le bouton « Mode simplifié », en haut à droite. Rien n\'est perdu quand tu changes.',
   html:`<div class="wzmode"><button class="wzmc ${SIMPLE()?'on':''}" data-md="1"><b>Simplifié</b><p>L'essentiel : enregistrer tes entretiens, suivre ton activité et les personnes que tu accompagnes. Idéal pour démarrer.</p></button>
-   <button class="wzmc ${DB&&DB.prefs.simple===false?'on':''}" data-md="0"><b>Complet</b><p>Tout l'outil : aisance et pratique délibérée, fiche de coach, objectifs et plan d'action, coûts et taux horaire réel.</p></button></div>`,
+   <button class="wzmc ${DB&&DB.prefs.simple===false?'on':''}" data-md="0"><b>Complet</b><p>Tout l'outil : XP de pratique et pratique délibérée, fiche de coach, objectifs et plan d'action, coûts et taux horaire réel.</p></button></div>`,
   bind:()=>{document.querySelectorAll('[data-md]').forEach(b=>b.onclick=()=>{DB.prefs.simple=b.dataset.md=='1';touch();applyMode();renderWiz()})},
   go:()=>{if(DB&&DB.prefs.simple==null){DB.prefs.simple=true;touch();applyMode()}return true}}),
  principe:()=>({t:'Le principe',lead:'Une application simple, qui travaille pour toi et ne garde rien ailleurs que chez toi.',
@@ -111,40 +113,39 @@ const WS={
 
  types:()=>{const C=CFG(),O=C.ordre;
   return{t:'Tes types d\'entretien',lead:'Nomme tes activités et classe-les <b>par ordre d\'importance</b> en les faisant glisser. Le n° 1 forme la base des graphiques et reçoit la couleur la plus forte.',
-  html:`<div class="wzgrid2 types"><div class="wztbl"><table class="pt tight"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit" title="Noter ton aisance après ce type d'entretien">Aisance</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="wTypes">${O.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}">
+  html:`<div class="wzgrid2 types"><div class="wztbl"><table class="pt tight"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="wTypes">${O.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}">
    <td><span class="handle" title="Glisser pour réordonner">⋮⋮</span><span class="rk">${i+1}</span></td>
    <td><input type="color" data-c="${k}" value="${t.c}"></td><td><input class="ed" data-l="${k}" value="${esc(t.l)}" style="font-weight:700"></td>
    <td><select class="ed" data-du="${k}" style="width:84px">${DURS.map(d=>`<option value="${d}" ${d==t.d?'selected':''}>${fmtD(d)}</option>`).join('')}</select></td>
-   <td><button class="sw ${t.ais?'on':''}" data-a="${k}"></button></td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('')}</tbody></table></div>
+   <td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('')}</tbody></table></div>
    <div class="stackprev"><small>Aperçu d'une barre</small>${[...O].reverse().map((k,i)=>`<div class="r"><i style="background:${C.types[k].c}"></i>${esc(C.types[k].l)}</div>`).join('')}<small>↑ n° 1 à la base</small></div></div>
    <button class="addl" id="wAddT" ${O.length>=MAX_TYPES?'disabled':''}>+ Ajouter un type (${O.length}/${MAX_TYPES})</button>
-   <div class="hint">La colonne Aisance indique après quels entretiens tu notes tes axes de progression. « Compte dans » indique le calcul où le type est additionné (heures de coaching, pratique délibérée, développement ou autre). Tu peux ajouter jusqu\'à 10 types.${C.couleursAuto?'':' Tu as personnalisé des couleurs : elles ne suivent plus la palette (choisis une palette à l\'étape précédente pour revenir à l\'automatique).'}</div>`,
+   <div class="hint">« Compte dans » indique le calcul où le type est additionné (heures de coaching, pratique délibérée, développement ou autre). Tu peux ajouter jusqu\'à 10 types.${C.couleursAuto?'':' Tu as personnalisé des couleurs : elles ne suivent plus la palette (choisis une palette à l\'étape précédente pour revenir à l\'automatique).'}</div>`,
   bind:()=>{const B=$('wzBody');
    dragRows($('wTypes'),O,()=>{recolor(C);wzLive();renderWiz()});
    B.querySelectorAll('[data-c]').forEach(i=>i.onchange=()=>{C.types[i.dataset.c].c=i.value;C.couleursAuto=false;wzLive();renderWiz()});
    B.querySelectorAll('[data-l]').forEach(i=>i.onchange=()=>{C.types[i.dataset.l].l=i.value.trim()||defaultConfig().types[i.dataset.l]?.l||'Type';wzLive();renderWiz()});
    B.querySelectorAll('[data-du]').forEach(i=>i.onchange=()=>{C.types[i.dataset.du].d=+i.value;wzLive()});
-   B.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{const t=C.types[b.dataset.a];t.ais=!t.ais;wzLive();renderWiz()});
    bindTypeExtras(B,C,()=>{wzLive();renderWiz()});$('wAddT').onclick=()=>{if(addCustomType(C)){wzLive();renderWiz()}}}}},
 
  suivi:()=>{const L=k=>`<strong>${esc(TM[k].l)}</strong>`;return{t:'Comment le suivi fonctionne',lead:'Peu d\'indicateurs, regardés souvent : on progresse sur ce que l\'on mesure.',
   html:`<div class="wzcards">
    <div class="wzc"><div class="ic">1</div><b>Coacher beaucoup</b><p>Tes heures de ${L('conversation')} et de ${L('session')}, et le nombre de personnes accompagnées. C'est le volume qui muscle ta pratique.</p></div>
-   <div class="wzc"><div class="ic">2</div><b>Pratiquer délibérément</b><p>${L('debrief')}, ${L('supervision')}, et une note d'aisance après chaque entretien sur tes axes de progression. C'est ce qui transforme l'expérience en compétence.</p></div>
+   <div class="wzc"><div class="ic">2</div><b>Pratiquer délibérément</b><p>${L('debrief')}, ${L('supervision')}, et des XP de pratique à répartir après chaque entretien entre les compétences que tu travailles. C'est ce qui transforme l'expérience en compétence.</p></div>
    <div class="wzc"><div class="ic">3</div><b>Développer ton activité</b><p>${L('conversation')} offerte, puis ${L('proposition')} (montant proposé), puis ${L('session')} sous contrat (CA accepté) : le chemin d'un premier échange à un accompagnement. Chaque personne a sa fiche et son étape.</p></div></div>
-   <div class="flow3 f4"><div><b>Tableau de bord</b>Ton cap : priorités, plan d'action, personnes à relancer, cibles du trimestre.</div><div><b>Suivi d'activité</b>Tes tendances : temps passé chaque mois, aisance dans le temps.</div><div><b>Mes saisies</b>Le détail de chaque entretien, filtrable et modifiable.</div><div><b>Personnes</b>Les fiches de tes clients et prospects, en liste ou en pipeline.</div></div>
+   <div class="flow3 f4"><div><b>Tableau de bord</b>Ton cap : priorités, plan d'action, personnes à relancer, cibles du trimestre.</div><div><b>Suivi d'activité</b>Tes tendances : temps passé chaque mois, développement de ton activité.</div><div><b>Mes saisies</b>Le détail de chaque entretien, filtrable et modifiable.</div><div><b>Personnes</b>Les fiches de tes clients et prospects, en liste ou en pipeline.</div></div>
    <div class="wznote" style="display:flex;align-items:center;gap:12px"><span>Tes indicateurs se choisissent dans un catalogue de ${Object.keys(KPIDEF).length}, classés selon ces trois piliers.</span><button class="btn2" style="margin-left:auto;white-space:nowrap" data-kcat2>Choisir mes indicateurs</button></div>
    <div class="wznote">Au quotidien : un clic sur « + Enregistrer un temps » après chaque entretien. Moins de 30 secondes.</div>`,next:'Compris',bind:()=>{const b=document.querySelector('[data-kcat2]');if(b)b.onclick=openKcat}}},
 
- axes:()=>{const M=metrics(),cnt=id=>E().filter(e=>e.ais?.[id]).length;
+ axes:()=>{const M=metrics(),cnt=id=>E().filter(e=>+e.xp?.[id]>0).length;
   const SUG=[['Écoute','',''],['Questionnement','',''],['Reformulation','',''],['Présence','',''],['Gestion du silence','','']].filter(s=>!M.some(m=>m.l==s[0]));
-  const add=(l,mi,ma)=>{const n=M.reduce((x,m)=>Math.max(x,+m.id.slice(1)||0),0)+1;M.push({id:'m'+n,l,actif:true,min:mi,max:ma});wzLive();renderWiz()};
-  return{t:'Tes axes de progression',lead:'Après chaque entretien, tu notes de 1 à 5 les dimensions que tu travailles en ce moment. <b>Deux à cinq axes</b>, c\'est l\'idéal.',
-  html:`<div class="wztbl ax"><table class="pt tight"><thead><tr><th class="fit">Axe</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th></th></tr></thead><tbody>${M.map((m,i)=>`<tr class="${m.actif?'':'arch'}">
-   <td><input class="ed" data-f="l" data-i="${i}" value="${esc(m.l)}" style="font-weight:700"></td><td><input class="ed" data-f="min" data-i="${i}" value="${esc(m.min)}" placeholder="Ce que veut dire 1"></td><td><input class="ed" data-f="max" data-i="${i}" value="${esc(m.max)}" placeholder="Ce que veut dire 5"></td>
-   <td>${cnt(m.id)?`<button class="sw ${m.actif?'on':''}" data-act="${i}" title="Suivi"></button>`:`<button class="ibtn del" data-del="${i}" title="Retirer">✕</button>`}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Aucun axe pour l\'instant.</td></tr>'}</tbody></table></div>
+  const add=(l,mi,ma)=>{const n=M.reduce((x,m)=>Math.max(x,+String(m.id).slice(1)||0),0)+1;M.push({id:'m'+n,l,actif:true,min:mi,max:ma});wzLive();renderWiz()};
+  return{t:'Tes axes de progression',lead:'Après chaque entretien, tu répartis tes XP de pratique entre les compétences que tu as travaillées : chacune monte de niveau. <b>Deux à cinq axes</b>, c\'est l\'idéal. « Facultés commerciales » reçoit les XP de tes rencontres, invitations et propositions.',
+  html:`<div class="wztbl ax"><table class="pt tight"><thead><tr><th class="fit">Axe</th><th></th></tr></thead><tbody>${M.map((m,i)=>`<tr class="${m.actif?'':'arch'}">
+   <td><input class="ed" data-f="l" data-i="${i}" value="${esc(m.l)}" style="font-weight:700"></td>
+   <td>${m.fc?'':cnt(m.id)?`<button class="sw ${m.actif?'on':''}" data-act="${i}" title="Suivi"></button>`:`<button class="ibtn del" data-del="${i}" title="Retirer">✕</button>`}</td></tr>`).join('')||'<tr><td colspan="2" class="empty">Aucun axe pour l\'instant.</td></tr>'}</tbody></table></div>
    <label class="wzl">Suggestions</label><div class="chips">${SUG.map((s,i)=>`<button class="chip add" data-s="${i}">+ ${esc(s[0])}</button>`).join('')}<button class="chip add" id="wAddM">+ Autre axe</button></div>
-   <div class="wznote">Quand un axe est acquis, archive-le et ouvres-en un nouveau : l'historique de tes notes est toujours conservé.</div>`,
+   <div class="wznote">Quand un axe est acquis, archive-le et ouvres-en un nouveau : ses XP et son historique sont toujours conservés.</div>`,
   bind:()=>{const B=$('wzBody');
    B.querySelectorAll('[data-f]').forEach(i=>i.onchange=()=>{M[+i.dataset.i][i.dataset.f]=i.value.trim();wzLive()});
    B.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{M.splice(+b.dataset.del,1);wzLive();renderWiz()});
@@ -214,7 +215,7 @@ const WS={
    $('wzBody').querySelectorAll('[data-wld]').forEach(b=>b.onclick=()=>{F.lignes.splice(+b.dataset.wld,1);F.charges=linesTotal();touch();renderWiz()});
    $('wAddL').onclick=()=>{F.lignes.push({id:'c'+Date.now(),l:'',f:'',eur:0});touch();renderWiz();const ins=$('wzBody').querySelectorAll('[data-wl=l]');ins[ins.length-1]?.focus()}}}},
 
- first:()=>{const f=WTMP.f=WTMP.f||{type:'session',dur:TM.session.d,date:today(),nom:'',com:'',ais:{}},t=TM[f.type],MA=mActive();
+ first:()=>{const f=WTMP.f=WTMP.f||{type:'session',dur:TM.session.d,date:today(),nom:'',com:'',xp:{}},t=TM[f.type];f.xp=f.xp||{};
   if(WTMP.saved)return{t:'Ton premier entretien',html:`<div class="ok-box">✓ Entretien enregistré. Bravo, ton carnet est lancé.</div><div class="hint" style="margin-top:12px">Ensuite, tu enregistreras chaque entretien avec le bouton « + Enregistrer un temps », en haut à droite.</div>`};
   const types=T.filter(x=>x.p&&x.k!='debrief'&&x.k!='supervision');
   return{t:'Ton premier entretien',lead:'Enregistre ton dernier entretien : c\'est exactement le geste que tu feras après chaque séance.',skip:true,next:'Enregistrer et continuer',
@@ -224,15 +225,15 @@ const WS={
    <label class="wzl">Durée</label><div class="chips">${DURS.map(d=>`<button class="chip ${d==f.dur?'on':''}" data-fd="${d}">${fmtD(d)}</button>`).join('')}</div>
    <label class="wzl">Personne</label><input class="fin" id="fwP" list="fwPL" value="${esc(f.nom)}" placeholder="Prénom Nom (ou initiales)"><datalist id="fwPL">${DB.personnes.map(p=>`<option value="${esc(p.nom)}">`).join('')}</datalist>
    <label class="wzl">Ce qu'on a vu</label><input class="fin" id="fwC" value="${esc(f.com)}" placeholder="1 ligne : thème, déclic, pattern repéré…">
-  </div><div>${t.ais&&MA.length?`<label class="wzl" style="margin-top:0">Ton aisance</label>${MA.map(m=>`<div class="rate"><span>${esc(m.l)}${m.min||m.max?`<small>1 = ${esc(m.min)} · 5 = ${esc(m.max)}</small>`:''}</span><div class="dots">${[1,2,3,4,5].map(n=>`<span class="${n<=(f.ais[m.id]||0)?'on':''}" data-fm="${m.id}" data-fn="${n}">${n}</span>`).join('')}</div></div>`).join('')}`:'<div class="wznote" style="margin-top:0">Ce type d\'entretien ne comporte pas de notes d\'aisance.</div>'}</div></div>`,
+  </div><div>${SIMPLE()?'<div class="wznote" style="margin-top:0">En mode complet, chaque entretien rapporte des XP de pratique, que tu répartis entre les compétences travaillées.</div>':isCom(f.type)?'<div class="wznote" style="margin-top:0">Ce type rapporte de 0 à 5 XP de Facultés commerciales : tu les noteras dans le détail ◎ de la saisie, avec ce qui a été facile ou difficile.</div>':`<div id="fwXp">${xpBlock(f,f.type,f.dur)}</div>`}</div></div>`,
   bind:()=>{const B=$('wzBody');
    B.querySelectorAll('[data-ft]').forEach(b=>b.onclick=()=>{f.type=b.dataset.ft;f.dur=TM[f.type].d;renderWiz()});
    B.querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{f.dur=+b.dataset.fd;renderWiz()});
-   B.querySelectorAll('[data-fm]').forEach(s=>s.onclick=()=>{const k=s.dataset.fm,n=+s.dataset.fn;if(f.ais[k]==n)delete f.ais[k];else f.ais[k]=n;renderWiz()});
+   {const xb=$('fwXp');if(xb)bindPdForm(xb,{pa:{},rem:{},...f,xp:f.xp},renderWiz)}
    $('fwD').onchange=e=>f.date=e.target.value;$('fwP').oninput=e=>f.nom=e.target.value;$('fwC').oninput=e=>f.com=e.target.value},
   go:()=>{const nom=f.nom.trim();if(!nom){toast('Indique la personne, ou clique sur « Plus tard »');return false}
    let p=DB.personnes.find(x=>byName(x.nom,nom)==0);if(!p){p={id:nextId(DB.personnes),nom};DB.personnes.push(p)}
-   const tt=TM[f.type],e={id:nextId(E()),maj:new Date().toISOString(),date:f.date||today(),type:f.type,dur:f.dur,pid:p.id,com:f.com.trim(),cr:false,syn:false,ais:tt.ais&&Object.keys(f.ais).length?{...f.ais}:null};
+   const tt=TM[f.type],e={id:nextId(E()),maj:new Date().toISOString(),date:f.date||today(),type:f.type,dur:f.dur,pid:p.id,com:f.com.trim(),cr:false,syn:false};{const x=SIMPLE()||isCom(f.type)?null:xpClean(f,f.type,f.dur,false);if(x)e.xp=x}
    if(tt.prop){e.eur=0;e.engagement_mois=3;e.statut='attente'}
    E().push(e);touch();WTMP.saved=1;return true}}},
 

@@ -206,8 +206,11 @@ function timelineSVG(all,W=520){if(!all.length)return '<div class="hint" style="
  let last=-99;all.forEach(e=>{const xx=x(e.date),tx=Math.min(r-12,Math.max(l+12,xx));
   if(tx-last>=36){g+=`<text x="${tx}" y="${y-11}" text-anchor="middle" font-size="10" fill="#797D81">${e.date.slice(8,10)}/${e.date.slice(5,7)}</text>`;last=tx}});
  return `<svg viewBox="0 0 ${W} 56" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
-function aisBlock(all){const M=mActive().length?mActive():metrics();return M.map(m=>{const a=all.filter(e=>e.ais?.[m.id]),v=a.length?a.reduce((x,e)=>x+e.ais[m.id],0)/a.length:null;
-  return `<div class="ar"><span title="${esc(m.l)}">${esc(m.l)}</span><div class="bar"><b style="width:${v?(v-1)/4*100:0}%"></b></div><b>${v?n1(v):'—'}</b></div>`}).join('')}
+/* 3.0.0 : XP investis avec cette personne, par compétence (barres rapportées à la compétence la plus fournie) */
+function aisBlock(all){const G=xpGain(all),M=metrics().filter(m=>m.actif||(G[m.id]||0)>0),mx=Math.max(0,...M.map(m=>G[m.id]||0));
+  if(!mx)return '<div class="hint" style="margin:0">Aucun XP investi avec cette personne pour l\'instant.</div>';
+  return M.filter(m=>(G[m.id]||0)>0).sort((a,b)=>(G[b.id]||0)-(G[a.id]||0)).map(m=>{const v=G[m.id]||0;
+  return `<div class="ar"><span title="${esc(m.l)}">${esc(m.l)}</span><div class="bar"><b style="width:${v/mx*100}%"></b></div><b>${num(v)} XP</b></div>`}).join('')}
 const webUrl=v=>!v?'':/^https?:\/\//i.test(v.trim())?v.trim():'https://'+v.trim().replace(/^\/+/,'');
 const webHost=v=>{try{return new URL(webUrl(v)).hostname.replace(/^www\./,'')}catch(e){return v}};
 const siteLink=p=>p?.site?`<a class="site" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">${esc(webHost(p.site))} ↗</a>`:'';
@@ -410,8 +413,8 @@ function parseDur(x){x=String(x||'').trim().toLowerCase().replace(/\s+/g,'');if(
  if(m=x.match(/^(\d+(?:[.,]\d+)?)$/)){const v=parseFloat(m[1].replace(',','.'));return v<=10?Math.round(v*60):Math.round(v)}
  return null}
 $('mDurX').oninput=()=>{const v=parseDur($('mDurX').value),o=$('mDurOk');if(!$('mDurX').value.trim()){o.textContent='';o.className='';return}
- if(v&&v>0){S.dur=v;o.textContent='= '+fmtD(v);o.className='';$('mDurs').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'))}else{o.textContent='format non reconnu';o.className='bad'}};
-const S={type:'session',dur:90,pid:null,cdur:3,ais:{},pa:{},rem:{}};let NEWP=[],MREC=[];
+ if(v&&v>0){S.dur=v;o.textContent='= '+fmtD(v);o.className='';$('mDurs').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));renderModalPd()}else{o.textContent='format non reconnu';o.className='bad'}};
+const S={type:'session',dur:90,pid:null,cdur:3,xp:{},fcom:'',pa:{},rem:{}};let NEWP=[],MREC=[];
 function mChips(el,items,cur,cls,cb){$(el).innerHTML=items.map(it=>`<button class="chip ${cls||''} ${it.v===cur?'on':''} ${it.add?'add':''}" style="${it.c?`--c:${it.c};--t:${tc(it.c)}`:''}">${esc(it.l)}</button>`).join('');[...$(el).children].forEach((b,i)=>b.onclick=()=>cb(items[i].v))}
 function renderModal(){const t=TM[S.type];
  renderTypeChips();
@@ -427,8 +430,10 @@ function renderModal(){const t=TM[S.type];
  mChips('mCdur',[1,2,3,6,9,12].map(n=>({v:n,l:n+' mois'})),S.cdur,'',v=>{S.cdur=v;renderModal()});
  $('mPB').classList.toggle('hide',!t.p);$('mCR').classList.toggle('hide',!t.cr);$('mProp').classList.toggle('hide',!t.prop);$('mInv').classList.toggle('hide',S.type!='invitation');$('mSup').classList.toggle('hide',S.type!='supervision');
  if(S.type=='supervision'){const d=+CFG().finances.supDefaut||0;$('mCout').placeholder=d?`Prix moyen : ${d} €`:'Montant €'}
- const pdh=pdForm(S,S.type);$('mAis').classList.toggle('hide',!pdh);$('mPD').innerHTML=pdh;bindPdForm($('mPD'),S,renderModal);
+ renderModalPd();
  const pool=S.type=='supervision'?supPool().length:0;$('mSupP').classList.toggle('hide',!pool);if(pool){$('mSupJ').onchange=()=>$('mSupL').classList.toggle('hide',!$('mSupJ').checked);renderSupPrep('mSupL',true)}}
+/* bloc « pratique délibérée » de la saisie : actions, XP de pratique ou Facultés commerciales, remarques (masqué en mode simplifié) */
+function renderModalPd(){const pdh=pdForm(S,S.type,S.dur);$('mAis').classList.toggle('hide',!pdh);$('mPD').innerHTML=pdh;bindPdForm($('mPD'),S,renderModalPd)}
 /* 2.3.0 : recherche de personne dans la saisie (les boutons gardent les personnes récentes) */
 const mPQcfg=()=>({input:1,boost:[...NEWP,...MREC],cur:S.pid,onPick:(id,created)=>{if(created)NEWP.unshift(id);S.pid=id;$('mPQ').value='';pkClose();renderModal()}});
 $('mPQ').oninput=()=>{PK.i=0;if($('mPQ').value.trim())pkOpen($('mPQ'),mPQcfg());else pkClose()};
@@ -437,12 +442,15 @@ $('mPQ').onfocus=()=>{if($('mPQ').value.trim())pkOpen($('mPQ'),mPQcfg())};
 $('mCom').onkeydown=e=>{if(e.key=='Enter'&&!LONGCOM(S.type)){e.preventDefault()}};
 $('mCom').oninput=()=>{const c=$('mCom');if(!LONGCOM(S.type)&&/\n/.test(c.value))c.value=c.value.replace(/\s*\n+\s*/g,' ');fitTA(c)};
 ['tCR','tSY','tNON'].forEach(i=>$(i).onclick=()=>$(i).classList.toggle('on'));
-const openM=ty=>{if(typeof ty=='string'&&TM[ty]){S.type=ty;S.dur=TM[ty].d}$('fDate').value=today();$('mPQ').value='';$('mDurX').value='';$('mDurOk').textContent='';S.ais={};S.pa={};S.rem={};$('mSupJ').checked=true;$('mSupL').classList.remove('hide');renderModal();$('ov').classList.add('show')},closeM=()=>{pkClose();$('ov').classList.remove('show')};
+const openM=ty=>{if(typeof ty=='string'&&TM[ty]){S.type=ty;S.dur=TM[ty].d}$('fDate').value=today();$('mPQ').value='';$('mDurX').value='';$('mDurOk').textContent='';S.xp={};S.fcom='';S.pa={};S.rem={};$('mSupJ').checked=true;$('mSupL').classList.remove('hide');renderModal();$('ov').classList.add('show')},closeM=()=>{pkClose();$('ov').classList.remove('show')};
 $('openLog').onclick=()=>openM();$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape'){if($('cropM').classList.contains('show')){$('crClose').click()}else if($('vicDM').classList.contains('show'))$('vicDX').click();else if($('vicM').classList.contains('show'))$('vicX').click();else if($('pipeM').classList.contains('show'))$('pipeX').click();else if($('cel3').classList.contains('show'))$('c3ok')?.click();else if($('cel2').classList.contains('show'))$('c2ok')?.click();else if($('metM').classList.contains('show'))$('metX').click();else if($('coM').classList.contains('show'))$('coX').click();else if($('libM').classList.contains('show'))$('libX').click();else if($('pdeM').classList.contains('show'))$('pdeX').click();else if($('cmpM').classList.contains('show'))$('cmpX').click();else if($('cropM').classList.contains('show'))$('cropM').classList.remove('show');else if($('pfM').classList.contains('show'))closeFiche();else closeM()}});
 $('mSave').onclick=()=>{const t=TM[S.type];
  if(pReq(S.type)&&S.pid==null){toast('Choisis la personne : elle est obligatoire pour ce type de saisie');return}
+ if(!SIMPLE()&&isCom(S.type)&&fcMet()&&!(S.fcom||'').trim()){const f=fcMet();toast(`${f.l} : écris ce qui a été facile ou difficile`);const ta=$('mPD').querySelector('[data-fcom]');if(ta)ta.focus();return}
+ if(!SIMPLE()&&xpSum(S.xp)>Math.round((+S.dur||0)/10)*xpMult(S.type)&&!isCom(S.type)){toast('Plus d\'XP répartis que la saisie n\'en rapporte : retires-en');return}
  const e={id:nextId(E()),maj:new Date().toISOString(),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),...($('mNotes').value.trim()?{notes:$('mNotes').value.trim()}:{}),
-  cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on'),ais:t.ais&&Object.keys(S.ais).length?{...S.ais}:null};
+  cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on')};
+ if(!SIMPLE()){const x=xpClean(S,S.type,S.dur,false);if(x)e.xp=x;if(isCom(S.type)&&(S.fcom||'').trim())e.fcom=S.fcom.trim()}
  if(S.type=='supervision'){if($('mFree').checked){e.gratuit=true;e.cout=0}else if($('mCout').value!==''&&+$('mCout').value>0)e.cout=+$('mCout').value;$('mCout').value='';$('mFree').checked=false;$('mCout').disabled=false}
  if(S.type=='invitation'&&$('tNON').classList.contains('on'))e.non=true;$('tNON').classList.remove('on');
  if(t.prop){if(+$('mSea').value)e.seances=+$('mSea').value;$('mSea').value='';e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}

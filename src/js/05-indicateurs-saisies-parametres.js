@@ -33,11 +33,12 @@ const pids=(L,types)=>new Set(L.filter(e=>types.includes(e.type)&&e.pid!=null).m
 function firstCoach(){const m={};E().forEach(e=>{if(COACH.includes(e.type)&&e.pid!=null&&(!m[e.pid]||e.date<m[e.pid]))m[e.pid]=e.date});return m}
 function weeksActive(D){const d=new Date(D.t+'T12:00:00Z'),mon=addDays(D.t,-((d.getUTCDay()+6)%7));
   return Array.from({length:12},(_,i)=>{const a=addDays(mon,-7*(11-i)),b=addDays(a,6);return E().some(e=>COACH.includes(e.type)&&e.date>=a&&e.date<=b)?1:0})}
-function discipline(L){const f=L.filter(e=>TM[e.type]?.cr),a=L.filter(e=>TM[e.type]?.ais),r=[];
-  const cr=f.length?f.filter(e=>e.cr).length/f.length:null,sy=f.length?f.filter(e=>e.syn).length/f.length:null,no=a.length?a.filter(hasAis).length/a.length:null;
+function discipline(L){const f=L.filter(e=>TM[e.type]?.cr),a=L.filter(e=>xpBudget(e)>0),r=[];
+  const cr=f.length?f.filter(e=>e.cr).length/f.length:null,sy=f.length?f.filter(e=>e.syn).length/f.length:null,no=a.length?a.filter(e=>xpLeft(e)<=0).length/a.length:null;
   [cr,sy,no].forEach(v=>{if(v!=null)r.push(v)});return{g:r.length?r.reduce((x,y)=>x+y,0)/r.length:null,cr,sy,no,n:f.length}}
 function aisAvg(L,id){const v=[];L.forEach(e=>{if(!e.ais)return;Object.entries(e.ais).forEach(([k,x])=>{if(x&&(!id||k==id))v.push(x)})});return v.length?v.reduce((a,b)=>a+b,0)/v.length:null}
-const objMetric=()=>metrics().find(m=>/atteinte|objectif/i.test(m.l))||mActive()[0];
+/* 3.0.0 : XP gagnés (budget de pratique + Facultés commerciales) sur une liste de saisies */
+const xpWin=L=>L.reduce((s,e)=>s+xpEarned(e),0);
 const delta=(a,b)=>a==null||b==null?'':` · ${a-b>=0?'+':''}${n1(a-b)} vs 90 j précédents`;
 const KPIDEF={
  h:{p:1,l:'Heures de coaching',w:'an',u:'Le volume qui muscle ta pratique.',v:D=>[n1(D.s.h),'h'],d:D=>`31 derniers jours : <b>${n1(D.r.h)} h</b>`,sp:D=>D.monthly(L=>stats(L).h)},
@@ -50,12 +51,10 @@ const KPIDEF={
  active:{p:1,l:'Clients actifs',w:'j31',u:'Les accompagnements réellement en cours.',v:D=>[pids(range(addDays(D.t,-30),D.t),['session']).size,''],
    d:D=>`avec une session ces 31 jours · <b>${pids(range(addDays(D.t,-30),D.t),['conversation']).size}</b> en conversation`},
  delib:{p:2,l:'Pratique délibérée',w:'an',u:'Débriefs et supervision : ce qui transforme l\'expérience en compétence.',v:D=>[n1(D.s.delib),'h'],d:D=>`31 derniers jours : <b>${n1(D.r.delib)} h</b> · ${D.s.h?n1(D.s.delib/D.s.h):'—'} h par h de coaching`,sp:D=>D.monthly(L=>stats(L).delib)},
- disc:{p:2,l:'Discipline post-séance',w:'j90',u:'CR, synthèse et notes d\'aisance faits après les entretiens.',v:D=>{const x=discipline(D.win(89,0));return[pct(x.g),x.g==null?'':'%']},
-   d:D=>{const x=discipline(D.win(89,0));return x.n?`CR <b>${pct(x.cr)} %</b> · synthèse <b>${pct(x.sy)} %</b> · notes <b>${pct(x.no)} %</b>`:'aucun entretien sur 90 jours'}},
- aism:{p:2,l:'Aisance moyenne',w:'j90',u:'Ton ressenti de maîtrise, tous axes confondus.',v:D=>{const a=aisAvg(D.win(89,0));return[a==null?'—':n1(a),a==null?'':'/ 5']},
-   d:D=>{const a=aisAvg(D.win(89,0)),b=aisAvg(D.win(179,90));return a==null?'pas encore de notes sur 90 jours':`moyenne des notes${delta(a,b)}`}},
- obj:{p:2,l:'Atteinte de l\'objectif du rdv',w:'j90',u:'L\'efficacité de tes séances, vue par toi.',v:D=>{const m=objMetric(),a=m?aisAvg(D.win(89,0),m.id):null;return[a==null?'—':n1(a),a==null?'':'/ 5']},
-   d:D=>{const m=objMetric();if(!m)return 'aucun axe défini';const a=aisAvg(D.win(89,0),m.id),b=aisAvg(D.win(179,90),m.id);return a==null?`axe « ${esc(m.l)} » pas encore noté`:`axe « ${esc(m.l)} »${delta(a,b)}`}},
+ disc:{p:2,l:'Discipline post-séance',w:'j90',u:'CR, synthèse et XP répartis après les entretiens.',v:D=>{const x=discipline(D.win(89,0));return[pct(x.g),x.g==null?'':'%']},
+   d:D=>{const x=discipline(D.win(89,0));return x.n?`CR <b>${pct(x.cr)} %</b> · synthèse <b>${pct(x.sy)} %</b> · XP répartis <b>${pct(x.no)} %</b>`:'aucun entretien sur 90 jours'}},
+ aism:{p:2,l:'XP de pratique',w:'j90',u:'Les XP gagnés en coachant et en pratiquant : le temps investi dans tes compétences.',v:D=>[num(xpWin(D.win(89,0))),'XP'],
+   d:D=>{const a=xpWin(D.win(89,0)),b=xpWin(D.win(179,90));return `XP gagnés en 90 jours · <b>${a-b>=0?'+':''}${num(a-b)}</b> vs 90 j précédents`},sp:D=>D.monthly(xpWin)},
  inv:{p:3,l:'Invitations',w:'an',u:'Proposer une conversation de coaching : le geste qui nourrit tout le reste.',v:D=>[D.s.inv,''],d:D=>`31 derniers jours : <b>${D.r.inv}</b>`,sp:D=>D.monthly(L=>stats(L).inv)},
  caprop:{p:3,l:'CA accepté / proposé',w:'an',u:'Ce que tu signes, face à ce que tu proposes.',v:D=>[num(D.s.ca),`€ <span class="of">/ ${num(D.s.prop)} € proposés</span>`],
    d:D=>`${D.s.nacc} acceptée${D.s.nacc>1?'s':''} sur ${pl(D.s.nprop,'proposition')} · 31 derniers jours : <b>${eur(D.r.ca)}</b> signés`,sp:D=>D.monthly(L=>stats(L).ca)},
@@ -100,6 +99,7 @@ function kLevel(k){try{const key=KLV[k];let L=null,tot=null;
   else if(k=='newp')tot=String(Object.keys(firstCoach()).length);
   else if(k=='recos')tot=String(recoOf(null).length);
   else if(k=='pvues')tot=String(pvN(E()));
+  else if(k=='aism'){const t=xpWin(E());L=xpLvl(t).L;tot=num(t)+' XP'}
   if(L==null&&tot==null)return'';
   return `<div class="lvb" title="${L!=null?'Niveau · total toutes années':'Total toutes années'}">${L!=null?`<b>Niv. ${L}</b>`:''}<small class="${L==null?'alone':''}">${tot}</small></div>`}catch(e){return''}}
 /* charges de l'année : en entier, ou au prorata des jours écoulés */
@@ -126,7 +126,7 @@ function tileBig(k,i,D,drag){const K=KPIDEF[k],[v,u]=K.v(D);
  return `<div class="kpi ${drag?'drg':''}" data-k="${k}" ${drag?'draggable="true"':''} style="background:${kpiBg(i)}">${kLevel(k)}<div class="l">${kLabel(k,D)}</div><div class="v">${v}<small>${u?' '+u:''}</small></div><div class="d">${K.d(D)}</div>${K.bars?bars(K.bars(D)):K.sp?spark(K.sp(D)):''}</div>`}
 function tileSmall(k,D){const K=KPIDEF[k],[v,u]=K.v(D);
  return `<div class="k2 drg" data-k="${k}" draggable="true"><span class="v">${v}${u?' '+u:''}</span><span class="l">${K.l.toLowerCase()}<span class="win">${winTxt[K.w](D)}</span></span><div class="d">${K.d(D)}</div></div>`}
-const SXK=['disc','aism','obj','rate','target','late'];
+const SXK=['disc','aism','rate','target','late'];
 const kOrder3=()=>SIMPLE()?[...new Set([...kOrder().filter(k=>!SXK.includes(k)),...KPI_DEFAULT.filter(k=>!SXK.includes(k))])].slice(0,3):kOrder().slice(0,3);
 function bigKPI(el,drag){const D=kctx();if(SIMPLE())drag=false;$(el).innerHTML=kOrder3().map((k,i)=>tileBig(k,i,D,drag)).join('');if(drag)bindKpiDrag()}
 function smallKPI(){const D=kctx(),o=kOrder().slice(3);$('kpis2').innerHTML=o.map(k=>tileSmall(k,D)).join('');$('kpis2').classList.toggle('hide',!o.length);bindKpiDrag()}
@@ -327,28 +327,34 @@ function renderPCards(){const ids=[...F.p].filter(pid=>E().some(e=>e.pid==pid));
    <div class="meta">Depuis le ${dShort(first)} · dernière fois le ${dShort(last)}</div>
    <div class="nums"><div><b>${all.filter(e=>e.type=='conversation').length}</b>conversations</div><div><b>${all.filter(e=>e.type=='session').length}</b>sessions</div><div><b>${n1(s.h)} h</b>coaching · ${n1(H(all.filter(e=>e.type=='debrief')))} h débrief</div><div><b>${props.some(e=>e.statut=='acceptee')?eur(s.ca):props.length?'en attente':'—'}</b>contrat${s.mois?' · '+s.mois+' mois':''}</div></div>
    <div class="pcb"><button class="arch-btn" data-pfo="${pid}">Fiche</button><button class="arch-btn" data-arch="${pid}">${per?.archive?'Réactiver':'Archiver'}</button></div>
-  </div><div class="pc2sep cx"></div><div class="cx" style="min-width:0"><div class="lab2">Aisance moyenne</div><div class="pfais one">${aisBlock(all)}</div></div></div>
+  </div><div class="pc2sep cx"></div><div class="cx" style="min-width:0"><div class="lab2">XP investis avec cette personne</div><div class="pfais one">${aisBlock(all)}</div></div></div>
   <div class="pc2tl"><div class="lab2">Échanges</div>${timelineSVG(all,700)}</div></div>`;
  $('pcards').querySelectorAll('[data-pct]').forEach(b=>b.onclick=()=>{PCTAB=b.dataset.pct;renderPCards();bindArch()})}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
 const short=s=>{s=TR(s);return s.length>12?s.slice(0,11)+'.':s};
 const LV={notes:false,k:false};
+/* 3.0.0 : état des XP d'une saisie dans Mes saisies (mode complet) : à répartir (jaune), dépassement (rouge) */
+const xpRowCls=e=>{const B=xpBudget(e),l=xpLeft(e);return l<0?'xpov':B>0&&l>0?'xpna':''};
+function xpStat(e){const B=xpBudget(e),l=xpLeft(e),fc=xpFcOf(e);if(!B&&!xpPut(e))return isCom(e.type)?(fc?`<small>${fc} XP</small>`:''):'<small>—</small>';
+ return `<b>${B}</b>${l>0?`<small class="na">${l} à répartir</small>`:l<0?`<small class="ov">${-l} de trop</small>`:'<small class="ok">✓</small>'}`}
+function xpSumTxt(e,MS){const B=xpBudget(e),l=xpLeft(e),p=MS.filter(m=>+e.xp?.[m.id]>0).map(m=>`${xpAbbr(m.l)} ${e.xp[m.id]}`);
+ if(!B&&!p.length)return '';const h=[B?`${B} XP`:'',...p].filter(Boolean).join(' · ');return `${h}${B&&l>0?` <small class="na">· ${l} à répartir</small>`:l<0?` <small class="ov">· ${-l} de trop</small>`:''}`}
 function renderRows(L){
  const MS=SIMPLE()?[]:$('showArch').checked?metrics():mActive();
- const NH=!MS.length?'':LV.notes?MS.map((m,i)=>`<th class="c cn fit ${m.actif?'':'arch'}" title="${esc(m.l)} (1 = ${esc(m.min)}, 5 = ${esc(m.max)})">${i==0?'<button class="tgl" data-tg="notes" title="Replier les notes">◂</button>':''}${esc(short(m.l))}</th>`).join(''):`<th class="cn fit"><button class="tgl" data-tg="notes" title="Déplier pour modifier les notes">Notes ▸</button></th>`;
+ const NH=!MS.length?'':LV.notes?`<th class="c cn fit"><button class="tgl" data-tg="notes" title="Replier les XP">◂</button>XP</th>`+MS.map(m=>`<th class="c cn fit ${m.actif?'':'arch'}" title="${esc(m.l)}">${esc(short(m.l))}</th>`).join(''):`<th class="cn fit"><button class="tgl" data-tg="notes" title="Déplier pour répartir les XP">XP ▸</button></th>`;
  const KH=LV.k?`<th class="kk fit"><button class="tgl" data-tg="k" title="Replier">◂</button>Accepté</th><th class="kk fit">Montant</th><th class="kk fit">Durée</th><th class="kk fit">Séances</th>`:`<th class="kk fit"><button class="tgl" data-tg="k" title="Déplier pour modifier">Contrat / coût ▸</button></th>`;
  $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th>Ce qu'on a vu</th>${NH}${KH}<th class="fit"></th></tr>`;
  $('rowsHead').querySelectorAll('[data-tg]').forEach(b=>b.onclick=()=>{LV[b.dataset.tg]=!LV[b.dataset.tg];renderRows(L)});
  L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
- $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
+ $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}" class="${MS.length?xpRowCls(e):''}">
  <td class="pcell"><button type="button" class="ed psel pbtn${e.pid==null&&!e.psup&&pReq(e.type)?' miss':''}" data-pp title="${e.pid==null&&!e.psup&&pReq(e.type)?'Personne à renseigner':'Changer la personne'}">${e.pid!=null?esc(pname(e.pid))||'—':e.psup?'Personne supprimée':'—'}</button>${e.pid!=null?`<button class="pflt" data-p="${e.pid}" title="Filtrer sur cette personne"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>`:''}</td>
  <td><input type="date" class="ed" data-k="date" value="${e.date}" style="width:122px"></td>
  <td class="ty"><select class="tysel" data-k="type" style="background:${t.c};color:${tc(t.c)}">${T.map(x=>`<option value="${x.k}" ${x.k==e.type?'selected':''} style="background:#fff;color:#1d1d1f">${esc(x.l)}</option>`).join('')}</select></td>
  <td><select class="ed" data-k="dur" style="width:72px">${(DURS.includes(e.dur)?DURS:[e.dur,...DURS]).map(d=>`<option value="${d}" ${d==e.dur?'selected':''}>${fmtD(d)}</option>`).join('')}<option value="x">Autre…</option></select></td>
  <td>${t.cr?`<div class="ck ${e.cr?'on':''}" data-c="cr">✓</div>`:''}</td><td>${t.cr?`<div class="ck ${e.syn?'on':''}" data-c="syn">✓</div>`:''}</td>
  <td class="grow">${LONGCOM(e.type)||/\n/.test(e.com||'')?`<textarea class="ed comta" data-k="com" rows="${Math.min(8,String(e.com||'').split('\n').length)}" placeholder="—">${esc(e.com)}</textarea>`:`<input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—">`}</td>
- ${!MS.length?'':LV.notes?MS.map(m=>{const v=e.ais?.[m.id]||0;return `<td class="cn">${t.ais||v?`<select class="as" data-m="${m.id}" title="${esc(m.l)}" style="background:${AC[v]}"><option value="">·</option>${[1,2,3,4,5].map(n=>`<option ${v==n?'selected':''}>${n}</option>`).join('')}</select>`:''}</td>`}).join('')
-   :`<td class="cn sumc" data-open="notes">${e.ais&&Object.keys(e.ais).length?MS.map(m=>e.ais[m.id]||'·').join(' '):''}</td>`}
+ ${!MS.length?'':LV.notes?`<td class="cn xps">${xpStat(e)}</td>`+MS.map(m=>{const v=+e.xp?.[m.id]||0,ok=m.fc?isCom(e.type):xpMult(e.type)>0;return `<td class="cn">${ok||v?`<input type="number" class="ed xpi" min="0" ${m.fc?'max="5"':''} step="1" data-xm="${esc(m.id)}" value="${v||''}" placeholder="·" title="${esc(m.l)}">`:''}</td>`}).join('')
+   :`<td class="cn sumc" data-open="notes">${xpSumTxt(e,MS)}</td>`}
  ${LV.k?(e.type=='proposition'?`<td class="kk"><select class="ed" data-k="statut" style="font-weight:800;width:auto;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></td>
    <td class="kk"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€" style="width:80px"></td>
    <td class="kk"><select class="ed" data-k="engagement_mois" style="width:auto">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></td>
@@ -356,7 +362,7 @@ function renderRows(L){
    :e.type=='invitation'?`<td class="kk"><label class="small" style="display:flex;gap:5px;align-items:center;white-space:nowrap;cursor:pointer;font-weight:800;color:${e.non?'var(--red)':'inherit'}"><input type="checkbox" data-non ${e.non?'checked':''}> Elle a dit non</label></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>`
    :e.type=='supervision'&&!SIMPLE()?`<td class="kk"><label class="small" style="display:flex;gap:5px;align-items:center;white-space:nowrap;cursor:pointer"><input type="checkbox" data-free ${e.gratuit?'checked':''}> non payante</label></td><td class="kk"><input class="ed" type="number" min="0" data-k="cout" value="${+e.cout>0?e.cout:''}" placeholder="${e.gratuit?'—':(+CFG().finances.supDefaut?'moy. '+CFG().finances.supDefaut+' €':'coût €')}" title="Vide = prix moyen" style="width:90px" ${e.gratuit?'disabled':''}></td><td class="kk"></td><td class="kk"></td>`:'<td class="kk"></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>')
    :`<td class="kk sumc" data-open="k">${e.type=='proposition'?`<b style="color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${STAT[e.statut]||'En attente'}</b> · ${eur(e.eur)}${e.engagement_mois?' · '+e.engagement_mois+' mois':''}${e.seances?' · '+e.seances+' séances':''}`:e.type=='invitation'?(e.non?'<b style="color:var(--red)">A dit non</b>':''):e.type=='supervision'&&!SIMPLE()?(e.gratuit?'non payante':`coût ${eur(supCost(e))}${+e.cout>0?'':' (prix moyen)'}`):''}</td>`}
- <td class="nw2"><button class="pdb ${pdHas(e)?'on':''}" data-pde="${e.id}" title="Notes et pratique délibérée de l'entretien">◎</button><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${8+(MS.length?(LV.notes?MS.length:1):0)+(LV.k?4:1)}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
+ <td class="nw2"><button class="pdb ${pdHas(e)?'on':''}" data-pde="${e.id}" title="Notes et pratique délibérée de l'entretien">◎</button><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${8+(MS.length?(LV.notes?MS.length+1:1):0)+(LV.k?4:1)}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
  $('rows').querySelectorAll('[data-open]').forEach(c=>c.ondblclick=c.onclick=()=>{LV[c.dataset.open]=true;renderRows(L)});
  $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
   tr.querySelectorAll('.ck').forEach(c=>c.onclick=()=>{e[c.dataset.c]=!e[c.dataset.c];c.classList.toggle('on');fl()});
@@ -364,14 +370,17 @@ function renderRows(L){
   tr.querySelectorAll('textarea.comta').forEach(ta=>{ta.addEventListener('input',()=>fitTA(ta));ta.addEventListener('focus',()=>fitTA(ta))});
   const nn=tr.querySelector('[data-non]');if(nn)nn.onchange=()=>{if(nn.checked)e.non=true;else delete e.non;fl();renderList()};
   const fr=tr.querySelector('[data-free]');if(fr)fr.onchange=()=>{if(fr.checked)e.gratuit=true;else delete e.gratuit;fl();renderList()};
-  tr.querySelectorAll('select.as').forEach(s=>s.onchange=()=>{e.ais=e.ais||{};if(s.value)e.ais[s.dataset.m]=+s.value;else delete e.ais[s.dataset.m];if(!Object.keys(e.ais).length)e.ais=null;s.style.background=AC[+s.value||0];fl()});
+  /* 3.0.0 : XP par compétence ; jamais au-delà du budget à la saisie, Facultés commerciales de 0 à 5 */
+  tr.querySelectorAll('input.xpi').forEach(i=>i.onchange=()=>{const k=mById(i.dataset.xm)?.id??i.dataset.xm,old=+e.xp?.[k]||0;let v=Math.max(0,Math.round(+i.value||0));
+   if(isFc(k))v=Math.min(5,v);else{const room=Math.max(old,old+xpLeft(e));if(v>room){v=room;toast(`Pas plus de ${xpBudget(e)} XP pour cette saisie`)}}
+   e.xp=e.xp||{};if(v)e.xp[k]=v;else delete e.xp[k];if(!Object.keys(e.xp).length)delete e.xp;i.value=v||'';tr.className=xpRowCls(e);const st=tr.querySelector('.xps');if(st)st.innerHTML=xpStat(e);fl()});
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
    if(k=='dur'&&i.value==='x'){const inp=document.createElement('input');inp.className='ed';inp.placeholder='2h30';inp.style.width='72px';inp.title='2,5 · 2h30 · 150min';i.replaceWith(inp);inp.focus();let ok=false;
     inp.onkeydown=ev=>{if(ev.key==='Enter')inp.blur();if(ev.key==='Escape'){inp.value='';inp.blur()}};
     inp.onblur=()=>{if(ok)return;ok=true;const v=parseDur(inp.value);if(v>0){e.dur=v;fl()}else if(inp.value.trim())toast('Durée non reconnue : 2,5 · 2h30 · 150min');renderList()};return}
    e[k]=['dur','eur','engagement_mois','cout','seances'].includes(k)?(i.value===''?null:+i.value):i.value;
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
-   fl();if(['type','date','statut'].includes(k))renderList()});
+   fl();if(['type','date','statut','dur'].includes(k))renderList()});
   tr.querySelector('[data-pde]').onclick=()=>openPdEdit(e.id);
   tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
   const p=tr.querySelector('.pflt');if(p)p.onclick=()=>{const v=DB.personnes.find(x=>String(x.id)===p.dataset.p)?.id;if(v==null)return;F.p.has(v)?F.p.delete(v):F.p.add(v);renderList();window.scrollTo({top:0,behavior:'smooth'})}})}
@@ -465,27 +474,26 @@ function renderSettings(){const C=CFG();{const q=$('setQ'),a=$('setAnim');q.chec
  $('brandColors').querySelectorAll('input').forEach(i=>{i.oninput=()=>{C.couleurs[i.dataset.bc]=i.value;recolor(C);touch();applyConfig()};i.onchange=()=>renderSettings()});
  $('typeRows').innerHTML=STACK.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}"><td><span class="handle" title="Glisser pour réordonner">⋮⋮</span><span class="rk">${i+1}</span></td><td><input type="color" data-tc="${k}" value="${t.c}"></td><td><input class="ed" data-tl="${k}" value="${esc(t.l)}"></td>
   <td><select class="ed" data-td="${k}" style="width:90px">${[0,...DURS].map(d=>`<option value="${d}" ${d==t.d?'selected':''}>${d?fmtD(d):'aucune'}</option>`).join('')}</select></td>
-  <td><button class="sw ${t.ais?'on':''}" data-ta="${k}"></button></td><td>${TM[k]?.p?`<select class="ed" data-tpr="${k}" style="width:auto"><option value="1" ${pReq(k)?'selected':''}>Obligatoire</option><option value="0" ${pReq(k)?'':'selected'}>Facultative</option></select>`:'<span class="hint" style="margin:0">—</span>'}</td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('');
+  <td>${TM[k]?.p?`<select class="ed" data-tpr="${k}" style="width:auto"><option value="1" ${pReq(k)?'selected':''}>Obligatoire</option><option value="0" ${pReq(k)?'':'selected'}>Facultative</option></select>`:'<span class="hint" style="margin:0">—</span>'}</td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('');
  bindTypeExtras($('typeRows'),C,cfgChanged);$('addType').textContent=`+ Ajouter un type (${keysOf(C).length}/${MAX_TYPES})`;$('addType').disabled=keysOf(C).length>=MAX_TYPES;
  $('addType').onclick=()=>{if(addCustomType(C)){cfgChanged();const ins=$('typeRows').querySelectorAll('[data-tl]');ins[ins.length-1]?.select()}};
  dragRows($('typeRows'),C.ordre,()=>{recolor(C);cfgChanged()});
  $('typeRows').querySelectorAll('[data-tc]').forEach(i=>i.oninput=()=>{C.types[i.dataset.tc].c=i.value;C.couleursAuto=false;touch();applyConfig()});
  $('typeRows').querySelectorAll('[data-tl]').forEach(i=>i.onchange=()=>{C.types[i.dataset.tl].l=i.value.trim()||defaultConfig().types[i.dataset.tl]?.l||'Type';cfgChanged()});
  $('typeRows').querySelectorAll('[data-td]').forEach(i=>i.onchange=()=>{C.types[i.dataset.td].d=+i.value;cfgChanged()});
- $('typeRows').querySelectorAll('[data-ta]').forEach(b=>b.onclick=()=>{const t=C.types[b.dataset.ta];t.ais=!t.ais;cfgChanged()});
  $('typeRows').querySelectorAll('[data-tpr]').forEach(s=>s.onchange=()=>{C.types[s.dataset.tpr].pReq=s.value==='1';cfgChanged()});
 
 }
 $('imgFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{CFG()[IMGT]=await readImg(f,IMGT);cfgChanged();if(!$('wiz').classList.contains('hide'))renderWiz();toast('Image enregistrée')}catch(err){toast('Image non reconnue')}e.target.value=''};
 $('resetColors').onclick=()=>{const C=CFG();C.couleurs={...PALETTES[0].c};C.couleursAuto=true;applyStackColors(C);cfgChanged()};
-function renderMets(){$('discList').innerHTML=[...new Set(metrics().map(m=>(m.disc||'').trim()).filter(Boolean))].map(d=>`<option value="${esc(d)}">`).join('');const M=CFG().metriques,F=PD().focus.map(String),cnt=id=>E().filter(e=>e.ais?.[id]).length;
+function renderMets(){$('discList').innerHTML=[...new Set(metrics().map(m=>(m.disc||'').trim()).filter(Boolean))].map(d=>`<option value="${esc(d)}">`).join('');const M=CFG().metriques,F=PD().focus.map(String),cnt=id=>E().filter(e=>+e.xp?.[id]>0||e.ais_v2?.[id]).length+XFERS().filter(t=>String(t.de)===String(id)||String(t.vers)===String(id)).length;
  $('metRows').innerHTML=M.map((m,i)=>`<tr class="${m.actif?'':'arch'}" data-i="${i}"><td><button class="ibtn" data-mv="-1" ${i?'':'disabled'}>↑</button><button class="ibtn" data-mv="1" ${i<M.length-1?'':'disabled'}>↓</button></td>
-  <td><input class="ed" data-f="l" value="${esc(m.l)}" style="font-weight:700"></td><td><input class="ed" data-f="disc" list="discList" value="${esc(m.disc||'')}" placeholder="Discipline" style="width:150px"></td><td><input class="ed" data-f="min" value="${esc(m.min)}" placeholder="Ce que veut dire 1"></td><td><input class="ed" data-f="max" value="${esc(m.max)}" placeholder="Ce que veut dire 5"></td>
-  <td><button class="sw ${m.actif?'on':''}" data-act></button></td><td>${m.actif?`<button class="sw ${F.includes(String(m.id))?'on':''}" data-foc></button>`:''}</td><td style="color:var(--grey);font-size:12.5px">${cnt(m.id)}</td>
-  <td>${cnt(m.id)?'':'<button class="ibtn del" data-del title="Supprimer">✕</button>'}</td></tr>`).join('');
+  <td><input class="ed" data-f="l" value="${esc(m.l)}" style="font-weight:700"></td><td><input class="ed" data-f="disc" list="discList" value="${esc(m.disc||'')}" placeholder="Discipline" style="width:150px"></td>
+  <td>${m.fc?'<span class="hint" style="margin:0" title="Elle reçoit les XP de tes rencontres réseau, invitations et propositions">toujours</span>':`<button class="sw ${m.actif?'on':''}" data-act></button>`}</td><td>${m.actif?`<button class="sw ${F.includes(String(m.id))?'on':''}" data-foc></button>`:''}</td><td style="color:var(--grey);font-size:12.5px">${cnt(m.id)}</td>
+  <td>${cnt(m.id)||m.fc?'':'<button class="ibtn del" data-del title="Supprimer">✕</button>'}</td></tr>`).join('');
  $('metRows').querySelectorAll('tr').forEach(tr=>{const i=+tr.dataset.i,m=M[i];
   tr.querySelectorAll('[data-f]').forEach(inp=>inp.onchange=()=>{m[inp.dataset.f]=inp.value.trim();if(!m.l)m.l='Compétence '+(i+1);metChanged()});
-  tr.querySelector('[data-act]').onclick=()=>{m.actif=!m.actif;if(!m.actif)PD().focus=PD().focus.filter(x=>String(x)!==String(m.id));metChanged()};
+  const ac=tr.querySelector('[data-act]');if(ac)ac.onclick=()=>{m.actif=!m.actif;if(!m.actif)PD().focus=PD().focus.filter(x=>String(x)!==String(m.id));metChanged()};
   const fo=tr.querySelector('[data-foc]');if(fo)fo.onclick=()=>{if(F.includes(String(m.id)))unFocus(m.id);else setFocus(m.id,true);renderMets()};
   tr.querySelectorAll('[data-mv]').forEach(b=>b.onclick=()=>{const j=i+ +b.dataset.mv;if(j<0||j>=M.length)return;[M[i],M[j]]=[M[j],M[i]];metChanged()});
   const d=tr.querySelector('[data-del]');if(d)d.onclick=()=>{M.splice(i,1);metChanged()}});}
@@ -493,7 +501,7 @@ function metChanged(){touch();applyConfig();renderMets();renderAll()}
 function openMets(){renderMets();$('metM').classList.add('show')}
 $('metX').onclick=()=>{$('metM').classList.remove('show');renderAll()};
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-mets]');if(b){e.preventDefault();openMets()}});
-$('addMet').onclick=()=>{const M=CFG().metriques,n=M.reduce((x,m)=>Math.max(x,+m.id.slice(1)||0),0)+1;M.push({id:'m'+n,l:'Nouvelle compétence',actif:true,min:'',max:''});metChanged();
+$('addMet').onclick=()=>{const M=CFG().metriques,n=M.reduce((x,m)=>Math.max(x,+String(m.id).slice(1)||0),0)+1;M.push({id:'m'+n,l:'Nouvelle compétence',actif:true,min:'',max:''});metChanged();
  const ins=$('metRows').querySelectorAll('input[data-f=l]');ins[ins.length-1].select()};
 
 /* ---------- onglets ---------- */

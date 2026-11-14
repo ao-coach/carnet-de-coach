@@ -61,7 +61,7 @@ function inPlace(o,n){
 function adoptDB(n){if(!DB){DB=n;return}inPlace(DB,n)}
 function mergeDB(A,B,base,prefA){
   const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
-  const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})}};R.supprimes=sup;
+  const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})},t:{...(O.supprimes?.t||{}),...(N.supprimes?.t||{})}};R.supprimes=sup;
   const remap={},fromO=new Set();let added=0;
   (O.personnes||[]).forEach(p=>{if(sup.p[String(p.id)])return;const q=R.personnes.find(x=>String(x.id)===String(p.id));
     if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||'')){Object.assign(q,JSON.parse(JSON.stringify(p)));fromO.add(q)}return}
@@ -83,6 +83,10 @@ function mergeDB(A,B,base,prefA){
    p.reco_par=sup.p[String(pid)]||String(pid)===String(p.id)||!R.personnes.some(x=>String(x.id)===String(pid))?null:{...r,pid}});R.entrees.forEach(e=>{if(e.pid!=null&&sup.p[String(e.pid)]){e.pid=null;e.psup=true}});
   R.actions=mergeList(R.actions,(O.actions||[]).map(a=>({...a})),'a',(r,x)=>r.a===x.a);
   SECTIONS.forEach(k=>{if(A[k]===undefined&&B[k]===undefined)return;R[k]=base?m3(base[k],A[k],B[k]):prefA?m3(null,A[k],B[k]):m3(null,N[k],O[k])});
+  /* 3.0.0 : transferts d'XP réunis par identifiant (fusion de la section pd), sans faire réapparaître un transfert annulé */
+  if(isObj(R.pd)){const L=[...(Array.isArray(R.pd.transferts)?R.pd.transferts:[])],seen=new Set(L.map(t=>String(t?.id)));
+   [A,B].forEach(X=>(X.pd?.transferts||[]).forEach(t=>{if(t&&!seen.has(String(t.id))&&!(base&&(base.pd?.transferts||[]).some(b=>String(b.id)===String(t.id)))){seen.add(String(t.id));L.push(JSON.parse(JSON.stringify(t)))}}));
+   R.pd.transferts=L.filter(t=>t&&!sup.t[String(t.id)])}
   R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
   {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
   return{db:R,added}}
@@ -147,8 +151,9 @@ function download(name,text,type){const a=document.createElement('a');a.href=URL
 async function exportJson(){download(`coaching-data_export_${today()}.json`,JSON.stringify(await payload(),null,1),'application/json');if(DEKK)toast('Export chiffré avec ton mot de passe actuel')}
 function exportCsv(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (noms, commentaires). Continuer ?'))return;
   const q=v=>`"${String(v??'').replace(/"/g,'""')}"`,M=metrics();
-  const head=['Date','Type','Personne','Durée (min)','Durée (h)','Commentaire','Notes',...M.map(m=>m.l+(m.actif?'':' (archivée)')),'CR','Synthèse','Montant €','Engagement (mois)','Statut proposition','Coût €'];
-  const L=[...E()].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,TM[e.type]?.l,pname(e.pid),e.dur,String(e.dur/60).replace('.',','),e.com,e.notes||'',...M.map(m=>e.ais?.[m.id]??''),e.cr?'oui':'',e.syn?'oui':'',e.eur??'',e.engagement_mois??'',e.statut?STAT[e.statut]:'',e.cout??'']);
+  /* 3.0.0 : XP gagnés, XP non répartis, XP par compétence, commentaire des Facultés commerciales */
+  const fc=fcMet(),head=['Date','Type','Personne','Durée (min)','Durée (h)','Commentaire','Notes','XP gagnés','XP non répartis',...M.map(m=>'XP '+m.l+(m.actif?'':' (archivée)')),(fc?fc.l:'Facultés commerciales')+' : commentaire','CR','Synthèse','Montant €','Engagement (mois)','Statut proposition','Coût €'];
+  const L=[...E()].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,TM[e.type]?.l,pname(e.pid),e.dur,String(e.dur/60).replace('.',','),e.com,e.notes||'',xpEarned(e),Math.max(0,xpLeft(e)),...M.map(m=>e.xp?.[m.id]??''),e.fcom||'',e.cr?'oui':'',e.syn?'oui':'',e.eur??'',e.engagement_mois??'',e.statut?STAT[e.statut]:'',e.cout??'']);
   download(`coaching-saisies_${today()}.csv`,'﻿'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
 /* 2.4.0 : export des personnes (cercles, proximité, rythme, recommandé·e par) */
 function exportCsvP(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (noms, coordonnées). Continuer ?'))return;
@@ -199,8 +204,9 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
   ['Préparer le contact',"« Préparer » ouvre l'onglet Notes de sa fiche : ce qu'il faut garder en tête, le prochain sujet à évoquer et les notes de vos derniers échanges."],
   ['Le chemin de chaque personne',"De la rencontre à l'accompagnement : chaque personne change de colonne à mesure que tu enregistres vos échanges. Le bouton « ? Les étapes » explique chaque colonne."],
   ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
-  ['Simplifié ou complet',"Camille est en mode simplifié : l'essentiel. Le mode complet ajoute le tableau de bord, la pratique délibérée, la fiche de coach, les objectifs et le taux horaire réel."],
+  ['Simplifié ou complet',"Camille est en mode simplifié : l'essentiel. Le mode complet ajoute le tableau de bord, la pratique délibérée et ses XP de pratique, la fiche de coach, les objectifs et le taux horaire réel."],
   ['Ton réseau',"En mode complet, l'onglet Réseau dessine tes personnes autour de leurs cercles : la couleur dit l'étape, la taille le nombre d'échanges, les pointillés rouges qui relancer, le contour doré qui fait le pont entre deux cercles. À droite, ce que ton réseau montre : qui réchauffer, où inviter, qui remercier."],
+  ['XP de pratique',"En mode complet, chaque entretien rapporte des XP selon sa durée et son type : une séance de 1h30, 18 XP. Tu les répartis entre les compétences travaillées ; chacune monte de niveau, la boussole montre où tu investis, et un transfert déplace des XP sans en créer."],
   ['À toi de jouer',"Explore librement : rien n'est enregistré. Quand tu le souhaites, « Créer mon propre carnet » démarre le tien, vide et rien qu'à toi. Pour revoir ce tour : « Revoir la visite », ici."]],
  openPeople:'Ouvrir Personnes',stay:'Rester en simplifié',full:'Voir le mode complet',stayFull:'Garder le mode complet',simpleBack:'Revenir au simplifié',end:'Terminer',
  fullT:'Le mode complet',fullP:"Le tableau de bord, la pratique délibérée et la fiche de coach sont maintenant visibles dans les onglets. Le bouton « Mode simplifié » permet de revenir à l'essentiel à tout moment."},
@@ -226,8 +232,9 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
   ['Prepare the contact','“Prepare” opens the Notes tab of their profile: what to keep in mind, the next topic to raise and the notes from your last exchanges.'],
   ["Each person's path","From first meeting to engagement: each person moves from one column to the next as you log your exchanges. The “? The stages” button explains each column."],
   ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
-  ['Simple or full','Camille is in simple mode: the essentials. Full mode adds the dashboard, deliberate practice, the coach profile, goals and the real hourly rate.'],
+  ['Simple or full','Camille is in simple mode: the essentials. Full mode adds the dashboard, deliberate practice and its practice XP, the coach profile, goals and the real hourly rate.'],
   ['Your network',"In full mode, the Network tab draws your people around their circles: colour shows the stage, size the number of exchanges, red dots who to follow up, a gold outline who bridges two circles. On the right, what your network shows: who to warm up, where to invite, who to thank."],
+  ['Practice XP','In full mode, every session earns XP based on its length and type: a 1h30 session earns 18 XP. You assign them to the skills you worked on; each skill levels up, the compass shows where you invest, and a transfer moves XP without creating any.'],
   ['Your turn','Explore freely: nothing is saved. Whenever you like, “Create my own notebook” starts yours, empty and yours alone. To see this tour again: “Replay the tour”, here.']],
  openPeople:'Open People',stay:'Stay in simple mode',full:'See full mode',stayFull:'Keep full mode',simpleBack:'Back to simple mode',end:'Finish',
  fullT:'Full mode',fullP:'The dashboard, deliberate practice and the coach profile are now visible in the tabs. The “Simple mode” button takes you back to the essentials at any time.'}};
@@ -260,8 +267,9 @@ const DTS=[
  {sel:'#qOpen',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
  {sel:'#modeBtn',mode:true},
  {sel:'#netSvg',full:true,big:true,pre:()=>{dtFicheX();goTab('reseau');const e=$('netView');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
+ {sel:'#pdXpCard',full:true,big:true,pre:()=>{dtFicheX();goTab('pd');const e=$('pdXpCard');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
  {sel:'#demoBar',last:true}];
-/* une bulle marquée full n'apparaît qu'en mode complet (l'onglet Réseau est masqué en simplifié) */
+/* une bulle marquée full n'apparaît qu'en mode complet (onglets Réseau et Pratique délibérée masqués en simplifié) */
 const dtVis=()=>DTS.filter(s=>!s.full||!SIMPLE());
 const dtFicheX=()=>{if($('pfM')?.classList.contains('show'))closeFiche()};
 function dtTour(i=0,dir=1){if(DTS[i]?.full&&SIMPLE()){dtTour(i+dir,dir);return}DT.on=true;DT.kind='tip';DT.i=i;DT.fullNote=false;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];

@@ -1,5 +1,5 @@
 {
- "version_schema": 3,
+ "version_schema": 4,
  "enregistre_le": "",
  "demo": true,
  "config": {
@@ -46,6 +46,14 @@
     "min": "Dispersée",
     "max": "Pleinement là",
     "disc": "Coaching"
+   },
+   {
+    "id": "fc",
+    "l": "Facultés commerciales",
+    "actif": true,
+    "fc": true,
+    "min": "",
+    "max": ""
    }
   ],
   "finances": {
@@ -473,7 +481,7 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 62,
@@ -484,7 +492,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 2,
@@ -495,7 +506,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 63,
@@ -506,8 +520,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 64,
@@ -518,8 +535,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 3,
@@ -530,7 +550,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 4,
@@ -541,7 +564,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 130,
@@ -552,12 +578,9 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 2,
-    "m2": 2,
-    "m3": 2,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 7,
+    "m4": 5
    }
   },
   {
@@ -569,7 +592,7 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 5,
@@ -580,7 +603,7 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 66,
@@ -591,8 +614,11 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 131,
@@ -603,12 +629,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
-    "m4": 2,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m1": 8
    }
   },
   {
@@ -620,7 +643,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 255,
@@ -631,7 +657,10 @@
    "com": "Supervision : un client qui piétine",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 14,
+    "m1": 13
+   }
   },
   {
    "id": 268,
@@ -642,7 +671,10 @@
    "com": "Rencontré au salon des artisans, sur le stand du club.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 67,
@@ -653,7 +685,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 7,
@@ -664,7 +699,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 132,
@@ -675,14 +713,15 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 2
-   },
    "eur": 2400,
    "engagement_mois": 6,
    "seances": 12,
    "statut": "acceptee",
-   "debut": "2025-11-03"
+   "debut": "2025-11-03",
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 68,
@@ -693,7 +732,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 8,
@@ -704,7 +746,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 69,
@@ -715,7 +760,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 133,
@@ -726,10 +774,10 @@
    "com": "Séance 1",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 2,
-    "m2": 2,
-    "m4": 3
+   "xp": {
+    "m3": 11,
+    "m2": 3,
+    "m4": 4
    }
   },
   {
@@ -741,7 +789,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 70,
@@ -752,8 +803,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 10,
@@ -764,7 +818,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 153,
@@ -775,12 +832,9 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m3": 3,
-    "m4": 3,
-    "m5": 2
+   "xp": {
+    "m3": 8,
+    "m4": 4
    }
   },
   {
@@ -792,7 +846,7 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 11,
@@ -803,7 +857,7 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 134,
@@ -814,11 +868,10 @@
    "com": "Séance 2",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m3": 3,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m2": 4,
+    "m4": 4
    }
   },
   {
@@ -830,8 +883,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 154,
@@ -842,9 +898,10 @@
    "com": "Vraie séance de coaching offerte",
    "cr": false,
    "syn": false,
-   "ais": {
+   "xp": {
+    "m3": 12,
     "m1": 3,
-    "m4": 2
+    "m4": 3
    }
   },
   {
@@ -856,7 +913,10 @@
    "com": "Café avec un ancien collègue",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 256,
@@ -867,7 +927,10 @@
    "com": "Supervision : cadre et accords",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 15,
+    "m4": 12
+   }
   },
   {
    "id": 13,
@@ -878,7 +941,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 73,
@@ -889,7 +955,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 155,
@@ -900,10 +969,10 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m4": 4,
+    "m5": 4
    }
   },
   {
@@ -915,12 +984,9 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 2
+   "xp": {
+    "m3": 7,
+    "m2": 5
    }
   },
   {
@@ -932,11 +998,9 @@
    "com": "Séance 3",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
-    "m5": 3
+   "xp": {
+    "m3": 12,
+    "m2": 6
    }
   },
   {
@@ -948,7 +1012,10 @@
    "com": "Réécoute et synthèse de la séance 3",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m1": 3
+   }
   },
   {
    "id": 14,
@@ -959,7 +1026,10 @@
    "com": "Café avec un ancien collègue",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 74,
@@ -970,7 +1040,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 15,
@@ -981,7 +1054,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 179,
@@ -992,12 +1068,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": false,
    "syn": true,
-   "ais": {
-    "m1": 2,
-    "m2": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 11,
+    "m2": 7
    }
   },
   {
@@ -1009,7 +1082,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 156,
@@ -1020,14 +1096,15 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3
-   },
    "eur": 3600,
    "engagement_mois": 6,
    "seances": 12,
    "statut": "acceptee",
-   "debut": "2025-12-21"
+   "debut": "2025-12-21",
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 16,
@@ -1038,7 +1115,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 137,
@@ -1049,12 +1129,10 @@
    "com": "Séance 4",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 2,
-    "m4": 3,
-    "m5": 2
+   "xp": {
+    "m3": 11,
+    "m5": 3,
+    "m4": 4
    }
   },
   {
@@ -1066,7 +1144,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 138,
@@ -1077,7 +1158,11 @@
    "com": "Réécoute et synthèse de la séance 4",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m1": 1,
+    "m2": 2
+   }
   },
   {
    "id": 180,
@@ -1088,13 +1173,14 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3
-   },
    "eur": 1800,
    "engagement_mois": 4,
    "seances": 8,
-   "statut": "refusee"
+   "statut": "refusee",
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 157,
@@ -1105,11 +1191,10 @@
    "com": "Séance 1",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m3": 3,
-    "m4": 3
+   "xp": {
+    "m3": 10,
+    "m4": 4,
+    "m1": 4
    }
   },
   {
@@ -1121,7 +1206,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 77,
@@ -1132,8 +1220,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 78,
@@ -1144,8 +1235,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 18,
@@ -1156,7 +1250,10 @@
    "com": "Café avec un ancien collègue",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 139,
@@ -1167,10 +1264,10 @@
    "com": "Séance 5",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m5": 3
+   "xp": {
+    "m3": 12,
+    "m4": 3,
+    "m2": 3
    }
   },
   {
@@ -1182,7 +1279,10 @@
    "com": "Réécoute et synthèse de la séance 5",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m4": 3
+   }
   },
   {
    "id": 158,
@@ -1193,9 +1293,10 @@
    "com": "Séance 2",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m1": 4,
+    "m2": 4
    }
   },
   {
@@ -1207,8 +1308,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 159,
@@ -1219,7 +1323,11 @@
    "com": "Réécoute et synthèse de la séance 2",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m5": 1,
+    "m1": 1
+   }
   },
   {
    "id": 19,
@@ -1230,7 +1338,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 264,
@@ -1241,7 +1352,10 @@
    "com": "Vœux du club. M'a présenté Chloé, DRH d'un laboratoire.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 80,
@@ -1252,8 +1366,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 181,
@@ -1264,12 +1381,9 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m3": 2,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 6,
+    "m1": 6
    }
   },
   {
@@ -1281,7 +1395,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 81,
@@ -1292,8 +1409,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 141,
@@ -1304,12 +1424,9 @@
    "com": "Séance 6",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 2,
-    "m2": 3,
-    "m3": 2,
-    "m4": 2,
-    "m5": 2
+   "xp": {
+    "m3": 12,
+    "m1": 6
    }
   },
   {
@@ -1321,7 +1438,11 @@
    "com": "Supervision : cadre et accords",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 19,
+    "m5": 4,
+    "m1": 4
+   }
   },
   {
    "id": 160,
@@ -1332,10 +1453,9 @@
    "com": "Séance 3",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m3": 3
+   "xp": {
+    "m3": 12,
+    "m4": 6
    }
   },
   {
@@ -1347,7 +1467,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Je me suis surtout écouté parler ; peu de questions sur ses enjeux."
   },
   {
    "id": 82,
@@ -1358,7 +1481,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 182,
@@ -1369,10 +1495,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m2": 2,
-    "m3": 3,
-    "m4": 3
+   "xp": {
+    "m3": 12,
+    "m4": 6
    }
   },
   {
@@ -1384,7 +1509,10 @@
    "com": "Café, présentée par Bastien. Réfléchit à un accompagnement pour ses managers.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 22,
@@ -1395,7 +1523,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 83,
@@ -1406,7 +1537,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 142,
@@ -1417,11 +1551,9 @@
    "com": "Séance 7",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m3": 3,
-    "m4": 2,
-    "m5": 4
+   "xp": {
+    "m3": 10,
+    "m4": 8
    }
   },
   {
@@ -1433,7 +1565,11 @@
    "com": "Réécoute et synthèse de la séance 7",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 1,
+    "m2": 1
+   }
   },
   {
    "id": 23,
@@ -1444,7 +1580,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 161,
@@ -1455,11 +1594,9 @@
    "com": "Séance 4",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 2,
-    "m2": 2,
-    "m3": 3,
-    "m4": 4
+   "xp": {
+    "m3": 10,
+    "m4": 8
    }
   },
   {
@@ -1471,14 +1608,15 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3
-   },
    "eur": 2400,
    "engagement_mois": 6,
    "seances": 12,
    "statut": "acceptee",
-   "debut": "2026-02-12"
+   "debut": "2026-02-12",
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 162,
@@ -1489,7 +1627,11 @@
    "com": "Réécoute et synthèse de la séance 4",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 1,
+    "m1": 1
+   }
   },
   {
    "id": 200,
@@ -1500,10 +1642,10 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m4": 3,
-    "m5": 4
+   "xp": {
+    "m3": 8,
+    "m5": 2,
+    "m2": 2
    }
   },
   {
@@ -1515,7 +1657,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 24,
@@ -1526,7 +1671,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 85,
@@ -1537,8 +1685,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 201,
@@ -1549,10 +1700,10 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m2": 3,
-    "m3": 3,
-    "m4": 3
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m2": 3
    }
   },
   {
@@ -1564,12 +1715,10 @@
    "com": "Séance 1",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 9,
+    "m4": 4,
+    "m2": 5
    }
   },
   {
@@ -1581,7 +1730,11 @@
    "com": "Réécoute et synthèse de la séance 1",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m1": 1,
+    "m4": 1
+   }
   },
   {
    "id": 25,
@@ -1592,7 +1745,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 144,
@@ -1603,12 +1759,10 @@
    "com": "Séance 8",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 9,
+    "m5": 4,
+    "m1": 5
    }
   },
   {
@@ -1620,8 +1774,11 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 145,
@@ -1632,7 +1789,11 @@
    "com": "Réécoute et synthèse de la séance 8",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m1": 1,
+    "m4": 1
+   }
   },
   {
    "id": 163,
@@ -1643,12 +1804,10 @@
    "com": "Séance 5",
    "cr": false,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 2,
-    "m4": 3,
-    "m5": 2
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m4": 3
    }
   },
   {
@@ -1660,7 +1819,11 @@
    "com": "Réécoute et synthèse de la séance 5",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m4": 1,
+    "m2": 2
+   }
   },
   {
    "id": 202,
@@ -1671,12 +1834,10 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 3,
-    "m4": 2,
-    "m5": 3
+   "xp": {
+    "m3": 6,
+    "m4": 3,
+    "m2": 3
    }
   },
   {
@@ -1688,7 +1849,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 26,
@@ -1699,7 +1863,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 186,
@@ -1710,10 +1877,9 @@
    "com": "Séance 2",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m4": 3
+   "xp": {
+    "m3": 11,
+    "m1": 7
    }
   },
   {
@@ -1725,7 +1891,10 @@
    "com": "Supervision : un client qui piétine",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 15,
+    "m4": 12
+   }
   },
   {
    "id": 187,
@@ -1736,7 +1905,10 @@
    "com": "Réécoute et synthèse de la séance 2",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m1": 3
+   }
   },
   {
    "id": 88,
@@ -1747,7 +1919,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 27,
@@ -1758,7 +1933,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 203,
@@ -1769,10 +1947,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m2": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 11,
+    "m1": 7
    }
   },
   {
@@ -1784,11 +1961,9 @@
    "com": "Séance 9",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m2": 3,
-    "m3": 4,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m2": 8
    }
   },
   {
@@ -1800,12 +1975,10 @@
    "com": "Séance 6",
    "cr": true,
    "syn": true,
-   "ais": {
+   "xp": {
+    "m3": 12,
     "m1": 3,
-    "m2": 4,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+    "m4": 3
    }
   },
   {
@@ -1817,7 +1990,11 @@
    "com": "Réécoute et synthèse de la séance 9",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m5": 1,
+    "m4": 1
+   }
   },
   {
    "id": 166,
@@ -1828,7 +2005,10 @@
    "com": "Réécoute et synthèse de la séance 6",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 2
+   }
   },
   {
    "id": 28,
@@ -1839,7 +2019,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 204,
@@ -1850,11 +2033,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 2,
-    "m4": 4,
-    "m5": 3
+   "xp": {
+    "m3": 11,
+    "m1": 7
    }
   },
   {
@@ -1866,10 +2047,10 @@
    "com": "Séance 3",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m5": 2
+   "xp": {
+    "m3": 9,
+    "m4": 4,
+    "m2": 5
    }
   },
   {
@@ -1881,7 +2062,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 89,
@@ -1892,7 +2076,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "J'ai annoncé mon prix calmement et laissé le silence faire son travail."
   },
   {
    "id": 148,
@@ -1903,11 +2090,9 @@
    "com": "Séance 10",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m4": 4,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m4": 8
    }
   },
   {
@@ -1919,13 +2104,14 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3
-   },
    "eur": 3000,
    "engagement_mois": 6,
    "seances": 12,
-   "statut": "refusee"
+   "statut": "refusee",
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 149,
@@ -1936,7 +2122,11 @@
    "com": "Réécoute et synthèse de la séance 10",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 1,
+    "m2": 1
+   }
   },
   {
    "id": 90,
@@ -1947,7 +2137,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 167,
@@ -1958,10 +2151,9 @@
    "com": "Séance 7",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m4": 3
+   "xp": {
+    "m3": 9,
+    "m1": 9
    }
   },
   {
@@ -1973,7 +2165,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 168,
@@ -1984,7 +2179,11 @@
    "com": "Réécoute et synthèse de la séance 7",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m5": 1,
+    "m2": 1
+   }
   },
   {
    "id": 189,
@@ -1995,10 +2194,10 @@
    "com": "Séance 4",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m4": 4
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m4": 3
    }
   },
   {
@@ -2010,7 +2209,11 @@
    "com": "Réécoute et synthèse de la séance 4",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m5": 1,
+    "m1": 1
+   }
   },
   {
    "id": 91,
@@ -2021,7 +2224,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 31,
@@ -2032,7 +2238,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 92,
@@ -2043,7 +2252,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 150,
@@ -2054,10 +2266,10 @@
    "com": "Séance 11",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m2": 3,
-    "m3": 3,
-    "m4": 3
+   "xp": {
+    "m3": 11,
+    "m5": 3,
+    "m4": 4
    }
   },
   {
@@ -2069,10 +2281,9 @@
    "com": "Séance 8",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 4,
-    "m3": 3
+   "xp": {
+    "m3": 11,
+    "m1": 7
    }
   },
   {
@@ -2084,7 +2295,10 @@
    "com": "Réécoute et synthèse de la séance 8",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m2": 3
+   }
   },
   {
    "id": 206,
@@ -2095,11 +2309,9 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": false,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 6,
+    "m1": 6
    }
   },
   {
@@ -2111,7 +2323,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 32,
@@ -2122,7 +2337,10 @@
    "com": "Café avec un ancien collègue",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "J'ai hésité à proposer une conversation, j'ai laissé passer le moment."
   },
   {
    "id": 191,
@@ -2133,12 +2351,9 @@
    "com": "Séance 5",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
-    "m4": 4,
-    "m5": 3
+   "xp": {
+    "m3": 9,
+    "m5": 9
    }
   },
   {
@@ -2150,8 +2365,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 259,
@@ -2162,7 +2380,11 @@
    "com": "Supervision : annoncer son prix",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 18,
+    "m4": 4,
+    "m2": 5
+   }
   },
   {
    "id": 207,
@@ -2173,11 +2395,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 4,
-    "m3": 4,
-    "m4": 3
+   "xp": {
+    "m3": 9,
+    "m1": 9
    }
   },
   {
@@ -2189,7 +2409,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 95,
@@ -2200,8 +2423,11 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 151,
@@ -2212,11 +2438,9 @@
    "com": "Séance 12",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 11,
+    "m4": 7
    }
   },
   {
@@ -2228,7 +2452,11 @@
    "com": "Réécoute et synthèse de la séance 12",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m2": 1,
+    "m1": 2
+   }
   },
   {
    "id": 171,
@@ -2239,11 +2467,10 @@
    "com": "Séance 9",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m3": 4,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 13,
+    "m4": 2,
+    "m2": 3
    }
   },
   {
@@ -2255,7 +2482,10 @@
    "com": "Réécoute et synthèse de la séance 9",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m4": 3
+   }
   },
   {
    "id": 96,
@@ -2266,8 +2496,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 34,
@@ -2278,7 +2511,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 192,
@@ -2289,11 +2525,10 @@
    "com": "Séance 6",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m3": 3,
-    "m5": 4
+   "xp": {
+    "m3": 11,
+    "m1": 3,
+    "m4": 4
    }
   },
   {
@@ -2305,7 +2540,10 @@
    "com": "Réécoute et synthèse de la séance 6",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 2
+   }
   },
   {
    "id": 97,
@@ -2316,7 +2554,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Difficile de parler de mon métier sans me justifier ; j'ai changé de sujet trop vite."
   },
   {
    "id": 208,
@@ -2327,11 +2568,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m2": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 4
+   "xp": {
+    "m3": 9,
+    "m5": 9
    }
   },
   {
@@ -2343,7 +2582,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 229,
@@ -2354,10 +2596,8 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
+   "xp": {
+    "m3": 8,
     "m4": 4
    }
   },
@@ -2370,7 +2610,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 173,
@@ -2381,11 +2624,9 @@
    "com": "Séance 10",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 3,
-    "m4": 3
+   "xp": {
+    "m3": 10,
+    "m5": 8
    }
   },
   {
@@ -2397,14 +2638,15 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3
-   },
    "eur": 4200,
    "engagement_mois": 6,
    "seances": 12,
    "statut": "acceptee",
-   "debut": "2026-05-17"
+   "debut": "2026-05-17",
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 194,
@@ -2415,12 +2657,9 @@
    "com": "Séance 7",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 3,
-    "m4": 4,
-    "m5": 3
+   "xp": {
+    "m3": 12,
+    "m1": 6
    }
   },
   {
@@ -2432,7 +2671,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 36,
@@ -2443,7 +2685,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 210,
@@ -2454,9 +2699,9 @@
    "com": "Séance 1",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m2": 3,
-    "m3": 3
+   "xp": {
+    "m3": 11,
+    "m5": 7
    }
   },
   {
@@ -2468,7 +2713,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 100,
@@ -2479,7 +2727,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 195,
@@ -2490,11 +2741,9 @@
    "com": "Séance 8",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m3": 3,
-    "m5": 3
+   "xp": {
+    "m3": 11,
+    "m2": 7
    }
   },
   {
@@ -2506,7 +2755,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 174,
@@ -2517,12 +2769,9 @@
    "com": "Séance 11",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 4
+   "xp": {
+    "m3": 10,
+    "m2": 8
    }
   },
   {
@@ -2534,7 +2783,11 @@
    "com": "Réécoute et synthèse de la séance 11",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m4": 1,
+    "m5": 2
+   }
   },
   {
    "id": 38,
@@ -2545,7 +2798,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 102,
@@ -2556,7 +2812,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "J'ai annoncé mon prix calmement et laissé le silence faire son travail."
   },
   {
    "id": 211,
@@ -2567,10 +2826,10 @@
    "com": "Séance 2",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m3": 4,
-    "m4": 4
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m4": 3
    }
   },
   {
@@ -2582,7 +2841,11 @@
    "com": "Supervision : annoncer son prix",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 19,
+    "m2": 4,
+    "m1": 4
+   }
   },
   {
    "id": 103,
@@ -2593,8 +2856,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 39,
@@ -2605,7 +2871,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 196,
@@ -2616,12 +2885,10 @@
    "com": "Séance 9",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 3,
-    "m4": 3,
-    "m5": 3
+   "xp": {
+    "m3": 13,
+    "m4": 2,
+    "m2": 3
    }
   },
   {
@@ -2633,8 +2900,11 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 176,
@@ -2645,8 +2915,10 @@
    "com": "Séance 12",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m5": 4
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m1": 3
    }
   },
   {
@@ -2658,7 +2930,11 @@
    "com": "Réécoute et synthèse de la séance 12",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m2": 1,
+    "m4": 1
+   }
   },
   {
    "id": 40,
@@ -2669,7 +2945,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 105,
@@ -2680,7 +2959,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 212,
@@ -2691,11 +2973,9 @@
    "com": "Séance 3",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 4,
-    "m3": 3,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m1": 8
    }
   },
   {
@@ -2707,7 +2987,10 @@
    "com": "Réécoute et synthèse de la séance 3",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m5": 3
+   }
   },
   {
    "id": 41,
@@ -2718,7 +3001,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 106,
@@ -2729,7 +3015,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 197,
@@ -2740,10 +3029,9 @@
    "com": "Séance 10",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m4": 4
+   "xp": {
+    "m3": 9,
+    "m5": 9
    }
   },
   {
@@ -2755,7 +3043,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 42,
@@ -2766,7 +3057,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 214,
@@ -2777,12 +3071,10 @@
    "com": "Séance 4",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 4,
-    "m3": 4,
-    "m4": 4,
-    "m5": 4
+   "xp": {
+    "m3": 12,
+    "m2": 3,
+    "m4": 3
    }
   },
   {
@@ -2794,7 +3086,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 232,
@@ -2805,9 +3100,10 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m5": 4
+   "xp": {
+    "m3": 7,
+    "m1": 2,
+    "m5": 3
    }
   },
   {
@@ -2819,7 +3115,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 109,
@@ -2830,7 +3129,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 198,
@@ -2841,11 +3143,10 @@
    "com": "Séance 11",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m2": 4,
-    "m3": 4,
+   "xp": {
+    "m3": 10,
     "m4": 4,
-    "m5": 4
+    "m1": 4
    }
   },
   {
@@ -2857,10 +3158,9 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m4": 4,
-    "m5": 4
+   "xp": {
+    "m3": 12,
+    "m5": 6
    }
   },
   {
@@ -2872,7 +3172,10 @@
    "com": "Café avec un ancien collègue",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 261,
@@ -2883,7 +3186,10 @@
    "com": "Supervision : un client qui piétine",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 16,
+    "m2": 11
+   }
   },
   {
    "id": 215,
@@ -2894,11 +3200,9 @@
    "com": "Séance 5",
    "cr": false,
    "syn": true,
-   "ais": {
-    "m2": 4,
-    "m3": 3,
-    "m4": 4,
-    "m5": 3
+   "xp": {
+    "m3": 11,
+    "m4": 7
    }
   },
   {
@@ -2910,8 +3214,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 45,
@@ -2922,7 +3229,10 @@
    "com": "Café avec un ancien collègue",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 199,
@@ -2933,11 +3243,10 @@
    "com": "Séance 12",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 4,
-    "m5": 3
+   "xp": {
+    "m3": 10,
+    "m1": 4,
+    "m5": 4
    }
   },
   {
@@ -2949,7 +3258,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 46,
@@ -2960,7 +3272,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 234,
@@ -2971,9 +3286,6 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 4
-   },
    "eur": 2700,
    "engagement_mois": 6,
    "seances": 12,
@@ -2981,7 +3293,11 @@
    "debut": "2026-08-02",
    "pa": {
     "2": 2
-   }
+   },
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 216,
@@ -2992,10 +3308,10 @@
    "com": "Séance 6",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m3": 4,
-    "m5": 3
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m2": 3
    }
   },
   {
@@ -3007,7 +3323,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 112,
@@ -3018,7 +3337,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 217,
@@ -3029,7 +3351,10 @@
    "com": "Réécoute et synthèse de la séance 6",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m2": 2
+   }
   },
   {
    "id": 235,
@@ -3040,11 +3365,9 @@
    "com": "Séance 1",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 4,
-    "m3": 3,
-    "m4": 4,
+   "xp": {
+    "m3": 11,
+    "m4": 3,
     "m5": 4
    }
   },
@@ -3057,8 +3380,11 @@
    "com": "Apéro du club. Cherche un apprenti pour la rentrée, hésite à embaucher.\nParle de Damien (expert-comptable), qui pourrait m'intéresser.",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "notes": "Lui envoyer l'article sur la délégation."
+   "notes": "Lui envoyer l'article sur la délégation.",
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "J'ai demandé une recommandation sans gêne : deux noms en retour."
   },
   {
    "id": 48,
@@ -3069,7 +3395,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 113,
@@ -3080,7 +3409,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 218,
@@ -3091,10 +3423,10 @@
    "com": "Séance 7",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m5": 4
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m2": 3
    }
   },
   {
@@ -3106,7 +3438,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 114,
@@ -3117,7 +3452,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 219,
@@ -3128,7 +3466,10 @@
    "com": "Réécoute et synthèse de la séance 7",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m1": 2
+   }
   },
   {
    "id": 236,
@@ -3139,12 +3480,10 @@
    "com": "Séance 2",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 4,
-    "m4": 4,
-    "m5": 3
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m2": 3
    }
   },
   {
@@ -3156,7 +3495,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 237,
@@ -3167,7 +3509,10 @@
    "com": "Réécoute et synthèse de la séance 2",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m4": 3
+   }
   },
   {
    "id": 115,
@@ -3178,7 +3523,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 220,
@@ -3189,12 +3537,9 @@
    "com": "Séance 8",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m3": 4,
-    "m4": 3,
-    "m5": 4
+   "xp": {
+    "m3": 11,
+    "m5": 7
    }
   },
   {
@@ -3206,7 +3551,11 @@
    "com": "Réécoute et synthèse de la séance 8",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m2": 1,
+    "m5": 1
+   }
   },
   {
    "id": 51,
@@ -3217,7 +3566,10 @@
    "com": "Salon RH",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 116,
@@ -3228,8 +3580,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 262,
@@ -3240,7 +3595,11 @@
    "com": "Supervision : cadre et accords",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 18,
+    "m4": 4,
+    "m2": 5
+   }
   },
   {
    "id": 238,
@@ -3251,12 +3610,9 @@
    "com": "Séance 3",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 4,
-    "m4": 3,
-    "m5": 4
+   "xp": {
+    "m3": 12,
+    "m2": 6
    }
   },
   {
@@ -3268,7 +3624,10 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 52,
@@ -3279,7 +3638,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 247,
@@ -3290,13 +3652,13 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m3": 3,
-    "m4": 3,
-    "m5": 4
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 7,
+    "m5": 2,
+    "m4": 3
    }
   },
   {
@@ -3308,14 +3670,12 @@
    "com": "Séance 9",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 4,
-    "m4": 4
-   },
    "pa": {
     "1": 0
+   },
+   "xp": {
+    "m3": 11,
+    "m2": 7
    }
   },
   {
@@ -3327,8 +3687,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 223,
@@ -3339,7 +3702,11 @@
    "com": "Réécoute et synthèse de la séance 9",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 1,
+    "m1": 1
+   }
   },
   {
    "id": 53,
@@ -3350,7 +3717,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 248,
@@ -3361,14 +3731,13 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m3": 3,
-    "m4": 3,
-    "m5": 4
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 10,
+    "m2": 4,
+    "m1": 4
    }
   },
   {
@@ -3380,7 +3749,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 5
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 239,
@@ -3391,15 +3763,13 @@
    "com": "Séance 4",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 3,
-    "m2": 3,
-    "m3": 4,
-    "m4": 4,
-    "m5": 4
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 11,
+    "m5": 3,
+    "m1": 4
    }
   },
   {
@@ -3411,7 +3781,11 @@
    "com": "Réécoute et synthèse de la séance 4",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m5": 1,
+    "m2": 2
+   }
   },
   {
    "id": 54,
@@ -3422,7 +3796,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "J'ai annoncé mon prix calmement et laissé le silence faire son travail."
   },
   {
    "id": 224,
@@ -3433,14 +3810,13 @@
    "com": "Séance 10",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 5,
-    "m3": 4,
-    "m4": 4,
-    "m5": 4
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 10,
+    "m2": 4,
+    "m5": 4
    }
   },
   {
@@ -3452,7 +3828,10 @@
    "com": "Réécoute et synthèse de la séance 10",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m4": 2
+   }
   },
   {
    "id": 55,
@@ -3463,7 +3842,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 120,
@@ -3474,7 +3856,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 249,
@@ -3485,13 +3870,13 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m5": 4
-   },
    "pa": {
     "1": 0
+   },
+   "xp": {
+    "m3": 8,
+    "m1": 2,
+    "m2": 2
    }
   },
   {
@@ -3503,7 +3888,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 121,
@@ -3514,8 +3902,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 5
+   },
+   "fcom": "J'ai annoncé mon prix calmement et laissé le silence faire son travail."
   },
   {
    "id": 241,
@@ -3526,15 +3917,12 @@
    "com": "Séance 5",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m3": 4,
-    "m4": 3,
-    "m5": 4
-   },
    "pa": {
     "1": 0
+   },
+   "xp": {
+    "m3": 11,
+    "m5": 7
    }
   },
   {
@@ -3546,7 +3934,11 @@
    "com": "Réécoute et synthèse de la séance 5",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 4,
+    "m1": 1,
+    "m5": 1
+   }
   },
   {
    "id": 122,
@@ -3557,7 +3949,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "J'ai demandé une recommandation sans gêne : deux noms en retour."
   },
   {
    "id": 267,
@@ -3568,7 +3963,10 @@
    "com": "Déjeuner : le projet pour ses managers est reporté à 2027.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "J'ai demandé une recommandation sans gêne : deux noms en retour."
   },
   {
    "id": 57,
@@ -3579,7 +3977,10 @@
    "com": "Atelier d'une consœur",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 5
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 226,
@@ -3590,14 +3991,13 @@
    "com": "Séance 11",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m3": 4,
-    "m4": 4,
-    "m5": 4
-   },
    "pa": {
     "1": 0
+   },
+   "xp": {
+    "m3": 12,
+    "m5": 3,
+    "m1": 3
    }
   },
   {
@@ -3609,14 +4009,12 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 3,
-    "m2": 5,
-    "m4": 5,
-    "m5": 5
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 12,
+    "m4": 6
    }
   },
   {
@@ -3628,7 +4026,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 263,
@@ -3639,7 +4040,10 @@
    "com": "Supervision : un client qui piétine",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 18,
+    "m5": 9
+   }
   },
   {
    "id": 58,
@@ -3650,7 +4054,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 230,
@@ -3661,15 +4068,13 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": false,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 5,
-    "m3": 4,
-    "m4": 5,
-    "m5": 4
-   },
    "pa": {
     "1": 1
+   },
+   "xp": {
+    "m3": 8,
+    "m1": 2,
+    "m2": 2
    }
   },
   {
@@ -3681,8 +4086,11 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 243,
@@ -3693,12 +4101,13 @@
    "com": "Séance 6",
    "cr": true,
    "syn": false,
-   "ais": {
-    "m4": 4,
-    "m5": 4
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 12,
+    "m1": 3,
+    "m2": 3
    }
   },
   {
@@ -3710,13 +4119,12 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m4": 3,
-    "m5": 5
-   },
    "pa": {
     "1": 1
+   },
+   "xp": {
+    "m3": 7,
+    "m4": 5
    }
   },
   {
@@ -3728,7 +4136,11 @@
    "com": "Réécoute et synthèse de la séance 6",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m2": 1,
+    "m1": 2
+   }
   },
   {
    "id": 59,
@@ -3739,7 +4151,10 @@
    "com": "Petit-déjeuner du club",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 125,
@@ -3750,7 +4165,10 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 5
+   },
+   "fcom": "J'ai annoncé mon prix calmement et laissé le silence faire son travail."
   },
   {
    "id": 227,
@@ -3761,14 +4179,12 @@
    "com": "Séance 12",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m2": 4,
-    "m3": 4,
-    "m4": 4,
-    "m5": 5
-   },
    "pa": {
     "1": 0
+   },
+   "xp": {
+    "m3": 11,
+    "m1": 7
    }
   },
   {
@@ -3780,7 +4196,10 @@
    "com": "Réécoute et synthèse de la séance 12",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3,
+    "m1": 3
+   }
   },
   {
    "id": 251,
@@ -3791,16 +4210,17 @@
    "com": "Rendez-vous de proposition",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 4
-   },
    "eur": 2400,
    "engagement_mois": 6,
    "seances": 10,
    "statut": "attente",
    "pa": {
     "2": 1
-   }
+   },
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 269,
@@ -3811,7 +4231,10 @@
    "com": "Intervision du mois : cas d'un client qui ne fixe pas d'objectif.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 5
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 231,
@@ -3822,12 +4245,13 @@
    "com": "Vraie séance de coaching offerte",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 5,
-    "m5": 4
-   },
    "pa": {
     "1": 1
+   },
+   "xp": {
+    "m3": 12,
+    "m4": 3,
+    "m2": 3
    }
   },
   {
@@ -3839,15 +4263,12 @@
    "com": "Vraie séance de coaching offerte",
    "cr": false,
    "syn": false,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 4,
-    "m4": 3,
-    "m5": 4
-   },
    "pa": {
     "1": 1
+   },
+   "xp": {
+    "m3": 11,
+    "m2": 7
    }
   },
   {
@@ -3859,8 +4280,11 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 60,
@@ -3871,7 +4295,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 245,
@@ -3882,15 +4309,13 @@
    "com": "Séance 7",
    "cr": false,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 4,
-    "m3": 4,
-    "m4": 4,
-    "m5": 4
-   },
    "pa": {
     "1": 2
+   },
+   "xp": {
+    "m3": 9,
+    "m5": 4,
+    "m4": 5
    }
   },
   {
@@ -3902,7 +4327,9 @@
    "com": "Réécoute et synthèse de la séance 7",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "m3": 3
+   }
   },
   {
    "id": 254,
@@ -3913,13 +4340,6 @@
    "com": "Exploration : réalité, enjeux, envies",
    "cr": true,
    "syn": true,
-   "ais": {
-    "m1": 4,
-    "m2": 3,
-    "m3": 4,
-    "m4": 4,
-    "m5": 4
-   },
    "pa": {
     "1": 0
    }
@@ -3933,7 +4353,10 @@
    "com": "Proposé une conversation de coaching",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 61,
@@ -3944,7 +4367,10 @@
    "com": "Soirée réseau",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 128,
@@ -3955,8 +4381,11 @@
    "com": "Invitée à découvrir le coaching",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 129,
@@ -3967,8 +4396,11 @@
    "com": "Proposé un échange offert",
    "cr": false,
    "syn": false,
-   "ais": null,
-   "non": true
+   "non": true,
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 9001,
@@ -3979,7 +4411,10 @@
    "com": "Café après la réunion du club. Beaucoup d'énergie, peu de temps pour elle.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 9002,
@@ -3990,7 +4425,10 @@
    "com": "Kermesse de l'école : on a reparlé de son projet de boutique.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 9003,
@@ -4001,7 +4439,10 @@
    "com": "Sortie longue du dimanche. Il manage une équipe qui a doublé en un an.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 5
+   },
+   "fcom": "J'ai demandé une recommandation sans gêne : deux noms en retour."
   },
   {
    "id": 9004,
@@ -4012,7 +4453,10 @@
    "com": "Course puis café : il se demande comment déléguer sans tout perdre.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 9005,
@@ -4023,7 +4467,10 @@
    "com": "Réunion de l'association. Vient d'être nommée cadre.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 1
+   },
+   "fcom": "Mal à l'aise quand on m'a demandé mes tarifs : réponse floue."
   },
   {
    "id": 9006,
@@ -4034,7 +4481,10 @@
    "com": "Déjeuner au coworking.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 9007,
@@ -4045,7 +4495,10 @@
    "com": "Il organise un apéro des indépendants en décembre.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Conversation fluide, curiosité sincère ; la proposition est venue d'elle."
   },
   {
    "id": 9008,
@@ -4056,7 +4509,10 @@
    "com": "Conférence RH : table ronde sur le management à distance.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "À l'aise sur le fond, encore hésitant au moment de conclure."
   },
   {
    "id": 9009,
@@ -4067,7 +4523,10 @@
    "com": "Entraînement du club. M'a parlé de Nicolas, architecte.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 9010,
@@ -4078,7 +4537,10 @@
    "com": "Course du 14 juillet.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "Facile de créer le lien ; plus difficile de proposer la suite clairement."
   },
   {
    "id": 9011,
@@ -4089,7 +4551,10 @@
    "com": "Journée de la fédération : atelier sur la posture.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   },
   {
    "id": 9012,
@@ -4100,7 +4565,10 @@
    "com": "Café au coworking, recommandé par Rémi.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 3
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 9013,
@@ -4111,7 +4579,10 @@
    "com": "Fin d'année scolaire : une équipe fatiguée, des départs à préparer.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "J'ai posé de bonnes questions, mais j'ai trop expliqué le coaching."
   },
   {
    "id": 9014,
@@ -4122,7 +4593,10 @@
    "com": "Rentrée du club.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 2
+   },
+   "fcom": "L'invitation est sortie naturellement, la relance un peu moins."
   },
   {
    "id": 9015,
@@ -4133,7 +4607,10 @@
    "com": "Appel pour préparer la soirée de décembre.",
    "cr": false,
    "syn": false,
-   "ais": null
+   "xp": {
+    "fc": 4
+   },
+   "fcom": "Invitation faite simplement, sans rien vendre : il a dit oui tout de suite."
   }
  ],
  "objectifs": {
@@ -4240,7 +4717,27 @@
     "maj": "2026-04-01T10:00:00.000Z"
    }
   ],
-  "prep": {}
+  "prep": {},
+  "transferts": [
+   {
+    "id": 1,
+    "date": "2026-03-20",
+    "de": "m1",
+    "vers": "m3",
+    "xp": 20,
+    "motif": "L'atteinte de l'objectif passait surtout par mes questions",
+    "maj": "2026-03-20T18:00:00.000Z"
+   },
+   {
+    "id": 2,
+    "date": "2026-09-28",
+    "de": "m5",
+    "vers": "m2",
+    "xp": 12,
+    "motif": "Supervision : c'était de l'écoute, pas de la présence",
+    "maj": "2026-09-28T18:00:00.000Z"
+   }
+  ]
  },
  "coach": {
   "nom": "Camille Martin",
@@ -4278,5 +4775,8 @@
  "prefs": {
   "onboarded": true,
   "simple": true
+ },
+ "supprimes": {
+  "t": {}
  }
 }

@@ -2,7 +2,7 @@
 
 **Version 2.0.0 (novembre 2026)** · *English version: [README.en.md](README.en.md)* · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
-Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, ton aisance, ta pratique délibérée, tes objectifs et tes relances.
+Un carnet de bord pour piloter ta pratique de coach. Tu y enregistres tes entretiens, tes propositions et les personnes que tu accompagnes, et tu y suis tes indicateurs, tes XP de pratique, ta pratique délibérée, tes objectifs et tes relances.
 
 L'application s'ouvre depuis son adresse web et s'installe sur ton ordinateur comme une application. Il n'y a ni compte à créer ni abonnement. **Tes données ne sont jamais en ligne** : elles restent sur ton ordinateur, dans **un seul fichier** `coaching-data.json`, rangé dans le dossier de ton choix.
 
@@ -101,7 +101,7 @@ Le reste se découvre en l'utilisant. Le **carnet de route**, en bas à droite, 
 |---|---|
 | 1. Premiers pas | Enregistrer ton premier entretien, le relier à une personne, écrire une note, regarder ton suivi d'activité, ouvrir la fiche d'une personne, choisir où ranger ton carnet, le protéger par un mot de passe. |
 | 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer un contact réseau, donner un rythme de contact à une personne, enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse. En mode simplifié : découvrir le mode complet. |
-| 3. Pratiquer délibérément | Compléter ton profil de coach, nommer au moins 3 compétences, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
+| 3. Pratiquer délibérément | Compléter ton profil de coach, nommer au moins 3 compétences, répartir tes premiers XP, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
 | 4. Piloter | Choisir tes indicateurs, fixer ton objectif prioritaire, renseigner tes coûts. |
 
 - **« Montre-moi »** met en lumière l'endroit où agir, sur le bon onglet.
@@ -137,11 +137,11 @@ Le bouton **Mode simplifié**, en haut à droite, s'active et se désactive à t
 En mode simplifié :
 
 - **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres. Le tableau de bord, la fiche Coach, la Pratique délibérée et le Réseau sont masqués.
-- **Aucune notion d'aisance, d'objectif, d'action ni de coût.**
+- **Aucune notion d'XP de pratique, d'objectif, d'action ni de coût.** Les XP de tes saisies restent « à répartir », sans aucun signalement, et rien n'est jamais obligatoire.
 - **Saisie** : les types sont présentés l'un sous l'autre, avec leur sens (« J'ai proposé à une personne de découvrir le coaching »…), puis tes autres types. Il reste la durée, la personne, « Ce qu'on a vu », les notes sur l'entretien et le suivi (CR, synthèse). Une proposition garde son montant et sa durée d'engagement.
-- **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors aisance, objectifs et coûts).
-- **Mes saisies** : identique, sans les notes d'aisance ni le coût des supervisions.
-- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche personne n'a plus la proximité, l'aisance, le public ni la problématique.
+- **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors XP de pratique, objectifs et coûts).
+- **Mes saisies** : identique, sans les colonnes XP ni le coût des supervisions.
+- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche personne n'a plus la proximité, les XP investis, le public ni la problématique.
 - **Paramètres** : ton nom, ton logo et une palette de couleurs proposée ; sécurité, stockage, partage et parcours. Les types d'activité, les compétences, les indicateurs, le suivi des personnes et les coûts sont masqués.
 
 ---
@@ -167,9 +167,15 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
 - **Réponse** (Invitation). Case « Elle a dit non » si la personne décline. Tu peux la cocher plus tard, dans Mes saisies. Tes non sont comptés dans Suivi d'activité.
 - **Actions de pratique délibérée.** Pour chacune de tes actions en cours qui concerne ce type d'entretien : **Oui**, **En partie** ou **Non**. Un nouveau clic sur la réponse l'efface. C'est le plus rapide : commence par là.
-- **Focus.** Pour chacune de tes compétences en focus, une note d'aisance de 1 à 5, une grande zone **« Ce que j'ai remarqué »** et une case **« Retenir pour la prochaine supervision »**. Tout est facultatif.
-- **Aisance · autres compétences.** Une note de 1 à 5 pour tes autres compétences suivies, sur deux colonnes. « + Remarque sur… » ouvre une zone de remarque pour l'une d'elles.
-  - Ces blocs n'apparaissent que pour les types où l'aisance est activée (Paramètres > Types d'activité), sauf les actions, qui s'affichent pour les types que tu leur as associés.
+- **XP de pratique** (mode complet). Chaque entretien rapporte des XP selon sa durée et son type : **10 minutes = 1 XP**, arrondi au plus proche, multiplié par **2** pour une séance ou une conversation, **3** pour une supervision, **1** pour un débrief ou un type d'entraînement que tu as ajouté (rôle « Pratique délibérée » ; un type ajouté de rôle « Heures de coaching » compte ×2). Une séance de 1h30 rapporte 18 XP, une conversation d'1 h 12 XP, une supervision de 1h30 27 XP, un débrief de 1h30 9 XP. Les multiplicateurs sont fixes.
+  - L'en-tête annonce « 18 XP à répartir » et le détail du calcul ; il suit en direct le type et la durée.
+  - Toutes tes compétences suivies s'affichent, **tes focus en premier**, avec **−** et **+**. Le compteur indique « reste 6 », puis « tout est réparti ✓ » ; on ne peut pas dépasser le budget.
+  - Raccourcis : **Tout sur le focus** et **Répartir également**.
+  - Tu peux enregistrer sans tout répartir : les XP restants attendent dans Mes saisies et dans le détail ◎. Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis.
+  - Une rencontre réseau, une invitation, une proposition ou une annexe ne rapporte pas d'XP de pratique.
+- **Facultés commerciales** (mode complet). Après une rencontre réseau, une invitation ou une proposition : **de 0 à 5 XP** selon ton aisance, et **ce qui a été facile, ce qui a été difficile**. Ce commentaire est obligatoire, même à 0 XP ; en mode simplifié, le bloc n'apparaît pas et rien n'est exigé.
+- **Focus.** Pour chacune de tes compétences en focus, une grande zone **« Ce que j'ai remarqué »** et une case **« Retenir pour la prochaine supervision »**. Tout est facultatif.
+- **Remarques · autres compétences.** « + Remarque » ouvre une zone de remarque pour l'une de tes autres compétences.
 - **Proposition.** Montant, nombre de séances prévues, durée d'engagement. Une proposition est enregistrée « En attente » (voir la [partie 10](#10-propositions-et-contrats)).
 - **Supervision.** Coût de cette séance. Laisse le champ vide pour compter le prix moyen indiqué dans les Paramètres (il s'affiche en grisé), ou saisis le montant réel : il prend le pas sur le prix moyen. Si tu changes ensuite le prix moyen, toutes les séances sans montant personnalisé suivent. Coche **« Supervision non payante »** pour une séance offerte ou incluse ailleurs : elle n'entre alors pas dans tes coûts.
   - Si des remarques sont retenues pour la supervision, elles s'affichent en dessous avec ce que tu en retiens (voir la [partie 4](#4-pratique-délibérée)). Décoche « Joindre les remarques… » pour une supervision qui n'a rien à voir.
@@ -180,15 +186,23 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
 
 L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce moment, à vérifier que tu le fais vraiment, et à préparer tes supervisions.
 
-### Boussole d'aisance
+### Boussole de pratique
 
-- Le graphique en toile montre ton aisance sur chacune de tes compétences suivies.
-- **Gérer mes compétences** (en haut de la boussole) ouvre la liste de tes compétences : libellé, **discipline**, repères du 1 et du 5, suivie ou non, **focus**, nombre de notes. C'est le seul endroit où les gérer ; le bloc des Paramètres y renvoie.
+- Le graphique en toile montre **la part de tes XP sur chacune de tes compétences suivies**, rapportée à la compétence la plus fournie. En pointillé, la même chose sur **tes 30 derniers jours** : où tu investis en ce moment.
+- À côté de chaque compétence : son **niveau** et son total d'XP.
+- **Gérer mes compétences** (en haut de la boussole) ouvre la liste de tes compétences : libellé, **discipline**, suivie ou non, **focus**, nombre de saisies. C'est le seul endroit où les gérer ; le bloc des Paramètres y renvoie. La compétence **Facultés commerciales** s'y trouve toujours : elle se renomme, mais ne se supprime pas.
 - Les compétences d'une même **discipline** (PNL, Analyse transactionnelle, Systémique…) sont regroupées sur la boussole, sous un arc de couleur portant son nom. La discipline est libre : des suggestions s'affichent quand tu la tapes.
-- **La note d'une compétence est la moyenne de tes 5 dernières notes**, pas de tout ton historique : elle reflète où tu en es aujourd'hui.
-- **↗ ou ↘** indique la tendance par rapport aux 5 notes précédentes (écart d'au moins 0,3).
-- Une compétence jamais notée reste au centre, avec la mention « jamais notée ».
+- Une compétence sans XP reste au centre, avec la mention « aucun XP ».
 - Avec moins de 3 compétences suivies, la boussole devient une simple liste.
+
+### XP de pratique : totaux, niveaux, transferts
+
+Sous la boussole, le panneau **XP de pratique** :
+
+- **en tête** : tes XP gagnés en tout, ceux des 30 derniers jours, et les **XP à répartir** (avec le nombre de saisies concernées et un lien vers Mes saisies) ;
+- **pour chaque compétence** : son total (XP répartis dans tes saisies, plus les transferts reçus, moins les transferts donnés), son **niveau**, une barre qui **repart de zéro à chaque niveau**, ses XP des 30 derniers jours et le seuil du niveau suivant. Toutes les compétences suivent la même courbe : niveau 1 à 10 XP, puis 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), jusqu'au niveau 100 ;
+- **Transférer des XP** : « Transférer N XP de A vers B », avec un motif facultatif. Un transfert déplace des XP déjà gagnés, sans en créer : utile quand tu fusionnes deux compétences, ou quand un entretien a surtout servi une autre compétence. N ne peut pas dépasser le total de A ; une compétence archivée peut être source ou cible ;
+- **Historique des transferts** : date, A → B, nombre d'XP, motif. « annuler » reste possible tant que B a encore assez d'XP.
 - **Clique sur une compétence** pour ouvrir son historique (voir plus bas).
 
 ### Focus du moment
@@ -214,7 +228,7 @@ L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce 
 
 En cliquant sur une compétence (boussole, focus, ou fiche) :
 
-- sa note actuelle, la note des 5 précédentes, et la courbe de tes 10 dernières notes ;
+- son niveau, sa barre, son total d'XP, ses XP des 30 derniers jours et le seuil du niveau suivant ;
 - un bouton pour la mettre en focus ou l'en retirer ;
 - les actions qui lui sont liées, avec leur taux ;
 - **toutes tes remarques et tous tes retours de supervision**, du plus récent au plus ancien. Les retours de supervision sont alignés à droite, en couleur, avec la date de la supervision et la personne qui t'a supervisé. « modifier » rouvre la saisie d'une remarque.
@@ -280,7 +294,7 @@ L'en-tête affiche ton titre, ton âge et ton ancienneté (« 2,7 années de coa
 | 90–99 | Élite |
 | 100 | Légende |
 
-### Boussole d'aisance, focus et actions
+### Boussole de pratique, focus et actions
 
 La même boussole que dans l'onglet Pratique délibérée, avec tes focus et tes actions en cours à droite (voir la [partie 4](#4-pratique-délibérée)).
 
@@ -290,7 +304,7 @@ Trois colonnes, depuis le début de ta pratique. **Chaque statistique a son nive
 
 - **Coacher beaucoup** : heures de coaching, conversations, séances, personnes coachées ;
 - **Pratiquer délibérément** : heures de pratique délibérée, heures de supervision ;
-- **Développer l'activité** : invitations, propositions, clients et renouvellements, CA.
+- **Développer l'activité** : invitations, propositions, clients et renouvellements, CA, et **Facultés commerciales** (le total de ces XP, sur la courbe commune des XP).
 
 Sous chaque statistique : sa barre vers le niveau suivant, et la valeur à atteindre. La barre repart de zéro à chaque niveau : elle se remplit entre le seuil que tu viens de passer et le suivant.
 
@@ -298,7 +312,7 @@ Sous chaque statistique : sa barre vers le niveau suivant, et la valeur à attei
 
 Sous les statistiques, tes **hauts faits** :
 
-- **automatiques** : première séance, paliers de séances, d'heures de coaching (10 h, 50 h, 100 h… 10 000 h), de personnes coachées, de clients payants (dont le premier contrat), de CA signé, de semaines d'affilée avec au moins un entretien de coaching, d'heures de pratique délibérée, de supervisions, d'invitations, de **non reçus** (« Premier non », 10, 25, 50, 100), et tes actions de pratique délibérée « acquises » ;
+- **automatiques** : première séance, paliers de séances, d'heures de coaching (10 h, 50 h, 100 h… 10 000 h), de personnes coachées, de clients payants (dont le premier contrat), de CA signé, de semaines d'affilée avec au moins un entretien de coaching, d'heures de pratique délibérée, de supervisions, d'invitations, de **non reçus** (« Premier non », 10, 25, 50, 100), d'**XP de pratique** (100, 500, 1 000, 5 000, 10 000 XP), le **premier niveau 5, 10 et 20** atteint dans une compétence, et tes actions de pratique délibérée « acquises » ;
 - **automatiques encore** : un haut fait par chapitre du carnet de route terminé ;
 - **tes victoires** : les réussites que l'outil ne peut pas compter seul (une promotion obtenue par un client, un premier dirigeant accompagné…). Ajoute-les avec le + du bloc : une image (recadrée en carré), un titre, une date, un niveau et un court récit « pour t'en souvenir ». Clique sur une victoire pour la revoir en grand ou la modifier. Son ajout est célébré comme un haut fait.
 - Chaque haut fait a un niveau : **Bronze**, **Argent**, **Or** ou **Légendaire**. « NOUVEAU » signale ceux des 30 derniers jours.
@@ -408,9 +422,8 @@ Le catalogue compte 23 indicateurs, répartis en 4 piliers :
   - clients actifs (31 jours).
 - **Pratiquer délibérément :**
   - pratique délibérée ;
-  - discipline post-séance (CR, synthèse et notes, sur 90 jours glissants) ;
-  - aisance moyenne ;
-  - atteinte de l'objectif du rendez-vous.
+  - discipline post-séance (CR, synthèse et XP répartis, sur 90 jours glissants) ;
+  - XP de pratique (XP gagnés sur 90 jours, comparés aux 90 jours précédents ; niveau et total en haut à droite du bandeau).
 - **Développer l'activité :**
   - CA accepté / proposé ;
   - taux de transformation ;
@@ -432,9 +445,9 @@ Le catalogue compte 23 indicateurs, répartis en 4 piliers :
 - **Année.** Les boutons 2024, 2025, 2026… choisissent l'année affichée.
 - **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail.
 - **Développer ton activité.** Deux vues, pour l'année choisie :
-  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). À droite : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, ton **aisance commerciale** (moyenne et tendance de ta note d'atteinte de l'objectif sur tes invitations, conversations et propositions ; masquée en mode simplifié) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
+  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). À droite : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, tes **Facultés commerciales** (XP de l'année sur tes rencontres réseau, invitations et propositions ; masquées en mode simplifié) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
   - **Par mois** : invitations, conversations, propositions et signatures, mois par mois, pour voir ton rythme.
-- L'aisance ne se suit plus ici : elle se lit sur la boussole d'aisance, et en cliquant sur une compétence (courbe, tendance, remarques).
+- Les XP de pratique se lisent sur la boussole de pratique et dans le panneau XP de l'onglet Pratique délibérée.
 
 ---
 
@@ -448,16 +461,17 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 - **Résumé.** Nombre de saisies, temps total, dont coaching, pratique délibérée, et pourcentages de CR et de synthèses faits.
 - **Tuile de la personne.** Quand tu sélectionnes une personne, sa tuile s'affiche à droite des filtres. Si tu en sélectionnes plusieurs, un onglet par personne permet de passer de l'une à l'autre.
   - **À gauche :** son étape dans le pipeline (Rencontre, En conversation, Client.e…), sa fonction et son site, ses dates, ses chiffres, et les boutons Fiche et Archiver.
-  - **À droite :** son aisance moyenne sur chacun de tes axes suivis.
+  - **À droite :** les XP investis avec cette personne, compétence par compétence.
   - **En dessous :** la frise de ses échanges, avec la date (jj/mm) au-dessus de chaque échange et l'année au milieu de sa période.
 - **Années.** Elles sont classées de la plus récente à la plus ancienne.
-- **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
-  - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
+- **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, XP, Contrat / coût.
+  - **XP** (mode complet) est replié par défaut et montre un résumé : « 18 XP · Q 12 · É 6 » (les initiales de tes compétences). Un clic sur l'en-tête ou sur une cellule déplie une colonne par compétence, avec un petit champ numérique, et une colonne qui donne les XP gagnés et ce qui reste à répartir. On ne peut pas dépasser le budget de la saisie ; les Facultés commerciales vont de 0 à 5.
+  - Une saisie dont des XP restent **à répartir** a ses cellules XP en jaune. Si tu raccourcis la durée ou changes le type d'une saisie déjà répartie, le budget est recalculé : un **dépassement** colore la ligne en rouge, sans rien supprimer, jusqu'à ce que tu ajustes. En mode simplifié, rien n'est signalé.
   - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut ; sur une invitation, la case « Elle a dit non ».
   - **Personne** : un clic sur le nom ouvre un champ de recherche (personnes récentes d'abord) pour changer la personne d'une saisie, en créer une, ou la retirer (« — Aucune personne ») sur un type où elle est facultative. Une saisie à qui il manque une personne obligatoire est entourée en rouge ; « Personne supprimée » signale une saisie dont la personne a été effacée. La petite loupe à côté filtre le tableau sur cette personne.
   - **Durée** : « Autre… », en bas de la liste, permet d'écrire n'importe quelle durée (`2,5`, `2h30`, `150min`), puis Entrée.
   - Chaque modification est enregistrée aussitôt.
-  - **◎** ouvre les détails de la saisie : notes sur l'entretien, et sa pratique délibérée (réponses aux actions, notes d'aisance, remarques, retours d'une supervision) pour la compléter ou la corriger. Il est coloré quand la saisie en contient.
+  - **◎** ouvre les détails de la saisie : notes sur l'entretien, et sa pratique délibérée (réponses aux actions, répartition des XP ou Facultés commerciales et leur commentaire, remarques, retours d'une supervision) pour la compléter ou la corriger. Il est coloré quand la saisie en contient.
   - ✕ supprime une saisie. L'annulation est possible quelques secondes.
 - **Afficher les métriques archivées.** Fait réapparaître les axes que tu ne suis plus.
 - **Exporter CSV** (en bas de page). Un tableur de toutes tes saisies.
@@ -543,7 +557,7 @@ Puis trois onglets.
 - **Chiffres.** Dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
 - **Contrat**, s'il y en a un. Montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
 - **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. Quand des pastilles se chevauchent, celles des types les mieux classés dans Paramètres > Types d'activité passent au-dessus : par exemple les sessions au-dessus des débriefs. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
-- **Aisance moyenne** sur tous tes axes suivis (mode complet).
+- **XP investis avec cette personne**, compétence par compétence (mode complet).
 - **Plan d'action.** Les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
 
 **En bas :**
@@ -624,17 +638,17 @@ Les blocs vont par deux, dans cet ordre :
 |---|---|
 | **Identité** : nom du cabinet, nom de l'outil, phrase de motivation, accord des libellés (féminin, masculin, inclusif). | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
 | **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 13](#13-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
-| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. Un type intégré renommé affiche ↺ au bout de sa ligne : il lui rend son nom d'origine (par exemple « Rencontre réseau »). | **Compétences d'aisance** : renvoie à « Gérer mes compétences », sur la boussole d'aisance (voir la [partie 4](#4-pratique-délibérée)). |
+| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, **Personne**, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. Un type intégré renommé affiche ↺ au bout de sa ligne : il lui rend son nom d'origine (par exemple « Rencontre réseau »). | **Compétences** : renvoie à « Gérer mes compétences », sur la boussole de pratique (voir la [partie 4](#4-pratique-délibérée)). |
 | **Suivi des personnes** : seuil de l'alerte « sans contact », en jours ; durée de « Plus tard » dans À relancer (14 jours par défaut). | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
 | **Coûts de l'activité**, sur toute la largeur (voir la [partie 11](#11-coûts-et-taux-horaire-réel)). | |
 | **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : afficher le carnet de route, célébrations animées, « Revoir l'accueil ». |
 
 Quelques précisions :
 
-- **Compte dans** décide dans quel indicateur les heures d'un type sont additionnées : heures de coaching, pratique délibérée, développement ou autre.
+- **Compte dans** décide dans quel indicateur les heures d'un type sont additionnées : heures de coaching, pratique délibérée, développement ou autre. Pour un type que tu as ajouté, il fixe aussi ses XP : ×2 en heures de coaching, ×1 en pratique délibérée, aucun sinon.
 - **Personne** : obligatoire ou facultative à la saisie. Par défaut, obligatoire pour la rencontre, l'invitation, la conversation, la proposition, la séance et le débrief ; facultative pour la supervision et les types que tu ajoutes.
 - **Les couleurs des types** suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
-- **Sur un écran de moins de 1500 px de large**, Types d'activité et Compétences d'aisance passent l'un sous l'autre.
+- **Sur un écran de moins de 1500 px de large**, Types d'activité et Compétences passent l'un sous l'autre.
 
 En bas de chaque page :
 
@@ -728,7 +742,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.5.0** | 14/11/2026 | Onglet Réseau (mode complet) : vues Cercles, Public, Problématique et Orbites, avec l'étape, le nombre d'échanges, les personnes à relancer, les passerelles et les recommandations ; panneau « Ce que montre ton réseau » (passerelles, groupes à réchauffer, pistes de développement, chaînes de recommandation). Le socle de la démarche : entretenir ton réseau. Démo enrichie de dix contacts réseau. |
+| **3.0.0** | 14/11/2026 | XP de pratique à la place des notes d'aisance de 1 à 5 : chaque entretien rapporte des XP selon sa durée et son type, à répartir entre tes compétences (focus en tête, raccourcis, XP non répartis signalés dans Mes saisies). Niveaux par compétence, boussole de pratique (part des XP et 30 derniers jours), panneau XP avec transferts et historique. Compétence Facultés commerciales (0 à 5 XP et commentaire après une rencontre, une invitation ou une proposition). Indicateur XP de pratique, hauts faits d'XP, export CSV. Conversion des anciennes notes, avec une copie de sécurité automatique avant la migration. |
+| 2.5.0 | 14/11/2026 | Onglet Réseau (mode complet) : vues Cercles, Public, Problématique et Orbites, avec l'étape, le nombre d'échanges, les personnes à relancer, les passerelles et les recommandations ; panneau « Ce que montre ton réseau » (passerelles, groupes à réchauffer, pistes de développement, chaînes de recommandation). Le socle de la démarche : entretenir ton réseau. Démo enrichie de dix contacts réseau. |
 | 2.4.0 | 14/11/2026 | « Traiter » dans À relancer (fait, annulée, replanifier, plus tard, commentaire). Rythme de contact par personne et relance au rythme, avec « Préparer ». Fiche personne en onglets Infos, Notes et Échanges : cercles, proximité, recommandé·e ou présenté·e par, prochain sujet à évoquer, notes des échanges. Pipeline à partir de l'invitation (colonne Invité·e), contacts réseau hors pipeline. Indicateurs Réseau entretenu, Personnes vues et Recommandations ; niveau et total dans les bandeaux. « Plus tard » réglable. Export CSV des personnes. |
 | 2.3.1 | 14/11/2026 | Bouton ↺ dans Paramètres pour rendre son nom d'origine à un type intégré renommé. Alerte « bilan ou renouvellement » une seule fois par contrat. Supprimer une action du plan d'action (✕, annulable). |
 | 2.3.0 | 13/11/2026 | Recherche de personne au fil de la frappe (accents et majuscules ignorés, « + Créer ») dans la saisie, Mes saisies et le plan d'action. Rencontre réseau en tête du parcours, avec « Ce qu'on a vu » sur plusieurs lignes. « Personnes archivées » au lieu de « Clients archivés ». |

@@ -37,7 +37,10 @@ const fmtV=(v,u)=>u==' h'&&v<10?n1(v):Math.round(v).toLocaleString(LOC);
 function coachStats(){const all=E(),c=t=>all.filter(e=>t.includes(e.type)),A=c(['proposition']).filter(e=>e.statut=='acceptee'&&+e.eur>0),CA=caInfo(A);
  return[{t:'Coacher beaucoup',c:'#822239',cj:'#F0124F',s:[['Heures de coaching',H(c(COACH))+avN('h'),'h',' h'],['Conversations',c(['conversation']).length+avN('conv'),'conv',''],['Séances',c(['session']).length+avN('ses'),'ses',''],['Personnes coachées',new Set(c(COACH).filter(e=>e.pid!=null).map(e=>e.pid)).size+avN('pers'),'pers','']]},
   {t:'Pratiquer délibérément',c:'#2F8C93',cj:'#00C2CC',s:[['Pratique délibérée',H(c(DELIB))+avN('delib'),'delib',' h'],['Supervision',H(c(['supervision']))+avN('suph'),'suph',' h']]},
-  {t:"Développer l'activité",c:'#508AA8',cj:'#1186FF',s:[['Invitations',c(['invitation']).length+avN('inv'),'inv',''],['Propositions',c(['proposition']).filter(e=>+e.eur>0).length+avN('prop'),'prop',''],['Clients et renouvellements',A.length+avN('cli'),'cli',''],[CA.l,CA.v,'ca',' €',CA]]}]}
+  {t:"Développer l'activité",c:'#508AA8',cj:'#1186FF',s:[['Invitations',c(['invitation']).length+avN('inv'),'inv',''],['Propositions',c(['proposition']).filter(e=>+e.eur>0).length+avN('prop'),'prop',''],['Clients et renouvellements',A.length+avN('cli'),'cli',''],[CA.l,CA.v,'ca',' €',CA],...fcRow()]}]}
+/* 3.0.0 : Facultés commerciales (XP des rencontres réseau, invitations et propositions, transferts compris), courbe commune des XP */
+function fcRow(){const f=fcMet();if(!f)return[];const v=Math.max(0,xpTotals()[f.id]||0),x=xpLvl(v);
+ return[[f.l,v,'fcxp',' XP',{x:{...x,cont:x.L+x.pct/100},nx:x.L>=100?'niveau maximum':`niveau suivant à ${fmtN(x.next)} XP`}]]}
 /* niveau global = moyenne des niveaux des statistiques déjà saisies (une statistique entre dans la moyenne à sa première saisie) */
 function coachLevel(){const L=coachStats().flatMap(g=>g.s).filter(r=>+r[1]>0).map(r=>rowLvl(r).cont),m=L.length?L.reduce((a,b)=>a+b,0)/L.length:0,n=Math.min(100,Math.floor(m+1e-9));return{L:n,pct:n>=100?100:Math.round((m-n)*100),moy:m}}
 
@@ -56,7 +59,7 @@ function coachHTML(){const C=CO(),jeu=C.theme=='jeu',me=coachLevel(),rk=rangOf(m
   <div class="cfrk"><small>Rang</small><b>${esc(rk)}</b><div class="cflvl">${lvlTxt}</div><div class="cfbar"><i style="width:${me.pct}%"></i></div></div>
   <div class="cfcv"><span><span class="k">${jeu?'Diplômes':'Formation'}</span>${chips(C.formation)||'<em>à compléter</em>'}${PLUS}</span><span><span class="k">Parcours</span>${chips(C.parcours)||'<em>à compléter</em>'}${PLUS}</span></div></div>`;
  const M=mActive(),bous=M.length>=3?boussoleSVG(jeu?'jeu':'pro'):boussoleList();
- const bloc=`<div class="cfpanel"><div class="cfsh">Boussole d'aisance <span>oriente la pratique délibérée · note = moyenne des 5 dernières notes · ↗ ↘ tendance</span><button class="cfmets" data-mets>Gérer mes compétences</button></div><div class="pdbx"><div class="cfbous">${bous}</div><div class="cfside">${pdSideHTML()}</div></div></div>`;
+ const bloc=`<div class="cfpanel"><div class="cfsh">Boussole de pratique <span>oriente la pratique délibérée · part des XP de chaque compétence · en pointillé : les 30 derniers jours</span><button class="cfmets" data-mets>Gérer mes compétences</button></div><div class="pdbx"><div class="cfbous">${bous}</div><div class="cfside">${pdSideHTML()}</div></div></div>`;
  const G=coachStats();
  const stats=`<div class="cfpanel cfstp"><div class="cfsh">Statistiques <span>depuis le début · chaque niveau correspond au rythme d'un coach régulier · ton niveau global est la moyenne des statistiques déjà saisies</span></div><div class="cfst">${G.map(gr=>{const col=jeu?gr.cj:gr.c,GS=gr.s.filter(r=>+r[1]>0),lv=GS.length?Math.round(GS.reduce((a,r)=>a+rowLvl(r).L,0)/GS.length):0;
   return `<div class="cfsg" style="--c:${col}"><h4>${jeu?'<i class="dot"></i>':''}${gr.t}${jeu?`<em>moy. Niv. ${lv}</em>`:''}</h4>${gr.s.map(r=>{const[l,v,f,u,M]=r,x=rowLvl(r);
@@ -122,12 +125,9 @@ const avN=k=>+AV()[k]||0;
 
 /* ---------- Métriques : développer ton activité ---------- */
 let BVIEW='fun';
-/* aisance commerciale : note d'atteinte de l'objectif sur les saisies commerciales */
-const COMT=['invitation','conversation','proposition'];
-function aisMet(){const M=mActive();return M.find(m=>/obj/i.test(m.l||''))||null}
-function aisCom(L){const m=aisMet();if(!m)return null;const V=L.filter(e=>COMT.includes(e.type)&&e.ais&&+e.ais[m.id]>0).sort(byDate).map(e=>+e.ais[m.id]);
- if(!V.length)return{n:0,l:m.l};const avg=V.reduce((a,b)=>a+b,0)/V.length,h=Math.floor(V.length/2),a1=h?V.slice(0,h).reduce((a,b)=>a+b,0)/h:null,a2=h?V.slice(h).reduce((a,b)=>a+b,0)/(V.length-h):null;
- return{n:V.length,avg,tr:a1!=null?a2-a1:null,l:m.l}}
+/* 3.0.0 : Facultés commerciales de l'année (XP de 0 à 5 par rencontre réseau, invitation ou proposition) */
+function aisCom(L){const f=fcMet();if(!f)return null;const V=L.filter(e=>isCom(e.type)&&e.xp&&e.xp[f.id]!=null);
+ return{n:V.length,xp:V.reduce((s,e)=>s+(+e.xp[f.id]||0),0),N:L.filter(e=>isCom(e.type)).length,l:f.l}}
 function bizYear(y){const L=E().filter(e=>e.date.startsWith(y)),P=f=>new Set(L.filter(e=>f(e)&&e.pid!=null).map(e=>e.pid)).size;
  const acc=L.filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0);
  return{inv:L.filter(e=>e.type=='invitation').length,conv:P(e=>e.type=='conversation'),prop:P(e=>e.type=='proposition'&&+e.eur>0),cli:P(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0),
@@ -145,7 +145,7 @@ function renderBiz(){const y=YSEL||today().slice(0,4),py=String(+y-1),B=bizYear(
    <div><small>Transformation</small><b>${glob!=null?glob+' %':'—'}</b><span>${glob!=null?gl+' deviennent des clients':'pas encore de données'}</span></div>
    <div><small>CA signé ${y}</small><b>${eur(B.ca)}</b><span>${Pv.ca?`${eur(Pv.ca)} en ${py}`:'&nbsp;'}</span></div>
    <div><small>Panier moyen</small><b>${B.nacc?eur(B.ca/B.nacc):'—'}</b><span>${B.nacc?pl(B.nacc,'contrat')+' signé'+(B.nacc>1?'s':''):'&nbsp;'}</span></div>
-   ${B.ac&&!SIMPLE()?`<div><small>Aisance commerciale</small><b>${B.ac.n?n1(B.ac.avg)+'<span style="font-size:15px;color:var(--grey)"> / 5</span>':'—'}</b><span>${B.ac.n?`${esc(B.ac.l)}, sur ${pl(B.ac.n,'saisie')} commerciale${B.ac.n>1?'s':''}${B.ac.tr!=null&&Math.abs(B.ac.tr)>=.2?` · <b style="font-size:inherit;color:${B.ac.tr>0?'var(--afb)':'var(--red)'}">${B.ac.tr>0?'↗ en progrès':'↘ en baisse'}</b>`:B.ac.tr!=null?' · stable':''}`:`note « ${esc(B.ac.l)} » après tes invitations, conversations et propositions`}</span></div>`:''}
+   ${B.ac&&!SIMPLE()?`<div><small>${esc(B.ac.l)}</small><b>${num(B.ac.xp)}<span style="font-size:15px;color:var(--grey)"> XP</span></b><span>${B.ac.N?`sur ${pl(B.ac.N,'rencontre')}, invitations et propositions · ${n1(B.ac.n?B.ac.xp/B.ac.n:0)} XP en moyenne`:'de 0 à 5 XP après chaque rencontre réseau, invitation ou proposition'}</span></div>`:''}
    <div class="bznon"><small>Non reçus ${y}</small><b>${B.non}</b><span>${B.non?'chaque non prouve que tu as proposé':'invitations déclinées et propositions refusées'}</span></div></div></div>
    ${!B.inv?'<div class="hint" style="margin:8px 0 0">Enregistre tes invitations (type Invitation) pour voir le premier taux de l\'entonnoir.</div>':'<div class="hint" style="margin:8px 0 0">Les taux comparent des personnes distinctes sur l\'année ; « — » quand l\'étape précédente n\'est pas renseignée.</div>'}`;return}
  /* par mois */
@@ -170,10 +170,15 @@ const HF=[
  {k:'delib',ic:t=>kfmt(t)+'h',l:t=>`${fmtN(t)} h de pratique délibérée`,th:[[10,'br'],[50,'ar'],[100,'or'],[250,'lg']]},
  {k:'sup',ic:t=>t==1?'S':t,l:t=>t==1?'Première supervision':`${t} supervisions`,th:[[1,'br'],[10,'ar'],[25,'or']]},
  {k:'inv',ic:t=>t,l:t=>`${t} invitations`,th:[[10,'br'],[50,'ar'],[100,'or'],[250,'lg']]},
- {k:'non',ic:t=>t==1?'NON':t,l:t=>t==1?'Premier non':`${t} non reçus`,th:[[1,'br'],[10,'br'],[25,'ar'],[50,'or'],[100,'lg']]}];
+ {k:'non',ic:t=>t==1?'NON':t,l:t=>t==1?'Premier non':`${t} non reçus`,th:[[1,'br'],[10,'br'],[25,'ar'],[50,'or'],[100,'lg']]},
+ /* 3.0.0 : XP de pratique */
+ {k:'xp',ic:t=>kfmt(t),l:t=>`${fmtN(t)} XP de pratique`,th:[[100,'br'],[500,'ar'],[1000,'or'],[5000,'lg'],[10000,'lg']]},
+ {k:'xpl',ic:t=>'N'+t,l:t=>`Niveau ${t} dans une compétence`,th:[[5,'ar'],[10,'or'],[20,'lg']]}];
 const fmtN=n=>Math.round(n).toLocaleString(LOC);
 function weekKey(d){const x=new Date(d+'T12:00:00Z');x.setUTCDate(x.getUTCDate()-((x.getUTCDay()+6)%7));return x.toISOString().slice(0,10)}
-function hautsFaits(){const A=AV(),v={ses:avN('ses'),h:avN('h'),pers:0,cli:0,ca:avN('ca'),wk:0,delib:avN('delib'),sup:avN('sup'),inv:avN('inv'),non:0},persA=avN('pers'),cliA=avN('cli');
+function hautsFaits(){const A=AV(),v={ses:avN('ses'),h:avN('h'),pers:0,cli:0,ca:avN('ca'),wk:0,delib:avN('delib'),sup:avN('sup'),inv:avN('inv'),non:0,xp:0,xpl:0},persA=avN('pers'),cliA=avN('cli');
+ const XT={},XF=[...XFERS()].sort((a,b)=>(a.date||'').localeCompare(b.date||''));let xi=0;
+ const xpMax=()=>{v.xpl=Math.max(v.xpl,...Object.values(XT).map(x=>xpLvl(x).L),0)},xfUntil=d=>{while(xi<XF.length&&(XF[xi].date||'')<=d){const t=XF[xi++];XT[t.de]=(XT[t.de]||0)-t.xp;XT[t.vers]=(XT[t.vers]||0)+t.xp}xpMax()};
  const P=new Set(),C=new Set(),Wk=new Set(),got=[],done={};const AD=A.date||'';
  const check=d=>HF.forEach(f=>f.th.forEach(([t,tier])=>{const key=f.k+t;if(!done[key]&&v[f.k]>=t){done[key]=1;got.push({k:key,ic:f.ic(t),t:f.l(t),d,tier,auto:1})}}));
  v.pers=persA;v.cli=cliA;check(AD||'avant');
@@ -186,18 +191,20 @@ function hautsFaits(){const A=AV(),v={ses:avN('ses'),h:avN('h'),pers:0,cli:0,ca:
   if(e.type=='invitation')v.inv++;
   if((e.type=='invitation'&&e.non)||(e.type=='proposition'&&e.statut=='refusee'))v.non++;
   if(e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0){v.ca+=+e.eur;if(e.pid!=null){C.add(e.pid);v.cli=cliA+C.size}}
+  v.xp+=xpEarned(e);if(e.xp)Object.entries(e.xp).forEach(([k,x])=>XT[k]=(XT[k]||0)+(+x||0));xfUntil(e.date);
   check(e.date)});
+ if(xi<XF.length){xfUntil('9999');check(XF.at(-1).date||today())}
  const acq=PD().lib.filter(a=>a.st=='acquise').sort((a,b)=>(a.maj||'').localeCompare(b.maj||''));
  if(acq.length)got.push({k:'acq1',ic:'★',t:'Première action acquise',d:(acq[0].maj||'').slice(0,10)||today(),tier:'ar',auto:1});
  if(acq.length>=5)got.push({k:'acq5',ic:'★',t:'5 actions acquises',d:(acq[4].maj||'').slice(0,10)||today(),tier:'or',auto:1});
  (CO().victoires||[]).forEach((x,i)=>{if(x.t&&x.t.trim())got.push({k:'v'+x.id,ic:'★',t:x.t.trim(),d:x.d||today(),tier:x.tier||'or',man:1,img:x.img,idx:i})});
  Object.entries((DB.prefs.q&&DB.prefs.q.ch)||{}).forEach(([c,d])=>{const C=CHAP.find(x=>x.k==c);if(C)got.push({k:'ch_'+c,ic:'✓',t:'Carnet de route : '+C.hf,d,tier:'br',auto:1})});
  got.sort((a,b)=>(b.d=='avant'?'0':b.d).localeCompare(a.d=='avant'?'0':a.d));
- const todo=[];HF.forEach(f=>{const nx=f.th.find(([t])=>!done[f.k+t]);if(!nx)return;const[t,tier]=nx,cur=v[f.k];todo.push({ic:f.ic(t),t:f.l(t),tier,p:cur/t,rest:t-cur,u:f.k=='h'||f.k=='delib'?' h':f.k=='ca'?' €':'',k:f.k})});
+ const todo=[];HF.forEach(f=>{const nx=f.th.find(([t])=>!done[f.k+t]);if(!nx)return;const[t,tier]=nx,cur=v[f.k];todo.push({ic:f.ic(t),t:f.l(t),tier,p:cur/t,rest:t-cur,u:f.k=='h'||f.k=='delib'?' h':f.k=='ca'?' €':f.k=='xp'?' XP':'',k:f.k})});
  todo.sort((a,b)=>b.p-a.p);
  const lim=addDays(today(),-30);got.forEach(x=>x.nw=x.d!='avant'&&x.d>=lim);
  return{got,todo:todo.slice(0,3)}}
-const restTxt=x=>x.k=='wk'?`encore ${x.rest} semaine${x.rest>1?'s':''}`:`encore ${fmtN(Math.ceil(x.rest))}${x.u}`;
+const restTxt=x=>x.k=='wk'?`encore ${x.rest} semaine${x.rest>1?'s':''}`:x.k=='xpl'?`encore ${x.rest} niveau${x.rest>1?'x':''}`:`encore ${fmtN(Math.ceil(x.rest))}${x.u}`;
 const dTxt=d=>d=='avant'?'avant l\'outil':dShort(d);
 let HFALL=false;
 function hautsFaitsHTML(jeu){const{got,todo}=hautsFaits(),PL='<button class="cfplus" data-covic title="Ajouter une victoire">+</button>';
@@ -267,7 +274,7 @@ async function importCsv(file){let rows;try{rows=parseCSV(await file.text())}cat
  if(!out.length){toast(`Aucune saisie à importer${ndup?` (${ndup} déjà présente${ndup>1?'s':''})`:''}${bad.length?` · ${bad.length} ligne${bad.length>1?'s':''} non reconnue${bad.length>1?'s':''}`:''}`);return}
  if(!confirm(`${out.length} saisie${out.length>1?'s':''} à importer, du ${dShort(out.map(x=>x.d).sort()[0])} au ${dShort(out.map(x=>x.d).sort().at(-1))}.${newP.size?`\n${newP.size} nouvelle${newP.size>1?'s':''} personne${newP.size>1?'s':''} sera créée${newP.size>1?'s':''}.`:''}${ndup?`\n${ndup} ligne${ndup>1?'s':''} déjà présente${ndup>1?'s':''} ignorée${ndup>1?'s':''}.`:''}${bad.length?`\nLignes non reconnues (date ou type) : ${bad.slice(0,12).join(', ')}${bad.length>12?'…':''}.`:''}\n\nImporter ?`))return;
  const now=new Date().toISOString();out.forEach(x=>{let pid=null;if(x.pn){let p=DB.personnes.find(q=>byName(q.nom,x.pn)==0);if(!p){p={id:nextId(DB.personnes),nom:x.pn,maj:now};DB.personnes.push(p)}pid=p.id}
-  const e={id:nextId(E()),maj:now,date:x.d,type:x.k,dur:x.dur,pid:TM[x.k].p?pid:null,com:x.com,...(x.notes?{notes:x.notes}:{}),cr:false,syn:false,ais:null,imp:1};
+  const e={id:nextId(E()),maj:now,date:x.d,type:x.k,dur:x.dur,pid:TM[x.k].p?pid:null,com:x.com,...(x.notes?{notes:x.notes}:{}),cr:false,syn:false,imp:1};
   if(x.k=='proposition'){e.eur=x.eur;e.engagement_mois=3;e.statut=/accept|sign|gagn|oui/.test(x.st)?'acceptee':/refus|perdu|non/.test(x.st)?'refusee':'attente'}
   E().push(e)});
  touch();renderAll();toast(`${out.length} saisie${out.length>1?'s':''} importée${out.length>1?'s':''}`)}
