@@ -893,6 +893,8 @@ main{max-width:1280px;padding-top:24px}
 .mqdd .ppi.new{color:var(--am);font-weight:800}
 .mqdd .fin{font-size:14px;padding:7px 10px;margin-bottom:4px}
 .seg.l{margin-left:0;margin-top:6px}
+.prr{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:flex-end}
+.prr .seg.l,.prr .rpb{margin-top:6px}
 .nxt{font-size:13px;margin-top:6px;color:var(--grey)} .nxt b{color:var(--jet)} .nxt .late{color:var(--am);font-weight:800}
 .rpb{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
 .rpv{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 8px 6px 6px;font-weight:700;font-size:14px;background:#fff}
@@ -958,8 +960,8 @@ main{max-width:1280px;padding-top:24px}
 
 <div class="mq-top">
   <h1>Maquette v2.4.0 : relances, fiche personne, pipeline, indicateurs</h1>
-  <p>Maquette statique (quelques onglets et boutons sont cliquables), au style de l'application. Données fictives de la démo de Camille Martin, au 14 novembre 2026. Les encadrés pointillés dorés expliquent un choix. Mise à jour du 14/11 : réponses d'Allan aux 8 questions intégrées (dernière section).</p>
-  <nav><a href="#fiche">1. Fiche personne</a><a href="#relancer">2. À relancer</a><a href="#traiter">3. Traiter</a><a href="#pipeline">4. Pipeline</a><a href="#kpi">5. Bandeaux d'indicateurs</a><a href="#param">6. Paramètres</a><a href="#questions">Réponses</a></nav>
+  <p>Maquette statique (quelques onglets et boutons sont cliquables), au style de l'application. Données fictives de la démo de Camille Martin, au 14 novembre 2026. Les encadrés pointillés dorés expliquent un choix. Mise à jour du 14/11 : réponses et remarques d'Allan intégrées ; trois dernières questions en bas.</p>
+  <nav><a href="#fiche">1. Fiche personne</a><a href="#relancer">2. À relancer</a><a href="#traiter">3. Traiter</a><a href="#pipeline">4. Pipeline</a><a href="#kpi">5. Bandeaux d'indicateurs</a><a href="#param">6. Paramètres</a><a href="#questions">Réponses et questions</a></nav>
 </div>
 
 <!-- ================= 1. FICHE ================= -->
@@ -999,11 +1001,12 @@ main{max-width:1280px;padding-top:24px}
       </div>
       <div class="mq-small">Suggestions : cercles déjà utilisés dans le carnet (les plus fournis d'abord), recherche sans accents ni majuscules ; Entrée crée le cercle s'il n'existe pas.</div>
 
-      <div class="pflab">Proximité</div>
-      <div class="seg l"><button>Proche</button><button class="on">Régulier</button><button>Occasionnel</button></div>
-
-      <div class="pflab">Rythme de contact</div>
-      <div class="rpb"><select class="fin" style="width:auto"><option>Tous les mois</option><option selected>Tous les 3 mois</option><option>Tous les 6 mois</option><option>Une fois par an</option><option>Pas de relance</option></select></div>
+      <div class="prr">
+        <div><div class="pflab">Proximité</div>
+        <div class="seg l"><button>Proche</button><button class="on">Régulier</button><button>Occasionnel</button></div></div>
+        <div><div class="pflab">Rythme de contact</div>
+        <div class="rpb"><select class="fin" style="width:auto"><option>Tous les mois</option><option selected>Tous les 3 mois</option><option>Tous les 6 mois</option><option>Une fois par an</option><option>Pas de relance</option></select></div></div>
+      </div>
       <div class="nxt">Dernier contact : <b>2 août 2026</b> (Rencontre réseau) · Prochain contact conseillé : <b>2 novembre 2026</b> <span class="late">· dépassé de 12 j</span></div>
       <div class="mq-small">Autres formats du même champ : « Prochain contact conseillé : <b>15 janvier 2027</b> (dans 2 mois) » · « Aucun contact enregistré : à contacter dès que possible » · « Pas de relance » (rythme = aucun).</div>
     </div>
@@ -1014,6 +1017,13 @@ main{max-width:1280px;padding-top:24px}
         <span class="rpv"><span class="av" style="width:26px;height:26px;font-size:10px;background:#D98E73">JB</span>Julien BERTRAND<i title="Retirer">✕</i></span>
         <div class="seg" style="margin-left:0"><button>Recommandé·e</button><button class="on">Présenté·e</button></div>
       </div>
+      <label class="pflab">Provenance<span class="cmb"><input class="fin" value="Apéro de rentrée du club" autocomplete="off"><button type="button" class="cmbb">▾</button></span></label>
+      <div class="mqdd" style="max-width:340px">
+        <div class="ppi">LinkedIn <small>5 personnes</small></div>
+        <div class="ppi">Salon des artisans <small>3 personnes</small></div>
+        <div class="ppi">Atelier découverte du coaching <small>2 personnes</small></div>
+      </div>
+      <div class="mq-small">Les deux champs sont facultatifs et se complètent : « par qui » (une personne du carnet) et « d'où » (texte libre avec les valeurs déjà utilisées : salon, LinkedIn, atelier…). Pour une personne rencontrée sans intermédiaire, on ne remplit que « Provenance ».</div>
       <div class="pfrc" style="margin:12px 0 0"><label><input type="checkbox" checked> Vient d'une recommandation <span class="small" style="font-weight:400;color:var(--grey)">(on m'a recommandé·e à elle)</span></label><label><input type="checkbox"> Je lui ai demandé une recommandation</label></div>
 
       <div class="pflab">A recommandé ou présenté</div>
@@ -1036,7 +1046,7 @@ main{max-width:1280px;padding-top:24px}
       <div class="mq-small">Liste des valeurs déjà utilisées, et saisie libre : une valeur tapée qui n'existe pas est ajoutée telle quelle (c'est déjà le cas en 2.3 ; rien ne change à l'écran).</div>
     </div>
    </div>
-   <div class="mq-note"><span class="mq-tag">Choix</span><b>Réponse 6</b> : le champ <b>Provenance</b> disparaît de la fiche une fois converti : la migration en fait le premier cercle (sauf « Recommandation », qui devient la case « Vient d'une recommandation » si elle n'est pas déjà cochée). La donnée <code>provenance</code> reste dans le fichier (champ non supprimé) et la recherche de l'onglet Personnes porte désormais aussi sur les cercles.</div>
+   <div class="mq-note"><span class="mq-tag">Choix</span><b>Provenance</b> (demande d'Allan) : le champ <b>reste dans la fiche</b>, sous « Recommandé·e ou présenté·e par », pour noter d'où vient une personne rencontrée sans intermédiaire. Migration : la valeur actuelle reste dans Provenance et sert aussi de premier cercle (sauf « Recommandation », qui coche « Vient d'une recommandation ») : voir la question 1 en bas. La recherche de l'onglet Personnes porte sur la provenance et sur les cercles.</div>
   </div>
 
   <!-- ===== Notes ===== -->
@@ -1114,13 +1124,13 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
       <div style="text-align:right"><div class="when late">Sans contact depuis 129 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2 tr" data-go="trB">Traiter</button></div></div></div>
 
     <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#6E8C6A">BC</span>
-      <div><span class="who" data-go="notes">Bastien COLLIN</span> <span class="rzp">Réseau</span><span class="rtype">rythme</span>
+      <div><span class="who" data-go="notes">Bastien COLLIN</span> <span class="rzp">Au rythme</span><span class="rtype">rythme</span>
         <div class="meta"><span class="crp" style="--c:#2F8C93">Club d'entrepreneurs du Val</span><span class="crp" style="--c:#C8553D">Anciens collègues</span><span>· tous les 3 mois</span></div>
         <div class="sj"><b>À reprendre :</b> son projet de former un apprenti : a-t-il trouvé ?</div></div>
       <div style="text-align:right"><div class="when late">Sans contact depuis 104 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2" data-go="notes">Préparer</button><button class="btn2 tr" data-go="trB">Traiter</button></div></div></div>
 
     <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#D98E73">JB</span>
-      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span><span class="rtype">rythme</span>
+      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span> <span class="rzp">Au rythme</span><span class="rtype">rythme</span>
         <div class="meta"><span class="crp" style="--c:#8B78A8">Anciens clients</span><span>· tous les 6 mois</span></div></div>
       <div style="text-align:right"><div class="when late">Sans contact depuis 214 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2" data-go="notes">Préparer</button><button class="btn2 tr" data-go="trB">Traiter</button></div></div></div>
   </div>
@@ -1129,7 +1139,7 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <ul>
 <li>Les petites étiquettes grises (<i>action, proposition…</i>) ne sont là que pour la maquette ; elles ne seront pas dans l'application.</li>
 <li><b>« Traiter »</b> sur toutes les lignes, mis en avant (bouton foncé). Les <b>propositions</b> gardent <i>Acceptée / Refusée</i> et les <b>fins de contrat</b> gardent <i>Planifier le bilan</i> sur la ligne ; leur « Traiter » sert à reporter ou commenter. Pour les lignes de relance (<i>sans nouvelles</i> et <i>rythme</i>), <b>« Plus tard »</b>, <b>« Planifier une relance »</b> et <b>« Sans suite »</b> passent dans « Traiter ».</li>
-<li><b>Relance au rythme</b> : cercles, rythme, « À reprendre : … » (si le prochain sujet est rempli), et « Préparer » : ouvre la fiche sur l'onglet Notes, curseur dans « Prochain sujet à évoquer » (réponse 3 ; essaie le bouton). Elle s'applique à toutes les personnes ayant un rythme (3 mois par défaut pour tout le monde, réponse 8 : les séances d'un client en cours comptent comme contacts). <b>Pastille dorée « Réseau » uniquement pour les contacts réseau</b> (Bastien) ; une personne qui a une étape du pipeline garde la pastille de son étape (Julien) : réponse 5.</li>
+<li><b>Relance au rythme</b> : cercles, rythme, « À reprendre : … » (si le prochain sujet est rempli), et <b>« Préparer »</b> : avant d'appeler ou d'écrire, ouvre la fiche sur l'onglet Notes pour relire « À garder en tête », le prochain sujet et les dernières notes ; le curseur est placé dans « Prochain sujet à évoquer » (essaie le bouton). Elle s'applique à toutes les personnes ayant un rythme (3 mois par défaut pour tout le monde, réponse 8 : les séances d'un client en cours comptent comme contacts). <b>Pastille dorée « Au rythme » sur toute relance au rythme</b> (réponse 5) : seule pour un contact réseau (Bastien, hors pipeline), à côté de l'étape pour les autres (Julien).</li>
 <li>Une personne n'apparaît qu'une fois : si elle a une action prévue, seule l'action s'affiche (règle actuelle) ; une relance au rythme ne s'ajoute pas à une ligne « sans nouvelles » ou « proposition » de la même personne.</li>
 </ul></div>
 
@@ -1157,7 +1167,7 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
     <div class="pflab2" style="margin-top:0">Variante relance au rythme (sans action)</div>
     <div class="modal trm static" id="trB">
       <div class="mh"><h2>Traiter la relance</h2><button class="x">✕</button></div>
-      <div class="trsub"><b>Bastien COLLIN</b> · <span class="rzp">Réseau</span><br>Rythme : tous les 3 mois · sans contact depuis 104 j (2 août)</div>
+      <div class="trsub"><b>Bastien COLLIN</b> · <span class="rzp">Au rythme</span><br>Rythme : tous les 3 mois · sans contact depuis 104 j (2 août)</div>
       <div class="trsec"><div class="pflab">C'est fait ?</div>
         <div class="trrow"><button class="trb big ok">✓ Fait : enregistrer l'échange…</button></div>
         <div class="trprev">Ouvre « Enregistrer un temps » prérempli : <b>Rencontre réseau</b>, <b>Bastien COLLIN</b>, <b>aujourd'hui</b>. La relance disparaît une fois la saisie enregistrée.</div></div>
@@ -1218,20 +1228,20 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <!-- ================= 5. KPI ================= -->
 <div class="mq-sec" id="kpi"><span class="n">5</span><h2>Bandeaux d'indicateurs (Suivi d'activité, Tableau de bord)</h2></div>
 <div class="kpis">
-  <div class="kpi" style="background:linear-gradient(150deg,#13293d 0%,#13293d 38%,#1a3f5a 100%)"><div class="lvb"><b>Niv. 31</b><small>(412 h en tout)</small></div><div class="l">Heures de coaching<span class="win">2026</span></div><div class="v">101<small> h</small></div><div class="d">31 derniers jours : <b>7 h</b></div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,14 10,9 19,7 29,5 38,11 48,16 58,14 67,16 77,12 86,4 96,32"/></svg></div>
-  <div class="kpi" style="background:linear-gradient(150deg,#163148 0%,#163148 38%,#1c4561 100%)"><div class="lvb"><b>Niv. 27</b><small>(96 h en tout)</small></div><div class="l">Pratique délibérée<span class="win">2026</span></div><div class="v">41,5<small> h</small></div><div class="d">31 derniers jours : <b>2 h</b> · 0,4 h par h de coaching</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,19 10,4 19,13 29,11 38,23 48,25 58,23 67,15 77,17 86,15 96,32"/></svg></div>
-  <div class="kpi" style="background:linear-gradient(150deg,#193a53 0%,#193a53 38%,#1e4b69 100%)"><div class="lvb"><b>Niv. 22</b><small>(58 en tout)</small></div><div class="l">Conversations<span class="win">2026</span></div><div class="v">22<small></small></div><div class="d">31 derniers jours : <b>3</b> · 4 h</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,23 10,18 19,23 29,18 38,27 48,32 58,23 67,32 77,18 86,4 96,32"/></svg></div>
+  <div class="kpi" style="background:linear-gradient(150deg,#13293d 0%,#13293d 38%,#1a3f5a 100%)"><div class="lvb" title="niveau · total toutes années"><b>Niv. 31</b><small>412 h</small></div><div class="l">Heures de coaching<span class="win">2026</span></div><div class="v">101<small> h</small></div><div class="d">31 derniers jours : <b>7 h</b></div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,14 10,9 19,7 29,5 38,11 48,16 58,14 67,16 77,12 86,4 96,32"/></svg></div>
+  <div class="kpi" style="background:linear-gradient(150deg,#163148 0%,#163148 38%,#1c4561 100%)"><div class="lvb" title="niveau · total toutes années"><b>Niv. 27</b><small>96 h</small></div><div class="l">Pratique délibérée<span class="win">2026</span></div><div class="v">41,5<small> h</small></div><div class="d">31 derniers jours : <b>2 h</b> · 0,4 h par h de coaching</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,19 10,4 19,13 29,11 38,23 48,25 58,23 67,15 77,17 86,15 96,32"/></svg></div>
+  <div class="kpi" style="background:linear-gradient(150deg,#193a53 0%,#193a53 38%,#1e4b69 100%)"><div class="lvb" title="niveau · total toutes années"><b>Niv. 22</b><small>58</small></div><div class="l">Conversations<span class="win">2026</span></div><div class="v">22<small></small></div><div class="d">31 derniers jours : <b>3</b> · 4 h</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,23 10,18 19,23 29,18 38,27 48,32 58,23 67,32 77,18 86,4 96,32"/></svg></div>
 </div>
 <div class="kpis2">
   <div class="kpi new" style="background:linear-gradient(150deg,#1b2f3a 0%,#1b2f3a 38%,#24485a 100%)"><div class="l">Réseau entretenu<span class="nb">nouveau</span><span class="win">maintenant</span></div><div class="v">21<small> / 30</small></div><div class="d">personnes avec un rythme, contactées dans leur rythme · <b>9</b> à relancer</div></div>
-  <div class="kpi new" style="background:linear-gradient(150deg,#1d3240 0%,#1d3240 38%,#274d61 100%)"><div class="l">Personnes vues<span class="nb">nouveau</span><span class="win">90 j</span></div><div class="lvb"><small class="alone">(87 en tout)</small></div><div class="v">34<small></small></div><div class="d">personnes distinctes en 90 jours · <b>+6</b> vs 90 j précédents</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,26 10,22 19,24 29,18 38,20 48,16 58,14 67,15 77,10 86,9 96,6"/></svg></div>
-  <div class="kpi new" style="background:linear-gradient(150deg,#203547 0%,#203547 38%,#2a5268 100%)"><div class="lvb"><small class="alone">(12 en tout)</small></div><div class="l">Recommandations<span class="nb">nouveau</span><span class="win">2026</span></div><div class="v">7<small></small></div><div class="d">recommandé·es ou présenté·es · <b>2</b> devenu·es client·es</div></div>
+  <div class="kpi new" style="background:linear-gradient(150deg,#1d3240 0%,#1d3240 38%,#274d61 100%)"><div class="l">Personnes vues<span class="nb">nouveau</span><span class="win">90 j</span></div><div class="lvb" title="total toutes années"><small class="alone">87</small></div><div class="v">34<small></small></div><div class="d">personnes distinctes en 90 jours · <b>+6</b> vs 90 j précédents</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,26 10,22 19,24 29,18 38,20 48,16 58,14 67,15 77,10 86,9 96,6"/></svg></div>
+  <div class="kpi new" style="background:linear-gradient(150deg,#203547 0%,#203547 38%,#2a5268 100%)"><div class="lvb" title="total toutes années"><small class="alone">12</small></div><div class="l">Recommandations<span class="nb">nouveau</span><span class="win">2026</span></div><div class="v">7<small></small></div><div class="d">recommandé·es ou présenté·es · <b>2</b> devenu·es client·es</div></div>
 </div>
 <div class="mq-note"><span class="mq-tag">Choix</span>
 <ul>
-<li>En haut à droite : <b>Niv. X</b>, le niveau de la fiche coach pour la même statistique (calculé sur le total toutes années, comme dans la fiche), et dessous <b>(total toutes années)</b>. La valeur principale reste celle de la période du bandeau (2026, 90 j…).</li>
+<li>En haut à droite : <b>Niv. X</b>, le niveau de la fiche coach pour la même statistique (calculé sur le total toutes années, comme dans la fiche), et dessous le <b>total toutes années</b>, sans parenthèses ni « en tout » (« 412 h ») ; une bulle d'aide le précise au survol. La valeur principale reste celle de la période du bandeau (2026, 90 j…).</li>
 <li><b>Niveau</b> uniquement sur les 6 indicateurs qui ont déjà une échelle dans la fiche coach : Heures de coaching, Conversations, Personnes coachées, Pratique délibérée, Invitations, CA accepté/proposé (niveau du CA). Pas d'échelle nouvelle (réponse 1).</li>
-<li><b>Total entre parenthèses</b> aussi sans niveau (réponse 2), pour tout indicateur qui se cumule : Nouvelles personnes, Recommandations « (12 en tout) », Personnes vues « (87 en tout) » = personnes distinctes vues depuis le début. Rien pour les taux, moyennes et valeurs instantanées (Régularité, Discipline, Aisance, Réseau entretenu, Actions en retard…).</li>
+<li><b>Total entre parenthèses</b> aussi sans niveau (réponse 2), pour tout indicateur qui se cumule : Nouvelles personnes, Recommandations « 12 », Personnes vues « 87 » (personnes distinctes vues depuis le début). Rien pour les taux, moyennes et valeurs instantanées (Régularité, Discipline, Aisance, Réseau entretenu, Actions en retard…).</li>
 <li>Les trois nouveaux (pilier Développement, à choisir dans le catalogue des indicateurs ; ils ne remplacent pas les indicateurs déjà choisis) : <b>Réseau entretenu</b> (instantané, sans niveau ni total), <b>Personnes vues</b> (90 j glissants, courbe mensuelle), <b>Recommandations</b> (année en cours, total en tout, sans niveau).</li>
 </ul></div>
 
@@ -1247,19 +1257,25 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <div class="mq-note"><span class="mq-tag">Choix</span>Minimum 1 jour, valeur par défaut 14. Comme aujourd'hui, ce bloc est masqué en mode simplifié : la valeur par défaut s'y applique. Le résumé du bloc replié affiche les deux réglages.</div>
 
 <!-- ================= QUESTIONS ================= -->
-<div class="mq-sec" id="questions"><span class="n">✓</span><h2>Réponses d'Allan (14/11/2026), intégrées</h2></div>
+<div class="mq-sec" id="questions"><span class="n">✓</span><h2>Réponses d'Allan (14/11/2026) et dernières questions</h2></div>
 <div class="mq-note"><span class="mq-tag">Réponses</span>
 <ol style="margin:6px 0 0 18px;line-height:1.6">
-<li><b>Niveaux</b> : uniquement sur les 6 indicateurs qui ont déjà une échelle dans la fiche coach ; pas d'échelle pour Réseau entretenu, Personnes vues, Recommandations.</li>
-<li><b>Total entre parenthèses</b> : oui, aussi sans niveau (« (12 en tout) »).</li>
-<li><b>« Préparer »</b> : onglet Notes et curseur dans « Prochain sujet à évoquer ».</li>
+<li><b>Niveaux</b> : uniquement sur les 6 indicateurs qui ont déjà une échelle ; rien pour les trois nouveaux.</li>
+<li><b>Total</b> : affiché aussi sans niveau, écrit simplement « 412 h » (sans parenthèses ni « en tout »).</li>
+<li><b>« Préparer »</b> : expliqué dans la section 2 (relire la fiche avant de reprendre contact).</li>
 <li><b>Prochain contact conseillé</b> : format validé.</li>
-<li><b>Pastille « Réseau »</b> : uniquement pour les contacts réseau ; les autres gardent la pastille de leur étape.</li>
-<li><b>Provenance</b> : retirée de la fiche une fois convertie en premier cercle ; la donnée reste dans le fichier.</li>
-<li><b>« Ne plus relancer »</b> : oui, dans Traiter (version rythme), met <code>rythme = 0</code>.</li>
-<li><b>Rythme par défaut</b> : 3 mois pour tout le monde (les séances d'un client en cours comptent comme contacts).</li>
+<li><b>Pastille</b> : « Au rythme » sur toute relance au rythme.</li>
+<li><b>Provenance</b> : conservée dans la fiche, en plus de « Recommandé·e ou présenté·e par ».</li>
+<li><b>« Ne plus relancer »</b> : oui, dans Traiter (version rythme).</li>
+<li><b>Rythme par défaut</b> : 3 mois pour tout le monde.</li>
 </ol>
-<p style="margin-top:8px">Précision sur la décision 1 : propositions et fins de contrat gardent leurs boutons propres sur la ligne, plus « Traiter » pour reporter ou commenter ; seuls « Plus tard », « Planifier une relance » et « Sans suite » des lignes de relance passent dans « Traiter ».</p></div>
+<p style="margin-top:8px">Décision 1 : propositions et fins de contrat gardent leurs boutons propres sur la ligne, plus « Traiter » pour reporter ou commenter ; « Plus tard », « Planifier une relance » et « Sans suite » des lignes de relance passent dans « Traiter ».</p></div>
+<div class="mq-note mq-q"><span class="mq-tag">À trancher</span>
+<ol style="margin:6px 0 0 18px;line-height:1.6">
+<li><b>Migration de la provenance</b> : puisque Provenance reste dans la fiche, faut-il encore copier sa valeur en premier cercle (spec) ? Proposition : oui, car beaucoup de provenances actuelles sont des groupes (« Réseau d'anciens collègues ») ; on retire facilement un cercle de trop, par exemple « LinkedIn ».</li>
+<li><b>Pastille « Au rythme »</b> : ai-je bien compris ta réponse « au rythme » (pastille « Au rythme » sur toutes ces relances, au lieu de « Réseau ») ?</li>
+<li><b>« Préparer »</b> : avec cette explication, le gardes-tu (onglet Notes + curseur dans « Prochain sujet ») ?</li>
+</ol></div>
 
 <p class="mq-small" style="margin:30px 0 10px">Maquette v2.4.0 · 14 novembre 2026 · noms et données fictifs.</p>
 </main>
