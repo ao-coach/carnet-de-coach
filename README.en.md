@@ -339,7 +339,7 @@ The list of what needs action, most urgent first.
 |---|---|---|
 | **Action linked to a person** | It is overdue or due within 7 days. | Done |
 | **Pending proposal** | A proposal is awaiting an answer and no action is planned for the person. The waiting time turns red from 14 days. | Accepted · Refused (can be undone) · Plan a follow-up (in 2 days) · Later (one week) |
-| **Engagement ending** | The contract ends within 21 days, ended less than 45 days ago, or the last planned session has been reached. | Plan the review · Later (14 days) |
+| **Engagement ending** | The contract ends within 21 days, ended less than 45 days ago, or the last planned session has been reached. Only once per contract: once the review is planned, it does not come back, even when the action is done; a new contract (renewal) brings it back. | Plan the review · Later (14 days) |
 | **No contact** | The person is in conversation or awaiting an answer, with no action planned, and no contact for the chosen threshold (30 days by default, no alert beyond 365 days). | Plan a follow-up · Later · No follow-up |
 
 Click a name to open the person's profile.
@@ -357,6 +357,7 @@ Each action has a priority goal, a description, a person (optional), a due date,
 - An overdue action is shown in red.
 - The “In progress”, “Done” and “Cancelled” pills filter the list.
 - Actions created from a profile or a follow-up have “Follow-up” as their goal.
+- The ✕ at the end of the row deletes the action, without confirmation: “Cancel”, in the message that appears, brings it back.
 
 ### Indicator tracking
 
@@ -530,7 +531,7 @@ Everything is saved as you type.
    - start: by default the proposal's date, editable on the profile;
    - end: the start plus the commitment length;
    - sessions done: the sessions between start and end.
-5. As the end approaches, or at the last planned session, “To follow up” suggests you **plan the review**.
+5. As the end approaches, or at the last planned session, “To follow up” suggests you **plan the review**, once per contract.
 
 Only proposals above €0 count in the commercial indicators: proposals, acceptance rate, revenue, average deal.
 
@@ -573,7 +574,7 @@ Blocks come in pairs, in this order:
 |---|---|
 | **Identity**: practice name, tool name, motto, label wording (feminine, masculine, inclusive). | **Appearance**: logo (also used as the tab and window icon) and banner side by side, the 5 brand colours (Accent, Dark, Background, Grey, Blue), “Back to the default palette”. |
 | **Security**: encryption, automatic lock, password, recovery key (see [part 13](#13-security-and-encryption)). | **Data storage**: linked folder, “Open another notebook”, “New notebook”. |
-| **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, ease ratings, **Counts in**. An added type can only be deleted if it has no entries. | **Ease skills**: points to “Manage my skills”, on the ease compass (see [part 4](#4-deliberate-practice)). |
+| **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, ease ratings, **Counts in**. An added type can only be deleted if it has no entries. A renamed built-in type shows ↺ at the end of its row: it gives the type its original name back (for example “Networking”). | **Ease skills**: points to “Manage my skills”, on the ease compass (see [part 4](#4-deliberate-practice)). |
 | **People tracking**: “no contact” alert threshold, in days. | **Indicators shown as banners**: choice of the 6 indicators shown at the top of the dashboard and Activity. |
 | **Practice costs**, full width (see [part 11](#11-costs-and-real-hourly-rate)). | |
 | **Share with a peer**: “Export a template without data”. | **Getting started**: show the roadmap, animated celebrations, “Replay the welcome”. |
@@ -677,7 +678,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.3.0** | 13/11/2026 | Search for a person as you type (accents and capitals ignored, “+ Create”) in the entry form, My entries and the action plan. Networking at the start of the journey, with “What came up” on several lines. “Archived people” instead of “Archived clients”. |
+| **2.3.1** | 14/11/2026 | ↺ button in Settings to give a renamed built-in type its original name back. “Review or renewal” alert only once per contract. Delete an action from the action plan (✕, can be undone). |
+| 2.3.0 | 13/11/2026 | Search for a person as you type (accents and capitals ignored, “+ Create”) in the entry form, My entries and the action plan. Networking at the start of the journey, with “What came up” on several lines. “Archived people” instead of “Archived clients”. |
 | 2.2.0 | 11/11/2026 | Delete a person (their entries remain). Any length in My entries (“Other…”). Required person, set type by type. Level bars start again from zero at each level. |
 | 2.1.0 | 09/11/2026 | Guided tour of the demo notebook: the approach in one screen, then the pages in nine steps; “Replay the tour” in the bar. The demo opens in simple mode. The small house opens the carnet-de-coach.fr website. |
 | 2.0.0 | 11/2026 | Carnet de coach has its own website (presentation, approach, screenshots, FAQ, in French and English). New address: **carnet-de-coach.fr**, with the app at carnet-de-coach.fr/app/. Reinstall it from that address, then choose “I already have a notebook: open its folder” and select your folder; your data does not move. |

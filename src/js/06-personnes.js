@@ -12,6 +12,12 @@ const addMonths=(d,m)=>{const x=new Date(d+'T12:00:00Z');x.setUTCMonth(x.getUTCM
 function contractOf(pid){const A=pEntries(pid).filter(e=>e.type=='proposition'&&e.statut=='acceptee');if(!A.length)return null;const e=A.at(-1),debut=e.debut||e.date,
  fin=e.engagement_mois?addMonths(debut,e.engagement_mois):null,S=pEntries(pid).filter(x=>x.type=='session'&&x.date>=debut&&(!fin||x.date<=fin));
  return{e,debut,fin,prevues:+e.seances||null,faites:S.length,eur:+e.eur||0}}
+/* alerte « bilan ou renouvellement » : une seule fois par contrat (identifié par la proposition acceptée) */
+function endWinStart(K){let s=K.fin?addDays(K.fin,-21):null;
+ if(K.prevues){const S=pEntries(K.e.pid).filter(x=>x.type=='session'&&x.date>=K.debut&&(!K.fin||x.date<=K.fin)),x=S[K.prevues-2],d=x?x.date:K.debut;if(!s||d<s)s=d}
+ return !s||s<K.debut?K.debut:s}
+function bilanDone(p,K){if(p.bilanFait!=null)return String(p.bilanFait)===String(K.e.id);const s=endWinStart(K);/* carnets antérieurs à la 2.3.1 : bilan déjà planifié */
+ return DB.actions.some(a=>String(a.pid)===String(p.id)&&/^\s*(Bilan \/ renouvellement|Review \/ renewal)/i.test(a.a||'')&&(a.d||'')>=s)}
 function contractTxt(K){if(!K)return'';return `${K.prevues?`${K.faites}/${K.prevues} séances`:`${pl(K.faites,'séance')}`}${K.fin?` · fin ${K.fin<today()?'le ':'prévue le '}${dShort(K.fin)}`:''}`}
 function contractBar(K){if(!K?.prevues)return'';const p=Math.min(100,K.faites/K.prevues*100);return `<div class="bar" style="margin-top:4px"><b style="width:${p}%;background:var(--am)"></b></div>`}
 function autoStage(pid){const L=pEntries(pid);if(!L.length)return'contact';const P=L.filter(e=>e.type=='proposition'),last=L.at(-1).date;
@@ -40,7 +46,7 @@ function relItems(){const t=today(),soon=addDays(t,7),seuil=+CFG().crm.froid||30
   withProp.add(p.id);const days=Math.max(0,Math.round((new Date(t)-new Date(e.date))/864e5));items.push({k:'prop',p,e,days,late:days>=14,ord:'0'+e.date})});
  DB.personnes.filter(p=>!p.archive&&!withProp.has(p.id)&&!(p.snooze&&p.snooze>t)&&['conversation','proposition'].includes(stageOf(p))&&!openActs(p.id).length).forEach(p=>{
   const l=lastContact(p.id),days=l?Math.round((new Date(t)-new Date(l.date))/864e5):999;if(days>=seuil&&days<=365)items.push({k:'cold',p,days,ord:'0'+String(9999-days).padStart(4,'0')})});
- DB.personnes.filter(p=>!p.archive&&!(p.snoozeK&&p.snoozeK>t)&&!openActs(p.id).length).forEach(p=>{const K=contractOf(p.id);if(!K)return;
+ DB.personnes.filter(p=>!p.archive&&!(p.snoozeK&&p.snoozeK>t)&&!openActs(p.id).length).forEach(p=>{const K=contractOf(p.id);if(!K||bilanDone(p,K))return;
   const nearEnd=K.fin&&K.fin<=addDays(t,21)&&K.fin>=addDays(t,-45),lastSes=K.prevues&&K.faites>=K.prevues-1&&(!K.fin||K.fin>=t);
   if(nearEnd||lastSes)items.push({k:'end',p,K,late:!!K.fin&&K.fin<t,ord:'1'+(K.fin||t)})});
  return items.sort((x,y)=>(y.late?1:0)-(x.late?1:0)||x.ord.localeCompare(y.ord))}
@@ -58,7 +64,8 @@ function renderRel(R=$('relList'),N=$('relN')){const I=relItems();N.textContent=
  R.querySelectorAll('[data-done]').forEach(b=>b.onclick=()=>{const a=DB.actions.find(x=>String(x.id)===b.dataset.done);a.s='realisee';a.maj=new Date().toISOString();touch();renderAll();toast('Action réalisée ✓')});
  R.querySelectorAll('[data-plan]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.plan);DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Relancer ${p.nom.split(' ')[0]}`,d:addDays(today(),2),r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderAll();toast('Relance planifiée dans 2 jours')});
  R.querySelectorAll('[data-bilan]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.bilan),K=contractOf(p.id),d=K?.fin&&K.fin>today()?(K.fin<addDays(today(),7)?K.fin:addDays(today(),7)):addDays(today(),2);
-  DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Bilan / renouvellement avec ${p.nom.split(' ')[0]}`,d,r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderAll();toast('Bilan planifié')});
+  const now=new Date().toISOString();if(K){p.bilanFait=K.e.id;p.maj=now}
+  DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Bilan / renouvellement avec ${p.nom.split(' ')[0]}`,d,r:'',s:'encours',pid:p.id,maj:now});touch();renderAll();toast('Bilan planifié')});
  R.querySelectorAll('[data-snzk]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.snzk);p.snoozeK=addDays(today(),14);p.maj=new Date().toISOString();touch();renderAll()});
  R.querySelectorAll('[data-lost]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.lost);p.etape={v:'perdu',at:new Date().toISOString()};p.maj=p.etape.at;touch();renderAll();toast(`${p.nom} classé « Sans suite »`)});
  R.querySelectorAll('[data-snz]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.snz);p.snooze=addDays(today(),+CFG().crm.froid||30);p.maj=new Date().toISOString();touch();renderAll()})}

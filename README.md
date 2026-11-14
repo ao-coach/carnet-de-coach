@@ -339,7 +339,7 @@ La liste de ce qui demande une action, avec les plus urgents en premier.
 |---|---|---|
 | **Action liée à une personne** | Elle est en retard ou prévue dans les 7 jours. | Fait |
 | **Proposition en attente** | Une proposition attend une réponse et aucune action n'est prévue pour la personne. Le délai d'attente passe en rouge à partir de 14 jours. | Acceptée · Refusée (annulable) · Planifier une relance (dans 2 jours) · Plus tard (une semaine) |
-| **Fin d'accompagnement** | Le contrat se termine dans les 21 jours, s'est terminé depuis moins de 45 jours, ou la dernière séance prévue est atteinte. | Planifier le bilan · Plus tard (14 jours) |
+| **Fin d'accompagnement** | Le contrat se termine dans les 21 jours, s'est terminé depuis moins de 45 jours, ou la dernière séance prévue est atteinte. Une seule fois par contrat : une fois le bilan planifié, elle ne revient pas, même quand l'action est faite ; un nouveau contrat (renouvellement) la fait réapparaître. | Planifier le bilan · Plus tard (14 jours) |
 | **Sans contact** | La personne est en conversation ou en attente de réponse, sans action prévue, et sans contact depuis le seuil choisi (30 jours par défaut, aucune alerte au-delà de 365 jours). | Planifier une relance · Plus tard · Sans suite |
 
 Clique sur un nom pour ouvrir la fiche de la personne.
@@ -357,6 +357,7 @@ Chaque action a un objectif prioritaire, une description, une personne (facultat
 - Une action en retard s'affiche en rouge.
 - Les pastilles « En cours », « Réalisées » et « Annulées » filtrent la liste.
 - Les actions créées depuis une fiche ou une relance ont pour objectif « Relance ».
+- Le ✕ au bout de la ligne supprime l'action, sans confirmation : « Annuler », dans le message qui s'affiche, la rétablit.
 
 ### Suivi indicateurs
 
@@ -530,7 +531,7 @@ Tout est enregistré pendant la frappe.
    - début : par défaut la date de la proposition, modifiable sur la fiche ;
    - fin : le début plus la durée d'engagement ;
    - séances réalisées : les sessions entre le début et la fin.
-5. À l'approche de la fin, ou à la dernière séance prévue, « À relancer » te propose de **planifier le bilan**.
+5. À l'approche de la fin, ou à la dernière séance prévue, « À relancer » te propose de **planifier le bilan**, une seule fois par contrat.
 
 Seules les propositions de plus de 0 € comptent dans les indicateurs commerciaux : propositions, taux d'acceptation, CA, panier moyen.
 
@@ -573,7 +574,7 @@ Les blocs vont par deux, dans cet ordre :
 |---|---|
 | **Identité** : nom du cabinet, nom de l'outil, phrase de motivation, accord des libellés (féminin, masculin, inclusif). | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
 | **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 13](#13-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
-| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. | **Compétences d'aisance** : renvoie à « Gérer mes compétences », sur la boussole d'aisance (voir la [partie 4](#4-pratique-délibérée)). |
+| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. Un type intégré renommé affiche ↺ au bout de sa ligne : il lui rend son nom d'origine (par exemple « Rencontre réseau »). | **Compétences d'aisance** : renvoie à « Gérer mes compétences », sur la boussole d'aisance (voir la [partie 4](#4-pratique-délibérée)). |
 | **Suivi des personnes** : seuil de l'alerte « sans contact », en jours. | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
 | **Coûts de l'activité**, sur toute la largeur (voir la [partie 11](#11-coûts-et-taux-horaire-réel)). | |
 | **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : afficher le carnet de route, célébrations animées, « Revoir l'accueil ». |
@@ -677,7 +678,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.3.0** | 13/11/2026 | Recherche de personne au fil de la frappe (accents et majuscules ignorés, « + Créer ») dans la saisie, Mes saisies et le plan d'action. Rencontre réseau en tête du parcours, avec « Ce qu'on a vu » sur plusieurs lignes. « Personnes archivées » au lieu de « Clients archivés ». |
+| **2.3.1** | 14/11/2026 | Bouton ↺ dans Paramètres pour rendre son nom d'origine à un type intégré renommé. Alerte « bilan ou renouvellement » une seule fois par contrat. Supprimer une action du plan d'action (✕, annulable). |
+| 2.3.0 | 13/11/2026 | Recherche de personne au fil de la frappe (accents et majuscules ignorés, « + Créer ») dans la saisie, Mes saisies et le plan d'action. Rencontre réseau en tête du parcours, avec « Ce qu'on a vu » sur plusieurs lignes. « Personnes archivées » au lieu de « Clients archivés ». |
 | 2.2.0 | 11/11/2026 | Supprimer une personne (ses saisies restent). Durée libre dans Mes saisies (« Autre… »). Personne obligatoire, réglable type par type. Les barres de niveau repartent de zéro à chaque niveau. |
 | 2.1.0 | 09/11/2026 | Visite guidée du carnet de démonstration : la démarche en un écran, puis les pages en neuf étapes ; « Revoir la visite » dans le bandeau. La démonstration s'ouvre en mode simplifié. La petite maison ouvre le site carnet-de-coach.fr. |
 | 2.0.0 | 11/2026 | Carnet de coach a son site (présentation, démarche, captures, questions fréquentes, en français et en anglais). Nouvelle adresse : **carnet-de-coach.fr**, avec l'application sur carnet-de-coach.fr/app/. Réinstalle-la depuis cette adresse, puis choisis « J'ai déjà un carnet : ouvrir son dossier » et sélectionne ton dossier ; tes données ne bougent pas. |

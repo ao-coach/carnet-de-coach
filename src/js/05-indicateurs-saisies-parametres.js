@@ -252,8 +252,11 @@ function renderActs(){const A=DB.actions,t=today();
   <td><button type="button" class="ed pbtn" data-pp title="Choisir la personne">${a.pid!=null&&pById(a.pid)?esc(pname(a.pid)):'—'}</button></td>
   <td class="${late?'late':''}"><input type="date" class="ed" data-k="d" value="${a.d||''}">${late?'<div style="font-size:11px;color:var(--am);font-weight:800;padding-left:7px">En retard</div>':''}</td>
   <td><input class="ed" data-k="r" value="${esc(a.r)}" placeholder="—"></td>
-  <td><select class="st ${a.s}" data-k="s">${Object.keys(SS).map(k=>`<option value="${k}" ${k==a.s?'selected':''}>${SS[k]}</option>`).join('')}</select></td></tr>`}).join('')||`<tr><td colspan="6" class="empty">Aucune action ${SL[AF].toLowerCase()}.</td></tr>`;
+  <td><select class="st ${a.s}" data-k="s">${Object.keys(SS).map(k=>`<option value="${k}" ${k==a.s?'selected':''}>${SS[k]}</option>`).join('')}</select></td>
+  <td><button type="button" class="ibtn del" data-adel title="Supprimer cette action">✕</button></td></tr>`}).join('')||`<tr><td colspan="7" class="empty">Aucune action ${SL[AF].toLowerCase()}.</td></tr>`;
  $('acts').querySelectorAll('tr[data-id]').forEach(tr=>{const a=A.find(x=>x.id==tr.dataset.id);
+  tr.querySelector('[data-adel]').onclick=()=>{const L=DB.actions,idx=L.indexOf(a);if(idx<0)return;L.splice(idx,1);DB.supprimes.a[a.id]=new Date().toISOString();touch();renderAll();
+   toast('Action supprimée','Annuler',()=>{const M=DB.actions;if(M.some(x=>String(x.id)===String(a.id)))return;M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()})};
   {const pb=tr.querySelector('[data-pp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:a.pid,none:true,onPick:id=>{a.pid=id;a.maj=new Date().toISOString();touch();renderActs()}})}
   tr.querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{const k=el.dataset.k;
    if(k=='psel'){a.p=el.value=='__o'?'':el.value;touch();renderActs();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
@@ -355,12 +358,15 @@ $('mFree').onchange=e=>{$('mCout').disabled=e.target.checked};
 /* ---------- types ajoutés par l'utilisateur ---------- */
 function roleCell(k,C){
  return `<select class="ed" data-role="${k}" style="width:auto">${Object.entries(ROLES).map(([r,l])=>`<option value="${r}" ${r==typeRole(k,C)?'selected':''}>${l}</option>`).join('')}</select>`}
-function delCell(k){if(BUILTIN.includes(k))return '';const n=E().filter(e=>e.type==k).length;
+/* nom par défaut d'un type intégré : le libellé français, ou sa traduction (carnet créé en anglais, voir i18nLocalizeDefaults) */
+function defTypeL(k){const d=defaultConfig().types[k]?.l;return d?{fr:d,en:I18N_EN[d]||d,loc:LANG==='en'&&I18N_EN[d]?I18N_EN[d]:d}:null}
+function delCell(k){if(BUILTIN.includes(k)){const D=defTypeL(k),l=CFG().types[k]?.l,d=D?.fr;return D&&l!==D.fr&&l!==D.en?`<button class="ibtn" data-treset="${k}" title="Rétablir le nom par défaut : ${esc(d)}">↺</button>`:''}const n=E().filter(e=>e.type==k).length;
  return n?`<span class="hint" style="margin:0" title="Utilisé par ${n} saisie(s)">${n} saisie(s)</span>`:`<button class="ibtn del" data-tdel="${k}" title="Supprimer ce type">✕</button>`}
 function addCustomType(C){const keys=keysOf(C);if(keys.length>=MAX_TYPES){toast(`${MAX_TYPES} types maximum`);return false}
  let i=1;while(C.types['t'+i])i++;const k='t'+i;C.types[k]={l:'Nouveau type',c:stackColors(C.couleurs)[Math.min(9,keys.length)],d:60,ais:false,perso:true,role:'autre'};C.ordre.push(k);recolor(C);return k}
 function bindTypeExtras(root,C,after){
  root.querySelectorAll('[data-role]').forEach(s=>s.onchange=()=>{C.types[s.dataset.role].role=s.value;after()});
+ root.querySelectorAll('[data-treset]').forEach(b=>b.onclick=()=>{const k=b.dataset.treset,D=defTypeL(k);if(D&&C.types[k]){C.types[k].l=D.loc;after()}});
  root.querySelectorAll('[data-tdel]').forEach(b=>b.onclick=()=>{const k=b.dataset.tdel;if(E().some(e=>e.type==k))return;delete C.types[k];C.ordre=C.ordre.filter(x=>x!=k);recolor(C);after()})}
 
 /* ---------- réordonner des lignes par glisser-déposer (poignée) ---------- */

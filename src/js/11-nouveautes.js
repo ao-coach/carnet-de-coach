@@ -3,6 +3,10 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:46,s:'2.3.1',d:'14 novembre 2026',items:[
+  {t:"Rétablir le nom d'un type",p:"Dans Paramètres, un type intégré que tu as renommé affiche un bouton ↺ au bout de sa ligne : il lui rend son nom d'origine, par exemple « Rencontre réseau »."},
+  {t:"Une seule alerte de fin d'accompagnement",p:"« Bilan ou renouvellement ? » n'apparaît plus qu'une fois par contrat : après « Planifier le bilan », l'alerte ne revient pas, même quand l'action est faite. Un nouveau contrat la déclenche à nouveau."},
+  {t:"Supprimer une action",p:"Dans le plan d'action, le ✕ au bout de la ligne supprime l'action. « Annuler », dans le message qui s'affiche, la rétablit."}]},
  {v:45,s:'2.3.0',d:'13 novembre 2026',items:[
   {t:'Trouver une personne en tapant son nom',p:"Dans la saisie, sous les personnes récentes, un champ propose les noms au fil de la frappe, sans tenir compte des accents ni des majuscules. « + Créer » ajoute une personne qui n'existe pas encore. Le même champ sert dans la colonne Personne de Mes saisies et dans le plan d'action ; les personnes archivées y sont aussi."},
   {t:'Rencontre réseau en tête du parcours',p:"Dans la saisie, « Rencontre réseau » ouvre le parcours, avant l'invitation. Pour ce type, « Ce qu'on a vu » accepte plusieurs lignes et s'agrandit avec ton texte."},

@@ -20,7 +20,9 @@ let I18N_TITLE=document.title;
 const I18N={on:LANG==='en'||/i18ncollect/.test(location.search),collect:/i18ncollect/.test(location.search),keys:new Map(),miss:new Map()};
 const MOS=[...new Set('janvier|février|avril|juillet|septembre|octobre|novembre|décembre|january|february|march|april|june|july|august|september|october|november|december|janv|févr|mars|avr|mai|juin|juil|août|sept|oct|nov|déc|fév|sep|jan|feb|mar|apr|may|jun|jul|aug|dec'.split('|'))].sort((a,b)=>b.length-a.length).join('|');
 const I18N_NUM=new RegExp(`(?:\\d{1,2}(?:er)? (?:${MOS})\\.?(?![a-zà-ÿ])(?: \\d{4}| \\d{2}(?!\\d))?)|(?:(?:${MOS}) \\d{4})|€\\s?-?\\d{1,3}(?:[\\u202f\\u00a0,.]\\d{3}|\\s(?=\\d{3}(?!\\d))\\d{3})*(?:[.,]\\d+)?(?!\\d)|-?\\d{1,3}(?:[\\u202f\\u00a0,.]\\d{3}|\\s(?=\\d{3}(?!\\d))\\d{3})*(?:[.,]\\d+)?(?!\\d)\\s?€|[+−-]?\\d{1,3}(?:[\\u202f\\u00a0,.]\\d{3}|\\s(?=\\d{3}(?!\\d))\\d{3})*(?:[.,]\\d+)?(?!\\d)|\\d+`,'gi');
-function i18nEntities(){const E=[];try{if(typeof DB!=='undefined'&&DB){const C=DB.config||{};Object.values(C.types||{}).forEach(t=>t?.l&&E.push(t.l));(C.metriques||[]).forEach(m=>{m?.l&&E.push(m.l);m?.min&&E.push(m.min);m?.max&&E.push(m.max);m?.disc&&E.push(m.disc)});(DB.personnes||[]).forEach(p=>{if(p?.nom){E.push(p.nom);const f=p.nom.split(/\s+/)[0];if(f&&f.length>2)E.push(f)}});
+let I18N_DEFTL=null;
+function i18nEntities(){const E=[];try{if(typeof DB!=='undefined'&&DB){const C=DB.config||{};Object.values(C.types||{}).forEach(t=>t?.l&&E.push(t.l));
+ try{(I18N_DEFTL=I18N_DEFTL||Object.values(defaultConfig().types).map(t=>t.l)).forEach(l=>E.push(l))}catch(e){}(C.metriques||[]).forEach(m=>{m?.l&&E.push(m.l);m?.min&&E.push(m.min);m?.max&&E.push(m.max);m?.disc&&E.push(m.disc)});(DB.personnes||[]).forEach(p=>{if(p?.nom){E.push(p.nom);const f=p.nom.split(/\s+/)[0];if(f&&f.length>2)E.push(f)}});
  (C.finances?.lignes||[]).forEach(x=>x?.l&&E.push(x.l));if(C.nom)E.push(C.nom);if(C.outil)E.push(C.outil);if(DB.coach?.nom)E.push(DB.coach.nom)}}catch(e){}
  return [...new Set(E.filter(x=>x&&x.trim().length>1))].sort((a,b)=>b.length-a.length)}
 let I18N_ENT=null,I18N_ENTK='';
