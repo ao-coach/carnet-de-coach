@@ -146,7 +146,7 @@ Several milestones passed at once follow one another, from the biggest to the sm
 
 ### My notebook: the modules
 
-The **core** is always there: logging time, Activity, My entries, People (pipeline, profile, “To follow up” and “Handle”, contact frequency and follow-ups at your pace), Settings and About. On top, you add the **modules** you want to work on, modelled on [the notebook's three values](#what-your-notebook-is-for), plus the game:
+The **core** is always there: logging time, Activity, My entries, People (pipeline, profile, circles, “To follow up” and “Handle”, contact frequency and follow-ups at your pace), the levels and totals at the top of the banners, Settings and About. On top, you add the **modules** you want to work on, modelled on [the notebook's three values](#what-your-notebook-is-for), plus the game:
 
 | Module | What it adds |
 |---|---|

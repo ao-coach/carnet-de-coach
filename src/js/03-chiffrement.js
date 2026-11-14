@@ -52,7 +52,8 @@ function askNewPassword(title){return new Promise(res=>{const M=$('pwdM');$('pwT
 function showRecoveryKey(key){return new Promise(res=>{$('recKey').textContent=key;$('recOk').checked=false;$('recClose').disabled=true;$('recClose').style.opacity=.5;$('recM').classList.remove('hide');
   $('recOk').onchange=()=>{$('recClose').disabled=!$('recOk').checked;$('recClose').style.opacity=$('recOk').checked?1:.5};
   $('recCopy').onclick=()=>{navigator.clipboard?.writeText(key);toast('Clé copiée')};
-  $('recDl').onclick=()=>download(`cle-de-secours_${(CFG().nom||'carnet').replace(/\W+/g,'-')}_${today()}.txt`,`Clé de secours du carnet « ${CFG().nom} »\nCréée le ${today()}\n\n${key}\n\nElle permet de rouvrir coaching-data.json si le mot de passe est oublié.\nÀ conserver hors de l'ordinateur.`,'text/plain');
+  /* 3.2.1 : le fichier suit la langue de l'interface */
+  $('recDl').onclick=()=>LANG==='en'?download(`recovery-key_${(CFG().nom||'notebook').replace(/\W+/g,'-')}_${today()}.txt`,`Recovery key for the notebook “${CFG().nom}”\nCreated on ${today()}\n\n${key}\n\nIt lets you reopen coaching-data.json if the password is forgotten.\nKeep it off the computer.`,'text/plain'):download(`cle-de-secours_${(CFG().nom||'carnet').replace(/\W+/g,'-')}_${today()}.txt`,`Clé de secours du carnet « ${CFG().nom} »\nCréée le ${today()}\n\n${key}\n\nElle permet de rouvrir coaching-data.json si le mot de passe est oublié.\nÀ conserver hors de l'ordinateur.`,'text/plain'); /* i18n-ok : fichier en anglais */
   $('recClose').onclick=()=>{$('recM').classList.add('hide');res()}})}
 
 /* ---------- actions de sécurité ---------- */

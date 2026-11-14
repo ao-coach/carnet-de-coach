@@ -3,7 +3,8 @@
    panneau « Ce que montre ton réseau ». SVG et simulation de forces maison,
    graine fixe : le dessin est recalculé à l'identique, rien n'est enregistré.
    ========================================================= */
-const NET={v:'cercles',reco:true,rel:true,arch:false,fil:null,L:null,key:'',pos:null,dk:'',drg:new Map(),drag:null};
+/* 3.2.1 : zoom et déplacement de la vue (z : échelle k, décalage x, y), remis à zéro à chaque ouverture de l'onglet comme le glisser des points */
+const NET={v:'cercles',reco:true,rel:true,arch:false,fil:null,L:null,key:'',pos:null,dk:'',drg:new Map(),drag:null,pan:null,z:{k:1,x:0,y:0}};
 const NETSANS='\u0001';
 const NETNONE={cercles:'Sans cercle',public:'Non renseigné',probl:'Non renseigné',orbites:'Sans cercle'};
 const NETGOLD='#D9B66A',NETARR='#C9A04E',NETRED='#C8414B',NETOFF='#C9CBCE';
@@ -41,6 +42,8 @@ function netSim(D){const G=D.G,P=D.P,ng=G.length,np=P.length,N=ng+np;
  const x=new Float64Array(N),y=new Float64Array(N),fx=new Float64Array(N),fy=new Float64Array(N),rad=new Float64Array(N),pv=new Uint8Array(N),gi=new Map();
  const RX=150+45*ng+8*Math.sqrt(np),RY=RX*.6;
  G.forEach((g,i)=>{const a=-Math.PI/2+i/ng*2*Math.PI;x[i]=ng>1?RX*Math.cos(a):0;y[i]=ng>1?RY*Math.sin(a):0;rad[i]=g.r;pv[i]=1;gi.set(g.k,i)});
+ /* 3.2.1 : longueur des liens selon la taille du groupe (les gros groupes s'étalent) ; les pivots s'écartent d'autant (rayon de leur couronne) */
+ const LL=G.map(g=>95+9*Math.sqrt(g.m.length));G.forEach((g,i)=>rad[i]=Math.max(g.r,LL[i]*.62));
  const links=[];P.forEach((p,j)=>{const i=ng+j,r=netRng(netHash(p.id));let sx=0,sy=0;p.gk.forEach(k=>{const g=gi.get(k);sx+=x[g];sy+=y[g];links.push(i,g)});
   x[i]=sx/p.gk.length+(r()-.5)*90;y[i]=sy/p.gk.length+(r()-.5)*90;rad[i]=p.r});
  const pix=new Map(P.map((p,j)=>[p,ng+j])),rl=[];D.R.forEach(e=>rl.push(pix.get(e.s),pix.get(e.t)));
@@ -49,9 +52,9 @@ function netSim(D){const G=D.G,P=D.P,ng=G.length,np=P.length,N=ng+np;
  return budget=>{const T0=performance.now();
  for(;it<I;){const cool=1-it/I;fx.fill(0);fy.fill(0);
   for(let i=0;i<N;i++){const xi=x[i],yi=y[i],ri=rad[i],pi=pv[i];for(let j=i+1;j<N;j++){let dx=xi-x[j],dy=yi-y[j],d2=dx*dx+dy*dy;if(d2>90000&&!pi&&!pv[j])continue;if(d2<.01){dx=.1*(i-j);dy=.1;d2=dx*dx+dy*dy}
-   const k=pi&&pv[j]?40000:pi||pv[j]?3000:1600,d=Math.sqrt(d2),mn=ri+rad[j]+(pi&&pv[j]?60:pi||pv[j]?10:16);let f=k/d2;if(d<mn)f+=(mn-d)*.5;
+   const k=pi&&pv[j]?40000:pi||pv[j]?3000:1600,d=Math.sqrt(d2),mn=ri+rad[j]+(pi&&pv[j]?60:pi||pv[j]?10:20);let f=k/d2;if(d<mn)f+=(mn-d)*.5;
    const ux=dx/d*f,uy=dy/d*f;fx[i]+=ux;fy[i]+=uy;fx[j]-=ux;fy[j]-=uy}}
-  for(let l=0;l<links.length;l+=2)spring(links[l],links[l+1],105,.06);
+  for(let l=0;l<links.length;l+=2)spring(links[l],links[l+1],LL[links[l+1]],.06);
   for(let l=0;l<rl.length;l+=2)spring(rl[l],rl[l+1],120,.03);
   const mx=2+28*cool;
   for(let i=0;i<N;i++){const gv=pv[i]?1:.35;fx[i]-=x[i]*.008*gv;fy[i]-=y[i]*.016*gv;const m=pv[i]?.25:1;let sx=fx[i]*m*cool,sy=fy[i]*m*cool;const L=Math.sqrt(sx*sx+sy*sy);if(L>mx){sx*=mx/L;sy*=mx/L}x[i]+=sx;y[i]+=sy}
@@ -67,7 +70,7 @@ function netFit(D,W,H){const N=[...D.G.map(g=>({o:g,r:g.r,pv:1})),...D.P.map(x=>
  let sx=(W-2*mx)/bw,sy=(H-mt-mb)/bh;const s=Math.min(sx,sy);sx=Math.min(sx,s*1.5,1.8);sy=Math.min(sy,s*1.5,1.8);
  const ox=W/2-(a+c)/2*sx,oy=mt+(H-mt-mb)/2-(b+d)/2*sy;N.forEach(n=>{n.x=n.o.x*sx+ox;n.y=n.o.y*sy+oy});
  /* chevauchements créés par la réduction : quelques passes de séparation */
- for(let it=0;it<80;it++){let mv=0;for(let i=0;i<N.length;i++)for(let j=i+1;j<N.length;j++){const p=N[i],q=N[j];let dx=q.x-p.x,dy=q.y-p.y,dd=dx*dx+dy*dy;const m=p.r+q.r+(p.pv&&q.pv?44:p.pv||q.pv?12:14);if(dd>=m*m)continue;
+ for(let it=0;it<80;it++){let mv=0;for(let i=0;i<N.length;i++)for(let j=i+1;j<N.length;j++){const p=N[i],q=N[j];let dx=q.x-p.x,dy=q.y-p.y,dd=dx*dx+dy*dy;const m=p.r+q.r+(p.pv&&q.pv?44:p.pv||q.pv?12:18);if(dd>=m*m)continue;
    let dl=Math.sqrt(dd);if(dl<.01){dx=.5;dy=.3;dl=.58}const o=(m-dl)/2,wp=p.pv?.3:1,wq=q.pv?.3:1,ux=dx/dl,uy=dy/dl;p.x-=ux*o*wp;p.y-=uy*o*wp;q.x+=ux*o*wq;q.y+=uy*o*wq;mv++}
   N.forEach(n=>{n.x=Math.min(W-n.r-4,Math.max(n.r+4,n.x));n.y=Math.min(H-n.r-14,Math.max(n.r+(n.pv?24:4),n.y))});if(!mv)break}
  N.forEach(n=>{n.o.x=n.x;n.o.y=n.y})}
@@ -95,21 +98,27 @@ function netArrow(s,t,cls){const dx=t.x-s.x,dy=t.y-s.y,d=Math.sqrt(dx*dx+dy*dy)|
  return `<path class="nra${cls?' '+cls:''}" data-rs="${esc(s.id)}" data-rt="${esc(t.id)}" d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}" marker-end="url(#netArr)"/>`}
 function netNode(x,D){const fil=NET.fil,dim=fil!=null&&!x.gk.includes(fil),col=x.off?NETOFF:netCol(x.st),pale=NET.rel&&x.rel,pass=x.gk.length>1&&!x.gk.includes(NETSANS);
  const ini=x.r>=11?`<text class="nin" y="${(x.r*.36).toFixed(1)}" style="font-size:${Math.round(x.r*.78)}px;fill:${tc(col.length==7?col:'#797D81')}" data-noi18n>${esc(netIni(x.p))}</text>`:'';
- const lab=x.lab||fil!=null&&!dim?`<text class="nlb${x.off?' off':''}" y="${(x.r+12).toFixed(1)}" data-noi18n>${esc(netFirst(x.p))}</text>`:'';
+ const lab=x.lab||fil!=null&&!dim?`<text class="nlb${x.off?' off':''}" ${x.lab&&x.ly!=null?`x="${x.lx.toFixed(1)}" y="${x.ly.toFixed(1)}"${x.la!='middle'?` style="text-anchor:${x.la}"`:''}`:`y="${(x.r+12).toFixed(1)}"`} data-noi18n>${esc(netFirst(x.p))}</text>`:''; /* i18n-ok : attributs SVG */
  return `<g class="nnd${dim?' dim':''}" data-pid="${esc(x.id)}" transform="translate(${x.x.toFixed(1)},${x.y.toFixed(1)})">${pale?`<circle r="${x.r+4}" class="nrel"/>`:''}<circle r="${x.r}" style="fill:${col}" fill-opacity="${pale?.45:1}" class="${pass?'npass':'nbody'}"/>${ini}${lab}</g>`}
 function netSvgPivots(D){const fil=NET.fil,out=[];
  D.P.forEach(x=>x.gk.forEach(k=>{const g=D.G.find(g=>g.k==k);out.push(`<line class="nln${fil!=null&&fil!=k?' dim':''}" data-l="${esc(x.id)}" x1="${x.x.toFixed(1)}" y1="${x.y.toFixed(1)}" x2="${g.x.toFixed(1)}" y2="${g.y.toFixed(1)}" stroke="${g.c}"/>`)}));
  if(NET.reco)D.R.forEach(e=>out.push(netArrow(e.s,e.t,(e.mode=='presente'?'pres':'')+(fil!=null&&!(e.s.gk.includes(fil)&&e.t.gk.includes(fil))?' dim':''))));
  D.G.forEach(g=>{
   out.push(`<g class="ngp${fil!=null&&fil!=g.k?' dim':''}${fil==g.k?' on':''}" data-g="${esc(g.k)}" transform="translate(${g.x.toFixed(1)},${g.y.toFixed(1)})"><circle r="${g.r.toFixed(1)}" style="fill:${g.c};stroke:${g.c}"/><text class="ngn" y="5">${g.m.length}</text></g>`)});
- D.P.forEach(x=>out.push(netNode(x,D)));
- netLabels(D);D.G.forEach(g=>out.push(`<g class="nglg${fil!=null&&fil!=g.k?' dim':''}" transform="translate(${g.x.toFixed(1)},${g.y.toFixed(1)})"><text class="nglb" x="${g.lx}" y="${g.ly}"${g.sans?'':' data-noi18n'}>${esc(g.l)}</text></g>`));return out.join('')}
-/* étiquettes des groupes : au-dessus du disque, sinon en dessous, sinon décalée, pour ne pas se recouvrir */
-function netLabels(D){const B=[],hit=(a)=>B.some(b=>a.x1<b.x2&&a.x2>b.x1&&a.y1<b.y2&&a.y2>b.y1);
- D.G.forEach(g=>B.push({x1:g.x-g.r,x2:g.x+g.r,y1:g.y-g.r,y2:g.y+g.r}));
- [...D.G].sort((a,b)=>b.m.length-a.m.length).forEach(g=>{const w=g.l.length*7.3+6,c=[[0,-g.r-7],[0,g.r+17],[w/2+g.r*.4,-g.r-2],[-w/2-g.r*.4,-g.r-2],[w/2+g.r*.4,g.r+12],[-w/2-g.r*.4,g.r+12]];
-  let pick=c[0];for(const[dx,dy]of c){const bx={x1:g.x+dx-w/2,x2:g.x+dx+w/2,y1:g.y+dy-13,y2:g.y+dy+3};if(!hit(bx)){pick=[dx,dy];break}}
-  g.lx=pick[0].toFixed(1);g.ly=pick[1].toFixed(1);B.push({x1:g.x+pick[0]-w/2,x2:g.x+pick[0]+w/2,y1:g.y+pick[1]-13,y2:g.y+pick[1]+3})})}
+ netLabels(D);D.P.forEach(x=>out.push(netNode(x,D)));
+ D.G.forEach(g=>out.push(`<g class="nglg${fil!=null&&fil!=g.k?' dim':''}" transform="translate(${g.x.toFixed(1)},${g.y.toFixed(1)})"><text class="nglb" x="${g.lx}" y="${g.ly}"${g.sans?'':' data-noi18n'}>${esc(g.l)}</text></g>`));return out.join('')}
+/* étiquettes : 3.2.1, les noms de groupes puis les prénoms évitent les disques, les points et les autres étiquettes.
+   Positions candidates essayées dans l'ordre ; à défaut, celle qui recouvre le moins. Les groupes d'abord (les plus gros en premier), puis les personnes (les plus actives en premier). */
+function netLabels(D,orb){const B=[],ov=a=>{let s=0;for(const b of B){const w=Math.min(a.x2,b.x2)-Math.max(a.x1,b.x1),h=Math.min(a.y2,b.y2)-Math.max(a.y1,b.y1);if(w>0&&h>0)s+=w*h}return s};
+ const W=D.W||1e4,H=D.H||1e4,out=a=>(a.x1<0?-a.x1:0)+(a.x2>W?a.x2-W:0)+(a.y1<0?-a.y1:0)+(a.y2>H?a.y2-H:0);
+ const circ=(x,y,r)=>B.push({x1:x-r,x2:x+r,y1:y-r,y2:y+r});
+ if(!orb)D.G.forEach(g=>circ(g.x,g.y,g.r));else NETRK.forEach(k=>{const y=D.cy-D.ring[k]-5;B.push({x1:D.cx+2,x2:D.cx+8+PROX.find(z=>z[0]==k)[1].length*8.2,y1:y-11,y2:y+3})});D.P.forEach(x=>circ(x.x,x.y,x.r+(NET.rel&&x.rel?4:1)));
+ const place=(cx,cy,w,h,C)=>{let best=null,bs=1e18;for(const[dx,dy,an]of C){const x0=an=='start'?cx+dx:an=='end'?cx+dx-w:cx+dx-w/2,a={x1:x0,x2:x0+w,y1:cy+dy-h+3,y2:cy+dy+3},s=ov(a)+out(a)*40;if(s<bs){bs=s;best={dx,dy,an,a}}if(!s)break}B.push(best.a);return best};
+ if(!orb)[...D.G].sort((a,b)=>b.m.length-a.m.length).forEach(g=>{const w=g.l.length*7.3+6,r=g.r,q=w/2+r*.5;
+  const p=place(g.x,g.y,w,15,[[0,-r-7],[0,r+17],[q,-r-2],[-q,-r-2],[q,r+12],[-q,r+12],[0,-r-24],[0,r+34],[r+6,5,'start'],[-r-6,5,'end']]);g.lx=p.dx.toFixed(1);g.ly=p.dy.toFixed(1)});
+ D.P.filter(x=>x.lab).sort((a,b)=>b.n-a.n||byName(a.p.nom,b.p.nom)).forEach(x=>{const w=netFirst(x.p).length*6.4+4,r=x.r+(NET.rel&&x.rel?4:0);
+  const p=place(x.x,x.y,w,12,[[0,r+12],[0,-r-4],[r+3,4,'start'],[-r-3,4,'end'],[r*.7+2,r+10,'start'],[-r*.7-2,r+10,'end'],[r*.7+2,-r-2,'start'],[-r*.7-2,-r-2,'end'],[0,r+24],[0,-r-16]]);
+  x.lx=p.dx;x.ly=p.dy;x.la=p.an||'middle'})}
 function netSvgOrbit(D){const fil=NET.fil,out=[],R3=D.Ro,R0=40,gk=new Map(D.G.map(g=>[g.k,g])),cx=D.cx,cy=D.cy,p=(a,r)=>`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`;
  D.G.forEach(g=>{if(D.G.length>1){const large=g.a1-g.a0>Math.PI?1:0;
    out.push(`<path class="nsec${fil!=null&&fil!=g.k?' dim':''}" data-g="${esc(g.k)}" d="M${p(g.a0,R0)} L${p(g.a0,R3)} A${R3},${R3} 0 ${large} 1 ${p(g.a1,R3)} L${p(g.a1,R0)} A${R0},${R0} 0 ${large} 0 ${p(g.a0,R0)}Z" style="fill:${g.c};stroke:${g.c}"/>`)}
@@ -121,12 +130,22 @@ function netSvgOrbit(D){const fil=NET.fil,out=[],R3=D.Ro,R0=40,gk=new Map(D.G.ma
   const t=a+Math.sign(da)*Math.min(Math.abs(da),(x.r+14)/rr);
   out.push(`<line class="ntk${fil!=null&&!x.gk.includes(fil)?' dim':''}" data-l="${esc(x.id)}" x1="${x.x.toFixed(1)}" y1="${x.y.toFixed(1)}" x2="${(cx+rr*Math.cos(t)).toFixed(1)}" y2="${(cy+rr*Math.sin(t)).toFixed(1)}" stroke="${g.c}"/>`)}));
  if(NET.reco)D.R.forEach(e=>out.push(netArrow(e.s,e.t,(e.mode=='presente'?'pres':'')+(fil!=null&&!(e.s.gk.includes(fil)&&e.t.gk.includes(fil))?' dim':''))));
- D.P.forEach(x=>out.push(netNode(x,D)));
+ netLabels(D,true);D.P.forEach(x=>out.push(netNode(x,D)));
  NETRK.forEach(k=>out.push(`<text class="nrlb" x="${cx+4}" y="${(cy-D.ring[k]-5).toFixed(1)}">${PROX.find(z=>z[0]==k)[1]}</text>`));return out.join('')}
-function renderNet(){if(!DB||!$('netSvg'))return;const t0=performance.now(),svg=$('netSvg'),W=Math.round(svg.clientWidth)||900,H=Math.round(svg.clientHeight)||520;
+/* 3.2.1 : hauteur du graphe = place restante dans la fenêtre (page en haut), légende et aide comprises ; le panneau de droite défile seul */
+function netSize(){const s=$('netSvg'),sd=$('netAside');if(!s)return;if(innerWidth<=1000||TAB!='reseau'){s.style.height='';sd.style.maxHeight='';return}
+ const G=$('netG'),top=s.getBoundingClientRect().top+scrollY,below=G.getBoundingClientRect().bottom-s.getBoundingClientRect().bottom,card=s.closest('.card'),pad=card?parseFloat(getComputedStyle(card).paddingBottom)||0:0;
+ const h=Math.round(Math.max(340,Math.min(860,innerHeight-top-below-pad-14)));s.style.height=h+'px';sd.style.maxHeight=(h+below)+'px'}
+function netZoomApply(){const g=$('netVp'),z=NET.z;if(g)g.setAttribute('transform',`translate(${z.x.toFixed(1)},${z.y.toFixed(1)}) scale(${z.k.toFixed(3)})`);
+ const b=$('netZm');if(b)b.querySelector('[data-z=fit]').classList.toggle('on',z.k!=1||z.x!=0||z.y!=0)}
+function netZoomAt(px,py,f){const z=NET.z,k=Math.max(.5,Math.min(5,z.k*f)),r=k/z.k;z.x=px-(px-z.x)*r;z.y=py-(py-z.y)*r;z.k=k;netTipX();netZoomApply()}
+function netZoomReset(){NET.z={k:1,x:0,y:0};netZoomApply()}
+/* ouverture de l'onglet : dessin d'origine (zoom et points glissés remis à zéro) */
+function netOpen(){NET.z={k:1,x:0,y:0};NET.drg=new Map()}
+function renderNet(){if(!DB||!$('netSvg'))return;netSize();const t0=performance.now(),svg=$('netSvg'),W=Math.round(svg.clientWidth)||900,H=Math.round(svg.clientHeight)||520;
  $('netView').querySelectorAll('[data-nv]').forEach(b=>b.classList.toggle('on',b.dataset.nv==NET.v));
  $('netReco').checked=NET.reco;$('netRel').checked=NET.rel;$('netArch').checked=NET.arch;
- const D=netData(NET.v),key=netKey(D);
+ const D=netData(NET.v),key=netKey(D);D.W=W;D.H=H;
  if(D.v=='orbites')netOrbit(D,W,H);
  else{if(key===NET.key&&NET.pos){D.G.forEach(g=>{const q=NET.pos.get('g'+g.k);g.x=q[0];g.y=q[1]});D.P.forEach(x=>{const q=NET.pos.get(x.id);x.x=q[0];x.y=q[1]})}
   else if(D.P.length>60){/* gros carnet : calcul par tranches, puis nouveau rendu */
@@ -136,12 +155,14 @@ function renderNet(){if(!DB||!$('netSvg'))return;const t0=performance.now(),svg=
    $('netLeg').innerHTML=netLegend(D);$('netSide').innerHTML=netSide(D);return}
   else{netForce(D);NET.pos=netPos(D);NET.ms=Math.round(performance.now()-t0)}
   netFit(D,W,H)}
- const dk=key+'|'+W+'x'+H;if(NET.dk!==dk){NET.dk=dk;NET.drg=new Map()}NET.drg.forEach((q,id)=>{const x=D.byId.get(id);if(x){x.x=q[0];x.y=q[1]}});
+ const dk=key+'|'+W+'x'+H;if(NET.dk!==dk){NET.dk=dk;NET.drg=new Map();NET.z={k:1,x:0,y:0}}NET.drg.forEach((q,id)=>{const x=D.byId.get(id);if(x){x.x=q[0];x.y=q[1]}});
  NET.key=key;NET.L=D;if(NET.fil!=null&&!D.G.some(g=>g.k==NET.fil))NET.fil=null;
  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
  if(!D.P.length){svg.innerHTML=`<text class="nempty" x="${W/2}" y="${H/2}" text-anchor="middle">Pas encore de personnes à afficher.</text>`;$('netLeg').innerHTML='';$('netSide').innerHTML=netSide(D);return}
- svg.innerHTML=`<defs><marker id="netArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="${NETARR}"/></marker></defs><rect class="nbg" x="0" y="0" width="${W}" height="${H}"/>`+(D.v=='orbites'?netSvgOrbit(D):netSvgPivots(D));
- $('netLeg').innerHTML=netLegend(D);$('netSide').innerHTML=netSide(D);NET.rms=Math.round(performance.now()-t0)}
+ svg.innerHTML=`<defs><marker id="netArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="${NETARR}"/></marker></defs><rect class="nbg" x="0" y="0" width="${W}" height="${H}"/><g id="netVp">`+(D.v=='orbites'?netSvgOrbit(D):netSvgPivots(D))+'</g>';netZoomApply();
+ $('netLeg').innerHTML=netLegend(D);$('netSide').innerHTML=netSide(D);NET.rms=Math.round(performance.now()-t0);
+ /* la légende a pu changer de hauteur : nouvelle taille, et un seul nouveau rendu si besoin */
+ {const h0=svg.style.height;netSize();if(svg.style.height!==h0&&!NET.rr){NET.rr=1;try{renderNet()}finally{NET.rr=0}}}}
 function netLegend(D){const st=['reseau','invite','conversation','proposition','client','termine','superviseur'].filter(s=>D.P.some(x=>!x.off&&x.st==s));
  const dot=(c,extra)=>`<svg width="16" height="16" viewBox="-8 -8 16 16"><circle r="6" style="fill:${c}" ${extra||''}/></svg>`;
  return st.map(s=>`<span>${dot(netCol(s))}${ETL[s]}</span>`).join('')
@@ -194,6 +215,8 @@ function netTipX(){const t=$('netTip');t.classList.remove('show');t.innerHTML=''
 
 /* ---------- interactions : survol, clic (fiche ou filtre), glisser temporaire ---------- */
 function netPt(ev){const s=$('netSvg'),p=s.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(s.getScreenCTM().inverse())}
+/* point dans le repère du dessin (zoom et déplacement retirés) */
+function netPtC(ev){const p=netPt(ev),z=NET.z;return{x:(p.x-z.x)/z.k,y:(p.y-z.y)/z.k}}
 function netMoveNode(x){const g=$('netSvg').querySelector(`.nnd[data-pid="${CSS.escape(x.id)}"]`);if(g)g.setAttribute('transform',`translate(${x.x.toFixed(1)},${x.y.toFixed(1)})`);
  $('netSvg').querySelectorAll(`line[data-l="${CSS.escape(x.id)}"]`).forEach(l=>{const dx=x.x-+l.getAttribute('x1'),dy=x.y-+l.getAttribute('y1');l.setAttribute('x1',x.x.toFixed(1));l.setAttribute('y1',x.y.toFixed(1));
   if(l.classList.contains('ntk')){l.setAttribute('x2',(+l.getAttribute('x2')+dx).toFixed(1));l.setAttribute('y2',(+l.getAttribute('y2')+dy).toFixed(1))}});
@@ -201,17 +224,29 @@ function netMoveNode(x){const g=$('netSvg').querySelector(`.nnd[data-pid="${CSS.
   const h=document.createElementNS('http://www.w3.org/2000/svg','g');h.innerHTML=netArrow(e.s,e.t,'');const n=h.firstChild;o.setAttribute('d',n?n.getAttribute('d'):'M0,0')})}
 function netFilter(k){NET.fil=NET.fil==k||k==null?null:k;netTipX();renderNet()}
 (function netBind(){const s=$('netSvg');if(!s)return;
- s.addEventListener('pointerover',ev=>{if(NET.drag)return;const g=ev.target.closest('.nnd');if(g){const x=NET.L?.byId.get(g.dataset.pid);if(x)netTip(x,ev)}});
- s.addEventListener('pointermove',ev=>{const d=NET.drag;if(d){const p=netPt(ev);if(!d.moved&&Math.hypot(p.x-d.p0.x,p.y-d.p0.y)<4)return;d.moved=true;netTipX();d.x.x=d.x0+p.x-d.p0.x;d.x.y=d.y0+p.y-d.p0.y;NET.drg.set(d.x.id,[d.x.x,d.x.y]);netMoveNode(d.x);return}
+ s.addEventListener('pointerover',ev=>{if(NET.drag||NET.pan)return;const g=ev.target.closest('.nnd');if(g){const x=NET.L?.byId.get(g.dataset.pid);if(x)netTip(x,ev)}});
+ s.addEventListener('pointermove',ev=>{const pn=NET.pan;if(pn){const p=netPt(ev),dx=p.x-pn.p0.x,dy=p.y-pn.p0.y;if(!pn.moved&&Math.hypot(dx,dy)<4)return;
+   if(!pn.moved){pn.moved=true;s.classList.add('panning');netTipX()}NET.z.x=pn.x0+dx;NET.z.y=pn.y0+dy;netZoomApply();return}
+  const d=NET.drag;if(d){const p=netPtC(ev);if(!d.moved&&Math.hypot(p.x-d.p0.x,p.y-d.p0.y)<4)return;d.moved=true;netTipX();d.x.x=d.x0+p.x-d.p0.x;d.x.y=d.y0+p.y-d.p0.y;NET.drg.set(d.x.id,[d.x.x,d.x.y]);netMoveNode(d.x);return}
   if(ev.target.closest('.nnd'))netTipMove(ev);else netTipX()});
- s.addEventListener('pointerleave',()=>{if(!NET.drag)netTipX()});
- s.addEventListener('pointerdown',ev=>{const g=ev.target.closest('.nnd');if(!g||ev.button)return;const x=NET.L?.byId.get(g.dataset.pid);if(!x)return;
-  const p=netPt(ev);NET.drag={x,p0:p,x0:x.x,y0:x.y,moved:false};try{s.setPointerCapture(ev.pointerId)}catch(e){}ev.preventDefault()});
- s.addEventListener('pointerup',ev=>{const d=NET.drag;NET.drag=null;if(d){if(!d.moved){netTipX();openFiche(d.x.id)}return}
+ s.addEventListener('pointerleave',()=>{if(!NET.drag&&!NET.pan)netTipX()});
+ s.addEventListener('pointerdown',ev=>{if(ev.button)return;const g=ev.target.closest('.nnd');
+  /* ailleurs que sur un point : déplacer la vue (un simple clic garde son effet : groupe mis en avant, ou filtre retiré) */
+  if(!g){if(!NET.L)return;NET.pan={p0:netPt(ev),x0:NET.z.x,y0:NET.z.y,moved:false};try{s.setPointerCapture(ev.pointerId)}catch(e){}ev.preventDefault();return}
+  const x=NET.L?.byId.get(g.dataset.pid);if(!x)return;
+  const p=netPtC(ev);NET.drag={x,p0:p,x0:x.x,y0:x.y,moved:false};try{s.setPointerCapture(ev.pointerId)}catch(e){}ev.preventDefault()});
+ s.addEventListener('pointerup',ev=>{const pn=NET.pan;NET.pan=null;s.classList.remove('panning');if(pn&&pn.moved)return;
+  const d=NET.drag;NET.drag=null;if(d){if(!d.moved){netTipX();openFiche(d.x.id)}return}
   const g=ev.target.closest('[data-g]');if(g){netFilter(g.dataset.g);return}if(ev.target.classList.contains('nbg')&&NET.fil!=null)netFilter(null)});
- $('netView').querySelectorAll('[data-nv]').forEach(b=>b.onclick=()=>{NET.v=b.dataset.nv;NET.fil=null;renderNet()});
+ s.addEventListener('pointercancel',()=>{NET.pan=null;NET.drag=null;s.classList.remove('panning')});
+ /* molette : zoom autour du pointeur */
+ s.addEventListener('wheel',ev=>{if(!NET.L||!NET.L.P.length)return;ev.preventDefault();const p=netPt(ev);netZoomAt(p.x,p.y,Math.exp(-Math.max(-60,Math.min(60,ev.deltaY*(ev.deltaMode?16:1)))*.004))},{passive:false});
+ $('netZm').addEventListener('click',ev=>{const b=ev.target.closest('[data-z]');if(!b)return;const v=s.viewBox.baseVal,cx=v.width/2,cy=v.height/2;
+  if(b.dataset.z=='in')netZoomAt(cx,cy,1.3);else if(b.dataset.z=='out')netZoomAt(cx,cy,1/1.3);else netZoomReset()});
+ $('netView').querySelectorAll('[data-nv]').forEach(b=>b.onclick=()=>{NET.v=b.dataset.nv;NET.fil=null;NET.z={k:1,x:0,y:0};renderNet()});
  $('netReco').onchange=e=>{NET.reco=e.target.checked;renderNet()};
  $('netRel').onchange=e=>{NET.rel=e.target.checked;renderNet()};
  $('netArch').onchange=e=>{NET.arch=e.target.checked;renderNet()};
+ $('netLog').onclick=()=>$('openLog').click();
  $('netSide').addEventListener('click',ev=>{const a=ev.target.closest('[data-pid]');if(a){openFiche(a.dataset.pid);return}const g=ev.target.closest('[data-g]');if(g){netFilter(g.dataset.g);return}if(ev.target.id=='netFilX')netFilter(null)});
 })();

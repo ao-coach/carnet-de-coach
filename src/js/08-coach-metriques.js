@@ -58,7 +58,7 @@ function coachHTML(){const C=CO(),jeu=C.theme=='jeu',me=coachLevel(),rk=rangOf(m
   <div class="cfid"><div class="cfnm ${C.nom?'':'ph'}">${esc(nom)}</div>${meta?`<div class="cfmeta">${meta}</div>`:''}${C.pitch?`<div class="cfpitch">« ${esc(C.pitch)} »</div>`:`<div class="cfpitch ph" data-coedit>Ton micro-pitch, en une phrase…</div>`}</div>
   <div class="cfrk"><small>Rang</small><b>${esc(rk)}</b><div class="cflvl">${lvlTxt}</div><div class="cfbar"><i style="width:${me.pct}%"></i></div></div>
   <div class="cfcv"><span><span class="k">${jeu?'Diplômes':'Formation'}</span>${chips(C.formation)||'<em>à compléter</em>'}${PLUS}</span><span><span class="k">Parcours</span>${chips(C.parcours)||'<em>à compléter</em>'}${PLUS}</span></div></div>`;
- const M=mActive(),bous=M.length>=3?boussoleSVG(jeu?'jeu':'pro'):boussoleList();
+ const M=mBous(),bous=M.length>=3?boussoleSVG(jeu?'jeu':'pro'):boussoleList();
  const bloc=`<div class="cfpanel"><div class="cfsh">Boussole de pratique <span>oriente la pratique délibérée · part des XP de chaque compétence · en pointillé : les 30 derniers jours</span><button class="cfmets" data-mets>Gérer mes compétences</button></div><div class="pdbx"><div class="cfbous">${bous}</div><div class="cfside">${pdSideHTML()}</div></div></div>`;
  const G=coachStats();
  const stats=`<div class="cfpanel cfstp"><div class="cfsh">Statistiques <span>depuis le début · chaque niveau correspond au rythme d'un coach régulier · ton niveau global est la moyenne des statistiques déjà saisies</span></div><div class="cfst">${G.map(gr=>{const col=jeu?gr.cj:gr.c,GS=gr.s.filter(r=>+r[1]>0),lv=GS.length?Math.round(GS.reduce((a,r)=>a+rowLvl(r).L,0)/GS.length):0;
@@ -303,10 +303,12 @@ function modShortHTML(){const e=ESS(),t=MODS.every(MOD);return `<button type="bu
 function modBind(box,after){box.querySelectorAll('[data-mod]').forEach(i=>i.onchange=()=>{const o=Object.fromEntries(MODS.map(k=>[k,MOD(k)]));o[i.dataset.mod]=i.checked;setMods(o,true);renderAll();if(after)after();toast(i.checked?'Module affiché.':'Module masqué : rien n\'est perdu.')});
  box.querySelectorAll('[data-mods]').forEach(b=>b.onclick=()=>{const v=b.dataset.mods=='1';setMods(modsAll(v),true);renderAll();if(after)after();toast(v?'Tout : tous les modules sont affichés.':'Essentiel : le suivi de tes entretiens et de tes personnes. Rien n\'est perdu.')})}
 function renderModMenu(){const m=$('modMenu');if(!m||m.classList.contains('hide'))return;
- m.innerHTML=`<div class="mmk">Sur quoi tu travailles</div>${modListHTML('mmi')}<div class="mmf">${modShortHTML()}</div><div class="mmh">Le suivi de tes entretiens, de tes personnes et « À relancer » est toujours là. Un module désactivé est seulement masqué : rien n'est perdu.</div>`;modBind(m,renderModMenu)}
+ m.innerHTML=`<div class="mmk">Sur quoi tu travailles</div>${modListHTML('mmi')}<div class="mmf">${modShortHTML()}</div><div class="mmh">Le suivi de tes entretiens et de tes personnes (cercles, rythme de contact, « À relancer ») et les niveaux des bandeaux sont toujours là. Un module désactivé est seulement masqué : rien n'est perdu.</div>`;modBind(m,renderModMenu)}
 function renderModSet(){const b=$('setModsL');if(!b)return;if($('setModsN'))$('setModsN').textContent=modLbl();b.innerHTML=`<div class="modset">${modListHTML('msi')}</div><div class="mmf">${modShortHTML()}</div>`;modBind(b,renderModSet)}
 function applyMode(){const b=document.body;MODS.forEach(k=>b.classList.toggle('no-'+k,!MOD(k)));b.classList.toggle('ess',ESS());
  if($('modLbl'))$('modLbl').textContent=modLbl();
+ /* 3.2.1 : Paramètres équilibré quelle que soit la combinaison : une carte restée seule dans sa grille prend toute la largeur */
+ document.querySelectorAll('#settings .pgrid').forEach(g=>g.classList.toggle('solo',[...g.children].filter(c=>getComputedStyle(c).display!='none').length==1));
  /* onglet masqué : retour au Suivi d'activité (pas pendant le parcours de démarrage, qui choisit lui-même l'onglet d'arrivée) */
  if(MODTAB[TAB]&&!MOD(MODTAB[TAB])&&$('wiz').classList.contains('hide'))goTab('metrics')}
 $('modBtn').onclick=e=>{e.stopPropagation();if(!DB)return;const m=$('modMenu');m.classList.toggle('hide');$('modBtn').classList.toggle('on',!m.classList.contains('hide'));renderModMenu();

@@ -62,7 +62,7 @@ function adoptDB(n){if(!DB){DB=n;return}inPlace(DB,n)}
 function mergeDB(A,B,base,prefA){
   const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
   const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})},t:{...(O.supprimes?.t||{}),...(N.supprimes?.t||{})}};R.supprimes=sup;
-  const remap={},fromO=new Set();let added=0;
+  const remap={},eremap={},fromO=new Set();let added=0;
   (O.personnes||[]).forEach(p=>{if(sup.p[String(p.id)])return;const q=R.personnes.find(x=>String(x.id)===String(p.id));
     if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||'')){Object.assign(q,JSON.parse(JSON.stringify(p)));fromO.add(q)}return}
     const same=R.personnes.find(x=>byName(x.nom,p.nom)==0);if(same){remap[p.id]=same.id;return}
@@ -73,14 +73,16 @@ function mergeDB(A,B,base,prefA){
     if(!r){if(sup[key][k])return;dst.push(x);added+=key=='e';return}
     if(strip(r)===strip(x))return;
     if(isSame(r,x)){if((x.maj||'')>(r.maj||''))Object.assign(r,x);return}
-    dst.push({...x,id:nextId(dst)});added+=key=='e'});
+    const nid=nextId(dst);if(key=='e')eremap[k]=nid;dst.push({...x,id:nid});added+=key=='e'});
     return dst.filter(x=>!sup[key][String(x.id)])};
   R.entrees=mergeList(R.entrees,(O.entrees||[]).map(e=>e.pid!=null&&sup.p[String(e.pid)]?{...e,pid:null,psup:true}:e).map(e=>({...e,pid:e.pid!=null&&remap[e.pid]!=null?remap[e.pid]:e.pid})),'e',(r,x)=>sig(r)===sig(x));
   R.personnes=R.personnes.filter(p=>!sup.p[String(p.id)]);
   /* 2.4.0 : « recommandé·e ou présenté·e par » suit les renumérotations et s'efface si la personne a été supprimée */
   R.personnes.forEach(p=>{const r=p.reco_par;if(!r||r.pid==null)return;let pid=r.pid;
    if(fromO.has(p)&&remap[pid]!=null)pid=remap[pid];
-   p.reco_par=sup.p[String(pid)]||String(pid)===String(p.id)||!R.personnes.some(x=>String(x.id)===String(pid))?null:{...r,pid}});R.entrees.forEach(e=>{if(e.pid!=null&&sup.p[String(e.pid)]){e.pid=null;e.psup=true}});
+   p.reco_par=sup.p[String(pid)]||String(pid)===String(p.id)||!R.personnes.some(x=>String(x.id)===String(pid))?null:{...r,pid}});
+  /* 3.2.1 : « bilan planifié » (bilanFait = proposition acceptée) suit la renumérotation des saisies de l'autre copie */
+  R.personnes.forEach(p=>{if(fromO.has(p)&&p.bilanFait!=null&&eremap[String(p.bilanFait)]!=null)p.bilanFait=eremap[String(p.bilanFait)]});R.entrees.forEach(e=>{if(e.pid!=null&&sup.p[String(e.pid)]){e.pid=null;e.psup=true}});
   R.actions=mergeList(R.actions,(O.actions||[]).map(a=>({...a})),'a',(r,x)=>r.a===x.a);
   SECTIONS.forEach(k=>{if(A[k]===undefined&&B[k]===undefined)return;R[k]=base?m3(base[k],A[k],B[k]):prefA?m3(null,A[k],B[k]):m3(null,N[k],O[k])});
   /* 3.0.0 : transferts d'XP réunis par identifiant (fusion de la section pd), sans faire réapparaître un transfert annulé */

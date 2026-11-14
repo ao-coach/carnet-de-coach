@@ -88,7 +88,7 @@
   <div class="card netcard">
     <div class="nethead"><span class="seg big" id="netView" style="margin-left:0"><button data-nv="cercles" class="on">Cercles</button><button data-nv="public">Public</button><button data-nv="probl">Problématique</button><button data-nv="orbites">Orbites</button></span>
       <label class="small"><input type="checkbox" id="netReco" checked> Recommandations</label><label class="small"><input type="checkbox" id="netRel" checked> Signaler les personnes à relancer</label><label class="small"><input type="checkbox" id="netArch"> Inclure archivé·es et sans suite</label></div>
-    <div class="netbox"><div class="netg" id="netG"><svg id="netSvg" class="netsvg" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet"></svg><div class="nettip" id="netTip"></div><div class="legend netleg" id="netLeg"></div><div class="nethint">Survole un point pour le détail, clique pour ouvrir la fiche ; clique sur un groupe pour le mettre en avant. Les points se déplacent à la souris, le temps de la consultation.</div></div><aside class="netside" id="netSide"></aside></div>
+    <div class="netbox"><div class="netg" id="netG"><svg id="netSvg" class="netsvg" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet"></svg><div class="netzm" id="netZm"><button type="button" data-z="in" title="Zoomer" aria-label="Zoomer">+</button><button type="button" data-z="out" title="Dézoomer" aria-label="Dézoomer">−</button><button type="button" data-z="fit" title="Recentrer" aria-label="Recentrer">⟲</button></div><div class="nettip" id="netTip"></div><div class="nethint">Clic sur un point : sa fiche · sur un groupe : le mettre en avant · molette ou + et − : zoom · glisser le fond : déplacer la vue</div></div><aside class="netside" id="netAside"><button class="cta netlog" id="netLog">+ Enregistrer un temps</button><div class="legend netleg" id="netLeg"></div><div id="netSide"></div></aside></div>
   </div>
 </div>
 
@@ -116,7 +116,7 @@
     </div>
   </div>
   <div class="card sec fold" id="setMods" data-fold="1"><h2>Mon carnet <span class="cntb" id="setModsN"></span></h2>
-    <div class="hint">Les modules affichés dans ton carnet. Le suivi de tes entretiens, de tes personnes et « À relancer » est toujours là. Un module désactivé est seulement masqué : rien n'est perdu, et il ne te signale plus rien.</div>
+    <div class="hint">Les modules affichés dans ton carnet. Le suivi de tes entretiens et de tes personnes (cercles, rythme de contact, « À relancer ») et les niveaux des bandeaux sont toujours là. Un module désactivé est seulement masqué : rien n'est perdu, et il ne te signale plus rien.</div>
     <div id="setModsL" style="margin-top:10px"></div>
   </div>
   <div class="pgrid sec">
@@ -126,8 +126,8 @@
   <div class="pgrid sec tm">
     <div class="card fold" id="setTypes" data-fold="0">
       <h2>Types d'activité</h2>
-      <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Les couleurs suivent ta palette et ce classement tant que tu n'en retouches pas une. Jusqu'à 11 types ; « Compte dans » indique le calcul où chaque type est additionné.</div>
-      <div class="tscroll"><table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Personne</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table></div>
+      <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Les couleurs suivent ta palette et ce classement tant que tu n'en retouches pas une. Jusqu'à 11 types ; « Compte dans » indique le calcul où chaque type est additionné ; « Notes longues » écrit « Ce qu'on a vu » sur plusieurs lignes.</div>
+      <div class="tscroll"><table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Personne</th><th class="fit" title="« Ce qu'on a vu » sur plusieurs lignes">Notes longues</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table></div>
       <button class="addl" id="addType">+ Ajouter un type</button>
     </div>
     <div class="card fold" id="setMets" data-fold="0">

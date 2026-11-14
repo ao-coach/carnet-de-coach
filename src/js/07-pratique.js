@@ -40,7 +40,9 @@ const DISC_COL=['#C2416A','#2FA6AD','#4D8FB5','#9374C9','#D08A3C','#5E9E5A','#B5
 function discGroups(M){const G=[];M.forEach(m=>{const d=(m.disc||'').trim();let g=G.find(x=>x.d.toLowerCase()==d.toLowerCase());if(!g){g={d,ms:[]};G.push(g)}g.ms.push(m)});
  let k=0;G.forEach(g=>{g.c=g.d?DISC_COL[k++%DISC_COL.length]:null});return G}
 /* 3.0.0 : part des XP par compétence, normalisée sur la plus fournie ; les 30 derniers jours en pointillé (normalisés sur eux-mêmes) */
-function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mActive()),L=G.flatMap(g=>g.ms.map(m=>({m,g})));if(L.length<3)return '';
+/* 3.2.1 : la boussole ne montre Facultés commerciales qu'avec le module ③ */
+const mBous=()=>mActive().filter(m=>!m.fc||MOD('activite'));
+function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mBous()),L=G.flatMap(g=>g.ms.map(m=>({m,g})));if(L.length<3)return '';
  const W=820,H=560,cx=W/2,cy=H/2+4,R=185,n=L.length,ang=i=>-Math.PI/2+i*2*Math.PI/n,F=PD().focus.map(String),P=th,T=xpTotals(),G30=xp30();
  const all0=L.map(({m,g})=>({m,g,...xpInfo(m.id,T,G30),f:F.includes(String(m.id))})),mx=Math.max(1,...all0.map(s=>s.tot)),m30=Math.max(0,...all0.map(s=>s.d30));
  const all=all0.map(s=>({...s,v:s.tot>0?s.tot/mx*5:null,v30:m30>0?s.d30/m30*5:0}));
@@ -74,7 +76,7 @@ function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mActive()
   else g+=`<text x="${lx}" y="${ly+14}" text-anchor="${an}" style="font-size:14.5px;fill:${sub}">${s.tot?`Niv. ${s.L} · ${num(s.tot)} XP`:'aucun XP'}${s.f?' · <tspan style="fill:var(--am);font-weight:800">focus</tspan>':''}</text>`;
   g+='</g>'});
  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
-function boussoleList(){const F=PD().focus.map(String),T=xpTotals(),G30=xp30();return `<div class="bslist">${mActive().map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="bsrow" data-cmp="${esc(m.id)}"><b>${esc(m.l)}</b><span class="xpbar"><i style="width:${a.pct}%"></i></span><span>${a.tot?`Niv. ${a.L} · ${num(a.tot)} XP`:'aucun XP'}${F.includes(String(m.id))?' · <em>focus</em>':''}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie : <button class="lnk0" data-mets style="text-decoration:underline">ajoute tes compétences</button>.</div>'}</div>`}
+function boussoleList(){const F=PD().focus.map(String),T=xpTotals(),G30=xp30();return `<div class="bslist">${mBous().map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="bsrow" data-cmp="${esc(m.id)}"><b>${esc(m.l)}</b><span class="xpbar"><i style="width:${a.pct}%"></i></span><span>${a.tot?`Niv. ${a.L} · ${num(a.tot)} XP`:'aucun XP'}${F.includes(String(m.id))?' · <em>focus</em>':''}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie : <button class="lnk0" data-mets style="text-decoration:underline">ajoute tes compétences</button>.</div>'}</div>`}
 
 /* ---------- onglet Pratique délibérée ---------- */
 function pdSideHTML(){const F=PD().focus,M=mActive(),AC=actsCours();
@@ -96,7 +98,7 @@ function bindPdSide(R){
  R.querySelectorAll('[data-addact]').forEach(b=>b.onclick=()=>openLib({}));
  R.querySelectorAll('[data-lib]').forEach(b=>b.onclick=()=>openLib({browse:1}));
  R.querySelectorAll('[data-cmp]').forEach(b=>b.onclick=()=>openCmp(b.dataset.cmp))}
-function renderPD(){const M=mActive();
+function renderPD(){const M=mBous();
  $('pdBous').innerHTML=(M.length>=3?boussoleSVG('app'):boussoleList())+`<div class="pdleg">Part des XP de chaque compétence, rapportée à la plus fournie · en pointillé : les 30 derniers jours · clique sur une compétence pour voir son historique.</div>`;
  renderXpPanel();
  const side=$('pdSide');side.innerHTML=pdSideHTML();bindPdSide(side);

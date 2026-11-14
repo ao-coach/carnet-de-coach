@@ -476,7 +476,7 @@ function renderSettings(){const C=CFG();renderModSet();$('setModsN').textContent
  $('brandColors').querySelectorAll('input').forEach(i=>{i.oninput=()=>{C.couleurs[i.dataset.bc]=i.value;recolor(C);touch();applyConfig()};i.onchange=()=>renderSettings()});
  $('typeRows').innerHTML=STACK.map((k,i)=>{const t=C.types[k];return `<tr data-i="${i}"><td><span class="handle" title="Glisser pour réordonner">⋮⋮</span><span class="rk">${i+1}</span></td><td><input type="color" data-tc="${k}" value="${t.c}"></td><td><input class="ed" data-tl="${k}" value="${esc(t.l)}"></td>
   <td><select class="ed" data-td="${k}" style="width:90px">${[0,...DURS].map(d=>`<option value="${d}" ${d==t.d?'selected':''}>${d?fmtD(d):'aucune'}</option>`).join('')}</select></td>
-  <td>${TM[k]?.p?`<select class="ed" data-tpr="${k}" style="width:auto"><option value="1" ${pReq(k)?'selected':''}>Obligatoire</option><option value="0" ${pReq(k)?'':'selected'}>Facultative</option></select>`:'<span class="hint" style="margin:0">—</span>'}</td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('');
+  <td>${TM[k]?.p?`<select class="ed" data-tpr="${k}" style="width:auto"><option value="1" ${pReq(k)?'selected':''}>Obligatoire</option><option value="0" ${pReq(k)?'':'selected'}>Facultative</option></select>`:'<span class="hint" style="margin:0">—</span>'}</td><td style="text-align:center"><input type="checkbox" data-tlg="${k}" ${LONGCOM(k)?'checked':''} title="« Ce qu'on a vu » sur plusieurs lignes"></td><td>${roleCell(k,C)}</td><td>${delCell(k)}</td></tr>`}).join('');
  bindTypeExtras($('typeRows'),C,cfgChanged);$('addType').textContent=`+ Ajouter un type (${keysOf(C).length}/${MAX_TYPES})`;$('addType').disabled=keysOf(C).length>=MAX_TYPES;
  $('addType').onclick=()=>{if(addCustomType(C)){cfgChanged();const ins=$('typeRows').querySelectorAll('[data-tl]');ins[ins.length-1]?.select()}};
  dragRows($('typeRows'),C.ordre,()=>{recolor(C);cfgChanged()});
@@ -484,6 +484,7 @@ function renderSettings(){const C=CFG();renderModSet();$('setModsN').textContent
  $('typeRows').querySelectorAll('[data-tl]').forEach(i=>i.onchange=()=>{C.types[i.dataset.tl].l=i.value.trim()||defaultConfig().types[i.dataset.tl]?.l||'Type';cfgChanged()});
  $('typeRows').querySelectorAll('[data-td]').forEach(i=>i.onchange=()=>{C.types[i.dataset.td].d=+i.value;cfgChanged()});
  $('typeRows').querySelectorAll('[data-tpr]').forEach(s=>s.onchange=()=>{C.types[s.dataset.tpr].pReq=s.value==='1';cfgChanged()});
+ $('typeRows').querySelectorAll('[data-tlg]').forEach(i=>i.onchange=()=>{C.types[i.dataset.tlg].long=i.checked;cfgChanged()});
 
 }
 $('imgFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{CFG()[IMGT]=await readImg(f,IMGT);cfgChanged();if(!$('wiz').classList.contains('hide'))renderWiz();toast('Image enregistrée')}catch(err){toast('Image non reconnue')}e.target.value=''};
@@ -508,6 +509,6 @@ $('addMet').onclick=()=>{const M=CFG().metriques,n=M.reduce((x,m)=>Math.max(x,+S
 
 /* ---------- onglets ---------- */
 let TAB='dash';
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;if(TAB=='metrics')qFlag('metrics');if(TAB=='reseau')qFlag('reseau');document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x==b));
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;document.body.dataset.tab=TAB;if(TAB=='metrics')qFlag('metrics');if(TAB=='reseau'){qFlag('reseau');if(typeof netOpen=='function')netOpen()}document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x==b));
  ['dash','coach','pd','metrics','list','people','reseau','settings','about'].forEach(id=>$(id).classList.toggle('hide',id!=TAB));if(TAB=='about')renderAbout();renderAll()});
 

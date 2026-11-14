@@ -22,7 +22,6 @@ line[data-l="§"]	# sélecteur
 linear-gradient(180deg,§d9,§f5),url("§") center/cover	# CSS
 Enter	# nom de touche
 Escape	# nom de touche
-cle-de-secours_§_§.txt	# nom du fichier téléchargé
 Sales skills	# déjà en anglais (nom de la compétence créée par la migration en anglais)
 Français	# sélecteur de langue, data-noi18n
 English	# idem
@@ -68,4 +67,3 @@ en entier	# « {0} de charges · en entier : {1}/h »
 # --- textes affichés seulement avec ?cite=1 : la phrase complète a son entrée
 celle de Gianni Bergandi et Magali Wagner (Odyssée), et de Rich Litvin	# phrase complète de « La démarche » (deux versions) dans I18N_EN
 défendue par des coachs qui en vivent depuis des années	# idem
-Premier entretien	# libellé d'une étape morte du parcours de démarrage (WZL.first)

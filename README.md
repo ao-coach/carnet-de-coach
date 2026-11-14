@@ -146,7 +146,7 @@ Plusieurs caps franchis d'un coup s'enchaînent, du plus grand au plus petit. Un
 
 ### Mon carnet : les modules
 
-Le **socle** est toujours là : enregistrer un temps, Suivi d'activité, Mes saisies, Personnes (pipeline, fiche, « À relancer » et « Traiter », rythme de contact et relances au rythme), Paramètres et À propos. Tu y ajoutes les **modules** sur lesquels tu veux travailler, calqués sur [les trois valeurs du carnet](#à-quoi-sert-ton-carnet), plus le jeu :
+Le **socle** est toujours là : enregistrer un temps, Suivi d'activité, Mes saisies, Personnes (pipeline, fiche, cercles, « À relancer » et « Traiter », rythme de contact et relances au rythme), les niveaux et totaux en haut des bandeaux, Paramètres et À propos. Tu y ajoutes les **modules** sur lesquels tu veux travailler, calqués sur [les trois valeurs du carnet](#à-quoi-sert-ton-carnet), plus le jeu :
 
 | Module | Ce qu'il ajoute |
 |---|---|

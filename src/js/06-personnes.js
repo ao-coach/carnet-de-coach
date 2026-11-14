@@ -9,15 +9,21 @@ const lastContact=pid=>pEntries(pid).filter(e=>e.date<=today()).at(-1)||null;
 /* étape proposée automatiquement à partir des saisies */
 /* contrat en cours d'une personne : dernière proposition acceptée */
 const addMonths=(d,m)=>{const x=new Date(d+'T12:00:00Z');x.setUTCMonth(x.getUTCMonth()+(+m||0));return x.toISOString().slice(0,10)};
-function contractOf(pid){const A=pEntries(pid).filter(e=>e.type=='proposition'&&e.statut=='acceptee');if(!A.length)return null;const e=A.at(-1),debut=e.debut||e.date,
+function contractOf(pid,e0){const A=pEntries(pid).filter(e=>e.type=='proposition'&&e.statut=='acceptee');if(!A.length)return null;const e=e0||A.at(-1),debut=e.debut||e.date,
  fin=e.engagement_mois?addMonths(debut,e.engagement_mois):null,S=pEntries(pid).filter(x=>x.type=='session'&&x.date>=debut&&(!fin||x.date<=fin));
  return{e,debut,fin,prevues:+e.seances||null,faites:S.length,eur:+e.eur||0}}
 /* alerte « bilan ou renouvellement » : une seule fois par contrat (identifié par la proposition acceptée) */
 function endWinStart(K){let s=K.fin?addDays(K.fin,-21):null;
  if(K.prevues){const S=pEntries(K.e.pid).filter(x=>x.type=='session'&&x.date>=K.debut&&(!K.fin||x.date<=K.fin)),x=S[K.prevues-2],d=x?x.date:K.debut;if(!s||d<s)s=d}
  return !s||s<K.debut?K.debut:s}
-function bilanDone(p,K){if(p.bilanFait!=null)return String(p.bilanFait)===String(K.e.id);const s=endWinStart(K);/* carnets antérieurs à la 2.3.1 : bilan déjà planifié */
- return DB.actions.some(a=>String(a.pid)===String(p.id)&&/^\s*(Bilan \/ renouvellement|Review \/ renewal)/i.test(a.a||'')&&(a.d||'')>=s)}
+function bilanDone(p,K){if(p.bilanFait!=null)return String(p.bilanFait)===String(K.e.id);
+ /* carnets antérieurs à la 2.3.1 : bilan déjà planifié. 3.2.1 : chaque action de bilan ne vaut que pour un contrat ; les contrats précédents
+    prennent d'abord la leur (la première à partir du début de leur fenêtre, au plus 45 jours après leur fin), pour qu'un renouvellement
+    signé avant la date de l'ancien bilan ne masque pas l'alerte du nouveau contrat */
+ const acts=DB.actions.filter(a=>String(a.pid)===String(p.id)&&/^\s*(Bilan \/ renouvellement|Review \/ renewal)/i.test(a.a||'')).sort((a,b)=>(a.d||'').localeCompare(b.d||'')),used=new Set();
+ for(const e of pEntries(p.id).filter(x=>x.type=='proposition'&&x.statut=='acceptee')){const Ki=String(e.id)===String(K.e.id)?K:contractOf(p.id,e),s=endWinStart(Ki),last=Ki===K,hi=!last&&Ki.fin?addDays(Ki.fin,45):null;
+  const a=acts.find(a=>!used.has(a)&&(a.d||'')>=s&&(!hi||(a.d||'')<=hi));if(last)return !!a;if(a)used.add(a)}
+ return false}
 function contractTxt(K){if(!K)return'';return `${K.prevues?`${K.faites}/${K.prevues} séances`:`${pl(K.faites,'séance')}`}${K.fin?` · fin ${K.fin<today()?'le ':'prévue le '}${dShort(K.fin)}`:''}`}
 function contractBar(K){if(!K?.prevues)return'';const p=Math.min(100,K.faites/K.prevues*100);return `<div class="bar" style="margin-top:4px"><b style="width:${p}%;background:var(--am)"></b></div>`}
 /* 2.4.0 : une personne n'entre dans le pipeline qu'avec une invitation, une conversation, une séance, une proposition ou une supervision ;
@@ -355,7 +361,8 @@ $('crClose').onclick=()=>{CRT=null;$('cropM').classList.remove('show')};
 /* ---------- 2.3.0 : choix d'une personne (champ avec suggestions, réutilisé partout) ----------
    Accents et majuscules ignorés ; débuts de mots d'abord, puis le reste ; à rang égal, les personnes récentes.
    « + Créer « … » » quand aucun nom ne correspond exactement. */
-const LONGCOM=k=>k=='reseau';
+/* 3.2.1 : « Notes longues » réglable par type (Paramètres > Types d'activité) ; sans réglage : la rencontre réseau seulement, comme avant */
+const LONGCOM=k=>{const v=DB?CFG().types[k]?.long:null;return v==null?k=='reseau':!!v};
 const fitTA=ta=>{if(!ta)return;ta.style.height='auto';if(ta.scrollHeight)ta.style.height=ta.scrollHeight+2+'px'};
 const fold=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();
 const PSPLIT=/[\s'’.\-]+/;
