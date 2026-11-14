@@ -958,8 +958,8 @@ main{max-width:1280px;padding-top:24px}
 
 <div class="mq-top">
   <h1>Maquette v2.4.0 : relances, fiche personne, pipeline, indicateurs</h1>
-  <p>Maquette statique (quelques onglets et boutons sont cliquables), au style de l'application. Données fictives de la démo de Camille Martin, au 14 novembre 2026. Les encadrés pointillés dorés expliquent un choix ; les encadrés roses posent une question à trancher.</p>
-  <nav><a href="#fiche">1. Fiche personne</a><a href="#relancer">2. À relancer</a><a href="#traiter">3. Traiter</a><a href="#pipeline">4. Pipeline</a><a href="#kpi">5. Bandeaux d'indicateurs</a><a href="#param">6. Paramètres</a><a href="#questions">Questions</a></nav>
+  <p>Maquette statique (quelques onglets et boutons sont cliquables), au style de l'application. Données fictives de la démo de Camille Martin, au 14 novembre 2026. Les encadrés pointillés dorés expliquent un choix. Mise à jour du 14/11 : réponses d'Allan aux 8 questions intégrées (dernière section).</p>
+  <nav><a href="#fiche">1. Fiche personne</a><a href="#relancer">2. À relancer</a><a href="#traiter">3. Traiter</a><a href="#pipeline">4. Pipeline</a><a href="#kpi">5. Bandeaux d'indicateurs</a><a href="#param">6. Paramètres</a><a href="#questions">Réponses</a></nav>
 </div>
 
 <!-- ================= 1. FICHE ================= -->
@@ -1036,7 +1036,7 @@ main{max-width:1280px;padding-top:24px}
       <div class="mq-small">Liste des valeurs déjà utilisées, et saisie libre : une valeur tapée qui n'existe pas est ajoutée telle quelle (c'est déjà le cas en 2.3 ; rien ne change à l'écran).</div>
     </div>
    </div>
-   <div class="mq-note"><span class="mq-tag">Choix</span>Le champ <b>Provenance</b> disparaît de la fiche : la migration en fait le premier cercle (sauf « Recommandation », qui devient la case « Vient d'une recommandation » si elle n'est pas déjà cochée). La valeur reste dans le fichier et la recherche de l'onglet Personnes porte désormais aussi sur les cercles.</div>
+   <div class="mq-note"><span class="mq-tag">Choix</span><b>Réponse 6</b> : le champ <b>Provenance</b> disparaît de la fiche une fois converti : la migration en fait le premier cercle (sauf « Recommandation », qui devient la case « Vient d'une recommandation » si elle n'est pas déjà cochée). La donnée <code>provenance</code> reste dans le fichier (champ non supprimé) et la recherche de l'onglet Personnes porte désormais aussi sur les cercles.</div>
   </div>
 
   <!-- ===== Notes ===== -->
@@ -1047,7 +1047,7 @@ main{max-width:1280px;padding-top:24px}
         <label class="pflab">À garder en tête<textarea class="fin" rows="7">Ancien collègue (bureau d'études, 2014-2018). Deux enfants, court des trails.
 A repris l'atelier de son père en 2023 : fier, mais épuisé par la gestion.
 Ouvert au coaching « un jour », pas pour lui maintenant.</textarea></label>
-        <label class="pflab">Prochain sujet à évoquer<input class="fin" value="Son projet de former un apprenti : a-t-il trouvé ?"></label>
+        <label class="pflab">Prochain sujet à évoquer<input class="fin" id="mqSujet" value="Son projet de former un apprenti : a-t-il trouvé ?"></label>
       </div>
       <div class="mq-small">« À garder en tête » = le champ <i>Description</i> actuel de la personne (décision 5), simplement renommé et déplacé ici. « Prochain sujet à évoquer » est repris dans À relancer (« À reprendre : … »).</div>
     </div>
@@ -1120,7 +1120,7 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
       <div style="text-align:right"><div class="when late">Sans contact depuis 104 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2" data-go="notes">Préparer</button><button class="btn2 tr" data-go="trB">Traiter</button></div></div></div>
 
     <div class="rel"><span class="av" style="width:36px;height:36px;font-size:14px;background:#D98E73">JB</span>
-      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span> <span class="rzp">Réseau</span><span class="rtype">rythme</span>
+      <div><span class="who">Julien BERTRAND</span> <span class="stp" style="background:var(--jet)">Accompagnement terminé</span><span class="rtype">rythme</span>
         <div class="meta"><span class="crp" style="--c:#8B78A8">Anciens clients</span><span>· tous les 6 mois</span></div></div>
       <div style="text-align:right"><div class="when late">Sans contact depuis 214 j</div><div class="btns" style="justify-content:flex-end;margin-top:4px"><button class="btn2" data-go="notes">Préparer</button><button class="btn2 tr" data-go="trB">Traiter</button></div></div></div>
   </div>
@@ -1128,8 +1128,8 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <div class="mq-note"><span class="mq-tag">Choix</span>
 <ul>
 <li>Les petites étiquettes grises (<i>action, proposition…</i>) ne sont là que pour la maquette ; elles ne seront pas dans l'application.</li>
-<li><b>« Traiter »</b> sur toutes les lignes, mis en avant (bouton foncé). <b>« Plus tard »</b>, <b>« Planifier une relance »</b> et <b>« Sans suite »</b> ne sont plus des boutons de ligne : ils passent dans « Traiter ». Propositions (<i>Acceptée, Refusée</i>) et fins de contrat (<i>Planifier le bilan</i>) gardent leurs boutons propres.</li>
-<li><b>Relance au rythme</b> : pastille dorée « Réseau », cercles, rythme, « À reprendre : … » (si le prochain sujet est rempli), et « Préparer » (ouvre la fiche sur l'onglet Notes ; essaie le bouton). Elle s'applique à toutes les personnes ayant un rythme, clients et anciens clients compris (exemple de Julien : l'étape reste affichée, la pastille dit d'où vient la relance).</li>
+<li><b>« Traiter »</b> sur toutes les lignes, mis en avant (bouton foncé). Les <b>propositions</b> gardent <i>Acceptée / Refusée</i> et les <b>fins de contrat</b> gardent <i>Planifier le bilan</i> sur la ligne ; leur « Traiter » sert à reporter ou commenter. Pour les lignes de relance (<i>sans nouvelles</i> et <i>rythme</i>), <b>« Plus tard »</b>, <b>« Planifier une relance »</b> et <b>« Sans suite »</b> passent dans « Traiter ».</li>
+<li><b>Relance au rythme</b> : cercles, rythme, « À reprendre : … » (si le prochain sujet est rempli), et « Préparer » : ouvre la fiche sur l'onglet Notes, curseur dans « Prochain sujet à évoquer » (réponse 3 ; essaie le bouton). Elle s'applique à toutes les personnes ayant un rythme (3 mois par défaut pour tout le monde, réponse 8 : les séances d'un client en cours comptent comme contacts). <b>Pastille dorée « Réseau » uniquement pour les contacts réseau</b> (Bastien) ; une personne qui a une étape du pipeline garde la pastille de son étape (Julien) : réponse 5.</li>
 <li>Une personne n'apparaît qu'une fois : si elle a une action prévue, seule l'action s'affiche (règle actuelle) ; une relance au rythme ne s'ajoute pas à une ligne « sans nouvelles » ou « proposition » de la même personne.</li>
 </ul></div>
 
@@ -1177,10 +1177,10 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <li>On choisit <b>une</b> issue (faite, annulée, une date, plus tard) puis « Enregistrer » ; le commentaire est facultatif et peut accompagner n'importe quelle issue, ou être enregistré seul. « Fait » d'une relance au rythme agit immédiatement (ouvre la saisie).</li>
 <li>Les dates sous les boutons sont calculées à partir d'aujourd'hui (14 nov) ; pour une action, « +2 j » part d'aujourd'hui, pas de la date prévue.</li>
 <li><b>Autres lignes sans action</b> : même fenêtre que la relance au rythme, adaptée.
- <i>Sans nouvelles</i> : « Fait » ouvre la saisie préremplie (type Conversation), « Classer sans suite » remplace « Ne plus relancer ».
- <i>Proposition</i> : pas de « Fait » (Acceptée / Refusée restent sur la ligne) ; « Plus tard » reporte la proposition.
- <i>Fin de contrat</i> : « Fait » = « Planifier le bilan » ; « Plus tard » reporte l'alerte.
+ <i>Sans nouvelles</i> : « Fait » ouvre la saisie préremplie (type Conversation) ; « Replanifier » = « Planifier une relance » ; « Classer sans suite » remplace « Ne plus relancer ».
+ <i>Proposition</i> et <i>fin de contrat</i> : pas de « C'est fait ? » (Acceptée / Refusée et Planifier le bilan restent sur la ligne) ; la fenêtre sert à reporter (Replanifier, Plus tard) ou commenter.
  Le commentaire va dans « Prochain sujet à évoquer » de la personne dans ces trois cas.</li>
+<li><b>« Ne plus relancer »</b> (version rythme) : raccourci qui met le rythme à « aucun » (réponse 7).</li>
 <li>« Plus tard » vaut partout <code>config.crm.reporter</code> jours (14 par défaut) : décision 6. Pour une action, c'est un simple report de date, identique à « Replanifier » mais à la durée réglée.</li>
 </ul></div>
 
@@ -1224,14 +1224,15 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 </div>
 <div class="kpis2">
   <div class="kpi new" style="background:linear-gradient(150deg,#1b2f3a 0%,#1b2f3a 38%,#24485a 100%)"><div class="l">Réseau entretenu<span class="nb">nouveau</span><span class="win">maintenant</span></div><div class="v">21<small> / 30</small></div><div class="d">personnes avec un rythme, contactées dans leur rythme · <b>9</b> à relancer</div></div>
-  <div class="kpi new" style="background:linear-gradient(150deg,#1d3240 0%,#1d3240 38%,#274d61 100%)"><div class="l">Personnes vues<span class="nb">nouveau</span><span class="win">90 j</span></div><div class="v">34<small></small></div><div class="d">personnes distinctes en 90 jours · <b>+6</b> vs 90 j précédents</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,26 10,22 19,24 29,18 38,20 48,16 58,14 67,15 77,10 86,9 96,6"/></svg></div>
+  <div class="kpi new" style="background:linear-gradient(150deg,#1d3240 0%,#1d3240 38%,#274d61 100%)"><div class="l">Personnes vues<span class="nb">nouveau</span><span class="win">90 j</span></div><div class="lvb"><small class="alone">(87 en tout)</small></div><div class="v">34<small></small></div><div class="d">personnes distinctes en 90 jours · <b>+6</b> vs 90 j précédents</div><svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" points="0,26 10,22 19,24 29,18 38,20 48,16 58,14 67,15 77,10 86,9 96,6"/></svg></div>
   <div class="kpi new" style="background:linear-gradient(150deg,#203547 0%,#203547 38%,#2a5268 100%)"><div class="lvb"><small class="alone">(12 en tout)</small></div><div class="l">Recommandations<span class="nb">nouveau</span><span class="win">2026</span></div><div class="v">7<small></small></div><div class="d">recommandé·es ou présenté·es · <b>2</b> devenu·es client·es</div></div>
 </div>
 <div class="mq-note"><span class="mq-tag">Choix</span>
 <ul>
 <li>En haut à droite : <b>Niv. X</b>, le niveau de la fiche coach pour la même statistique (calculé sur le total toutes années, comme dans la fiche), et dessous <b>(total toutes années)</b>. La valeur principale reste celle de la période du bandeau (2026, 90 j…).</li>
-<li>Indicateurs qui ont déjà un niveau dans la fiche coach : Heures de coaching, Conversations, Personnes coachées, Pratique délibérée, Invitations, CA accepté/proposé (niveau du CA). Les autres (taux, régularité, discipline, aisance, actions en retard…) n'affichent rien en haut à droite.</li>
-<li>Les trois nouveaux (pilier Développement, à choisir dans le catalogue des indicateurs ; ils ne remplacent pas les indicateurs déjà choisis) : <b>Réseau entretenu</b> (instantané, sans niveau ni total), <b>Personnes vues</b> (90 j glissants, courbe mensuelle), <b>Recommandations</b> (année en cours, total en tout, sans niveau : voir questions).</li>
+<li><b>Niveau</b> uniquement sur les 6 indicateurs qui ont déjà une échelle dans la fiche coach : Heures de coaching, Conversations, Personnes coachées, Pratique délibérée, Invitations, CA accepté/proposé (niveau du CA). Pas d'échelle nouvelle (réponse 1).</li>
+<li><b>Total entre parenthèses</b> aussi sans niveau (réponse 2), pour tout indicateur qui se cumule : Nouvelles personnes, Recommandations « (12 en tout) », Personnes vues « (87 en tout) » = personnes distinctes vues depuis le début. Rien pour les taux, moyennes et valeurs instantanées (Régularité, Discipline, Aisance, Réseau entretenu, Actions en retard…).</li>
+<li>Les trois nouveaux (pilier Développement, à choisir dans le catalogue des indicateurs ; ils ne remplacent pas les indicateurs déjà choisis) : <b>Réseau entretenu</b> (instantané, sans niveau ni total), <b>Personnes vues</b> (90 j glissants, courbe mensuelle), <b>Recommandations</b> (année en cours, total en tout, sans niveau).</li>
 </ul></div>
 
 <!-- ================= 6. PARAMÈTRES ================= -->
@@ -1246,18 +1247,19 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 <div class="mq-note"><span class="mq-tag">Choix</span>Minimum 1 jour, valeur par défaut 14. Comme aujourd'hui, ce bloc est masqué en mode simplifié : la valeur par défaut s'y applique. Le résumé du bloc replié affiche les deux réglages.</div>
 
 <!-- ================= QUESTIONS ================= -->
-<div class="mq-sec" id="questions"><span class="n">?</span><h2>Questions pour Allan</h2></div>
-<div class="mq-note mq-q"><span class="mq-tag">À trancher</span>
+<div class="mq-sec" id="questions"><span class="n">✓</span><h2>Réponses d'Allan (14/11/2026), intégrées</h2></div>
+<div class="mq-note"><span class="mq-tag">Réponses</span>
 <ol style="margin:6px 0 0 18px;line-height:1.6">
-<li><b>Niveaux des bandeaux</b> : d'accord pour n'afficher un niveau que sur les 6 indicateurs qui en ont déjà un dans la fiche coach ? Pour les trois nouveaux, faut-il créer une échelle (par exemple Recommandations sur le modèle des Invitations) ou rien ?</li>
-<li><b>Total entre parenthèses</b> sans niveau : l'afficher quand même (comme « (12 en tout) » pour Recommandations), ou rien du tout quand il n'y a pas de niveau ?</li>
-<li><b>« Préparer »</b> : ouvrir la fiche sur l'onglet Notes suffit-il, ou faut-il en plus mettre le curseur dans « Prochain sujet à évoquer » ?</li>
-<li><b>Prochain contact conseillé</b> : format « 2 novembre 2026 · dépassé de 12 j » / « 15 janvier 2027 (dans 2 mois) » : convient-il ?</li>
-<li><b>Pastille « Réseau »</b> : sur toute relance au rythme (même un ancien client, comme Julien), ou seulement pour les contacts réseau (hors pipeline) avec une autre pastille, par exemple « Rythme », pour les autres ?</li>
-<li><b>Provenance</b> : d'accord pour la retirer de la fiche après migration vers les cercles ?</li>
-<li><b>« Ne plus relancer »</b> dans la variante rythme (met le rythme à « aucun ») : utile, ou le réglage du rythme dans la fiche suffit-il ?</li>
-<li><b>Rythme par défaut</b> : 3 mois pour toutes les personnes, y compris les clients en cours (qui seront de toute façon vus plus souvent) et les superviseur·es ? Ou « pas de relance » par défaut pour certaines étapes ?</li>
-</ol></div>
+<li><b>Niveaux</b> : uniquement sur les 6 indicateurs qui ont déjà une échelle dans la fiche coach ; pas d'échelle pour Réseau entretenu, Personnes vues, Recommandations.</li>
+<li><b>Total entre parenthèses</b> : oui, aussi sans niveau (« (12 en tout) »).</li>
+<li><b>« Préparer »</b> : onglet Notes et curseur dans « Prochain sujet à évoquer ».</li>
+<li><b>Prochain contact conseillé</b> : format validé.</li>
+<li><b>Pastille « Réseau »</b> : uniquement pour les contacts réseau ; les autres gardent la pastille de leur étape.</li>
+<li><b>Provenance</b> : retirée de la fiche une fois convertie en premier cercle ; la donnée reste dans le fichier.</li>
+<li><b>« Ne plus relancer »</b> : oui, dans Traiter (version rythme), met <code>rythme = 0</code>.</li>
+<li><b>Rythme par défaut</b> : 3 mois pour tout le monde (les séances d'un client en cours comptent comme contacts).</li>
+</ol>
+<p style="margin-top:8px">Précision sur la décision 1 : propositions et fins de contrat gardent leurs boutons propres sur la ligne, plus « Traiter » pour reporter ou commenter ; seuls « Plus tard », « Planifier une relance » et « Sans suite » des lignes de relance passent dans « Traiter ».</p></div>
 
 <p class="mq-small" style="margin:30px 0 10px">Maquette v2.4.0 · 14 novembre 2026 · noms et données fictifs.</p>
 </main>
@@ -1265,7 +1267,7 @@ Parle de Damien (expert-comptable) qui pourrait m'intéresser.</div></div>
 const tabs=document.querySelectorAll('#pfTabs button'),panes=document.querySelectorAll('#pfMq .pftab');
 function showTab(t){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t==t));panes.forEach(p=>p.classList.toggle('on',p.dataset.t==t))}
 tabs.forEach(b=>b.onclick=()=>showTab(b.dataset.t));
-document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const g=b.dataset.go;if(g=='notes'){showTab('notes');document.getElementById('fiche').scrollIntoView({behavior:'smooth'})}else document.getElementById(g).scrollIntoView({behavior:'smooth',block:'center'})});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const g=b.dataset.go;if(g=='notes'){showTab('notes');document.getElementById('fiche').scrollIntoView({behavior:'smooth'});setTimeout(()=>{const s=document.getElementById('mqSujet');s.focus({preventScroll:true});s.setSelectionRange(s.value.length,s.value.length)},500)}else document.getElementById(g).scrollIntoView({behavior:'smooth',block:'center'})});
 document.querySelectorAll('.trm').forEach(m=>m.querySelectorAll('.trb').forEach(b=>b.onclick=()=>{if(/Fait :/.test(b.textContent))return;m.querySelectorAll('.trb').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
 document.querySelectorAll('.seg').forEach(s=>s.querySelectorAll('button').forEach(b=>b.onclick=()=>{s.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
 </script>
