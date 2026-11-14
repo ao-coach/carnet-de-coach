@@ -1,0 +1,169 @@
+<div class="side" id="side"></div>
+<main id="main">
+<div class="banner hide" id="banner"><span id="bannerTxt"></span><button id="bannerBtn"></button></div>
+<div class="top">
+  <nav class="tabs"><button class="homebtn" id="homeBtn" title="Site Carnet de coach" aria-label="Site Carnet de coach"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></button><button class="on" data-tab="dash">Tableau de bord</button><button data-tab="coach">Coach</button><button data-tab="pd">Pratique délibérée</button><button data-tab="metrics">Suivi d'activité</button><button data-tab="list">Mes saisies</button><button data-tab="people">Personnes</button><button data-tab="settings">Paramètres</button><button data-tab="about">À propos</button></nav>
+  <span class="status" id="status"><i></i><span>Chargement…</span></span>
+  <span class="langsw" data-noi18n><button data-lg="fr">FR</button><button data-lg="en">EN</button></span><button class="modebtn" id="modeBtn" title="Masque l'aisance, les objectifs, les actions et les coûts. Rien n'est perdu : tu peux revenir au mode complet à tout moment."><i></i>Mode simplifié</button><button class="lockbtn hide" id="lockBtn" title="Verrouiller le carnet"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Verrouiller</button>
+</div>
+<header>
+  <div id="logoBox"></div>
+  <div><h1 id="appTitle"></h1><div class="sub" id="appSub"></div></div>
+  <button class="cta" id="openLog">+ Enregistrer un temps</button>
+</header>
+
+<!-- ===== TABLEAU DE BORD ===== -->
+<div id="dash">
+  <div class="kpis" id="kpisD"></div>
+  <div class="khint" style="justify-content:flex-end"><button class="lnk" data-kcat>Changer mes indicateurs</button></div>
+  <div class="dashpair"><div class="card sec" id="relCard"><h2>À relancer <span class="cntb" id="relN"></span></h2><div id="relList"></div></div>
+  <div class="card sec" id="prioCard"><h2>Objectif prioritaire</h2><ul class="prios" id="prios"></ul><button class="addl" id="addPrio">+ Ajouter un objectif prioritaire</button></div></div>
+  <div class="card sec fold" id="actCard" data-fold="1">
+    <h2>Plan d'action <div class="pills" id="pills"></div></h2>
+    <table class="act"><thead><tr><th class="fit">Objectif prioritaire</th><th>Action</th><th class="fit">Personne</th><th class="fit">Date prévue</th><th style="width:28%">Résultat</th><th class="fit">Statut</th></tr></thead><tbody id="acts"></tbody></table>
+    <button class="addl" id="addAct">+ Ajouter une action</button>
+  </div>
+  <div class="card sec fold" id="objCard" data-fold="0"><h2>Suivi indicateurs<select class="sel" id="qSel"></select></h2><table class="obj" id="obj"></table></div>
+</div>
+
+<!-- ===== COACH ===== -->
+<div id="coach" class="hide">
+  <div class="cotop"><span class="seg" id="coTheme"><button data-th="pro">Professionnel</button><button data-th="jeu">Jeu vidéo</button></span><button class="btn2" id="coEditBtn">Modifier mon profil</button><span class="hint" style="margin:0">Les couleurs de la fiche sont les mêmes pour tous les coachs : les fiches se lisent toutes de la même façon.</span></div>
+  <div class="coempty hide" id="coEmpty"><span><b>Présente-toi.</b> Nom, titre, micro-pitch, formation et parcours : ta fiche prend vie.</span><button class="cta" style="margin:0" id="coEmptyBtn">Compléter mon profil</button></div>
+  <div id="coFiche"></div>
+</div>
+
+<!-- ===== PRATIQUE DÉLIBÉRÉE ===== -->
+<div id="pd" class="hide">
+  <div class="card"><h2>Boussole d'aisance <button class="btn2" data-mets style="margin-left:auto">Gérer mes compétences</button></h2>
+    <div class="pdbx"><div id="pdBous"></div><div id="pdSide"></div></div>
+  </div>
+  <div class="card sec fold" id="pdSupCard" data-fold="1"><h2>Préparer la prochaine supervision <span class="cntb" id="pdSupN"></span></h2><div id="pdSup"></div></div>
+</div>
+
+<!-- ===== MÉTRIQUES ===== -->
+<div id="metrics" class="hide">
+  <div class="kpis" id="kpisM"></div>
+  <div class="kpis2" id="kpis2"></div>
+  <div class="khint"><span class="hint" style="margin:0">Glisse un indicateur sur un autre pour les échanger. Les 3 premiers sont tes indicateurs principaux, aussi sur le tableau de bord.</span><button class="btn2" data-kcat>Choisir mes indicateurs</button></div>
+  <div class="yearbar sec"><span class="flab">Année</span><div class="chips" id="yChips"></div></div>
+  <div class="row2">
+    <div class="card"><h2>Temps passé par mois</h2><div class="legend" id="lg"></div><svg id="monthly" viewBox="0 0 720 260" width="100%" height="260"></svg></div>
+    <div class="card"><h2>Développer ton activité <span class="seg" id="bizView"></span></h2><div id="bizBox" style="margin-top:10px"></div></div>
+  </div>
+</div>
+
+<!-- ===== MES SAISIES ===== -->
+<div id="list" class="hide">
+ <div class="lstop" id="lsTop">
+  <div class="card">
+    <div class="filt">
+      <span class="flab">Année</span><div class="chips" id="fY"></div>
+      <span class="flab">Type</span><div class="chips" id="fT"></div>
+      <span class="flab">Personne</span><div class="chips" id="fP"></div>
+    </div>
+    <div class="sumrow" id="sum"></div>
+  </div>
+  <div class="pcards" id="pcards"></div>
+ </div>
+  <div class="card sec">
+    <h2>Détail des saisies <em id="cnt"></em><label class="small" style="margin-left:auto"><input type="checkbox" id="showArch"> Afficher les métriques archivées</label></h2>
+    <div class="tblwrap"><table class="ent"><thead id="rowsHead"></thead><tbody id="rows"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ===== PERSONNES ===== -->
+<div id="people" class="hide">
+  <div class="card fold" id="ppRelCard" data-fold="1" style="margin-bottom:18px"><h2>À relancer <span class="cntb" id="ppRelN"></span></h2><div id="ppRelList"></div></div>
+  <div class="card"><div class="pphead"><span class="seg big" id="ppView" style="margin-left:0"><button data-v="pipe" class="on">Pipeline</button><button data-v="list">Liste</button></span><button class="btn2 pphelp" id="ppHelp" title="Comprendre ton pipeline">? Les étapes</button><input class="fin" id="ppQ" placeholder="Rechercher : nom, fonction, provenance, notes…" style="max-width:420px"><label class="small"><input type="checkbox" id="ppArch"> Personnes archivées</label><button class="cta" id="ppNew">+ Nouvelle personne</button></div>
+  <div class="chips" id="ppSt" style="margin-top:14px"></div></div>
+  <div class="ppgrid sec" id="ppList"></div>
+  <div class="pipe sec hide" id="ppPipe"></div>
+</div>
+
+<!-- ===== PARAMÈTRES ===== -->
+<div id="settings" class="hide">
+  <div class="pgrid">
+    <div class="card fold" id="setIdent" data-fold="0">
+      <h2>Identité</h2>
+      <div class="field"><label>Nom</label><input class="fin" data-c="nom" placeholder="Le nom de ton cabinet"></div>
+      <div class="field cx"><label>Nom de l'outil</label><input class="fin" data-c="outil" placeholder="Suivi de pratique"></div>
+      <div class="field cx"><label>Phrase de motivation</label><input class="fin" data-c="sousTitre" placeholder="Ta phrase, celle qui te remet en mouvement"></div>
+      <div class="field cx"><label>Accord des libellés</label><select class="sel" id="coGenreS" style="margin-left:0"><option value="f">Féminin (Praticienne confirmée)</option><option value="m">Masculin (Praticien confirmé)</option><option value="i">Inclusif (Praticien·ne confirmé·e)</option></select></div>
+    </div>
+    <div class="card fold" id="setLook" data-fold="0">
+      <h2>Apparence</h2>
+      <div class="imgpair">
+        <div class="imgbox"><div class="imgprev" id="pLogo"></div><div><div class="lab2">Logo</div><button class="btn2" data-img="logo">Changer</button> <button class="btn2 warn" data-imgdel="logo">Retirer</button></div></div>
+        <div class="imgbox cx"><div class="imgprev tall" id="pBand"></div><div><div class="lab2">Bandeau de gauche</div><button class="btn2" data-img="bandeau">Changer</button> <button class="btn2 warn" data-imgdel="bandeau">Retirer</button></div></div>
+      </div>
+      <input type="file" id="imgFile" accept="image/*" class="hide"><datalist id="discList"></datalist>
+      <div class="lab2" style="margin:16px 0 6px">Palettes proposées</div><div class="palpick" id="palPick"></div>
+      <div class="lab2 cx" style="margin:16px 0 6px">Couleurs</div>
+      <div class="colors cx" id="brandColors"></div>
+      <button class="btn2 cx" id="resetColors" style="margin-top:12px">Revenir à la palette par défaut</button>
+    </div>
+  </div>
+  <div class="pgrid sec">
+    <div class="card fold" id="setSec" data-fold="0"><h2>Sécurité</h2><div id="secBody"></div></div>
+    <div class="card fold" id="setStore" data-fold="0"><h2>Stockage des données</h2><div id="storeBody"></div></div>
+  </div>
+  <div class="pgrid sec tm">
+    <div class="card fold" id="setTypes" data-fold="0">
+      <h2>Types d'activité</h2>
+      <div class="hint">Classés par importance (glisser pour réordonner) : le n° 1 forme la base des graphiques. Les couleurs suivent ta palette et ce classement tant que tu n'en retouches pas une. Jusqu'à 11 types ; « Compte dans » indique le calcul où chaque type est additionné.</div>
+      <div class="tscroll"><table class="pt tight" style="margin-top:10px"><thead><tr><th class="fit">Rang</th><th class="fit"></th><th class="fit">Libellé</th><th class="fit">Durée</th><th class="fit">Aisance</th><th class="fit">Personne</th><th class="fit">Compte dans</th><th></th></tr></thead><tbody id="typeRows"></tbody></table></div>
+      <button class="addl" id="addType">+ Ajouter un type</button>
+    </div>
+    <div class="card fold" id="setMets" data-fold="0">
+      <h2>Compétences d'aisance</h2>
+      <div class="hint">Les compétences que tu notes de 1 à 5 après un entretien. Elles forment ta boussole d'aisance : c'est depuis la boussole (onglets Coach et Pratique délibérée) qu'on les gère, avec leur discipline et tes focus.</div>
+      <button class="btn2" data-mets style="margin-top:10px">Gérer mes compétences</button>
+    </div>
+  </div>
+  <div class="pgrid sec">
+    <div class="card fold" id="setCrm" data-fold="0"><h2>Suivi des personnes</h2>
+      <div class="field"><label>Alerte « sans contact »</label><div style="display:flex;align-items:center;gap:10px"><input class="fin" type="number" min="7" id="crmFroid" style="width:100px"><span class="hint" style="margin:0">jours sans contact pour une personne en conversation ou en attente de réponse</span></div></div>
+    </div>
+    <div class="card fold" id="setKpi" data-fold="0"><h2>Indicateurs suivis en bandeaux</h2>
+      <div class="hint">Les indicateurs affichés en bandeaux en haut du tableau de bord et du Suivi d'activité : jusqu'à 6 parmi 20, classés par pilier ; les 3 premiers sont les principaux.</div>
+      <button class="btn2" data-kcat style="margin-top:10px">Choisir mes indicateurs</button>
+    </div>
+  </div>
+  <div class="card sec fold" id="setFin" data-fold="0"><h2>Coûts de l'activité</h2>
+    <div class="hint">Tes charges sont la somme de ces lignes. Elles sont déduites du taux horaire réel : (CA accepté − charges) ÷ toutes tes heures. La supervision est calculée à partir de tes séances payantes de l'année, les cotisations URSSAF à partir de ton CA accepté de l'année et de ton taux moyen de prélèvement.</div>
+    <div class="fingrid">
+      <div><div class="tscroll"><table class="pt fint"><thead><tr><th>Description</th><th>Fournisseur</th><th class="fit" style="text-align:right">Coût annuel</th><th class="fit"></th></tr></thead><tbody id="finRows"></tbody><tfoot id="finFoot"></tfoot></table></div>
+        <button class="addl" id="finAdd">+ Ajouter un coût</button></div>
+      <div class="finpie" id="finPie"></div>
+    </div>
+    <div class="lab2" style="margin:20px 0 8px">Charges dans le taux horaire <span class="hint" style="margin:0;text-transform:none;letter-spacing:0;font-weight:600">· clique sur le calcul à utiliser</span></div>
+    <div class="fintiles" id="finPrev"></div>
+  </div>
+  <div class="pgrid sec">
+    <div class="card fold" id="setShare" data-fold="0">
+      <h2>Partager à un pair</h2>
+      <div class="hint">L'application ne contient aucune donnée : envoie simplement son adresse. Pour transmettre aussi ta configuration (types, couleurs, métriques) sans tes données, ton nom ni ton logo, exporte un modèle : ton pair le choisit dans « Importer une sauvegarde ou un modèle » à l'accueil.</div>
+      <button class="btn2" id="expModel" style="margin-top:10px">Exporter un modèle sans données</button>
+    </div>
+    <div class="card fold" id="setTour" data-fold="0">
+      <h2>Parcours de démarrage</h2>
+      <div class="hint">Le carnet de route propose une mission à la fois pour découvrir l'outil en l'utilisant. Les célébrations saluent tes niveaux et tes hauts faits.</div>
+      <label class="small setchk"><input type="checkbox" id="setQ"> Afficher le carnet de route</label>
+      <label class="small setchk"><input type="checkbox" id="setAnim"> Célébrations animées</label>
+      <button class="btn2" id="reTour" style="margin-top:10px">Revoir l'accueil (nom, logo, couleurs)</button>
+    </div>
+  </div>
+</div>
+<div id="about" class="hide"></div>
+<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><a id="impCsv">Importer un CSV</a><input type="file" id="csvFile" accept=".csv,text/csv,text/plain" class="hide"><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · <a id="newsLink">Nouveautés</a> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
+</main>
+
+
+
+<!-- ===== CARNET DE ROUTE, PROJECTEUR, CÉLÉBRATIONS (1.9.0) ===== -->
+<div id="qp"></div><div class="qtoast" id="qToast"></div><div id="spot"></div><div id="spotB"></div>
+<div id="cel1"></div><div class="celov" id="cel2"></div><div class="celov dark" id="cel3"></div>
+<div class="ov" id="pipeM"><div class="modal" style="width:min(1060px,100%)"><div class="mh"><h2 id="pipeH"></h2><button class="x" id="pipeX">✕</button></div><div id="pipeB" style="margin-top:8px"></div></div></div>
+<div class="ov" id="vicM"><div class="modal" style="width:min(640px,100%)"><div class="mh"><h2 id="vicH">Nouvelle victoire</h2><button class="x" id="vicX">✕</button></div><div id="vicB" style="margin-top:12px"></div><input type="file" id="vicFile" accept="image/*" class="hide"></div></div>
+<div class="ov" id="vicDM"><div class="modal" style="width:min(620px,100%)"><div class="mh"><h2>Victoire</h2><button class="x" id="vicDX">✕</button></div><div id="vicDB" style="margin-top:10px"></div></div></div>

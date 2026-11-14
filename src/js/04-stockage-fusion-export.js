@@ -1,0 +1,279 @@
+/* =========================================================
+   STOCKAGE : serveur local (lanceur) ou dossier (Chrome/Edge), + copie navigateur
+   ========================================================= */
+let NEEDPERM=false;
+const FS_OK=!!window.showDirectoryPicker;
+const BKRE=/^coaching-data_.*\.json$/;
+async function writeFile(dir,name,text){const fh=await dir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(text);await w.close()}
+async function readFile(dir,name){try{const fh=await dir.getFileHandle(name);return await (await fh.getFile()).text()}catch(e){return null}}
+/* Copies de sécurité : avant chaque écriture, l'état précédent du fichier est copié dans /sauvegardes
+   (une copie par heure, gardée 48 h ; au-delà, une par jour pendant 30 jours ; + une copie avant chaque fusion). */
+async function snapshot(txt,tag){if(!DIR||!txt)return;const b=await DIR.getDirectoryHandle(BKDIR,{create:true}),d=new Date(),h=pad(d.getHours());
+  const name=tag?`coaching-data_${today()}_${h}${pad(d.getMinutes())}${pad(d.getSeconds())}_${tag}.json`:`coaching-data_${today()}_${h}h.json`;
+  if(!tag){try{await b.getFileHandle(name);return}catch(e){}}
+  await writeFile(b,name,txt);await pruneBackups(b)}
+async function pruneBackups(b){const L=[];for await(const [n] of b.entries()){const m=n.match(/^coaching-data_(\d{4}-\d{2}-\d{2})(?:_(\d{2}))?.*\.json$/);if(m)L.push({n,day:m[1],h:m[2]||'00'})}
+  L.sort((x,y)=>(y.day+y.h+y.n).localeCompare(x.day+x.h+x.n));const now=Date.now(),seen=new Set(),del=[];
+  for(const f of L){const age=now-new Date(`${f.day}T${f.h}:00:00`).getTime();if(age<=48*3600e3)continue;if(age>KEEP*86400e3||seen.has(f.day))del.push(f.n);else seen.add(f.day)}
+  for(const n of del){try{await b.removeEntry(n)}catch(e){}}}
+async function listBackups(){
+  if(DIR&&!NEEDPERM){const b=await DIR.getDirectoryHandle(BKDIR,{create:true}),n=[];for await(const [k] of b.entries())if(BKRE.test(k))n.push(k);return n}return[]}
+async function readBackup(n){return readFile(await DIR.getDirectoryHandle(BKDIR),n)}
+async function writeBackup(n,txt){await writeFile(await DIR.getDirectoryHandle(BKDIR),n,txt)}
+async function encryptOldBackups(){let k=0;try{for(const n of await listBackups()){try{const t=await readBackup(n);if(!t)continue;const o=JSON.parse(t);if(isEnc(o))continue;
+  await writeBackup(n,JSON.stringify(await sealObj(o),null,1));k++}catch(e){}}}catch(e){}return k}
+
+async function payload(){return DEKK?await sealObj(DB):DB}
+
+/* =========================================================
+   FUSION : on ne remplace jamais un carnet par un autre, on fusionne.
+   - saisies, personnes, actions : réunies par identifiant ; une même saisie modifiée des deux côtés
+     garde la modification la plus récente ; deux saisies différentes portant le même identifiant sont gardées toutes les deux ;
+   - suppressions : mémorisées (registre « supprimes ») pour ne pas faire réapparaître une saisie effacée ;
+   - réglages, objectifs, priorités : ceux de la copie la plus récente.
+   ========================================================= */
+const compatBook=(a,b)=>!a?.id||!b?.id||a.id===b.id;
+const sig=e=>`${e.date}|${e.type}|${e.pid}`;
+/* Après une fusion, on met à jour le carnet EN PLACE : les fenêtres ouvertes (fiche, paramètres, parcours)
+   gardent ainsi les mêmes objets, et ce qu'on tape ensuite est bien enregistré. */
+const isObj=x=>x&&typeof x=='object'&&!Array.isArray(x);
+/* BASE = dernier état commun connu (ce qui a été lu ou écrit dans le fichier).
+   Fusion à trois voies : ce qu'une seule fenêtre a modifié est gardé ; en cas de conflit, la fenêtre courante l'emporte. */
+let BASE=null;
+const emptyV=v=>v==null||v===''||v===0||(Array.isArray(v)&&!v.length);
+function m3(b,l,r){const J=JSON.stringify,cl=x=>x===undefined?undefined:JSON.parse(J(x)),hasB=b!==undefined&&b!==null;
+ if(J(l)===J(r))return cl(l);if(hasB){if(J(l)===J(b))return cl(r);if(J(r)===J(b))return cl(l)}
+ if(l===undefined)return cl(r);if(r===undefined)return cl(l);
+ if(isObj(l)&&isObj(r)){const B=isObj(b)?b:{},o={};new Set([...Object.keys(l),...Object.keys(r)]).forEach(k=>{const iL=k in l,iR=k in r;
+   if(iL&&iR){o[k]=m3(B[k],l[k],r[k]);return}const v=iL?l[k]:r[k];if(k in B&&J(B[k])===J(v))return;o[k]=cl(v)});return o}
+ if(Array.isArray(l)&&Array.isArray(r)&&l.concat(r).every(x=>isObj(x)&&x.id!=null)){const Bm=new Map((Array.isArray(b)?b:[]).filter(isObj).map(x=>[String(x.id),x])),Rm=new Map(r.map(x=>[String(x.id),x])),Lm=new Map(l.map(x=>[String(x.id),x])),out=[];
+   l.forEach(x=>{const k=String(x.id);if(Rm.has(k))out.push(m3(Bm.get(k),x,Rm.get(k)));else if(!(Bm.has(k)&&J(Bm.get(k))===J(x)))out.push(cl(x))});
+   r.forEach(x=>{const k=String(x.id);if(Lm.has(k))return;if(!(Bm.has(k)&&J(Bm.get(k))===J(x)))out.push(cl(x))});return out}
+ if(!hasB&&emptyV(l)&&!emptyV(r))return cl(r);
+ return cl(l)}
+const SECTIONS=['config','objectifs','priorites','prefs','pd','coach'];
+function inPlace(o,n){
+  if(Array.isArray(o)&&Array.isArray(n)){const byId=new Map(o.filter(x=>isObj(x)&&x.id!=null).map(x=>[String(x.id),x]));
+    const r=n.map((x,i)=>{if(!isObj(x))return x;const old=x.id!=null?byId.get(String(x.id)):(isObj(o[i])&&o[i].id==null?o[i]:null);if(old){inPlace(old,x);return old}return x});
+    o.splice(0,o.length,...r);return o}
+  Object.keys(o).forEach(k=>{if(!(k in n))delete o[k]});
+  Object.keys(n).forEach(k=>{const a=o[k],b=n[k];if((Array.isArray(a)&&Array.isArray(b))||(isObj(a)&&isObj(b)))inPlace(a,b);else o[k]=b});return o}
+function adoptDB(n){if(!DB){DB=n;return}inPlace(DB,n)}
+function mergeDB(A,B,base,prefA){
+  const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
+  const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})}};R.supprimes=sup;
+  const remap={};let added=0;
+  (O.personnes||[]).forEach(p=>{if(sup.p[String(p.id)])return;const q=R.personnes.find(x=>String(x.id)===String(p.id));
+    if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||''))Object.assign(q,p);return}
+    const same=R.personnes.find(x=>byName(x.nom,p.nom)==0);if(same){remap[p.id]=same.id;return}
+    if(!q){R.personnes.push({...p});return}
+    const nid=nextId(R.personnes);remap[p.id]=nid;R.personnes.push({...p,id:nid})});
+  const strip=x=>JSON.stringify({...x,maj:0});
+  const mergeList=(dst,src,key,isSame)=>{src.forEach(x=>{const k=String(x.id),r=dst.find(y=>String(y.id)===k);
+    if(!r){if(sup[key][k])return;dst.push(x);added+=key=='e';return}
+    if(strip(r)===strip(x))return;
+    if(isSame(r,x)){if((x.maj||'')>(r.maj||''))Object.assign(r,x);return}
+    dst.push({...x,id:nextId(dst)});added+=key=='e'});
+    return dst.filter(x=>!sup[key][String(x.id)])};
+  R.entrees=mergeList(R.entrees,(O.entrees||[]).map(e=>e.pid!=null&&sup.p[String(e.pid)]?{...e,pid:null,psup:true}:e).map(e=>({...e,pid:e.pid!=null&&remap[e.pid]!=null?remap[e.pid]:e.pid})),'e',(r,x)=>sig(r)===sig(x));
+  R.personnes=R.personnes.filter(p=>!sup.p[String(p.id)]);R.entrees.forEach(e=>{if(e.pid!=null&&sup.p[String(e.pid)]){e.pid=null;e.psup=true}});
+  R.actions=mergeList(R.actions,(O.actions||[]).map(a=>({...a})),'a',(r,x)=>r.a===x.a);
+  SECTIONS.forEach(k=>{if(A[k]===undefined&&B[k]===undefined)return;R[k]=base?m3(base[k],A[k],B[k]):prefA?m3(null,A[k],B[k]):m3(null,N[k],O[k])});
+  R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
+  {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
+  return{db:R,added}}
+
+function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version de l\'application est périmée. Recharge-la (Ctrl+F5).');return}
+  DB.enregistre_le=new Date().toISOString();setStatus('busy');clearTimeout(saveT);saveT=setTimeout(persist,400);clearTimeout(CELT);CELT=setTimeout(celCheck,700)}
+/* les écritures passent une par une (file d'attente) pour ne jamais se chevaucher */
+let PQ=Promise.resolve();
+function persist(){PQ=PQ.then(_persist,_persist);return PQ}
+async function _persist(){if(!DB||READONLY)return;
+  if((+DB.app_version||0)<=APP_VERSION){DB.app_version=APP_VERSION;DB.app_semver=APP_SEMVER}
+  if(!(DIR&&!NEEDPERM)){await idb.set('data',await payload());setStatus('local');return}
+  try{
+    const cur=await readFile(DIR,FILE);let curObj=null;if(cur){try{curObj=JSON.parse(cur)}catch(e){setStatus('err',`${FILE} illisible : non écrasé`);return}}
+    if(curObj&&!compatBook(curObj,DB)){setStatus('err','Le dossier contient un autre carnet : non écrasé');banner('reconnect');return}
+    if(curObj&&(curObj.enregistre_le||'')!==(LASTSEEN||'')){
+      /* le fichier a été modifié ailleurs (autre fenêtre, autre version, autre ordinateur) : on fusionne au lieu d'écraser */
+      const p=isEnc(curObj)?await tryCurrentKey(curObj):curObj;
+      if(!p){setStatus('err','Fichier modifié ailleurs avec un autre mot de passe : non écrasé');return}
+      if((+p.app_version||0)>APP_VERSION){READONLY=true;banner('old');setStatus('err','Lecture seule');return}
+      await snapshot(cur,'avant-fusion');
+      const m=mergeDB(DB,migrate(p),BASE);adoptDB(m.db);DB.enregistre_le=new Date().toISOString();DB.app_version=Math.max(+DB.app_version||0,APP_VERSION);
+      if(m.added)toast(`${m.added} saisie(s) enregistrée(s) ailleurs ont été réunies dans ton carnet`);renderAll()}
+    else if(cur)await snapshot(cur);
+    const ws=DB.enregistre_le,snap=JSON.stringify(DB),obj=await payload(),txt=JSON.stringify(obj,null,1);await idb.set('data',obj);
+    await writeFile(DIR,FILE,txt);LASTSEEN=ws;BASE=JSON.parse(snap);setStatus(DB.enregistre_le===ws?'ok':'busy')
+  }catch(e){await idb.set('data',await payload());setStatus('err','Écriture du fichier impossible');NEEDPERM=true;banner('reconnect')}}
+window.addEventListener('beforeunload',e=>{if($('status').classList.contains('busy')){e.preventDefault();e.returnValue=''}});
+
+const sameBook=(a,b)=>(a?.id||null)===(b?.id||null);
+/* Relier un dossier. Si ce dossier contient un AUTRE carnet, on l'ouvre sans jamais écraser son fichier. */
+async function connectDir(useExisting){
+  if(useExisting){try{if(await DIR.requestPermission({mode:'readwrite'})!=='granted')return}catch(e){return}NEEDPERM=false;if(DB){clearTimeout(saveT);await idb.set('data',await payload())}return boot()}
+  const prevDir=await idb.get('dir');let nd;try{nd=await window.showDirectoryPicker({id:'aocoach',mode:'readwrite'})}catch(e){return}
+  const t=await readFile(nd,FILE);let f=null;if(t){try{f=JSON.parse(t)}catch(e){toast(`${FILE} est illisible dans ce dossier`);return}}
+  if(!f&&!DB){toast(`Aucun carnet (${FILE}) dans ce dossier`);return}
+  const cur=DB||await idb.get('data');let other=f&&cur&&!sameBook(f,cur);
+  if(other&&!prevDir&&!confirm(`Ce dossier contient un autre carnet.\nTon carnet actuel n'est enregistré que dans ce navigateur : il sera remplacé. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nOuvrir le carnet de ce dossier ?`))return;
+  if(DB&&!other){clearTimeout(saveT);await idb.set('data',await payload())}
+  DIR=nd;LASTSEEN=null;BASE=null;NEEDPERM=false;await idb.set('dir',nd);
+  if(other){await idb.set('data',null);DB=null;await setDEK(null);ENV=null;toast(`Carnet du dossier « ${nd.name} » ouvert`)}
+  boot()}
+async function startFresh(){const c=await idb.get('data'),d=await idb.get('dir');
+  if(c&&!d&&!confirm("Le carnet actuel n'est enregistré que dans ce navigateur et sera remplacé par un nouveau carnet. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nContinuer ?"))return false;
+  if(DB){clearTimeout(saveT);await persist()}
+  DIR=null;NEEDPERM=false;await idb.set('dir',null);await setDEK(null);ENV=null;DB=migrate(null);i18nLocalizeDefaults(DB);DB.prefs.nouveautes_vues=APP_VERSION;touch();await afterLoad();return true}
+
+function setStatus(s,msg){const el=$('status');el.className='status '+(s=='ok'?'':s);
+  const h=new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'}),lockTxt=DEKK?' · chiffré':'';
+  el.lastChild.textContent={ok:`Enregistré dans ${FILE}${lockTxt} · ${h}`,busy:'Enregistrement…',local:`Enregistré dans ce navigateur seulement${lockTxt} · ${h}`,err:msg||'Erreur'}[s];
+  $('footInfo').textContent=DIR?`Dossier : ${DIR.name} · ${FILE} · copies automatiques dans /${BKDIR}`:'Aucun dossier relié';
+}
+function banner(kind){const b=$('banner');if(!kind){b.classList.add('hide');return}
+  const M={nodir:['Tes saisies sont gardées dans ce navigateur uniquement. Choisis un dossier (idéalement synchronisé, OneDrive ou Drive) pour les enregistrer dans un fichier.','Choisir le dossier',()=>connectDir(false)],
+   reconnect:['Le navigateur demande ton autorisation pour accéder au dossier de données. Choisis « Autoriser à chaque visite » pour ne plus avoir à le refaire.','Reconnecter le dossier',()=>connectDir(true)],
+   old:['Cette version de l\'application est plus ancienne que celle qui a enregistré ton carnet : elle est en lecture seule pour protéger tes données.','Recharger',()=>location.reload()],
+   nofs:['Ce navigateur ne sait pas enregistrer dans un fichier : utilise Chrome ou Edge sur ordinateur. En attendant, tes saisies sont gardées dans le navigateur ; exporte régulièrement.','Exporter JSON',exportJson]}[kind];
+  $('bannerTxt').textContent=M[0];$('bannerBtn').textContent=M[1];$('bannerBtn').onclick=M[2];b.classList.remove('hide')}
+
+/* ---------- export / import ---------- */
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+async function exportJson(){download(`coaching-data_export_${today()}.json`,JSON.stringify(await payload(),null,1),'application/json');if(DEKK)toast('Export chiffré avec ton mot de passe actuel')}
+function exportCsv(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (noms, commentaires). Continuer ?'))return;
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`,M=metrics();
+  const head=['Date','Type','Personne','Durée (min)','Durée (h)','Commentaire','Notes',...M.map(m=>m.l+(m.actif?'':' (archivée)')),'CR','Synthèse','Montant €','Engagement (mois)','Statut proposition','Coût €'];
+  const L=[...E()].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,TM[e.type]?.l,pname(e.pid),e.dur,String(e.dur/60).replace('.',','),e.com,e.notes||'',...M.map(m=>e.ais?.[m.id]??''),e.cr?'oui':'',e.syn?'oui':'',e.eur??'',e.engagement_mois??'',e.statut?STAT[e.statut]:'',e.cout??'']);
+  download(`coaching-saisies_${today()}.csv`,'﻿'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
+$('expJson').onclick=exportJson;$('expCsv').onclick=exportCsv;
+$('impJson').onclick=()=>$('impFile').click();
+$('impFile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;let d;
+  try{d=JSON.parse(await f.text())}catch(err){toast('Fichier JSON non reconnu');return}
+  await importData(d)};
+async function openDemo(){let d;try{const r=await fetch(LANG==='en'?'carnet-demo-en.json':'carnet-demo.json',{cache:'no-cache'});d=await r.json()}catch(err){toast("Le carnet de démonstration n'est pas disponible hors ligne");return}
+  d.demo=true;d.demoLang=LANG;if(DB&&E().length&&!DB.demo&&!confirm("Ouvrir le carnet de démonstration remplacera ton carnet dans cette fenêtre. Exporte-le d'abord si besoin.\n\nContinuer ?"))return;
+  if(DB&&!DB.demo){clearTimeout(saveT);await persist()}
+  DIR=null;NEEDPERM=false;await idb.set('dir',null);await idb.set('data',null);await setDEK(null);ENV=null;DB=null;await importData(d)}
+async function importData(d){
+  if(!DB){const c=await idb.get('data'),dd=await idb.get('dir');if(c&&!dd&&!confirm("Le carnet actuel n'est enregistré que dans ce navigateur et sera remplacé. Continuer ?"))return;DIR=null;await idb.set('dir',null);await setDEK(null);ENV=null}
+  if(isEnc(d)){const r=await askSecret({title:'Fichier chiffré',text:'Saisis le mot de passe de ce fichier, ou sa clé de secours.',cancelable:true,verify:(s,w)=>openEnv(d,s,w,!DEKK&&!DB)});if(!r)return;d=r.r}
+  if(!d.entrees){toast('Fichier JSON non reconnu');return}
+  if(DB&&E().length){
+   if(compatBook(d,DB)&&confirm(`Récupérer dans ton carnet les saisies de ce fichier qui n'y sont pas ?\nRien n'est supprimé ni remplacé : c'est la bonne option pour retrouver des saisies perdues.\n\nOK = fusionner · Annuler = autres options`)){
+    const m=mergeDB(DB,migrate(d));adoptDB(m.db);touch();await afterLoad();toast(`${m.added} saisie(s) récupérée(s)`);return}
+   if(!confirm(`Remplacer entièrement ton carnet (${E().length} saisies) par ce fichier (${d.entrees.length} saisies) ?\nL'état actuel reste dans /${BKDIR}.`))return}
+  const first=!DB;DB=migrate(d);closeWizard();touch();await afterLoad();if(first&&!d.entrees.length){openWizard(WZ.indexOf('ident'),true);toast('Modèle importé : ajuste-le à ta pratique')}else if(!d.demo)toast('Données importées');if(DB.demo){DB.prefs.nouveautes_vues=APP_VERSION;i18nLocalizeDefaults(DB);applyConfig();touch();renderAll()}demoBar();demoTourAuto()}
+/* Visite du carnet de démonstration : 3 écrans d'introduction, puis 9 bulles sur l'interface */
+const DTX={
+fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandSub:'Carnet de démonstration',quote:'Coacher beaucoup, pratiquer délibérément, développer mon activité',
+ skip:'Passer et explorer librement',back:'Retour',next:'Continuer',go:"C'est parti",stop:'Arrêter la visite',suiv:'Suivant',step:(n,t)=>`Étape ${n} sur ${t}`,
+ i1t:'Bienvenue dans le carnet de Camille',
+ i1:`<p>Camille Martin est coach de managers depuis un peu plus d'un an. <b class="hl">Personnage fictif, données fictives</b> : tout ce que tu vois ici sert d'exemple.</p><p>Clique, ouvre, modifie : rien n'est enregistré. Ton propre carnet, si tu en crées un, démarre vide.</p><p>En deux minutes : la démarche qui sous-tend le carnet, puis un tour rapide des pages.</p>`,
+ i2t:'La démarche : le coaching se vend par le coaching',
+ cite:'Une démarche transmise par Gianni Bergandi et Magali Wagner (Odyssée), et par Rich Litvin.',
+ i2a:`<p>Plutôt que de miser sur le marketing, le carnet t'aide à <b class="hl">multiplier les occasions de coacher</b>. Chaque conversation de coaching est à la fois de la pratique et la meilleure façon de faire connaître ton travail.</p>`,
+ flow:[['Rencontrer','des gens, sans rien vendre'],['Inviter','à vivre une vraie conversation de coaching'],['Coacher','pour de vrai, une ou plusieurs fois, offert'],['Proposer',"un accompagnement, quand c'est juste"],['Accompagner','et en parler autour de toi']],
+ i2b:`<p>Une invitation n'est pas une vente : l'autre est libre de dire non, et <b class="hl">chaque « non » compte comme un pas</b>. Le carnet suit tout cela, avec trois repères : coacher beaucoup, pratiquer délibérément, développer ton activité.</p>`,
+ i3t:'Un tour rapide ?',
+ i3:`<p>Une minute pour repérer les pages et les boutons utiles. Tu peux l'arrêter à tout moment et le relancer depuis le bandeau du bas.</p>`,
+ c1:['Faire le tour','9 étapes, une minute'],c2:['Explorer librement','Tu découvres seul, à ton rythme'],
+ t:[
+  ['Enregistrer un temps',"Chaque moment de ta pratique, en quelques secondes : une rencontre, une invitation, une conversation, une séance, une supervision. C'est la seule saisie régulière."],
+  ['Tes trois repères',"Heures de coaching, pratique délibérée et conversations : l'année en cours et les 31 derniers jours. La petite courbe montre la tendance."],
+  ['Mes saisies',"Tout l'historique, à filtrer par type, par personne ou par période. Chaque temps se retrouve et se corrige ici."],
+  ['Personnes',"Chaque personne rencontrée, invitée ou accompagnée a sa fiche. C'est ici que se voit le chemin de chacune."],
+  ['À relancer',"Le carnet repère les personnes sans nouvelles depuis un moment, les accompagnements qui se terminent et les actions prévues. Une relance, c'est souvent une nouvelle conversation."],
+  ['Le chemin de chaque personne',"De la rencontre à l'accompagnement : chaque personne change de colonne à mesure que tu enregistres vos échanges. Le bouton « ? Les étapes » explique chaque colonne."],
+  ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
+  ['Simplifié ou complet',"Camille est en mode simplifié : l'essentiel. Le mode complet ajoute le tableau de bord, la pratique délibérée, la fiche de coach, les objectifs et le taux horaire réel."],
+  ['À toi de jouer',"Explore librement : rien n'est enregistré. Quand tu le souhaites, « Créer mon propre carnet » démarre le tien, vide et rien qu'à toi. Pour revoir ce tour : « Revoir la visite », ici."]],
+ openPeople:'Ouvrir Personnes',stay:'Rester en simplifié',full:'Voir le mode complet',stayFull:'Garder le mode complet',simpleBack:'Revenir au simplifié',end:'Terminer',
+ fullT:'Le mode complet',fullP:"Le tableau de bord, la pratique délibérée et la fiche de coach sont maintenant visibles dans les onglets. Le bouton « Mode simplifié » permet de revenir à l'essentiel à tout moment."},
+en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandSub:'Demo notebook',quote:'Coach a lot, practise deliberately, grow my practice',
+ skip:'Skip and explore freely',back:'Back',next:'Continue',go:"Let's go",stop:'Stop the tour',suiv:'Next',step:(n,t)=>`Step ${n} of ${t}`,
+ i1t:"Welcome to Camille's notebook",
+ i1:`<p>Camille Martin has been coaching managers for a little over a year. <b class="hl">Fictional character, fictional data</b>: everything you see here is an example.</p><p>Click, open, edit: nothing is saved. Your own notebook, if you create one, starts empty.</p><p>In two minutes: the approach behind the notebook, then a quick tour of the pages.</p>`,
+ i2t:'The approach: coaching sells through coaching',
+ cite:'An approach taught by Gianni Bergandi and Magali Wagner (Odyssée), and by Rich Litvin.',
+ i2a:`<p>Rather than betting on marketing, the notebook helps you <b class="hl">create more opportunities to coach</b>. Every coaching conversation is both practice and the best way to make your work known.</p>`,
+ flow:[['Meet','people, without selling anything'],['Invite','them to experience a real coaching conversation'],['Coach','for real, once or several times, for free'],['Propose','an engagement, when it is right'],['Accompany','and talk about it around you']],
+ i2b:`<p>An invitation is not a sale: the other person is free to say no, and <b class="hl">every “no” counts as a step</b>. The notebook tracks all of it, with three markers: coach a lot, practise deliberately, grow your practice.</p>`,
+ i3t:'A quick tour?',
+ i3:`<p>One minute to find the useful pages and buttons. You can stop it at any time and restart it from the bar at the bottom.</p>`,
+ c1:['Take the tour','9 steps, one minute'],c2:['Explore freely','Discover on your own, at your pace'],
+ t:[
+  ['Log time','Every moment of your practice, in a few seconds: a meeting, an invitation, a conversation, a session, a supervision. It is the only regular entry.'],
+  ['Your three markers','Coaching hours, deliberate practice and conversations: the current year and the last 31 days. The small curve shows the trend.'],
+  ['My entries','Your whole history, filtered by type, person or period. Every logged time can be found and corrected here.'],
+  ['People','Everyone you meet, invite or accompany has a profile. This is where each person’s path shows.'],
+  ['To follow up','The notebook spots people you have not heard from in a while, engagements coming to an end and planned actions. A follow-up often means a new conversation.'],
+  ["Each person's path","From first meeting to engagement: each person moves from one column to the next as you log your exchanges. The “? The stages” button explains each column."],
+  ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
+  ['Simple or full','Camille is in simple mode: the essentials. Full mode adds the dashboard, deliberate practice, the coach profile, goals and the real hourly rate.'],
+  ['Your turn','Explore freely: nothing is saved. Whenever you like, “Create my own notebook” starts yours, empty and yours alone. To see this tour again: “Replay the tour”, here.']],
+ openPeople:'Open People',stay:'Stay in simple mode',full:'See full mode',stayFull:'Keep full mode',simpleBack:'Back to simple mode',end:'Finish',
+ fullT:'Full mode',fullP:'The dashboard, deliberate practice and the coach profile are now visible in the tabs. The “Simple mode” button takes you back to the essentials at any time.'}};
+const DT={on:false,kind:null,i:0,choice:'tour',full:false};
+const dtX=()=>DTX[typeof LANG!=='undefined'&&LANG==='en'?'en':'fr'];
+const dtFirstTab=()=>[...document.querySelectorAll('.tabs button[data-tab]')].find(b=>b.offsetParent)?.dataset.tab||'dash';
+function dtRoot(){let r=$('dtour');if(!r){r=document.createElement('div');r.id='dtour';r.setAttribute('data-noi18n','');document.body.appendChild(r);
+  addEventListener('resize',()=>DT.on&&DT.kind==='tip'&&dtPlace());addEventListener('scroll',()=>DT.on&&DT.kind==='tip'&&dtPlace(),true);
+  addEventListener('keydown',e=>{if(DT.on&&e.key==='Escape')dtClose()})}return r}
+function dtClose(){DT.on=false;DT.kind=null;const r=$('dtour');if(r)r.innerHTML='';document.body.classList.remove('dt-lock')}
+function dtIntro(i=0){DT.on=true;DT.kind='intro';DT.i=i;const X=dtX(),r=dtRoot();document.body.classList.add('dt-lock');
+ const body=i===0?X.i1:i===1?`${CITE?`<p class="dt-cite">${X.cite}</p>`:''}${X.i2a}<div class="dt-flow">${X.flow.map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('<i>→</i>')}</div>${X.i2b}`
+  :`${X.i3}<div class="dt-ch"><button class="${DT.choice==='tour'?'on':''}" data-c="tour"><b>${X.c1[0]}</b><span>${X.c1[1]}</span></button><button class="${DT.choice==='free'?'on':''}" data-c="free"><b>${X.c2[0]}</b><span>${X.c2[1]}</span></button></div>`;
+ r.innerHTML=`<div class="dt-veil"></div><div class="dt-wrap"><div class="dt-card" role="dialog" aria-modal="true"><div class="dt-side"><div class="dt-brand"><div class="ini">CM</div><div><b>${X.brand}</b><span>${X.brandSub}</span></div></div>
+  <ul class="dt-steps">${X.side.map((x,j)=>`<li class="${j<i?'ok':j==i?'cur':''}"><b>${j<i?'✓':j+1}</b>${x}</li>`).join('')}</ul><div class="dt-q">${X.quote}</div></div>
+  <div class="dt-main"><h2>${[X.i1t,X.i2t,X.i3t][i]}</h2>${body}<div class="dt-foot">${i>0?`<button class="dt-bk" id="dtBack">${X.back}</button>`:''}<a href="#" id="dtSkip">${X.skip}</a><button class="dt-go" id="dtGo">${i<2?X.next:X.go}</button></div></div></div></div>`;
+ $('dtSkip').onclick=e=>{e.preventDefault();dtClose()};if($('dtBack'))$('dtBack').onclick=()=>dtIntro(i-1);
+ r.querySelectorAll('.dt-ch button').forEach(b=>b.onclick=()=>{DT.choice=b.dataset.c;dtIntro(2)});
+ $('dtGo').onclick=()=>{if(i<2)dtIntro(i+1);else if(DT.choice==='tour')dtTour(0);else dtClose()};$('dtGo').focus()}
+/* bulles : sel = élément éclairé ; pre = action avant affichage */
+const DTS=[
+ {sel:'#openLog',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
+ {sel:'#kpisM',pre:()=>{if(!$('kpisM')?.offsetParent)goTab('metrics');scrollTo(0,0)}},
+ {sel:'.tabs button[data-tab=list]',pre:()=>{goTab('list');scrollTo(0,0)}},
+ {sel:'.tabs button[data-tab=people]',btn:'openPeople'},
+ {sel:'#ppRelCard',pre:()=>{goTab('people');scrollTo(0,0)}},
+ {sel:'#ppPipe',pre:()=>{goTab('people');const e=$('ppPipe');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-110)},big:true},
+ {sel:'#qOpen',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
+ {sel:'#modeBtn',mode:true},
+ {sel:'#demoBar',last:true}];
+function dtTour(i=0){DT.on=true;DT.kind='tip';DT.i=i;DT.fullNote=false;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];
+ if(s.pre)try{s.pre()}catch(e){}requestAnimationFrame(()=>requestAnimationFrame(dtDraw))}
+function dtDraw(){const X=dtX(),i=DT.i,s=DTS[i],r=$('dtour');const n=DTS.length;
+ let t=X.t[i][0],p=X.t[i][1],btns;
+ if(DT.fullNote){t=X.fullT;p=X.fullP;btns=`<button id="dtSimple">${X.simpleBack}</button><button class="p" id="dtNext">${X.stayFull}</button>`}
+ else if(s.mode)btns=`<button id="dtNext">${X.stay}</button><button class="p" id="dtFull">${X.full}</button>`;
+ else if(s.btn)btns=`<button id="dtPrev">${X.back}</button><button class="p" id="dtNext">${X[s.btn]}</button>`;
+ else btns=`${i>0?`<button id="dtPrev">${X.back}</button>`:''}<button class="p" id="dtNext">${s.last?X.end:X.suiv}</button>`;
+ const stop=s.mode||s.last?'':`<a href="#" id="dtStop">${X.stop}</a>`;
+ r.innerHTML=`<div class="dt-catch"></div><div class="dt-hole" id="dtHole"></div><div class="dt-tip" id="dtTip" role="dialog"><div class="k">${X.step(i+1,n)}</div><h3>${t}</h3><p>${p}</p><div class="b">${stop||'<span></span>'}${btns}</div></div>`;
+ dtPlace();
+ if($('dtStop'))$('dtStop').onclick=e=>{e.preventDefault();dtClose()};
+ if($('dtPrev'))$('dtPrev').onclick=()=>dtTour(i-1);
+ if($('dtFull'))$('dtFull').onclick=()=>{if(document.body.classList.contains('simple'))$('modeBtn').click();DT.fullNote=true;requestAnimationFrame(dtDraw)};
+ if($('dtSimple'))$('dtSimple').onclick=()=>{if(!document.body.classList.contains('simple'))$('modeBtn').click();DT.fullNote=false;dtTour(i+1)};
+ $('dtNext').onclick=()=>{if(s.last){dtClose();return}if(DT.fullNote){DT.fullNote=false}dtTour(i+1)};$('dtNext').focus()}
+function dtPlace(){const s=DTS[DT.i],el=document.querySelector(s.sel),h=$('dtHole'),tp=$('dtTip');if(!h||!tp)return;
+ const W=innerWidth,H=innerHeight,pad=8,g=16;
+ if(!el||!el.getClientRects().length){h.style.display='none';tp.style.left=Math.max(16,(W-tp.offsetWidth)/2)+'px';tp.style.top=Math.max(16,(H-tp.offsetHeight)/2)+'px';return}
+ const r=el.getBoundingClientRect();let x=r.left-pad,y=r.top-pad,w=r.width+2*pad,hh=r.height+2*pad;
+ if(s.big){hh=Math.min(hh,H-y-100)}
+ Object.assign(h.style,{display:'block',left:x+'px',top:y+'px',width:w+'px',height:hh+'px'});
+ const tw=tp.offsetWidth,th=tp.offsetHeight;let L,T;
+ if(s.big){L=x+w-tw-20;T=y+hh-th-20}
+ else{const right=r.left+r.width/2>W/2;L=right?x+w-tw:x;
+  if(y+hh+g+th<H-8)T=y+hh+g;else if(y-g-th>8)T=y-g-th;else{T=Math.max(16,(H-th)/2);L=right?x-g-tw:x+w+g}}
+ tp.style.left=Math.min(Math.max(L,16),W-tw-16)+'px';tp.style.top=Math.min(Math.max(T,16),H-th-16)+'px'}
+function demoTourAuto(){if(!DB?.demo)return;if(DT.on){DT.kind==='intro'?dtIntro(DT.i):dtTour(DT.i);return}
+ let seen=false;try{seen=sessionStorage.getItem('cdc-tour')==='1';sessionStorage.setItem('cdc-tour','1')}catch(e){}
+ if(!seen)dtIntro(0)}
+
+function demoBar(){let b=$('demoBar');if(!DB?.demo){b&&b.remove();return}if(!b){b=document.createElement('div');b.id='demoBar';b.className='demobar';b.innerHTML='<b>Carnet de démonstration</b><span>Camille Martin est un personnage fictif.</span><button id="demoNew">Créer mon propre carnet</button><button id="demoTour" class="lnk">Revoir la visite</button>';document.body.appendChild(b);$('demoTour').onclick=()=>dtIntro(0);$('demoNew').onclick=async()=>{if(!confirm('Quitter le carnet de démonstration et créer ton propre carnet ?'))return;clearTimeout(saveT);DB=null;await idb.set('data',null);location.reload()}}}
+$('chDir').onclick=()=>FS_OK?connectDir(false):toast('Utilise Chrome ou Edge pour relier un dossier');
+$('expModel').onclick=()=>{const c=JSON.parse(JSON.stringify(CFG()));c.nom='Mon cabinet';c.logo=null;c.bandeau=null;
+  download(`modele-suivi-coaching_${today()}.json`,JSON.stringify({version_schema:VERSION,enregistre_le:'',config:c,personnes:[],entrees:[],objectifs:{},priorites:[],actions:[],prefs:{}},null,1),'application/json')};
+

@@ -1,0 +1,138 @@
+<!-- ===== POPUP PROFIL COACH ===== -->
+<div class="ov" id="coM"><div class="modal" style="width:min(620px,100%)"><div class="mh"><h2>Mon profil de coach</h2><button class="x" id="coX">✕</button></div><div id="coB"></div><input type="file" id="coFile" accept="image/*" class="hide"><button class="save" id="coOk">Terminer</button></div></div>
+<!-- ===== POPUP MES COMPÉTENCES ===== -->
+<div class="ov" id="metM"><div class="modal" style="width:min(980px,100%)"><div class="mh"><h2>Mes compétences d'aisance</h2><button class="x" id="metX">✕</button></div>
+  <div class="hint" style="margin-top:6px">Tu notes ces compétences de 1 à 5 dans tes saisies ; elles forment ta boussole d'aisance. La <b>discipline</b> les regroupe sur la boussole, avec un arc de couleur. Le <b>focus</b> (3 au maximum) les place en tête de chaque saisie. Une compétence « non suivie » disparaît des saisies mais garde son historique ; renommer une compétence conserve ses notes ; elle n'est supprimable que si elle n'a aucune note.</div>
+  <div class="tscroll"><table class="pt tight" style="margin-top:12px"><thead><tr><th class="fit">Ordre</th><th class="fit">Compétence</th><th class="fit">Discipline</th><th class="fit">Repère du 1</th><th class="fit">Repère du 5</th><th class="fit">Suivie</th><th class="fit">Focus</th><th class="fit">Notes</th><th></th></tr></thead><tbody id="metRows"></tbody></table></div>
+  <button class="addl" id="addMet">+ Ajouter une compétence</button></div></div>
+<!-- ===== POPUP COMPÉTENCE ===== -->
+<div class="ov" id="cmpM"><div class="modal" style="width:min(680px,100%)"><div class="mh"><h2>Compétence</h2><button class="x" id="cmpX">✕</button></div><div id="cmpB"></div></div></div>
+<!-- ===== POPUP PRATIQUE DÉLIBÉRÉE D'UNE SAISIE ===== -->
+<div class="ov" id="pdeM"><div class="modal"><div class="mh"><h2>Détails de l'entretien</h2><button class="x" id="pdeX">✕</button></div><div class="hint" id="pdeT" style="margin:4px 0 0;font-weight:700"></div><div id="pdeB"></div><button class="save" id="pdeS">Enregistrer</button></div></div>
+<!-- ===== POPUP BIBLIOTHÈQUE D'ACTIONS ===== -->
+<div class="ov" id="libM"><div class="modal" style="width:min(640px,100%)"><div class="mh"><h2 id="libT">Bibliothèque d'actions</h2><button class="x" id="libX">✕</button></div><div id="libB" style="margin-top:12px"></div></div></div>
+<!-- ===== POPUP SAISIE ===== -->
+<div class="ov" id="ov"><div class="modal">
+  <div class="mh"><h2>Enregistrer un temps</h2><button class="x" id="closeLog">✕</button></div>
+  <input type="date" class="fin" id="fDate" style="margin-top:10px">
+  <div class="lab">Type</div><div class="chips" id="mTypes"></div>
+  <div class="lab">Durée</div><div class="chips" id="mDurs"></div>
+  <div class="durx"><input class="fin" id="mDurX" placeholder="Autre durée : 2,5 · 2h30 · 150min"><span id="mDurOk"></span></div>
+  <div id="mPB"><div class="lab">Personne</div><div class="chips" id="mPeople"></div>
+    <input class="fin" id="mPQ" placeholder="Rechercher ou créer une personne…" autocomplete="off" spellcheck="false" style="margin-top:8px"></div>
+  <div class="lab">Ce qu'on a vu</div><textarea class="fin mcom" id="mCom" rows="1" placeholder="1 ligne : thème, déclic, pattern repéré…"></textarea>
+  <div class="lab">Notes sur l'entretien <span class="lab0">· facultatif</span></div><textarea class="fin pdta" id="mNotes" rows="3" placeholder="Ce que tu veux garder en mémoire sur cet entretien…"></textarea>
+  <div id="mSup" class="hide"><div class="lab">Coût de cette supervision <span style="text-transform:none;letter-spacing:0;font-weight:600">· vide = prix moyen</span></div><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"><label class="small" style="display:flex;align-items:center;gap:7px;font-weight:700;cursor:pointer"><input type="checkbox" id="mFree"> Supervision non payante</label></div>
+   <div id="mSupP" class="hide"><div class="lab">Remarques retenues pour cette supervision</div><label class="cb" style="margin:0 0 6px"><input type="checkbox" id="mSupJ" checked><span>Joindre les remarques cochées et ce que j'en retiens</span></label><div id="mSupL"></div></div></div>
+  <div id="mInv" class="hide"><div class="lab">Réponse <span class="lab0">· tu pourras la changer dans Mes saisies</span></div><div class="two"><div class="tog" id="tNON"><b>✓</b>Elle a dit non</div></div></div>
+  <div id="mProp" class="hide"><div class="lab">Proposition · montant et durée d'engagement</div>
+    <div class="two"><input type="number" class="fin" id="mEur" placeholder="Montant €" style="width:140px;flex:none"><input type="number" min="1" class="fin" id="mSea" placeholder="Séances" title="Nombre de séances prévues" style="width:110px;flex:none"><div class="chips" id="mCdur"></div></div></div>
+  <div id="mCR"><div class="lab">Suivi</div>
+    <div class="two"><div class="tog" id="tCR"><b>✓</b>CR envoyé</div><div class="tog" id="tSY"><b>✓</b>Synthèse écrite</div></div></div>
+  <div id="mAis"><div id="mPD"></div></div>
+  <button class="save" id="mSave">Enregistrer</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<!-- fiche personne -->
+<div class="ov" id="pfM"><div class="modal pfm">
+  <div class="mh"><h2 id="pfTitle">Fiche</h2><button class="x" id="pfClose">✕</button></div>
+  <div class="pfcols">
+   <div class="pfL">
+    <div class="pfgrid">
+     <div class="pfleft"><div class="pfav" id="pfAv" title="Changer la photo"></div>
+      <div class="pfavb"><button class="btn2" id="pfPh">Photo</button><button class="lnk" id="pfPhDel">Retirer</button></div>
+      <input type="file" id="pfFile" accept="image/*" class="hide"></div>
+     <div class="pfright">
+      <div class="pfnrow"><input class="fin pfnom" id="pfNom" placeholder="Prénom Nom"><span class="pfic" id="pfIcons"></span></div>
+      <input class="fin" id="pfTit" placeholder="En une ligne : fonction, organisation" style="margin-top:8px">
+      <div class="pf3"><input class="fin" id="pfTel" placeholder="Téléphone" inputmode="tel"><input class="fin" id="pfMail" placeholder="E-mail" inputmode="email"><input class="fin" id="pfWeb" placeholder="Site web (lien)" inputmode="url"></div>
+     </div>
+    </div>
+    <label class="pflab">Étape<br><select class="fin" id="pfEt" style="width:auto;max-width:100%"></select></label>
+    <label class="pflab">Provenance<span class="cmb"><input class="fin" id="pfSrc" autocomplete="off" placeholder="Recommandation de…, réseau, LinkedIn, atelier…"><button type="button" class="cmbb" data-cmb="pfSrc" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfSrcM"></span></span></label>
+    <div class="pfrc"><label><input type="checkbox" id="pfRecIn"> Vient d'une recommandation <span class="small" style="font-weight:400;color:var(--grey)">(on m'a recommandé·e à elle)</span></label><label><input type="checkbox" id="pfRecAsk"> Je lui ai demandé une recommandation</label></div>
+    <div class="pf2c cx"><label class="pflab">Public<span class="cmb"><input class="fin" id="pfPub" autocomplete="off" placeholder="À quel public appartient cette personne ?"><button type="button" class="cmbb" data-cmb="pfPub" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPubM"></span></span></label><label class="pflab">Problématique<span class="cmb"><input class="fin" id="pfPrb" autocomplete="off" placeholder="Ce qu'elle vient travailler"><button type="button" class="cmbb" data-cmb="pfPrb" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPrbM"></span></span></label></div>
+    <label class="pflab cx">Description<textarea class="fin" id="pfNotes" rows="6" placeholder="Contexte, enjeux, ce qu'il faut savoir…"></textarea></label>
+   </div>
+   <div class="pfsep"></div>
+   <div class="pfR">
+    <div class="pfsum" id="pfSum"></div>
+    <div id="pfKS"><div class="pflab2">Contrat</div><div id="pfK"></div></div>
+    <div class="pflab2">Échanges</div><div id="pfTL"></div>
+    <div class="pflab2 cx">Aisance moyenne</div><div class="pfais cx" id="pfAis"></div>
+    <div class="pflab2 cx">Plan d'action</div><div class="cx" id="pfActs"></div>
+    <div class="pfadd cx"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div>
+   </div>
+  </div>
+  <div class="pffoot"><button class="btn2 danger" id="pfDel">Supprimer</button><button class="btn2" id="pfArch"></button><button class="btn2" id="pfSeeE">Voir ses saisies</button><button class="save" id="pfOk">Terminé</button></div>
+</div></div>
+
+<!-- recadrage photo -->
+<div class="ov" id="cropM"><div class="modal" style="width:min(400px,100%)">
+  <div class="mh"><h2>Recadrer la photo</h2><button class="x" id="crClose">✕</button></div>
+  <div class="crwrap"><canvas id="crCv" width="300" height="300"></canvas></div>
+  <input type="range" id="crZoom" min="1" max="4" step="0.01" value="1" style="width:100%;margin-top:12px">
+  <div class="hint">Fais glisser l'image pour la centrer dans le cercle, ajuste le zoom. La photo est compressée à l'enregistrement.</div>
+  <button class="save" id="crOk">Valider</button>
+</div></div>
+
+<!-- nouveautés -->
+<div class="ov" id="newsM"><div class="modal" style="width:min(640px,100%)">
+  <div class="mh"><h2 id="nwTitle">Quoi de neuf</h2><button class="x" id="nwClose">✕</button></div>
+  <div class="hint" style="margin-top:0" id="nwLead"></div>
+  <div id="nwBody"></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="save" id="nwOk" style="width:auto;padding:12px 28px;margin:0">J'ai compris</button></div>
+</div></div>
+
+<!-- catalogue d'indicateurs -->
+<div class="ov" id="kcat"><div class="modal kcm">
+  <div class="mh"><h2>Choisir mes indicateurs</h2><button class="x" id="kcClose">✕</button></div>
+  <div class="hint" style="margin-top:0">Jusqu'à 6 indicateurs. Les 3 premiers sont tes <b>indicateurs principaux</b> (en grand, aussi sur le tableau de bord), les suivants sont secondaires. Clique pour ajouter ou retirer, glisse pour réordonner. Les valeurs affichées sont les tiennes, à date.</div>
+  <div class="kslots" id="kcSlots"></div>
+  <div class="kcols" id="kcCols"></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="save" id="kcOk" style="width:auto;padding:12px 28px;margin:0">Terminé</button></div>
+</div></div>
+
+<!-- verrou / saisie de secret -->
+<div class="lock hide" id="lock"><div class="lockbox">
+  <div class="lockic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+  <h2 id="lkTitle">Carnet verrouillé</h2><div class="hint" id="lkTxt"></div>
+  <input type="password" class="fin" id="lkPwd" autocomplete="current-password">
+  <div class="lkerr" id="lkErr"></div>
+  <button class="save" id="lkGo" style="margin-top:6px">Déverrouiller</button>
+  <a class="lklink" id="lkRec">J'ai oublié mon mot de passe : utiliser la clé de secours</a>
+  <a class="lklink" id="lkCancel">Annuler</a>
+  <a class="lklink" id="lkOther">Ouvrir un autre carnet ou en créer un nouveau</a>
+</div></div>
+
+<!-- nouveau mot de passe -->
+<div class="lock dim hide" id="pwdM"><div class="lockbox" style="text-align:left">
+  <h2 id="pwTitle" style="justify-content:flex-start">Choisir un mot de passe</h2>
+  <div class="hint">Au moins 10 caractères. Une phrase facile à retenir est idéale (ex. « la-crête-du-vercors-au-matin »). Il n'est jamais enregistré : sans lui ni la clé de secours, personne ne peut rouvrir tes données.</div>
+  <input type="password" class="fin" id="pw1" placeholder="Nouveau mot de passe" autocomplete="new-password">
+  <input type="password" class="fin" id="pw2" placeholder="Confirmer" autocomplete="new-password" style="margin-top:8px">
+  <div class="lkerr" id="pwErr"></div>
+  <div class="btns"><button class="btn2" id="pwCancel">Annuler</button><button class="save" id="pwOk" style="margin:0;flex:1">Valider</button></div>
+</div></div>
+
+<!-- clé de secours -->
+<div class="lock dim hide" id="recM"><div class="lockbox" style="text-align:left;width:min(520px,100%)">
+  <h2 style="justify-content:flex-start">Ta clé de secours</h2>
+  <div class="hint">C'est le seul moyen de rouvrir tes données si tu oublies ton mot de passe. Garde-la hors de cet ordinateur : gestionnaire de mots de passe, ou imprimée et rangée. Elle ne sera plus jamais affichée.</div>
+  <div class="reckey" id="recKey"></div>
+  <div class="btns"><button class="btn2" id="recCopy">Copier</button><button class="btn2" id="recDl">Télécharger en .txt</button></div>
+  <label class="small" style="margin-top:16px"><input type="checkbox" id="recOk"> J'ai mis ma clé de secours en lieu sûr</label>
+  <button class="save" id="recClose" disabled style="opacity:.5">Terminer</button>
+</div></div>
+
+<!-- parcours de démarrage -->
+<div class="wiz hide" id="wiz"><div class="wzcard">
+  <aside class="wzside" id="wzSide"><div class="wzbrand" id="wzBrand"></div><ol class="wzsteps" id="wzSteps"></ol><div class="wzquote" id="wzQuote"></div></aside>
+  <section class="wzmain" id="wzMain">
+    <div class="wzkick" id="wzKicker"></div><h2 class="wzt" id="wzTitle"></h2><div class="wzlead" id="wzLead"></div>
+    <div class="wzbody" id="wzBody"></div>
+    <div class="wzfoot"><button class="wzb" id="wzBack">Retour</button><button class="wzs" id="wzSkip">Plus tard</button><button class="wzn" id="wzNext">Continuer</button></div>
+  </section>
+</div></div>
+
