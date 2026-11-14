@@ -840,3 +840,74 @@ body.simple .pcards .pc2{grid-template-columns:1fr}
 @media(max-width:700px){.demobar span{display:none}}
 .langsw{display:inline-flex;border:1px solid var(--line);border-radius:9px;padding:2px;margin-right:8px;background:#fff}.langsw button{border:0;background:none;font:800 11.5px Nunito,sans-serif;color:var(--grey);padding:4px 7px;border-radius:7px;cursor:pointer}.langsw button.on{background:var(--jet);color:#fff}
 .tabs .homebtn{display:inline-grid;place-items:center;padding:7px 10px;color:var(--jet);border-right:1px solid var(--line);border-radius:9px 0 0 9px;margin-right:4px}.tabs .homebtn:hover{background:var(--soft)}
+
+/* 2.4.0 : fiche en onglets, cercles, rythme, notes, À relancer, Traiter */
+.pfhd .pfgrid{max-width:820px}
+.pftabs{margin:16px -26px 0;padding:0 26px}
+.pftabs button small{background:var(--soft);border-radius:8px;padding:0 6px;margin-left:4px;font-size:11px}
+.pftabs button small:empty{display:none}
+.pftab{display:none}.pftab.on{display:block}
+.pfcols.pfcn{grid-template-columns:minmax(0,.9fr) 1px minmax(0,1.1fr)}
+.pftab .pfcols{margin-top:4px}
+.crc{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+.crp{display:inline-flex;align-items:center;gap:6px;border-radius:16px;padding:4px 10px;font-size:13px;font-weight:700;color:var(--jet);background:color-mix(in srgb,var(--c) 18%,#fff);border:1px solid color-mix(in srgb,var(--c) 45%,#fff)}
+.crp:has(i){padding-right:5px}
+.crp i{font-style:normal;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:11px;color:var(--grey);cursor:pointer}
+.crp i:hover{background:#fff;color:var(--am)}
+.cradd{border:1px dashed var(--am);color:var(--am);background:#fff;border-radius:16px;padding:4px 11px;font-size:13px;font-weight:700;cursor:pointer}
+.prr{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:flex-end}
+.seg.l{margin-left:0;margin-top:6px}
+.nxt{font-size:13px;margin-top:8px;color:var(--grey);line-height:1.45} .nxt b{color:var(--jet)} .nxt .late{color:var(--am);font-weight:800}
+.rpb{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.rpb .fin{max-width:320px}
+.rpv{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:5px 6px 5px 6px;font-weight:700;font-size:14px;background:#fff}
+.rpv .nm{cursor:pointer} .rpv .nm:hover{color:var(--am)}
+.rpv i{font-style:normal;color:var(--grey);cursor:pointer;padding:0 4px} .rpv i:hover{color:var(--am)}
+.rpb .seg{margin-left:0}
+.rlist{margin-top:6px;display:flex;flex-direction:column;gap:6px}
+.rlist>div{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}
+.rlist .nm{cursor:pointer} .rlist .nm:hover{color:var(--am)}
+.rlist small{color:var(--grey);font-weight:600}
+.rlist i{font-style:normal;color:var(--grey);cursor:pointer;margin-left:auto;padding:0 6px} .rlist i:hover{color:var(--am)}
+.gold{background:#FBF3DE;border:1px solid #EBD9A8;border-radius:14px;padding:14px 16px}
+.pfL .gold .pflab{margin-top:0;color:#8A6D1E}
+.pfL .gold .pflab+.pflab{margin-top:14px}
+.gold textarea.fin,.gold input.fin{background:#FFFDF6;border-color:#EBD9A8}
+.nfr{position:relative;padding-left:18px;margin-top:4px;max-height:520px;overflow:auto}
+.nfr:before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.nfi{position:relative;padding:0 0 14px}
+.nfi:before{content:'';position:absolute;left:-17px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--c,#9A9DA1);border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.nfi .h{font-size:12px;font-weight:800;color:var(--grey);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nfi .h .ty{color:var(--jet)}
+.nfi .k{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border-radius:6px;padding:1px 6px;background:var(--soft);color:var(--grey)}
+.nfi .t{font-size:14px;line-height:1.45;margin-top:3px;white-space:pre-line;overflow-wrap:anywhere}
+.rel .meta{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:12.5px;color:var(--grey);margin-top:3px;font-weight:600}
+.rel .meta .crp{font-size:11.5px;padding:1px 8px}
+.rel .sj{font-size:13px;margin-top:3px} .rel .sj b{color:#8A6D1E}
+.btn2.tr{border-color:var(--jet);background:var(--jet);color:#fff}
+.btn2.tr:hover{opacity:.88}
+.modal.trm{width:min(540px,100%)}
+.trsub{font-size:13px;color:var(--grey);margin:0 0 6px;line-height:1.5} .trsub b{color:var(--jet)} .trsub .late{color:var(--am);font-weight:800}
+.trsec{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.trsec .pflab{margin-top:0}
+.trrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.trb{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 12px;font-weight:700;font-size:13px;cursor:pointer;display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.2;color:var(--jet)}
+.trb small{font-size:11px;color:var(--grey);font-weight:600}
+.trb:hover{border-color:var(--afb)}
+.trb.on{border-color:var(--jet);background:var(--jet);color:#fff}.trb.on small{color:#cfe0ea}
+.trb.ok.on{background:var(--afb);border-color:var(--afb)}
+.trb.ko.on{background:var(--red);border-color:var(--red)}
+.trb.big{flex-direction:row;gap:8px;padding:9px 14px;font-size:14px}
+.trrow input[type=date]{width:auto;padding:6px 10px;font-size:13px}
+.trprev{font-size:12.5px;color:var(--grey);background:var(--soft);border-radius:8px;padding:6px 10px;width:100%}
+.trfoot{display:flex;gap:10px;align-items:center;margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.trfoot .save{width:auto;margin:0 0 0 auto;padding:10px 22px}
+.trfoot .btn2.danger{margin-right:0}
+.trfoot #trCancel{margin-left:auto}
+.trfoot #trCancel+.save{margin-left:0}
+.pipeout{display:flex;gap:6px 10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--grey)} .pipeout b{color:var(--jet)}
+.kpi .lvb{position:absolute;top:14px;right:16px;text-align:right;line-height:1.15}
+.kpi .lvb b{display:inline-block;font-size:12px;font-weight:800;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:2px 8px;color:#fff}
+.kpi .lvb small{display:block;font-size:11.5px;color:#B5D2E0;font-weight:700;margin-top:4px}
+.kpi .lvb small.alone{margin-top:0}
+.kpi:has(.lvb) .l{padding-right:70px}

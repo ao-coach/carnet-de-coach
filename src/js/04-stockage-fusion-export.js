@@ -62,12 +62,12 @@ function adoptDB(n){if(!DB){DB=n;return}inPlace(DB,n)}
 function mergeDB(A,B,base,prefA){
   const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
   const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})}};R.supprimes=sup;
-  const remap={};let added=0;
+  const remap={},fromO=new Set();let added=0;
   (O.personnes||[]).forEach(p=>{if(sup.p[String(p.id)])return;const q=R.personnes.find(x=>String(x.id)===String(p.id));
-    if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||''))Object.assign(q,p);return}
+    if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||'')){Object.assign(q,JSON.parse(JSON.stringify(p)));fromO.add(q)}return}
     const same=R.personnes.find(x=>byName(x.nom,p.nom)==0);if(same){remap[p.id]=same.id;return}
-    if(!q){R.personnes.push({...p});return}
-    const nid=nextId(R.personnes);remap[p.id]=nid;R.personnes.push({...p,id:nid})});
+    if(!q){const n=JSON.parse(JSON.stringify(p));R.personnes.push(n);fromO.add(n);return}
+    const nid=nextId(R.personnes),n={...JSON.parse(JSON.stringify(p)),id:nid};remap[p.id]=nid;R.personnes.push(n);fromO.add(n)});
   const strip=x=>JSON.stringify({...x,maj:0});
   const mergeList=(dst,src,key,isSame)=>{src.forEach(x=>{const k=String(x.id),r=dst.find(y=>String(y.id)===k);
     if(!r){if(sup[key][k])return;dst.push(x);added+=key=='e';return}
@@ -76,7 +76,11 @@ function mergeDB(A,B,base,prefA){
     dst.push({...x,id:nextId(dst)});added+=key=='e'});
     return dst.filter(x=>!sup[key][String(x.id)])};
   R.entrees=mergeList(R.entrees,(O.entrees||[]).map(e=>e.pid!=null&&sup.p[String(e.pid)]?{...e,pid:null,psup:true}:e).map(e=>({...e,pid:e.pid!=null&&remap[e.pid]!=null?remap[e.pid]:e.pid})),'e',(r,x)=>sig(r)===sig(x));
-  R.personnes=R.personnes.filter(p=>!sup.p[String(p.id)]);R.entrees.forEach(e=>{if(e.pid!=null&&sup.p[String(e.pid)]){e.pid=null;e.psup=true}});
+  R.personnes=R.personnes.filter(p=>!sup.p[String(p.id)]);
+  /* 2.4.0 : « recommandé·e ou présenté·e par » suit les renumérotations et s'efface si la personne a été supprimée */
+  R.personnes.forEach(p=>{const r=p.reco_par;if(!r||r.pid==null)return;let pid=r.pid;
+   if(fromO.has(p)&&remap[pid]!=null)pid=remap[pid];
+   p.reco_par=sup.p[String(pid)]||String(pid)===String(p.id)||!R.personnes.some(x=>String(x.id)===String(pid))?null:{...r,pid}});R.entrees.forEach(e=>{if(e.pid!=null&&sup.p[String(e.pid)]){e.pid=null;e.psup=true}});
   R.actions=mergeList(R.actions,(O.actions||[]).map(a=>({...a})),'a',(r,x)=>r.a===x.a);
   SECTIONS.forEach(k=>{if(A[k]===undefined&&B[k]===undefined)return;R[k]=base?m3(base[k],A[k],B[k]):prefA?m3(null,A[k],B[k]):m3(null,N[k],O[k])});
   R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
@@ -146,7 +150,14 @@ function exportCsv(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (noms
   const head=['Date','Type','Personne','Durée (min)','Durée (h)','Commentaire','Notes',...M.map(m=>m.l+(m.actif?'':' (archivée)')),'CR','Synthèse','Montant €','Engagement (mois)','Statut proposition','Coût €'];
   const L=[...E()].sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,TM[e.type]?.l,pname(e.pid),e.dur,String(e.dur/60).replace('.',','),e.com,e.notes||'',...M.map(m=>e.ais?.[m.id]??''),e.cr?'oui':'',e.syn?'oui':'',e.eur??'',e.engagement_mois??'',e.statut?STAT[e.statut]:'',e.cout??'']);
   download(`coaching-saisies_${today()}.csv`,'﻿'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
-$('expJson').onclick=exportJson;$('expCsv').onclick=exportCsv;
+/* 2.4.0 : export des personnes (cercles, proximité, rythme, recommandé·e par) */
+function exportCsvP(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (noms, coordonnées). Continuer ?'))return;
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`,PXL={proche:'Proche',regulier:'Régulier',occasionnel:'Occasionnel'};
+  const head=['Nom','Fonction','Étape','Cercles','Proximité','Rythme de contact (mois)','Recommandé·e ou présenté·e par','Recommandé·e / présenté·e','Provenance','Public','Problématique','Téléphone','E-mail','Site','Dernier contact','Prochain sujet à évoquer','Archivée'].map(TR);
+  const L=[...DB.personnes].sort((a,b)=>byName(a.nom,b.nom)).map(p=>{const r=p.reco_par&&pById(p.reco_par.pid),l=lastContact(p.id);
+   return[p.nom,p.titre||'',TR(ETL[stageOf(p)]),(p.cercles||[]).join(' ; '),TR(PXL[p.proximite||'regulier']),rythmeOf(p),r?r.nom:'',r?TR(p.reco_par.mode=='presente'?'présenté·e':'recommandé·e'):'',p.provenance||'',p.public||'',p.probl||'',p.tel||'',p.email||'',p.site||'',l?l.date:'',p.sujet||'',p.archive?TR('oui'):'']});
+  download(`coaching-personnes_${today()}.csv`,'\ufeff'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
+$('expJson').onclick=exportJson;$('expCsv').onclick=exportCsv;$('expCsvP').onclick=exportCsvP;
 $('impJson').onclick=()=>$('impFile').click();
 $('impFile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;let d;
   try{d=JSON.parse(await f.text())}catch(err){toast('Fichier JSON non reconnu');return}
@@ -177,13 +188,15 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
  i2b:`<p>Une invitation n'est pas une vente : l'autre est libre de dire non, et <b class="hl">chaque « non » compte comme un pas</b>. Le carnet suit tout cela, avec trois repères : coacher beaucoup, pratiquer délibérément, développer ton activité.</p>`,
  i3t:'Un tour rapide ?',
  i3:`<p>Une minute pour repérer les pages et les boutons utiles. Tu peux l'arrêter à tout moment et le relancer depuis le bandeau du bas.</p>`,
- c1:['Faire le tour','9 étapes, une minute'],c2:['Explorer librement','Tu découvres seul, à ton rythme'],
+ c1:['Faire le tour','11 étapes, une minute'],c2:['Explorer librement','Tu découvres seul, à ton rythme'],
  t:[
   ['Enregistrer un temps',"Chaque moment de ta pratique, en quelques secondes : une rencontre, une invitation, une conversation, une séance, une supervision. C'est la seule saisie régulière."],
   ['Tes trois repères',"Heures de coaching, pratique délibérée et conversations : l'année en cours et les 31 derniers jours. La petite courbe montre la tendance."],
   ['Mes saisies',"Tout l'historique, à filtrer par type, par personne ou par période. Chaque temps se retrouve et se corrige ici."],
   ['Personnes',"Chaque personne rencontrée, invitée ou accompagnée a sa fiche. C'est ici que se voit le chemin de chacune."],
-  ['À relancer',"Le carnet repère les personnes sans nouvelles depuis un moment, les accompagnements qui se terminent et les actions prévues. Une relance, c'est souvent une nouvelle conversation."],
+  ['À relancer',"Le carnet repère les personnes sans nouvelles depuis un moment, les accompagnements qui se terminent et les actions prévues. « Traiter » : c'est fait, une autre date, plus tard, ou un commentaire."],
+  ['Relance au rythme',"Chaque personne a un rythme de contact, tous les 3 mois par défaut. Quand il est dépassé, elle revient ici, avec ses cercles et le sujet à reprendre. Entretenir ton réseau, sans rien vendre."],
+  ['Préparer le contact',"« Préparer » ouvre l'onglet Notes de sa fiche : ce qu'il faut garder en tête, le prochain sujet à évoquer et les notes de vos derniers échanges."],
   ['Le chemin de chaque personne',"De la rencontre à l'accompagnement : chaque personne change de colonne à mesure que tu enregistres vos échanges. Le bouton « ? Les étapes » explique chaque colonne."],
   ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
   ['Simplifié ou complet',"Camille est en mode simplifié : l'essentiel. Le mode complet ajoute le tableau de bord, la pratique délibérée, la fiche de coach, les objectifs et le taux horaire réel."],
@@ -201,13 +214,15 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
  i2b:`<p>An invitation is not a sale: the other person is free to say no, and <b class="hl">every “no” counts as a step</b>. The notebook tracks all of it, with three markers: coach a lot, practise deliberately, grow your practice.</p>`,
  i3t:'A quick tour?',
  i3:`<p>One minute to find the useful pages and buttons. You can stop it at any time and restart it from the bar at the bottom.</p>`,
- c1:['Take the tour','9 steps, one minute'],c2:['Explore freely','Discover on your own, at your pace'],
+ c1:['Take the tour','11 steps, one minute'],c2:['Explore freely','Discover on your own, at your pace'],
  t:[
   ['Log time','Every moment of your practice, in a few seconds: a meeting, an invitation, a conversation, a session, a supervision. It is the only regular entry.'],
   ['Your three markers','Coaching hours, deliberate practice and conversations: the current year and the last 31 days. The small curve shows the trend.'],
   ['My entries','Your whole history, filtered by type, person or period. Every logged time can be found and corrected here.'],
   ['People','Everyone you meet, invite or accompany has a profile. This is where each person’s path shows.'],
-  ['To follow up','The notebook spots people you have not heard from in a while, engagements coming to an end and planned actions. A follow-up often means a new conversation.'],
+  ['To follow up','The notebook spots people you have not heard from in a while, engagements coming to an end and planned actions. “Handle”: done, another date, later, or a comment.'],
+  ['Follow-up at your pace','Each person has a contact frequency, every 3 months by default. When it is overdue, they come back here, with their circles and the topic to pick up. Keeping your network alive, without selling anything.'],
+  ['Prepare the contact','“Prepare” opens the Notes tab of their profile: what to keep in mind, the next topic to raise and the notes from your last exchanges.'],
   ["Each person's path","From first meeting to engagement: each person moves from one column to the next as you log your exchanges. The “? The stages” button explains each column."],
   ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
   ['Simple or full','Camille is in simple mode: the essentials. Full mode adds the dashboard, deliberate practice, the coach profile, goals and the real hourly rate.'],
@@ -236,11 +251,14 @@ const DTS=[
  {sel:'#kpisM',pre:()=>{if(!$('kpisM')?.offsetParent)goTab('metrics');scrollTo(0,0)}},
  {sel:'.tabs button[data-tab=list]',pre:()=>{goTab('list');scrollTo(0,0)}},
  {sel:'.tabs button[data-tab=people]',btn:'openPeople'},
- {sel:'#ppRelCard',pre:()=>{goTab('people');scrollTo(0,0)}},
- {sel:'#ppPipe',pre:()=>{goTab('people');const e=$('ppPipe');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-110)},big:true},
+ {sel:'#ppRelCard',pre:()=>{dtFicheX();goTab('people');scrollTo(0,0)}},
+ {sel:'#ppRelList .rel[data-k=ryt]',pre:()=>{dtFicheX();goTab('people');const e=document.querySelector('#ppRelList .rel[data-k=ryt]');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-160)}},
+ {sel:'#pfM .pftab.on .gold',pre:()=>{goTab('people');const R=relItems().filter(y=>y.k=='ryt'),x=R.find(y=>y.p.notes)||R[0];if(x)openFiche(x.p.id,'notes')}},
+ {sel:'#ppPipe',pre:()=>{dtFicheX();goTab('people');const e=$('ppPipe');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-110)},big:true},
  {sel:'#qOpen',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
  {sel:'#modeBtn',mode:true},
  {sel:'#demoBar',last:true}];
+const dtFicheX=()=>{if($('pfM')?.classList.contains('show'))closeFiche()};
 function dtTour(i=0){DT.on=true;DT.kind='tip';DT.i=i;DT.fullNote=false;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];
  if(s.pre)try{s.pre()}catch(e){}requestAnimationFrame(()=>requestAnimationFrame(dtDraw))}
 function dtDraw(){const X=dtX(),i=DT.i,s=DTS[i],r=$('dtour');const n=DTS.length;

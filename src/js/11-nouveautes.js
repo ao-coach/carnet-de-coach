@@ -3,6 +3,13 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:47,s:'2.4.0',d:'14 novembre 2026',items:[
+  {t:'Traiter une relance',p:"Dans « À relancer », chaque ligne a un bouton « Traiter » : c'est fait, annulée, une autre date (+2 j, +1 semaine, +1 mois ou la date de ton choix), plus tard, et un commentaire. Les propositions et les fins d'accompagnement gardent leurs boutons."},
+  {t:'Un rythme de contact par personne',p:"Tous les mois, tous les 3 mois (par défaut), tous les 6 mois, une fois par an ou pas de relance. Quand il est dépassé, la personne revient dans « À relancer », avec ses cercles et le sujet à reprendre ; « Préparer » ouvre ses notes."},
+  {t:'Une fiche en trois onglets',p:"Infos : cercles, proximité, rythme, « Recommandé·e ou présenté·e par » et les personnes qu'elle t'a recommandées. Notes : ce qu'il faut garder en tête, le prochain sujet à évoquer et toutes les notes de vos échanges. Échanges : le suivi d'avant."},
+  {t:"Le pipeline commence à l'invitation",p:"La colonne « Rencontre » devient « Invité·e ». Les contacts réseau et les personnes sans saisie sortent du pipeline : ils gardent leur fiche et se retrouvent par la recherche."},
+  {t:'Ton réseau dans les indicateurs',p:"Trois indicateurs à choisir : Réseau entretenu, Personnes vues (90 jours), Recommandations. Les bandeaux affichent en haut à droite ton niveau et ton total, toutes années confondues."},
+  {t:'« Plus tard » réglable',p:"Paramètres > Suivi des personnes : la durée de « Plus tard », 14 jours par défaut, pour toutes les relances. Et un export CSV de tes personnes, en bas de page."}]},
  {v:46,s:'2.3.1',d:'14 novembre 2026',items:[
   {t:"Rétablir le nom d'un type",p:"Dans Paramètres, un type intégré que tu as renommé affiche un bouton ↺ au bout de sa ligne : il lui rend son nom d'origine, par exemple « Rencontre réseau »."},
   {t:"Une seule alerte de fin d'accompagnement",p:"« Bilan ou renouvellement ? » n'apparaît plus qu'une fois par contrat : après « Planifier le bilan », l'alerte ne revient pas, même quand l'action est faite. Un nouveau contrat la déclenche à nouveau."},
@@ -154,7 +161,7 @@ function foldSums(){if(!DB)return;const C=CFG(),set=(id,t)=>{const el=document.q
  set('setSec',DEKK?`chiffré · verrouillage ${DB.prefs.autolock?'après '+DB.prefs.autolock+' min':'manuel'}`:'non chiffré');
  set('setStore',DIR?`dossier « ${DIR.name} »${NEEDPERM?' (à reconnecter)':''}`:'aucun dossier relié');
  set('setTypes',`${keysOf(C).length} types`);set('setMets',`${mActive().length} axes suivis`);
- set('setCrm',`alerte après ${C.crm.froid} j sans contact`);set('setKpi',`${kOrder().length} indicateurs, dont ${Math.min(3,kOrder().length)} principaux`);
+ set('setCrm',`alerte après ${C.crm.froid} j sans contact · plus tard : ${C.crm.reporter||14} j`);set('setKpi',`${kOrder().length} indicateurs, dont ${Math.min(3,kOrder().length)} principaux`);
  try{const Y=today().slice(0,4),r=KPIDEF.rate.v(kctx());set('setFin',`${eur(supYearCost(Y)+urssafYear(Y)+linesTotal())} de charges · ${C.finances.mode=='prorata'?'au prorata':'en entier'} : ${r[0]} ${String(r[1]).replace(/<[^>]+>/g,'')}`)}catch(e){}}
 
 /* ---------- démarrage ---------- */

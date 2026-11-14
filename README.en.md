@@ -100,7 +100,7 @@ The rest is discovered by using it. The **roadmap**, at the bottom right, sugges
 | Chapter | Missions |
 |---|---|
 | 1. First steps | Log your first meeting, link it to a person, write a note, look at your activity, open a person's profile, choose where to keep your notebook, protect it with a password. |
-| 2. Grow your practice | Understand your pipeline (see below), log an invitation, send a proposal, follow it through to the answer. In simple mode: discover full mode. |
+| 2. Grow your practice | Understand your pipeline (see below), log a network contact, give a person a contact frequency, log an invitation, send a proposal, follow it through to the answer. In simple mode: discover full mode. |
 | 3. Practise deliberately | Complete your coach profile, name at least 3 skills, choose a focus, create an action, write a note and keep it for supervision, log a prepared supervision. |
 | 4. Steer | Choose your indicators, set your priority goal, enter your costs. |
 
@@ -139,7 +139,7 @@ In simple mode:
 - **Entry form**: types are shown one below the other, with their meaning (“I invited someone to experience coaching”…), then your other types. What remains: length, person, “What came up”, meeting notes and follow-up (notes sent, summary). A proposal keeps its amount and commitment length.
 - **Activity**: the time-spent-per-month chart and your 3 main indicators (excluding ease, goals and costs).
 - **My entries**: the same, without ease ratings or supervision costs.
-- **People**: Pipeline view only, with “To follow up” above. The person profile no longer has ease, action plan, description, audience or topic.
+- **People**: Pipeline view only, with “To follow up” above. The person profile no longer has closeness, ease, audience or topic.
 - **Settings**: your name, your logo and a suggested colour palette; security, storage, sharing and getting started. Activity types, skills, indicators, people tracking and costs are hidden.
 
 ---
@@ -337,12 +337,25 @@ The list of what needs action, most urgent first.
 
 | Alert | When it appears | Buttons |
 |---|---|---|
-| **Action linked to a person** | It is overdue or due within 7 days. | Done |
-| **Pending proposal** | A proposal is awaiting an answer and no action is planned for the person. The waiting time turns red from 14 days. | Accepted · Refused (can be undone) · Plan a follow-up (in 2 days) · Later (one week) |
-| **Engagement ending** | The contract ends within 21 days, ended less than 45 days ago, or the last planned session has been reached. Only once per contract: once the review is planned, it does not come back, even when the action is done; a new contract (renewal) brings it back. | Plan the review · Later (14 days) |
-| **No contact** | The person is in conversation or awaiting an answer, with no action planned, and no contact for the chosen threshold (30 days by default, no alert beyond 365 days). | Plan a follow-up · Later · No follow-up |
+| **Action linked to a person** | It is overdue or due within 7 days. | Handle |
+| **Pending proposal** | A proposal is awaiting an answer and no action is planned for the person. The waiting time turns red from 14 days. | Accepted · Refused (can be undone) · Handle |
+| **Engagement ending** | The contract ends within 21 days, ended less than 45 days ago, or the last planned session has been reached. Only once per contract: once the review is planned, it does not come back, even when the action is done; a new contract (renewal) brings it back. | Plan the review · Handle |
+| **No contact** | The person is in conversation or awaiting an answer, with no action planned, and no contact for the chosen threshold (30 days by default, no alert beyond 365 days). | Handle |
+| **Regular follow-up** | The last exchange with the person is older than their contact frequency (every 3 months by default), with no action planned and no other alert for them. Applies to everyone, network contacts included, except people marked “No follow-up”. The line shows their circles, their frequency and, if filled in, “To pick up:” followed by the next topic to raise. | Prepare · Handle |
 
-Click a name to open the person's profile.
+A person appears only once in the list. Click a name to open the person's profile.
+
+**Prepare** opens the profile on the Notes tab, with the cursor in “Next topic to raise”: a way to reread what to keep in mind before getting back in touch.
+
+**Handle** opens a small window:
+
+- **Done?** For an action: “Done” or “Cancelled”. For a regular follow-up or a person with no contact: “Done: log the exchange…” opens “Log time” prefilled (Networking or Conversation, the person, today).
+- **Reschedule**: +2 days, +1 week, +1 month or the date of your choice. For an action, it is its new date; for a regular follow-up or a person with no contact, a “Follow up with …” action is created on that date; for a proposal or an engagement ending, the reminder is postponed to that date.
+- **Later**: postpones the reminder by the length set in Settings > People tracking (14 days by default), without changing the frequency.
+- **Comment**: for an action, it is added, dated (“11/14: …”), to its “Result”; for a person, it replaces their “Next topic to raise”.
+- At the bottom: “Delete the action” (can be undone), “Stop following up” (the frequency becomes “No follow-up”) or “Mark as no follow-up”.
+
+Choose an outcome (or just write a comment), then “Save”.
 
 ### Priority goal
 
@@ -377,10 +390,12 @@ The tab was called “Metrics” until version 1.7.
 
 You choose up to 6 indicators. The first 3 are **main** ones: they are shown large, also on the dashboard. The next ones are secondary.
 
+In the top right corner of a main banner: the statistic's **level** (the same as in your coach profile: coaching hours, conversations, people coached, deliberate practice, invitations, revenue), and below it your **all-time total** (“412 h”). Indicators that add up without a level (new people, people seen, referrals) show only their total.
+
 - To swap two indicators, drag one onto the other.
 - To change them, open “Choose my indicators”. The catalogue shows your actual value to date for each one.
 
-The catalogue has 20 indicators, in 4 pillars:
+The catalogue has 23 indicators, in 4 pillars:
 
 - **Coach a lot:**
   - coaching hours;
@@ -400,7 +415,11 @@ The catalogue has 20 indicators, in 4 pillars:
   - pending proposals;
   - acceptance rate;
   - average deal;
-  - real hourly rate.
+  - real hourly rate;
+  - invitations;
+  - network kept alive: people with a contact frequency, contacted on time (“16 / 20”);
+  - people seen: different people over 90 days, compared with the previous 90 days;
+  - referrals: people “referred or introduced by” during the year, and how many became clients.
 - **Steer:**
   - overdue actions;
   - progress on the quarter's targets;
@@ -452,24 +471,26 @@ The dashboard's **To follow up** block is also at the top of the People tab, wit
 ### Views
 
 - **Pipeline** (default): one column per stage, with its number of people and totals (pending proposals, contracts in progress).
+  - **Network contacts** (networking only) and people **with no entry at all** are not in the pipeline. A line below the pipeline counts them; “Show them as a list” opens the List view filtered on them. A search that finds them shows them below that line.
   - Each card shows the photo and name, then, across the full width: role, pending amount or contract progress, next action or last contact. An icon opens the person's website.
   - Drag a card into another column to change its stage by hand.
   - Setting “Automatic” again on the profile clears that manual choice.
 - **List**: compact tiles, with photo, name, stage, source, role, website, last contact, contract and next action.
   - Stage filters show the number of people in each.
   - Tiles are sorted by next action, then by last contact.
-- **Search**: on name, role, source, notes and website.
+- **Search**: on name, role, circles, source, notes and website.
 - **Archived people**: a checkbox to show them.
 
 ### The stages
 
 The stage is calculated on its own from your entries. The **“? The stages”** button recalls the approach and what to log at each stage (see [part 2](#create-your-clients-through-relationships)).
 
-**Met**: a first contact, a formal or informal chat where you introduce yourself, a meeting at an evening event, a video or phone call. No commitment, no expectation: the start of a relationship, whatever it may lead to (partnership, client, referral…).
+The pipeline starts with the **invitation**. Before that, someone you have met (Networking) is a **network contact**: outside the pipeline, they have their profile, circles and contact frequency, and come back in “To follow up” when that frequency is overdue.
 
 | Stage | Automatic rule |
 |---|---|
-| Met | No conversation or session (Networking, Invitation). |
+| Network contact (outside the pipeline) | No invitation, conversation, session, proposal or supervision: networking only, or no entry. |
+| Invited | At least one invitation, with no conversation or session. |
 | In conversation | At least one conversation or session, with no pending proposal. |
 | Proposal sent | At least one “Pending” proposal. |
 | Client | A contract in progress, or a session after the end of the contract. |
@@ -481,9 +502,9 @@ A stage chosen by hand, on the profile or by drag and drop, holds until the next
 
 ### The person profile
 
-To open a profile, click a card, a name in “To follow up”, or “Profile” in My entries. You can also create a person with “+ New person”. The profile is organised in two halves.
+To open a profile, click a card, a name in “To follow up”, or “Profile” in My entries. You can also create a person with “+ New person”.
 
-**Left, who the person is:**
+**At the top, always visible:**
 
 - **Photo.**
   - Click the circle or “Photo”, choose an image, then frame it in the disc: drag to centre, then zoom with the slider or the mouse wheel.
@@ -494,17 +515,33 @@ To open a profile, click a card, a name in “To follow up”, or “Profile” 
   - the handset starts the call, only on a phone or tablet.
 - **Role**, in one line: role and organisation.
 - **Phone, email, website.** Phone numbers are spaced automatically (French format): `0123456789` becomes `01 23 45 67 89`, and `+33123456789` becomes `+33 1 23 45 67 89`.
-- **Stage** (automatic or manual) and **source**. The small ▾ of the source field lists the values already used on your other profiles; typing filters the list. A new value is added to the list for later profiles.
-- **Referrals**: two boxes, “Came through a referral” (you were recommended to them) and “I asked them for a referral”.
-- **Audience** and **topic**: which audience the person belongs to, and what they come to work on. Same drop-down list as the source, to keep values consistent and analyses clean. They feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)).
-- **Description.** Context, stakes, what to know.
 
-**Right, where you stand:**
+Then three tabs.
+
+**Info**
+
+- **Stage**: automatic or chosen by hand.
+- **Circles**: the groups the person belongs to (entrepreneurs club, former colleagues, coaching school…), as many as you like. “+ circle” suggests the circles already used, the largest first; type a new name to create one. The ✕ on a pill removes it.
+- **Closeness**: Close, Regular (default) or Occasional. Independent of circles.
+- **Contact frequency**: every month, every 3 months (default), every 6 months, once a year or no follow-up. Below: the date of the last contact and the **suggested next contact** (“2 November 2026 · 12 days overdue”, “15 January 2027 (in 2 months)”).
+- **Referred or introduced by**: the person who put you in touch, searched by name (same field as in the entry form), then “Referred” or “Introduced”.
+- **Source**: where the person comes from when nobody introduced them (fair, LinkedIn, workshop…). The small ▾ lists the values already used; a new value is added to the list.
+- **Referrals**: two boxes, “Came through a referral” (you were recommended to them) and “I asked them for a referral”.
+- **Has referred or introduced**: the people they put you in touch with. “+ Add a person” links a new one; the ✕ removes the link.
+- **Audience** and **topic** (full mode): which audience the person belongs to, and what they come to work on. Same drop-down list as the source, with free typing. They feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)).
+
+**Notes** (the number of notes is in the tab title)
+
+- **Keep in mind**: context, stakes, what to know (the former “Description”).
+- **Next topic to raise**: shown in “To follow up” (“To pick up: …”).
+- **Notes from your exchanges**: all the “Notes” and “What we covered” lines of the person's entries, newest first, with date and type.
+
+**Interactions**
 
 - **Figures.** Last contact, coaching hours, conversations, sessions, contract, first contact.
 - **Contract**, if there is one. Amount, length and progress, with the start, planned sessions and length, all editable.
 - **Interactions.** A timeline with one dot per interaction, in its type's colour. When dots overlap, those of the types ranked highest in Settings > Activity types come on top: for example sessions above debriefs. The date (dd/mm) is above each dot and the year in the middle of its period. Hover a dot to see the detail.
-- **Average ease** on all your tracked skills, on two columns.
+- **Average ease** on all your tracked skills (full mode).
 - **Action plan.** The actions linked to the person. You can add some with a date and tick them once done. They also appear in the dashboard's action plan.
 
 **Bottom:**
@@ -575,7 +612,7 @@ Blocks come in pairs, in this order:
 | **Identity**: practice name, tool name, motto, label wording (feminine, masculine, inclusive). | **Appearance**: logo (also used as the tab and window icon) and banner side by side, the 5 brand colours (Accent, Dark, Background, Grey, Blue), “Back to the default palette”. |
 | **Security**: encryption, automatic lock, password, recovery key (see [part 13](#13-security-and-encryption)). | **Data storage**: linked folder, “Open another notebook”, “New notebook”. |
 | **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, ease ratings, **Counts in**. An added type can only be deleted if it has no entries. A renamed built-in type shows ↺ at the end of its row: it gives the type its original name back (for example “Networking”). | **Ease skills**: points to “Manage my skills”, on the ease compass (see [part 4](#4-deliberate-practice)). |
-| **People tracking**: “no contact” alert threshold, in days. | **Indicators shown as banners**: choice of the 6 indicators shown at the top of the dashboard and Activity. |
+| **People tracking**: “no contact” alert threshold, in days; how long “Later” lasts in To follow up (14 days by default). | **Indicators shown as banners**: choice of the 6 indicators shown at the top of the dashboard and Activity. |
 | **Practice costs**, full width (see [part 11](#11-costs-and-real-hourly-rate)). | |
 | **Share with a peer**: “Export a template without data”. | **Getting started**: show the roadmap, animated celebrations, “Replay the welcome”. |
 
@@ -590,7 +627,7 @@ At the bottom of every page:
 
 - **Change folder**;
 - **Export JSON**, which produces a complete copy;
-- **Export CSV**;
+- **Export CSV** (your entries) and **Export people (CSV)**: name, role, stage, circles (separated by “;”), closeness, frequency, referred or introduced by, source, audience, topic, contact details, last contact, next topic;
 - **Import a JSON**;
 - the version number and the **What's new** link.
 
@@ -678,7 +715,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.3.1** | 14/11/2026 | ↺ button in Settings to give a renamed built-in type its original name back. “Review or renewal” alert only once per contract. Delete an action from the action plan (✕, can be undone). |
+| **2.4.0** | 14/11/2026 | “Handle” in To follow up (done, cancelled, reschedule, later, comment). Contact frequency per person and regular follow-up, with “Prepare”. Person profile in Info, Notes and Interactions tabs: circles, closeness, referred or introduced by, next topic to raise, notes from exchanges. Pipeline from the invitation (Invited column), network contacts outside the pipeline. Network kept alive, People seen and Referrals indicators; level and total in the banners. Adjustable “Later”. CSV export of people. |
+| 2.3.1 | 14/11/2026 | ↺ button in Settings to give a renamed built-in type its original name back. “Review or renewal” alert only once per contract. Delete an action from the action plan (✕, can be undone). |
 | 2.3.0 | 13/11/2026 | Search for a person as you type (accents and capitals ignored, “+ Create”) in the entry form, My entries and the action plan. Networking at the start of the journey, with “What came up” on several lines. “Archived people” instead of “Archived clients”. |
 | 2.2.0 | 11/11/2026 | Delete a person (their entries remain). Any length in My entries (“Other…”). Required person, set type by type. Level bars start again from zero at each level. |
 | 2.1.0 | 09/11/2026 | Guided tour of the demo notebook: the approach in one screen, then the pages in nine steps; “Replay the tour” in the bar. The demo opens in simple mode. The small house opens the carnet-de-coach.fr website. |

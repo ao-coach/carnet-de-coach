@@ -1,9 +1,9 @@
 /* =========================================================
    PERSONNES (CRM léger) : étape, fiche, photo, relances
    ========================================================= */
-const ETAPES=[['contact','Rencontre'],['conversation','En conversation'],['proposition','Proposition envoyée'],['client','Client.e'],['termine','Accompagnement terminé'],['perdu','Sans suite'],['superviseur','Superviseur.e']];
-const ETL=Object.fromEntries(ETAPES);
-const ETC={contact:'#9A9DA1',conversation:'#2F8C93',proposition:'var(--afb)',client:'var(--am)',termine:'var(--jet)',perdu:'#C9727B',superviseur:'#8B78A8'};
+const ETAPES=[['invite','Invité·e'],['conversation','En conversation'],['proposition','Proposition envoyée'],['client','Client.e'],['termine','Accompagnement terminé'],['perdu','Sans suite'],['superviseur','Superviseur.e']];
+const ETL={...Object.fromEntries(ETAPES),reseau:'Contact réseau'};
+const ETC={invite:'#B5915A',reseau:'#9A9DA1',conversation:'#2F8C93',proposition:'var(--afb)',client:'var(--am)',termine:'var(--jet)',perdu:'#C9727B',superviseur:'#8B78A8'};
 const pEntries=pid=>E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));
 const lastContact=pid=>pEntries(pid).filter(e=>e.date<=today()).at(-1)||null;
 /* étape proposée automatiquement à partir des saisies */
@@ -20,7 +20,10 @@ function bilanDone(p,K){if(p.bilanFait!=null)return String(p.bilanFait)===String
  return DB.actions.some(a=>String(a.pid)===String(p.id)&&/^\s*(Bilan \/ renouvellement|Review \/ renewal)/i.test(a.a||'')&&(a.d||'')>=s)}
 function contractTxt(K){if(!K)return'';return `${K.prevues?`${K.faites}/${K.prevues} séances`:`${pl(K.faites,'séance')}`}${K.fin?` · fin ${K.fin<today()?'le ':'prévue le '}${dShort(K.fin)}`:''}`}
 function contractBar(K){if(!K?.prevues)return'';const p=Math.min(100,K.faites/K.prevues*100);return `<div class="bar" style="margin-top:4px"><b style="width:${p}%;background:var(--am)"></b></div>`}
-function autoStage(pid){const L=pEntries(pid);if(!L.length)return'contact';const P=L.filter(e=>e.type=='proposition'),last=L.at(-1).date;
+/* 2.4.0 : une personne n'entre dans le pipeline qu'avec une invitation, une conversation, une séance, une proposition ou une supervision ;
+   sinon (rencontres réseau seulement, ou aucune saisie) c'est un contact réseau, hors pipeline */
+const PIPE_T=()=>['invitation','proposition','supervision',...COACH];
+function autoStage(pid){const L=pEntries(pid),PT=PIPE_T();if(!L.some(e=>PT.includes(e.type)))return'reseau';const P=L.filter(e=>e.type=='proposition'),last=L.at(-1).date;
  if(L.some(e=>e.type=='supervision')&&!P.some(e=>e.statut=='acceptee'))return'superviseur';
  if(P.some(e=>e.statut=='acceptee')){const K=contractOf(pid);
   if(K.fin){if(K.fin>=today()||L.some(e=>e.date>K.fin&&COACH.includes(e.type)))return'client';return'termine'}
@@ -28,7 +31,7 @@ function autoStage(pid){const L=pEntries(pid);if(!L.length)return'contact';const
  if(P.some(e=>e.statut=='attente'))return'proposition';
  if(P.length&&P.every(e=>e.statut=='refusee')&&!L.some(e=>e.date>P.at(-1).date))return'perdu';
  if(L.some(e=>COACH.includes(e.type)))return'conversation';
- return'contact'}
+ return L.some(e=>e.type=='invitation')?'invite':'reseau'}
 /* une étape choisie à la main reste valable tant qu'aucune nouvelle saisie n'arrive ensuite */
 function stageOf(p){const a=autoStage(p.id);if(p.etape?.v){const at=p.etape.at.slice(0,10);if(!pEntries(p.id).some(e=>e.date>at))return p.etape.v}return a}
 const stagePill=st=>`<span class="stp" style="background:${ETC[st]}">${ETL[st]}</span>`;
@@ -38,7 +41,23 @@ function avatar(p,sz){const ini=(p?.nom||'?').split(/\s+/).map(w=>w[0]).join('')
 const openActs=pid=>DB.actions.filter(a=>a.pid==pid&&a.s=='encours').sort((a,b)=>(a.d||'9').localeCompare(b.d||'9'));
 const pById=id=>DB.personnes.find(x=>String(x.id)===String(id));
 
-/* ---------- à relancer (tableau de bord) ---------- */
+/* ---------- 2.4.0 : réseau (cercles, proximité, rythme de contact) ---------- */
+const RYTHMES=[[1,'Tous les mois'],[3,'Tous les 3 mois'],[6,'Tous les 6 mois'],[12,'Une fois par an'],[0,'Pas de relance']];
+const RYL={1:'tous les mois',3:'tous les 3 mois',6:'tous les 6 mois',12:'une fois par an'};
+const RYM={1:"plus d'un mois",3:'plus de 3 mois',6:'plus de 6 mois',12:"plus d'un an"};
+const PROX=[['proche','Proche'],['regulier','Régulier'],['occasionnel','Occasionnel']];
+const rythmeOf=p=>p.rythme==null?3:(+p.rythme||0);
+const REP=()=>Math.max(1,+CFG().crm.reporter||14);
+const dayDiff=(a,b)=>Math.round((new Date(b+'T12:00:00Z')-new Date(a+'T12:00:00Z'))/864e5);
+const dLong=s=>{if(!s)return'';const[y,m,d]=s.split('-');return LANG==='en'?`${+d} ${MOL[m-1]} ${y}`:`${+d==1?'1er':+d} ${MOL[m-1]} ${y}`};
+/* prochain contact conseillé : dernier contact + rythme */
+function nextContact(p){const r=rythmeOf(p),l=lastContact(p.id);return{r,l,next:r&&l?addMonths(l.date,r):null}}
+const CRCOL=['#2F8C93','#C8553D','#8B78A8','#508AA8','#C9973F','#6E8C6A','#B5677D','#5D7A99'];
+const crCol=c=>CRCOL[[...fold(c)].reduce((a,x)=>a+x.charCodeAt(0),0)%CRCOL.length];
+const crPill=(c,x)=>`<span class="crp" style="--c:${crCol(c)}">${esc(c)}${x?`<i data-crx="${esc(c)}" title="Retirer ce cercle">✕</i>`:''}</span>`;
+function allCercles(){const m=new Map();DB.personnes.forEach(p=>(p.cercles||[]).forEach(c=>{const k=fold(c);if(!m.has(k))m.set(k,{c,n:0});m.get(k).n++}));return[...m.values()].sort((a,b)=>b.n-a.n||byName(a.c,b.c))}
+
+/* ---------- à relancer (tableau de bord, onglet Personnes) ---------- */
 function relItems(){const t=today(),soon=addDays(t,7),seuil=+CFG().crm.froid||30,items=[];
  DB.actions.filter(a=>a.s=='encours'&&a.pid!=null&&a.d&&a.d<=soon).forEach(a=>{const p=pById(a.pid);if(p)items.push({k:'act',p,a,late:a.d<t,ord:a.d})});
  const withProp=new Set();
@@ -49,31 +68,82 @@ function relItems(){const t=today(),soon=addDays(t,7),seuil=+CFG().crm.froid||30
  DB.personnes.filter(p=>!p.archive&&!(p.snoozeK&&p.snoozeK>t)&&!openActs(p.id).length).forEach(p=>{const K=contractOf(p.id);if(!K||bilanDone(p,K))return;
   const nearEnd=K.fin&&K.fin<=addDays(t,21)&&K.fin>=addDays(t,-45),lastSes=K.prevues&&K.faites>=K.prevues-1&&(!K.fin||K.fin>=t);
   if(nearEnd||lastSes)items.push({k:'end',p,K,late:!!K.fin&&K.fin<t,ord:'1'+(K.fin||t)})});
+ /* 2.4.0 : rythme de contact dépassé (une personne n'apparaît qu'une fois dans la liste) */
+ const has=new Set(items.map(x=>String(x.p.id)));
+ DB.personnes.filter(p=>!p.archive&&!has.has(String(p.id))&&!openActs(p.id).length&&!(p.relance_report&&p.relance_report>t)&&stageOf(p)!='perdu').forEach(p=>{
+  const N=nextContact(p);if(!N.next||N.next>t)return;items.push({k:'ryt',p,N,days:dayDiff(N.l.date,t),ord:'2'+N.next})});
  return items.sort((x,y)=>(y.late?1:0)-(x.late?1:0)||x.ord.localeCompare(y.ord))}
-function renderRel(R=$('relList'),N=$('relN')){const I=relItems();N.textContent=I.length||'';
- R.innerHTML=I.map((x,i)=>`<div class="rel">${avatar(x.p,36)}<div><span class="who" data-pf="${x.p.id}">${esc(x.p.nom)}</span> ${stagePill(stageOf(x.p))}
-  <div class="what">${x.k=='prop'?`Proposition de <b>${eur(x.e.eur)}</b>${x.e.engagement_mois?` · ${x.e.engagement_mois} mois`:''}${x.e.seances?` · ${x.e.seances} séances`:''} envoyée le ${dShort(x.e.date)} : où en est-elle ?`:x.k=='act'?esc(x.a.a||'Action'):x.k=='end'?`Accompagnement ${x.late?'terminé':'bientôt terminé'} (${contractTxt(x.K)}) : bilan ou renouvellement ?`:'Pas de nouvelles depuis un moment : une relance ?'}</div></div>
-  <div style="text-align:right"><div class="when ${x.late||x.k=='cold'?'late':''}">${x.k=='prop'?`En attente depuis ${x.days} j`:x.k=='act'?(x.late?'En retard · ':'')+dShort(x.a.d):x.k=='end'?(x.K.fin?`Fin ${x.late?'le':'prévue le'} ${dShort(x.K.fin)}`:'Dernière séance prévue'):`Sans contact depuis ${x.days>900?'toujours':x.days+' j'}`}</div>
-  <div class="btns" style="justify-content:flex-end;margin-top:4px">${x.k=='prop'?`<button class="btn2" data-pacc="${x.e.id}">Acceptée</button><button class="btn2" data-pref="${x.e.id}">Refusée</button><button class="btn2" data-plan="${x.p.id}">Planifier une relance</button><button class="lnk" data-psnz="${x.e.id}">Plus tard</button>`:x.k=='act'?`<button class="btn2" data-done="${x.a.id}">Fait</button>`:x.k=='end'?`<button class="btn2" data-bilan="${x.p.id}">Planifier le bilan</button><button class="lnk" data-snzk="${x.p.id}">Plus tard</button>`:`<button class="btn2" data-plan="${x.p.id}">Planifier une relance</button><button class="lnk" data-snz="${x.p.id}">Plus tard</button><button class="lnk" data-lost="${x.p.id}">Sans suite</button>`}</div></div></div>`).join('')
+function relWhat(x){return x.k=='prop'?`Proposition de <b>${eur(x.e.eur)}</b>${x.e.engagement_mois?` · ${x.e.engagement_mois} mois`:''}${x.e.seances?` · ${x.e.seances} séances`:''} envoyée le ${dShort(x.e.date)} : où en est-elle ?`
+  :x.k=='act'?esc(x.a.a||'Action'):x.k=='end'?`Accompagnement ${x.late?'terminé':'bientôt terminé'} (${contractTxt(x.K)}) : bilan ou renouvellement ?`
+  :x.k=='ryt'?`Relance au rythme : ${RYM[x.N.r]} sans nouvelles.`:'Pas de nouvelles depuis un moment : une relance ?'}
+function relWhen(x){return x.k=='prop'?`En attente depuis ${x.days} j`:x.k=='act'?(x.late?'En retard · ':'')+dShort(x.a.d):x.k=='end'?(x.K.fin?`Fin ${x.late?'le':'prévue le'} ${dShort(x.K.fin)}`:'Dernière séance prévue'):`Sans contact depuis ${x.days>900?'toujours':x.days+' j'}`}
+let REL=[];
+function renderRel(R=$('relList'),N=$('relN')){const I=relItems();REL=I;N.textContent=I.length||'';
+ R.innerHTML=I.map((x,i)=>`<div class="rel" data-k="${x.k}">${avatar(x.p,36)}<div><span class="who" data-pf="${x.p.id}">${esc(x.p.nom)}</span> ${stagePill(stageOf(x.p))}
+  <div class="what">${relWhat(x)}</div>${x.k=='ryt'?`<div class="meta">${(x.p.cercles||[]).map(c=>crPill(c)).join('')}<span>· ${RYL[x.N.r]}</span></div>${x.p.sujet?`<div class="sj"><b>À reprendre :</b> ${esc(x.p.sujet)}</div>`:''}`:''}</div>
+  <div style="text-align:right"><div class="when ${x.late||x.k=='cold'||x.k=='ryt'?'late':''}">${relWhen(x)}</div>
+  <div class="btns" style="justify-content:flex-end;margin-top:4px">${x.k=='prop'?`<button class="btn2" data-pacc="${x.e.id}">Acceptée</button><button class="btn2" data-pref="${x.e.id}">Refusée</button>`:x.k=='end'?`<button class="btn2" data-bilan="${x.p.id}">Planifier le bilan</button>`:x.k=='ryt'?`<button class="btn2" data-prep="${x.p.id}">Préparer</button>`:''}<button class="btn2 tr" data-trt="${i}">Traiter</button></div></div></div>`).join('')
   ||'<div class="empty">Rien à relancer pour l\'instant.</div>';
  R.querySelectorAll('[data-pf]').forEach(b=>b.onclick=()=>openFiche(b.dataset.pf));
  const eById=id=>E().find(x=>String(x.id)===String(id));
  R.querySelectorAll('[data-pacc]').forEach(b=>b.onclick=()=>{const e=eById(b.dataset.pacc);e.statut='acceptee';e.maj=new Date().toISOString();touch();renderAll();toast('Proposition acceptée : contrat enregistré','Ouvrir la fiche',()=>openFiche(e.pid))});
  R.querySelectorAll('[data-pref]').forEach(b=>b.onclick=()=>{const e=eById(b.dataset.pref),old=e.statut;e.statut='refusee';e.maj=new Date().toISOString();touch();renderAll();toast('Proposition refusée','Annuler',()=>{e.statut=old;e.maj=new Date().toISOString();touch();renderAll()})});
- R.querySelectorAll('[data-psnz]').forEach(b=>b.onclick=()=>{const e=eById(b.dataset.psnz);e.snz=addDays(today(),7);e.maj=new Date().toISOString();touch();renderAll();toast('Reportée d\'une semaine')});
- R.querySelectorAll('[data-done]').forEach(b=>b.onclick=()=>{const a=DB.actions.find(x=>String(x.id)===b.dataset.done);a.s='realisee';a.maj=new Date().toISOString();touch();renderAll();toast('Action réalisée ✓')});
- R.querySelectorAll('[data-plan]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.plan);DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Relancer ${p.nom.split(' ')[0]}`,d:addDays(today(),2),r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderAll();toast('Relance planifiée dans 2 jours')});
  R.querySelectorAll('[data-bilan]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.bilan),K=contractOf(p.id),d=K?.fin&&K.fin>today()?(K.fin<addDays(today(),7)?K.fin:addDays(today(),7)):addDays(today(),2);
   const now=new Date().toISOString();if(K){p.bilanFait=K.e.id;p.maj=now}
   DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Bilan / renouvellement avec ${p.nom.split(' ')[0]}`,d,r:'',s:'encours',pid:p.id,maj:now});touch();renderAll();toast('Bilan planifié')});
- R.querySelectorAll('[data-snzk]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.snzk);p.snoozeK=addDays(today(),14);p.maj=new Date().toISOString();touch();renderAll()});
- R.querySelectorAll('[data-lost]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.lost);p.etape={v:'perdu',at:new Date().toISOString()};p.maj=p.etape.at;touch();renderAll();toast(`${p.nom} classé « Sans suite »`)});
- R.querySelectorAll('[data-snz]').forEach(b=>b.onclick=()=>{const p=pById(b.dataset.snz);p.snooze=addDays(today(),+CFG().crm.froid||30);p.maj=new Date().toISOString();touch();renderAll()})}
+ R.querySelectorAll('[data-prep]').forEach(b=>b.onclick=()=>openFiche(b.dataset.prep,'notes',true));
+ R.querySelectorAll('[data-trt]').forEach(b=>b.onclick=()=>openTrt(REL[+b.dataset.trt]))}
+
+/* ---------- 2.4.0 : fenêtre « Traiter » ---------- */
+const TRT={x:null,ch:null,d:null};
+const trDays=(n,l)=>{const d=addDays(today(),n);return{d,l,s:dShort(d)}};
+function openTrt(x){if(!x)return;TRT.x=x;TRT.ch=null;TRT.d=null;$('trCom').value='';renderTrt();$('trM').classList.add('show')}
+function closeTrt(){$('trM').classList.remove('show');TRT.x=null}
+function renderTrt(){const x=TRT.x;if(!x)return;const p=x.p,t=today(),act=x.k=='act',rep=REP();
+ $('trTitle').textContent=act?"Traiter l'action":'Traiter la relance';
+ const sub=act?`<b>${esc(x.a.a||'Action')}</b><br>${esc(p.nom)} · prévue le ${dShort(x.a.d)}${x.a.d<t?` · <span class="late">en retard de ${dayDiff(x.a.d,t)} j</span>`:''}`
+  :`<b>${esc(p.nom)}</b> ${stagePill(stageOf(p))}<br>${x.k=='ryt'?`Rythme : ${RYL[x.N.r]} · sans contact depuis ${x.days} j (${dShort(x.N.l.date)})`:x.k=='cold'?`Sans contact depuis ${x.days>900?'toujours':x.days+' j'}`:x.k=='prop'?`Proposition envoyée le ${dShort(x.e.date)} · en attente depuis ${x.days} j`:relWhen(x)}`;
+ $('trSub').innerHTML=sub;
+ const B=(k,l,s,cls='')=>`<button type="button" class="trb ${cls} ${TRT.ch==k?'on':''}" data-ch="${k}">${l}${s?`<small>${s}</small>`:''}</button>`;
+ let done='';
+ if(act)done=B('done','✓ Faite','','ok big')+B('cancel','Annulée','','ko big');
+ else if(x.k=='ryt'||x.k=='cold')done=`<button type="button" class="trb ok big" data-fait="1">✓ Fait : enregistrer l'échange…</button><div class="trprev">Ouvre « Enregistrer un temps » prérempli : ${x.k=='ryt'?'Rencontre réseau':'Conversation'}, ${esc(p.nom)}, aujourd'hui.</div>`;
+ $('trDone').innerHTML=done;$('trDoneS').classList.toggle('hide',!done);
+ const D=[trDays(2,'+2 j'),trDays(7,'+1 sem.'),{d:addMonths(t,1),l:'+1 mois',s:dShort(addMonths(t,1))}];
+ $('trRe').innerHTML=D.map(o=>B('d:'+o.d,o.l,o.s)).join('')+`<input class="fin" type="date" id="trDate" value="${TRT.ch=='date'?TRT.d:''}" min="${t}">`;
+ $('trReH').textContent=act?"Nouvelle date de l'action.":x.k=='prop'?'Reporte le rappel de cette proposition à cette date.':x.k=='end'?'Reporte cette alerte à cette date.':`Crée l'action « Relancer ${p.nom.split(' ')[0]} » à cette date.`;
+ const later=trDays(rep,'Plus tard');
+ $('trLater').innerHTML=B('later','Plus tard',`+${rep} j · ${later.s}`)+`<span class="hint" style="margin:0">${act?'reporte la date de l\'action':x.k=='ryt'?`rappel suspendu jusqu'au ${later.s}, rythme inchangé`:'rappel suspendu'}</span>`;
+ $('trComH').innerHTML=act?"Ajouté, daté, à « Résultat » de l'action.":'Remplace « Prochain sujet à évoquer » de la personne.'+(p.sujet?` Actuellement : <i>${esc(p.sujet)}</i>`:'');
+ $('trDel').textContent=act?"Supprimer l'action":x.k=='ryt'?'Ne plus relancer':x.k=='cold'?'Classer sans suite':'';
+ $('trDel').classList.toggle('hide',!['act','ryt','cold'].includes(x.k));$('trDel').className=act?'btn2 danger':'lnk';$('trDel').classList.toggle('hide',!['act','ryt','cold'].includes(x.k));
+ $('trM').querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{const c=b.dataset.ch;if(TRT.ch==c){TRT.ch=null;TRT.d=null}else if(c.startsWith('d:')){TRT.ch=c;TRT.d=c.slice(2)}else{TRT.ch=c;TRT.d=null}renderTrt()});
+ $('trDate').onchange=e=>{if(e.target.value){TRT.ch='date';TRT.d=e.target.value}else if(TRT.ch=='date'){TRT.ch=null;TRT.d=null}renderTrt()};
+ const f=$('trM').querySelector('[data-fait]');if(f)f.onclick=()=>{closeTrt();S.pid=p.id;openM(x.k=='ryt'?'reseau':'conversation')}}
+function saveTrt(){const x=TRT.x;if(!x)return;const p=x.p,now=new Date().toISOString(),t=today(),com=$('trCom').value.trim(),ch=TRT.ch;
+ if(!ch&&!com){toast('Choisis une issue, ou écris un commentaire');return}
+ const d=ch=='later'?addDays(t,REP()):TRT.d;let msg='';
+ if(x.k=='act'){const a=x.a;
+  if(ch=='done'){a.s='realisee';msg='Action réalisée ✓'}else if(ch=='cancel'){a.s='annulee';msg='Action annulée'}else if(d){a.d=d;msg=`Action reportée au ${dShort(d)}`}
+  if(com){const[y,m,j]=t.split('-');a.r=(a.r?a.r+' · ':'')+`${LANG==='en'?`${m}/${j}`:`${j}/${m}`} : ${com}`}a.maj=now}
+ else{
+  if(d){if(ch=='later'){if(x.k=='prop')x.e.snz=d;else if(x.k=='end')p.snoozeK=d;else if(x.k=='cold')p.snooze=d;else p.relance_report=d;msg=`Rappel reporté au ${dShort(d)}`}
+   else if(x.k=='prop'){x.e.snz=d;msg=`Rappel reporté au ${dShort(d)}`}else if(x.k=='end'){p.snoozeK=d;msg=`Rappel reporté au ${dShort(d)}`}
+   else{DB.actions.push({id:nextId(DB.actions),p:'Relance',a:`Relancer ${p.nom.split(' ')[0]}`,d,r:'',s:'encours',pid:p.id,maj:now});msg=`Relance planifiée le ${dShort(d)}`}
+   if(x.k=='prop')x.e.maj=now}
+  if(com)p.sujet=com;p.maj=now}
+ touch();closeTrt();renderAll();toast(msg||'Prochain sujet enregistré')}
+$('trClose').onclick=closeTrt;$('trCancel').onclick=closeTrt;$('trOk').onclick=saveTrt;$('trM').onclick=e=>{if(e.target==$('trM'))closeTrt()};
+$('trDel').onclick=()=>{const x=TRT.x;if(!x)return;const p=x.p,now=new Date().toISOString();
+ if(x.k=='act'){const a=x.a,L=DB.actions,idx=L.indexOf(a);if(idx<0)return;L.splice(idx,1);DB.supprimes.a[a.id]=now;touch();closeTrt();renderAll();
+  toast('Action supprimée','Annuler',()=>{const M=DB.actions;if(M.some(y=>String(y.id)===String(a.id)))return;M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()});return}
+ if(x.k=='ryt'){const old=p.rythme;p.rythme=0;p.maj=now;qFlag('rythme');touch();closeTrt();renderAll();toast(`${p.nom} : plus de relance au rythme`,'Annuler',()=>{p.rythme=old;p.maj=new Date().toISOString();touch();renderAll()});return}
+ if(x.k=='cold'){p.etape={v:'perdu',at:now};p.maj=now;touch();closeTrt();renderAll();toast(`${p.nom} classé « Sans suite »`)}};
 
 /* ---------- onglet Personnes ---------- */
 const PF={st:'',q:'',arch:false,view:'pipe'};
 function renderPipe(base){const t=today(),q=PF.q.trim().toLowerCase();
- const L=base.filter(x=>!q||[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site].join(' ').toLowerCase().includes(q));
+ const L=base.filter(x=>x.st!='reseau'&&(!q||[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site,...(x.p.cercles||[])].join(' ').toLowerCase().includes(q)));
  $('ppPipe').innerHTML=ETAPES.map(([k,l])=>{const C=L.filter(x=>x.st==k),tot=k=='proposition'?C.reduce((s,x)=>s+pEntries(x.p.id).filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((a,e)=>a+(+e.eur||0),0),0):k=='client'?C.reduce((s,x)=>s+(contractOf(x.p.id)?.eur||0),0):0;
   return `<div class="pcol" data-col="${k}"><div class="pch"><span class="dot" style="background:${ETC[k]}"></span>${l}<span class="n">${C.length}</span></div>${tot?`<div class="pct">${eur(tot)}</div>`:''}
    ${C.map(({p,last,next})=>{const K=contractOf(p.id),pend=pEntries(p.id).filter(e=>e.type=='proposition'&&e.statut=='attente').reduce((a,e)=>a+(+e.eur||0),0);
@@ -90,10 +160,10 @@ function renderPeople(){renderRel($('ppRelList'),$('ppRelN'));if(SIMPLE())PF.vie
  $('ppView').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v==PF.view);b.onclick=()=>{PF.view=b.dataset.v;renderPeople()}});
  $('ppList').classList.toggle('hide',PF.view!='list');$('ppPipe').classList.toggle('hide',PF.view!='pipe');$('ppSt').classList.toggle('hide',PF.view!='list');
  const base=DB.personnes.filter(p=>PF.arch?p.archive:!p.archive).map(p=>({p,st:stageOf(p),last:lastContact(p.id),next:openActs(p.id)[0]}));
- $('ppSt').innerHTML=[['','Toutes']].concat(ETAPES).map(([k,l])=>{const n=k?base.filter(x=>x.st==k).length:base.length;return `<button class="chip ${PF.st==k?'on':''}" data-st="${k}">${l} <small>${n}</small></button>`}).join('');
+ $('ppSt').innerHTML=[['','Toutes']].concat(ETAPES,[['reseau','Contact réseau']]).map(([k,l])=>{const n=k?base.filter(x=>x.st==k).length:base.length;return `<button class="chip ${PF.st==k?'on':''}" data-st="${k}">${l} <small>${n}</small></button>`}).join('');
  $('ppSt').querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{PF.st=b.dataset.st;renderPeople()});
  const q=PF.q.trim().toLowerCase();
- const L=base.filter(x=>(!PF.st||x.st==PF.st)&&(!q||[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site].join(' ').toLowerCase().includes(q)))
+ const L=base.filter(x=>(!PF.st||x.st==PF.st)&&(!q||[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site,...(x.p.cercles||[])].join(' ').toLowerCase().includes(q)))
   .sort((a,b)=>(a.next?0:1)-(b.next?0:1)||(a.next?.d||'').localeCompare(b.next?.d||'')||(b.last?.date||'').localeCompare(a.last?.date||'')||byName(a.p.nom,b.p.nom));
  $('ppList').innerHTML=L.map(({p,st,last,next})=>`<div class="ppc" data-pf="${p.id}"><div class="top">${avatar(p,38)}<div class="tx"><div class="nm">${esc(p.nom)}</div><div class="r2">${stagePill(st)}${p.provenance?`<span class="ti">via ${esc(p.provenance)}</span>`:''}</div>
   ${p.titre||p.site?`<div class="ti">${p.titre?esc(p.titre):''}${p.titre&&p.site?' · ':''}${siteLink(p)}</div>`:''}</div></div>
@@ -101,7 +171,15 @@ function renderPeople(){renderRel($('ppRelList'),$('ppRelN'));if(SIMPLE())PF.vie
   ${st=='client'&&contractOf(p.id)?`<div class="ln">Contrat : <b>${contractTxt(contractOf(p.id))}</b>${contractBar(contractOf(p.id))}</div>`:''}
   <div class="ln ${next&&next.d&&next.d<t?'late':''}">Prochaine action : <b>${next?esc(next.a||'Action')+(next.d?' · '+dShort(next.d):''):'—'}</b></div></div>`).join('')||'<div class="empty">Personne pour ces critères.</div>';
  $('ppList').querySelectorAll('[data-pf]').forEach(c=>c.onclick=e=>{if(e.target.closest('a'))return;openFiche(c.dataset.pf)});
- if(PF.view=='pipe')renderPipe(base)}
+ if(PF.view=='pipe')renderPipe(base);
+ /* 2.4.0 : contacts réseau et personnes sans saisie, hors pipeline */
+ const out=base.filter(x=>x.st=='reseau'),nw=out.filter(x=>pEntries(x.p.id).length).length,ns=out.length-nw,o=$('ppOut');
+ o.classList.toggle('hide',PF.view!='pipe'||!out.length);
+ if(out.length){const qm=q?out.filter(x=>[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site,...(x.p.cercles||[])].join(' ').toLowerCase().includes(q)):[];
+  o.innerHTML=`<span>Hors pipeline :${nw?` <b>${pl(nw,'contact réseau').replace('contact réseaus','contacts réseau')}</b>`:''}${nw&&ns?' et':''}${ns?` <b>${ns>1?ns+' personnes sans saisie':'1 personne sans saisie'}</b>`:''}, trouvables par la recherche ci-dessus.</span>${SIMPLE()?'':'<button class="lnk" id="ppOutL">Les afficher en liste</button>'}`
+   +(qm.length?`<div style="flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px">${qm.map(x=>`<button class="chip" data-pf="${x.p.id}">${esc(x.p.nom)}</button>`).join('')}</div>`:'');
+  o.querySelectorAll('[data-pf]').forEach(b=>b.onclick=()=>openFiche(b.dataset.pf));
+  if($('ppOutL'))$('ppOutL').onclick=()=>{PF.view='list';PF.st='reseau';renderPeople()}}}
 $('ppQ').oninput=e=>{PF.q=e.target.value;renderPeople()};
 $('ppArch').onchange=e=>{PF.arch=e.target.checked;renderPeople()};
 $('ppNew').onclick=()=>{const p={id:nextId(DB.personnes),nom:'Nouvelle personne',maj:new Date().toISOString()};DB.personnes.push(p);touch();openFiche(p.id);setTimeout(()=>$('pfNom').select(),60)};
@@ -133,7 +211,11 @@ function aisBlock(all){const M=mActive().length?mActive():metrics();return M.map
 const webUrl=v=>!v?'':/^https?:\/\//i.test(v.trim())?v.trim():'https://'+v.trim().replace(/^\/+/,'');
 const webHost=v=>{try{return new URL(webUrl(v)).hostname.replace(/^www\./,'')}catch(e){return v}};
 const siteLink=p=>p?.site?`<a class="site" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">${esc(webHost(p.site))} ↗</a>`:'';
-function openFiche(id){PFID=pById(id)?.id;if(PFID==null)return;qFlag('fiche');renderFiche();$('pfM').classList.add('show')}
+let PFTAB='infos';
+function openFiche(id,tab,focusSujet){PFID=pById(id)?.id;if(PFID==null)return;PFTAB=tab||'infos';qFlag('fiche');if(PFTAB=='notes')qFlag('notes');renderFiche();$('pfM').classList.add('show');$('pfM').querySelector('.modal').scrollTop=0;
+ if(focusSujet)setTimeout(()=>{const s=$('pfSujet');s.focus();s.setSelectionRange(s.value.length,s.value.length)},60)}
+function pfTab(k){PFTAB=k;if(k=='notes')qFlag('notes');$('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.classList.toggle('on',b.dataset.pt==k));$('pfM').querySelectorAll('.pftab').forEach(x=>x.classList.toggle('on',x.dataset.pt==k))}
+$('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.onclick=()=>pfTab(b.dataset.pt));
 function closeFiche(){$('pfM').classList.remove('show');PFID=null;renderAll()}
 function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new Date().toISOString();touch()};
  $('pfTitle').textContent='Fiche';
@@ -141,7 +223,7 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
  $('pfAv').style.backgroundImage=p.photo?`url("${p.photo}")`:'';$('pfAv').textContent=p.photo?'':ini;$('pfAv').style.background=p.photo?'':PAL[[...(p.nom||'')].reduce((a,c)=>a+c.charCodeAt(0),0)%PAL.length];
  if(p.photo){$('pfAv').style.backgroundImage=`url("${p.photo}")`;$('pfAv').style.backgroundSize='cover'}
  $('pfPhDel').classList.toggle('hide',!p.photo);
- [['pfNom','nom'],['pfTit','titre'],['pfTel','tel'],['pfMail','email'],['pfWeb','site'],['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl'],['pfNotes','notes']].forEach(([id,k])=>{$(id).value=p[k]||'';
+ [['pfNom','nom'],['pfTit','titre'],['pfTel','tel'],['pfMail','email'],['pfWeb','site'],['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl'],['pfNotes','notes'],['pfSujet','sujet']].forEach(([id,k])=>{$(id).value=p[k]||'';
   $(id).oninput=e=>{p[k]=e.target.value;if(k=='nom'&&!p.nom.trim())return;mk();if(['email','site','tel'].includes(k))links()}});
  $('pfTel').value=fmtTel(p.tel);$('pfTel').onchange=e=>{const f=fmtTel(e.target.value);if(f!==e.target.value){e.target.value=f;p.tel=f;mk()}};
  $('pfNom').onchange=e=>{if(!e.target.value.trim()){p.nom='Sans nom';e.target.value=p.nom;mk()}};
@@ -173,10 +255,69 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
    <label class="pflab">Durée<select class="fin" id="pfKM">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==K.e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></label></div>`;
   const up=()=>{K.e.maj=new Date().toISOString();touch();clearTimeout(up.t);up.t=setTimeout(renderFiche,0)};
   $('pfKD').onchange=e=>{K.e.debut=e.target.value||K.e.date;up()};$('pfKN').onchange=e=>{K.e.seances=+e.target.value||null;up()};$('pfKM').onchange=e=>{K.e.engagement_mois=+e.target.value;up()}}
+ pfTab(PFTAB);renderFicheNet(p,mk);
  $('pfArch').textContent=p.archive?'Réactiver':'Archiver';
  $('pfArch').onclick=()=>{p.archive=!p.archive;mk();renderFiche();toast(p.archive?`${p.nom} archivé`:`${p.nom} réactivé`)};
  $('pfSeeE').onclick=()=>{const id=p.id;closeFiche();F.p.clear();F.p.add(id);goTab('list')};
  $('pfDel').onclick=()=>delPerson(p)}
+/* 2.4.0 : fiche, onglets Infos et Notes (cercles, proximité, rythme, recommandations, notes des échanges) */
+function renderFicheNet(p,mk){const t=today(),all=pEntries(p.id);
+ const rf=()=>{renderFicheNet(p,mk)};
+ /* cercles */
+ $('pfCer').innerHTML=(p.cercles||[]).map(c=>crPill(c,1)).join('')+'<button type="button" class="cradd" id="pfCerAdd">+ cercle</button>';
+ $('pfCer').querySelectorAll('[data-crx]').forEach(i=>i.onclick=()=>{p.cercles=(p.cercles||[]).filter(c=>c!==i.dataset.crx);mk();rf()});
+ $('pfCerAdd').onclick=()=>crOpen($('pfCerAdd'),p,()=>{mk();rf()});
+ /* proximité et rythme */
+ $('pfProx').innerHTML=PROX.map(([k,l])=>`<button type="button" class="${(p.proximite||'regulier')==k?'on':''}" data-px="${k}">${l}</button>`).join('');
+ $('pfProx').querySelectorAll('[data-px]').forEach(b=>b.onclick=()=>{p.proximite=b.dataset.px;mk();rf()});
+ const r=rythmeOf(p);$('pfRy').innerHTML=RYTHMES.map(([v,l])=>`<option value="${v}" ${v==r?'selected':''}>${l}</option>`).join('');
+ $('pfRy').onchange=e=>{p.rythme=+e.target.value;p.relance_report=null;qFlag('rythme');mk();rf()};
+ const N=nextContact(p);let nx;
+ if(!r)nx='Pas de relance au rythme pour cette personne.';
+ else if(!N.l)nx='Aucun échange enregistré : le rythme démarre au premier échange.';
+ else{const d=dayDiff(t,N.next),m=Math.round(d/30.4);
+  nx=`Dernier contact : <b>${dLong(N.l.date)}</b> (${esc(TM[N.l.type]?.l||'')}) · Prochain contact conseillé : <b>${dLong(N.next)}</b> `+(d<0?`<span class="late">· dépassé de ${-d} j</span>`:d==0?`<span class="late">· aujourd'hui</span>`:d<45?`(dans ${d} j)`:`(dans ${m} mois)`);
+  if(p.relance_report&&p.relance_report>t)nx+=` · rappel reporté au ${dShort(p.relance_report)}`}
+ $('pfNext').innerHTML=nx;
+ /* recommandé·e ou présenté·e par */
+ const rp=p.reco_par&&pById(p.reco_par.pid);
+ if(rp){$('pfRP').innerHTML=`<span class="rpv">${avatar(rp,26)}<span class="nm" data-go="${rp.id}">${esc(rp.nom)}</span><i data-rpx title="Retirer">✕</i></span><div class="seg"><button type="button" class="${p.reco_par.mode!='presente'?'on':''}" data-rm="reco">Recommandé·e</button><button type="button" class="${p.reco_par.mode=='presente'?'on':''}" data-rm="presente">Présenté·e</button></div>`;
+  $('pfRP').querySelector('[data-go]').onclick=()=>openFiche(rp.id);
+  $('pfRP').querySelector('[data-rpx]').onclick=()=>{p.reco_par=null;mk();rf()};
+  $('pfRP').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{p.reco_par={...p.reco_par,mode:b.dataset.rm};mk();rf()})}
+ else{$('pfRP').innerHTML=`<input class="fin" id="pfRPq" placeholder="Rechercher une personne…" autocomplete="off">`;const q=$('pfRPq');
+  const cfg=()=>({input:1,cur:null,onPick:id=>{if(String(id)===String(p.id)){toast('Choisis une autre personne');return}p.reco_par={pid:id,mode:'reco'};mk();rf()}});
+  q.oninput=()=>{PK.i=0;if(q.value.trim())pkOpen(q,cfg());else pkClose()};q.onfocus=()=>{if(q.value.trim())pkOpen(q,cfg())};
+  q.onkeydown=e=>{if(PK.el&&PK.inp===q)pkKey(e)}}
+ /* a recommandé ou présenté */
+ const RL=DB.personnes.filter(x=>x!==p&&x.reco_par&&String(x.reco_par.pid)===String(p.id)).sort((a,b)=>byName(a.nom,b.nom));
+ $('pfRecL').innerHTML=RL.map(x=>`<div>${avatar(x,26)}<span class="nm" data-go="${x.id}">${esc(x.nom)}</span><small>· <span>${x.reco_par.mode=='presente'?'présenté·e':'recommandé·e'}</span> · <span>${ETL[stageOf(x)]}</span></small><i data-rlx="${x.id}" title="Retirer le lien">✕</i></div>`).join('')||'<div class="hint" style="margin:0;font-weight:400">Personne pour l\'instant.</div>';
+ $('pfRecL').querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>openFiche(b.dataset.go));
+ $('pfRecL').querySelectorAll('[data-rlx]').forEach(b=>b.onclick=()=>{const x=pById(b.dataset.rlx);x.reco_par=null;x.maj=new Date().toISOString();touch();rf()});
+ $('pfRecAdd').onclick=()=>pkOpen($('pfRecAdd'),{cur:null,onPick:id=>{const x=pById(id);if(!x||x===p){toast('Choisis une autre personne');return}
+  x.reco_par={pid:p.id,mode:'reco'};x.maj=new Date().toISOString();touch();rf()}});
+ /* notes des échanges : « Notes » et « Ce qu'on a vu », de la plus récente à la plus ancienne */
+ const NF=[];[...all].reverse().forEach(e=>{if(e.com&&e.com.trim())NF.push({e,k:"Ce qu'on a vu",x:e.com});if(e.notes&&e.notes.trim())NF.push({e,k:'Notes',x:e.notes})});
+ $('pfNN').textContent=NF.length||'';$('pfEN').textContent=all.length||'';
+ $('pfNF').innerHTML=NF.length?`<div class="nfr">${NF.map(n=>`<div class="nfi" style="--c:${TM[n.e.type]?.c||'#9A9DA1'}"><div class="h">${dLong(n.e.date)} · <span class="ty">${esc(TM[n.e.type]?.l||'')}</span> <span class="k">${n.k}</span></div><div class="t">${esc(n.x)}</div></div>`).join('')}</div>`
+  :'<div class="hint" style="margin:0">Pas encore de notes : elles viennent de tes saisies (« Ce qu\'on a vu » et « Notes »).</div>'}
+/* choix d'un cercle : cercles existants (les plus fournis d'abord), ou création */
+function crOpen(anchor,p,done){pkClose();const el=document.createElement('div');el.className='ppk';
+ el.innerHTML='<input class="fin ppq" placeholder="Chercher ou créer un cercle…" autocomplete="off" spellcheck="false"><div class="ppl"></div>';document.body.appendChild(el);
+ PK.el=el;PK.anchor=anchor;PK.cfg={};PK.inp=el.querySelector('.ppq');PK.items=[];PK.i=0;const inp=PK.inp;
+ const pick=v=>{v=String(v||'').replace(/\s+/g,' ').trim();if(!v)return;const ex=allCercles().find(c=>fold(c.c)===fold(v));v=ex?ex.c:v;
+  if(!(p.cercles||[]).some(c=>fold(c)===fold(v)))p.cercles=[...(p.cercles||[]),v];pkClose();done()};
+ const draw=()=>{const q=fold(inp.value),mine=new Set((p.cercles||[]).map(fold));
+  const L=allCercles().filter(c=>!mine.has(fold(c.c))&&(!q||fold(c.c).includes(q))).slice(0,8),exact=q&&allCercles().some(c=>fold(c.c)===q);
+  PK.items=[...L.map(c=>c.c),...(q&&!exact?[inp.value.trim()]:[])];if(PK.i>=PK.items.length)PK.i=0;
+  el.querySelector('.ppl').innerHTML=L.map((c,n)=>`<button type="button" class="ppi ${n==PK.i?'on':''}" data-n="${n}"><span>${esc(c.c)}</span><small>${pl(c.n,'personne')}</small></button>`).join('')
+   +(q&&!exact?`<button type="button" class="ppi new ${L.length==PK.i?'on':''}" data-n="${L.length}"><span>+ Créer le cercle</span><span data-noi18n>« ${esc(inp.value.trim())} »</span></button>`:'')
+   +(!PK.items.length?`<div class="ppe">${allCercles().length?'Tape le nom d\'un cercle':'Tape le nom d\'un premier cercle : club, école, anciens collègues…'}</div>`:'');
+  el.querySelectorAll('.ppi').forEach(b=>{b.onpointerdown=e=>e.preventDefault();b.onclick=()=>pick(PK.items[+b.dataset.n])});pkPos()};
+ inp.oninput=()=>{PK.i=0;draw()};
+ inp.onkeydown=e=>{const n=PK.items.length;if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(n){PK.i=(PK.i+(e.key=='ArrowDown'?1:-1)+n)%n;draw()}}
+  else if(e.key=='Enter'){e.preventDefault();if(n)pick(PK.items[PK.i]);else pick(inp.value)}else if(e.key=='Escape'){e.preventDefault();e.stopPropagation();pkClose()}};
+ draw();inp.focus()}
 function delPerson(p){const n=E().filter(e=>e.pid==p.id).length,en=LANG==='en';
  const msg=en?`Delete ${p.nom}?\n\n${n?`${n} entr${n>1?'ies are':'y is'} kept (your hours and statistics do not change), with no person attached.`:'No entry is linked to this person.'}\nThis cannot be undone.`
   :`Supprimer ${p.nom} ?\n\n${n?`${n>1?`Ses ${n} saisies sont conservées`:'Sa saisie est conservée'} (tes heures et statistiques ne changent pas), sans personne associée.`:'Aucune saisie ne lui est liée.'}\nCette action est définitive.`;

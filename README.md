@@ -100,7 +100,7 @@ Le reste se découvre en l'utilisant. Le **carnet de route**, en bas à droite, 
 | Chapitre | Missions |
 |---|---|
 | 1. Premiers pas | Enregistrer ton premier entretien, le relier à une personne, écrire une note, regarder ton suivi d'activité, ouvrir la fiche d'une personne, choisir où ranger ton carnet, le protéger par un mot de passe. |
-| 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse. En mode simplifié : découvrir le mode complet. |
+| 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer un contact réseau, donner un rythme de contact à une personne, enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse. En mode simplifié : découvrir le mode complet. |
 | 3. Pratiquer délibérément | Compléter ton profil de coach, nommer au moins 3 compétences, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
 | 4. Piloter | Choisir tes indicateurs, fixer ton objectif prioritaire, renseigner tes coûts. |
 
@@ -139,7 +139,7 @@ En mode simplifié :
 - **Saisie** : les types sont présentés l'un sous l'autre, avec leur sens (« J'ai proposé à une personne de découvrir le coaching »…), puis tes autres types. Il reste la durée, la personne, « Ce qu'on a vu », les notes sur l'entretien et le suivi (CR, synthèse). Une proposition garde son montant et sa durée d'engagement.
 - **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors aisance, objectifs et coûts).
 - **Mes saisies** : identique, sans les notes d'aisance ni le coût des supervisions.
-- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche personne n'a plus l'aisance, le plan d'action, la description, le public ni la problématique.
+- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche personne n'a plus la proximité, l'aisance, le public ni la problématique.
 - **Paramètres** : ton nom, ton logo et une palette de couleurs proposée ; sécurité, stockage, partage et parcours. Les types d'activité, les compétences, les indicateurs, le suivi des personnes et les coûts sont masqués.
 
 ---
@@ -337,12 +337,25 @@ La liste de ce qui demande une action, avec les plus urgents en premier.
 
 | Alerte | Quand elle apparaît | Boutons |
 |---|---|---|
-| **Action liée à une personne** | Elle est en retard ou prévue dans les 7 jours. | Fait |
-| **Proposition en attente** | Une proposition attend une réponse et aucune action n'est prévue pour la personne. Le délai d'attente passe en rouge à partir de 14 jours. | Acceptée · Refusée (annulable) · Planifier une relance (dans 2 jours) · Plus tard (une semaine) |
-| **Fin d'accompagnement** | Le contrat se termine dans les 21 jours, s'est terminé depuis moins de 45 jours, ou la dernière séance prévue est atteinte. Une seule fois par contrat : une fois le bilan planifié, elle ne revient pas, même quand l'action est faite ; un nouveau contrat (renouvellement) la fait réapparaître. | Planifier le bilan · Plus tard (14 jours) |
-| **Sans contact** | La personne est en conversation ou en attente de réponse, sans action prévue, et sans contact depuis le seuil choisi (30 jours par défaut, aucune alerte au-delà de 365 jours). | Planifier une relance · Plus tard · Sans suite |
+| **Action liée à une personne** | Elle est en retard ou prévue dans les 7 jours. | Traiter |
+| **Proposition en attente** | Une proposition attend une réponse et aucune action n'est prévue pour la personne. Le délai d'attente passe en rouge à partir de 14 jours. | Acceptée · Refusée (annulable) · Traiter |
+| **Fin d'accompagnement** | Le contrat se termine dans les 21 jours, s'est terminé depuis moins de 45 jours, ou la dernière séance prévue est atteinte. Une seule fois par contrat : une fois le bilan planifié, elle ne revient pas, même quand l'action est faite ; un nouveau contrat (renouvellement) la fait réapparaître. | Planifier le bilan · Traiter |
+| **Sans contact** | La personne est en conversation ou en attente de réponse, sans action prévue, et sans contact depuis le seuil choisi (30 jours par défaut, aucune alerte au-delà de 365 jours). | Traiter |
+| **Relance au rythme** | Le dernier échange avec la personne est plus ancien que son rythme de contact (tous les 3 mois par défaut), sans action prévue ni autre alerte pour elle. Concerne toutes les personnes, contacts réseau compris, sauf celles classées « Sans suite ». La ligne affiche ses cercles, son rythme et, s'il est rempli, « À reprendre : » suivi du prochain sujet à évoquer. | Préparer · Traiter |
 
-Clique sur un nom pour ouvrir la fiche de la personne.
+Une personne n'apparaît qu'une fois dans la liste. Clique sur un nom pour ouvrir la fiche de la personne.
+
+**Préparer** ouvre la fiche sur l'onglet Notes, le curseur dans « Prochain sujet à évoquer » : de quoi relire ce qu'il faut garder en tête avant de recontacter la personne.
+
+**Traiter** ouvre une petite fenêtre :
+
+- **C'est fait ?** Pour une action : « Faite » ou « Annulée ». Pour une relance au rythme ou une personne sans contact : « Fait : enregistrer l'échange… » ouvre « Enregistrer un temps » prérempli (Rencontre réseau ou Conversation, la personne, aujourd'hui).
+- **Replanifier** : +2 jours, +1 semaine, +1 mois ou la date de ton choix. Pour une action, c'est sa nouvelle date ; pour une relance au rythme ou une personne sans contact, une action « Relancer … » est créée à cette date ; pour une proposition ou une fin d'accompagnement, le rappel est reporté à cette date.
+- **Plus tard** : reporte le rappel de la durée réglée dans Paramètres > Suivi des personnes (14 jours par défaut), sans changer le rythme.
+- **Commentaire** : pour une action, il s'ajoute, daté (« 14/11 : … »), à son « Résultat » ; pour une personne, il remplace son « Prochain sujet à évoquer ».
+- En bas : « Supprimer l'action » (annulable), « Ne plus relancer » (le rythme passe à « Pas de relance ») ou « Classer sans suite ».
+
+Choisis une issue (ou écris seulement un commentaire), puis « Enregistrer ».
 
 ### Objectif prioritaire
 
@@ -377,10 +390,12 @@ L'onglet s'appelait « Métriques » jusqu'à la version 1.7.
 
 Tu choisis 6 indicateurs au maximum. Les 3 premiers sont **principaux** : ils s'affichent en grand, aussi sur le tableau de bord. Les suivants sont secondaires.
 
+En haut à droite d'un bandeau principal : le **niveau** de la statistique (le même que dans ta fiche de coach : heures de coaching, conversations, personnes coachées, pratique délibérée, invitations, CA), et dessous ton **total toutes années confondues** (« 412 h »). Les indicateurs qui se cumulent sans avoir de niveau (nouvelles personnes, personnes vues, recommandations) affichent seulement leur total.
+
 - Pour échanger deux indicateurs, glisse l'un sur l'autre.
 - Pour en changer, ouvre « Choisir mes indicateurs ». Le catalogue affiche ta valeur réelle à date pour chacun.
 
-Le catalogue compte 20 indicateurs, répartis en 4 piliers :
+Le catalogue compte 23 indicateurs, répartis en 4 piliers :
 
 - **Coacher beaucoup :**
   - heures de coaching ;
@@ -400,7 +415,11 @@ Le catalogue compte 20 indicateurs, répartis en 4 piliers :
   - propositions en attente ;
   - taux d'acceptation ;
   - panier moyen ;
-  - taux horaire réel.
+  - taux horaire réel ;
+  - invitations ;
+  - réseau entretenu : personnes avec un rythme de contact, contactées dans leur rythme (« 16 / 20 ») ;
+  - personnes vues : personnes distinctes sur 90 jours, comparées aux 90 jours précédents ;
+  - recommandations : personnes « recommandé·es ou présenté·es par » dans l'année, et combien sont devenues clientes.
 - **Piloter :**
   - actions en retard ;
   - avancement des cibles du trimestre ;
@@ -452,24 +471,26 @@ Le bloc **À relancer** du tableau de bord est aussi en haut de l'onglet Personn
 ### Vues
 
 - **Pipeline** (par défaut) : une colonne par étape, avec son nombre de personnes et ses totaux (propositions en attente, contrats en cours).
+  - Les **contacts réseau** (seulement des rencontres réseau) et les personnes **sans aucune saisie** ne sont pas dans le pipeline. Une ligne sous le pipeline les compte ; « Les afficher en liste » ouvre la vue Liste filtrée sur eux. Une recherche qui les trouve les affiche sous cette ligne.
   - Chaque carte montre la photo et le nom, puis, sur toute la largeur : la fonction, le montant en attente ou l'avancement du contrat, la prochaine action ou le dernier contact. Une icône ouvre le site de la personne.
   - Glisse une carte dans une autre colonne pour changer son étape à la main.
   - Remettre « Automatique » sur la fiche efface ce choix manuel.
 - **Liste** : des tuiles compactes, avec la photo, le nom, l'étape, la provenance, la fonction, le site, le dernier contact, le contrat et la prochaine action.
   - Des filtres par étape indiquent le nombre de personnes dans chacune.
   - Les tuiles sont triées par prochaine action, puis par dernier contact.
-- **Recherche** : sur le nom, la fonction, la provenance, les notes et le site.
+- **Recherche** : sur le nom, la fonction, les cercles, la provenance, les notes et le site.
 - **Personnes archivées** : case à cocher pour les afficher.
 
 ### Les étapes
 
 L'étape se calcule toute seule à partir de tes saisies. Le bouton **« ? Les étapes »** rappelle l'approche et ce qu'il faut saisir à chaque étape (voir la [partie 2](#créer-tes-clients-par-la-relation)).
 
-**Rencontre** : une prise de contact, une discussion formelle ou informelle où l'on se présente, une rencontre en soirée, un appel en visio ou au téléphone. Aucun engagement, aucune attente : le début d'une relation, quelles qu'en soient les perspectives (partenariat, client, recommandation…).
+Le pipeline commence à l'**invitation**. Avant cela, une personne rencontrée (Rencontre réseau) est un **contact réseau** : hors du pipeline, elle a sa fiche, ses cercles et son rythme de contact, et revient dans « À relancer » quand ce rythme est dépassé.
 
 | Étape | Règle automatique |
 |---|---|
-| Rencontre | Aucune conversation ni session (Rencontre réseau, Invitation). |
+| Contact réseau (hors pipeline) | Aucune invitation, conversation, session, proposition ni supervision : seulement des rencontres réseau, ou aucune saisie. |
+| Invité·e | Au moins une invitation, sans conversation ni session. |
 | En conversation | Au moins une conversation ou une session, sans proposition en attente. |
 | Proposition envoyée | Au moins une proposition « En attente ». |
 | Client.e | Un contrat en cours, ou une séance après la fin du contrat. |
@@ -481,9 +502,9 @@ Une étape choisie à la main, sur la fiche ou par glisser-déposer, reste valab
 
 ### La fiche personne
 
-Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « Fiche » dans Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ». La fiche est organisée en deux moitiés.
+Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « Fiche » dans Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ».
 
-**À gauche, qui est la personne :**
+**En haut, toujours visible :**
 
 - **Photo.**
   - Clique sur le rond ou sur « Photo », choisis une image, puis cadre-la dans le disque : glisse pour centrer, puis zoome avec le curseur ou la molette.
@@ -494,17 +515,33 @@ Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », 
   - le combiné lance l'appel, seulement sur un téléphone ou une tablette.
 - **Fonction**, en une ligne : fonction et organisation.
 - **Téléphone, e-mail, site web.** Le téléphone s'espace automatiquement : `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
-- **Étape** (automatique ou manuelle) et **provenance**. Le petit ▾ de la provenance déroule les valeurs déjà utilisées sur tes autres fiches ; en tapant, la liste se filtre. Une nouvelle valeur est ajoutée à la liste pour les fiches suivantes.
-- **Recommandations** : deux cases, « Vient d'une recommandation » (on t'a recommandé à elle) et « Je lui ai demandé une recommandation ».
-- **Public** et **problématique** : à quel public appartient la personne, et ce qu'elle vient travailler. Même liste déroulante que la provenance, pour garder des valeurs homogènes et des analyses propres. Ils alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)).
-- **Description.** Contexte, enjeux, ce qu'il faut savoir.
 
-**À droite, où vous en êtes :**
+Puis trois onglets.
+
+**Infos**
+
+- **Étape** : automatique ou choisie à la main.
+- **Cercles** : les groupes dont la personne fait partie (club d'entrepreneurs, anciens collègues, école de coaching…), autant que tu veux. « + cercle » propose les cercles déjà utilisés, les plus fournis d'abord ; tape un nom nouveau pour en créer un. Le ✕ d'une pastille la retire.
+- **Proximité** : Proche, Régulier (par défaut) ou Occasionnel. Indépendante des cercles.
+- **Rythme de contact** : tous les mois, tous les 3 mois (par défaut), tous les 6 mois, une fois par an ou pas de relance. Dessous : la date du dernier contact et le **prochain contact conseillé** (« 2 novembre 2026 · dépassé de 12 j », « 15 janvier 2027 (dans 2 mois) »).
+- **Recommandé·e ou présenté·e par** : la personne qui te l'a fait connaître, cherchée par son nom (même champ que dans la saisie), puis « Recommandé·e » ou « Présenté·e ».
+- **Provenance** : d'où vient la personne quand personne ne te l'a présentée (salon, LinkedIn, atelier…). Le petit ▾ déroule les valeurs déjà utilisées ; une nouvelle valeur est ajoutée à la liste.
+- **Recommandations** : deux cases, « Vient d'une recommandation » (on t'a recommandé à elle) et « Je lui ai demandé une recommandation ».
+- **A recommandé ou présenté** : les personnes qu'elle t'a fait connaître. « + Ajouter une personne » en relie une nouvelle ; le ✕ retire le lien.
+- **Public** et **problématique** (mode complet) : à quel public appartient la personne, et ce qu'elle vient travailler. Même liste déroulante que la provenance, avec saisie libre. Ils alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)).
+
+**Notes** (le nombre de notes est dans l'intitulé de l'onglet)
+
+- **À garder en tête** : contexte, enjeux, ce qu'il faut savoir (l'ancienne « Description »).
+- **Prochain sujet à évoquer** : repris dans « À relancer » (« À reprendre : … »).
+- **Notes des échanges** : toutes les « Notes » et lignes « Ce qu'on a vu » des saisies de la personne, de la plus récente à la plus ancienne, avec la date et le type.
+
+**Échanges**
 
 - **Chiffres.** Dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
 - **Contrat**, s'il y en a un. Montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
 - **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. Quand des pastilles se chevauchent, celles des types les mieux classés dans Paramètres > Types d'activité passent au-dessus : par exemple les sessions au-dessus des débriefs. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
-- **Aisance moyenne** sur tous tes axes suivis, en deux colonnes.
+- **Aisance moyenne** sur tous tes axes suivis (mode complet).
 - **Plan d'action.** Les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
 
 **En bas :**
@@ -575,7 +612,7 @@ Les blocs vont par deux, dans cet ordre :
 | **Identité** : nom du cabinet, nom de l'outil, phrase de motivation, accord des libellés (féminin, masculin, inclusif). | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
 | **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 13](#13-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
 | **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, notes d'aisance, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. Un type intégré renommé affiche ↺ au bout de sa ligne : il lui rend son nom d'origine (par exemple « Rencontre réseau »). | **Compétences d'aisance** : renvoie à « Gérer mes compétences », sur la boussole d'aisance (voir la [partie 4](#4-pratique-délibérée)). |
-| **Suivi des personnes** : seuil de l'alerte « sans contact », en jours. | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
+| **Suivi des personnes** : seuil de l'alerte « sans contact », en jours ; durée de « Plus tard » dans À relancer (14 jours par défaut). | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
 | **Coûts de l'activité**, sur toute la largeur (voir la [partie 11](#11-coûts-et-taux-horaire-réel)). | |
 | **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : afficher le carnet de route, célébrations animées, « Revoir l'accueil ». |
 
@@ -590,7 +627,7 @@ En bas de chaque page :
 
 - **Changer de dossier** ;
 - **Exporter JSON**, qui produit une copie complète ;
-- **Exporter CSV** ;
+- **Exporter CSV** (tes saisies) et **Exporter les personnes (CSV)** : nom, fonction, étape, cercles (séparés par « ; »), proximité, rythme, recommandé·e ou présenté·e par, provenance, public, problématique, coordonnées, dernier contact, prochain sujet ;
 - **Importer un JSON** ;
 - le numéro de version et le lien **Nouveautés**.
 
@@ -678,7 +715,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.3.1** | 14/11/2026 | Bouton ↺ dans Paramètres pour rendre son nom d'origine à un type intégré renommé. Alerte « bilan ou renouvellement » une seule fois par contrat. Supprimer une action du plan d'action (✕, annulable). |
+| **2.4.0** | 14/11/2026 | « Traiter » dans À relancer (fait, annulée, replanifier, plus tard, commentaire). Rythme de contact par personne et relance au rythme, avec « Préparer ». Fiche personne en onglets Infos, Notes et Échanges : cercles, proximité, recommandé·e ou présenté·e par, prochain sujet à évoquer, notes des échanges. Pipeline à partir de l'invitation (colonne Invité·e), contacts réseau hors pipeline. Indicateurs Réseau entretenu, Personnes vues et Recommandations ; niveau et total dans les bandeaux. « Plus tard » réglable. Export CSV des personnes. |
+| 2.3.1 | 14/11/2026 | Bouton ↺ dans Paramètres pour rendre son nom d'origine à un type intégré renommé. Alerte « bilan ou renouvellement » une seule fois par contrat. Supprimer une action du plan d'action (✕, annulable). |
 | 2.3.0 | 13/11/2026 | Recherche de personne au fil de la frappe (accents et majuscules ignorés, « + Créer ») dans la saisie, Mes saisies et le plan d'action. Rencontre réseau en tête du parcours, avec « Ce qu'on a vu » sur plusieurs lignes. « Personnes archivées » au lieu de « Clients archivés ». |
 | 2.2.0 | 11/11/2026 | Supprimer une personne (ses saisies restent). Durée libre dans Mes saisies (« Autre… »). Personne obligatoire, réglable type par type. Les barres de niveau repartent de zéro à chaque niveau. |
 | 2.1.0 | 09/11/2026 | Visite guidée du carnet de démonstration : la démarche en un écran, puis les pages en neuf étapes ; « Revoir la visite » dans le bandeau. La démonstration s'ouvre en mode simplifié. La petite maison ouvre le site carnet-de-coach.fr. |

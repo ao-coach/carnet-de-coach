@@ -77,8 +77,31 @@ const KPIDEF={
  target:{p:4,l:'Cibles du trimestre',w:'tri',u:'Où tu en es de tes objectifs chiffrés.',
    v:D=>{const x=targetProgress(D);return[x.length?pct(x.reduce((a,b)=>a+b.p,0)/x.length):'—',x.length?'%':'']},
    d:D=>{const x=targetProgress(D);return x.length?x.slice(0,3).map(t=>`${t.l} <b>${pct(t.p)} %</b>`).join(' · '):'aucune cible définie pour ce trimestre'}},
+ /* 2.4.0 : entretien du réseau */
+ rnet:{p:3,l:'Réseau entretenu',w:'now',u:'Les personnes que tu veux voir régulièrement : les vois-tu à leur rythme ?',v:()=>{const x=rnetStat();return[x.n?x.ok:'—',x.n?`/ ${x.n}`:'']},
+   d:()=>{const x=rnetStat();return x.n?`personnes avec un rythme, contactées dans leur rythme · <b>${x.n-x.ok}</b> à relancer`:'aucune personne avec un rythme et un premier échange'}},
+ pvues:{p:3,l:'Personnes vues',w:'j90',u:'Combien de personnes différentes tu as vues ces 90 derniers jours.',v:D=>[pvN(D.win(89,0)),''],
+   d:D=>{const a=pvN(D.win(89,0)),b=pvN(D.win(179,90));return `personnes distinctes en 90 jours · <b>${a-b>=0?'+':''}${a-b}</b> vs 90 j précédents`},sp:D=>D.monthly(pvN)},
+ recos:{p:3,l:'Recommandations',w:'an',u:'Les personnes qui te sont recommandées ou présentées : ton réseau travaille pour toi.',v:D=>[recoOf(D.Y).length,''],
+   d:D=>{const L=recoOf(D.Y),S=signedPids();return `recommandé·es ou présenté·es · <b>${L.filter(p=>S.has(String(p.id))).length}</b> devenu·es client·es`}},
  share:{p:4,l:'Part du coaching',w:'an',u:'La place du coaching dans tout ton temps.',v:D=>{const h=H(yearData(D.Y));return[h?pct(D.s.h/h):'—',h?'%':'']},
    d:D=>{const h=H(yearData(D.Y));return h?`pratique délibérée <b>${pct(D.s.delib/h)} %</b> · annexe ${pct(H(yearData(D.Y).filter(e=>e.type=='annexe'))/h)} %`:'aucune saisie cette année'}}};
+/* 2.4.0 : indicateurs du réseau */
+const pvN=L=>new Set(L.filter(e=>e.pid!=null).map(e=>String(e.pid))).size;
+function rnetStat(){const t=today();let n=0,ok=0;DB.personnes.forEach(p=>{if(p.archive)return;const N=nextContact(p);if(!N.next)return;n++;if(N.next>=t)ok++});return{n,ok}}
+const signedPids=()=>new Set(E().filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0&&e.pid!=null).map(e=>String(e.pid)));
+/* recommandations de l'année : personnes « recommandé·es ou présenté·es par », datées par leur premier échange */
+function recoOf(Y){return DB.personnes.filter(p=>p.reco_par&&p.reco_par.pid!=null&&(!Y||(pEntries(p.id)[0]?.date||'').startsWith(Y)))}
+/* 2.4.0 : niveau (échelle de la fiche coach) et total toutes années, en haut à droite des bandeaux */
+const KLV={h:'h',conv:'conv',coach:'pers',delib:'delib',inv:'inv',caprop:'ca'};
+function kLevel(k){try{const key=KLV[k];let L=null,tot=null;
+  if(key){const row=coachStats().flatMap(g=>g.s).find(r=>r[2]==key);if(row){L=rowLvl(row).L;
+   tot=key=='ca'?eur(E().filter(e=>e.type=='proposition'&&e.statut=='acceptee'&&+e.eur>0).reduce((s,e)=>s+(+e.eur||0),0)+avN('ca')):fmtV(row[1],row[3])+row[3]}}
+  else if(k=='newp')tot=String(Object.keys(firstCoach()).length);
+  else if(k=='recos')tot=String(recoOf(null).length);
+  else if(k=='pvues')tot=String(pvN(E()));
+  if(L==null&&tot==null)return'';
+  return `<div class="lvb" title="${L!=null?'Niveau · total toutes années':'Total toutes années'}">${L!=null?`<b>Niv. ${L}</b>`:''}<small class="${L==null?'alone':''}">${tot}</small></div>`}catch(e){return''}}
 /* charges de l'année : en entier, ou au prorata des jours écoulés */
 /* coût d'une supervision : 0 si non payante, sinon son coût saisi, ou à défaut le prix moyen */
 Object.values(KPIDEF).forEach(K=>{const f=K.v;K.v=D=>{const r=f(D);if(LANG==='en'&&r&&typeof r[1]==='string'){const u=r[1].trim();if(u==='€')return['€'+r[0],''];if(u.startsWith('€/'))return['€'+r[0],u.slice(1)]}return r}});
@@ -100,7 +123,7 @@ const kOrder=()=>{const o=CFG().kpis;return Array.isArray(o)&&o.length?o.filter(
 const kLabel=(k,D)=>`${KPIDEF[k].l}<span class="win">${winTxt[KPIDEF[k].w](D)}</span>`;
 function bars(v){const w=96/v.length;return `<svg width="96" height="34">${v.map((x,i)=>`<rect x="${i*w+1}" y="${x?6:28}" width="${w-2}" height="${x?26:4}" rx="1.5" fill="rgba(255,255,255,${x?.6:.2})"/>`).join('')}</svg>`}
 function tileBig(k,i,D,drag){const K=KPIDEF[k],[v,u]=K.v(D);
- return `<div class="kpi ${drag?'drg':''}" data-k="${k}" ${drag?'draggable="true"':''} style="background:${kpiBg(i)}"><div class="l">${kLabel(k,D)}</div><div class="v">${v}<small>${u?' '+u:''}</small></div><div class="d">${K.d(D)}</div>${K.bars?bars(K.bars(D)):K.sp?spark(K.sp(D)):''}</div>`}
+ return `<div class="kpi ${drag?'drg':''}" data-k="${k}" ${drag?'draggable="true"':''} style="background:${kpiBg(i)}">${kLevel(k)}<div class="l">${kLabel(k,D)}</div><div class="v">${v}<small>${u?' '+u:''}</small></div><div class="d">${K.d(D)}</div>${K.bars?bars(K.bars(D)):K.sp?spark(K.sp(D)):''}</div>`}
 function tileSmall(k,D){const K=KPIDEF[k],[v,u]=K.v(D);
  return `<div class="k2 drg" data-k="${k}" draggable="true"><span class="v">${v}${u?' '+u:''}</span><span class="l">${K.l.toLowerCase()}<span class="win">${winTxt[K.w](D)}</span></span><div class="d">${K.d(D)}</div></div>`}
 const SXK=['disc','aism','obj','rate','target','late'];
@@ -432,6 +455,7 @@ function renderSettings(){const C=CFG();{const q=$('setQ'),a=$('setAnim');q.chec
  finRows();
  $('finAdd').onclick=()=>{F.lignes.push({id:'c'+Date.now(),l:'',f:'',eur:0});touch();finRows();const ins=$('finRows').querySelectorAll('[data-fl=l]');ins[ins.length-1]?.focus()};
  $('crmFroid').value=C.crm.froid;$('crmFroid').onchange=e=>{C.crm.froid=Math.max(7,+e.target.value||30);touch()};
+ $('crmRep').value=C.crm.reporter||14;$('crmRep').onchange=e=>{C.crm.reporter=Math.max(1,Math.round(+e.target.value)||14);e.target.value=C.crm.reporter;touch()};
  renderSecurity();
  document.querySelectorAll('[data-c]').forEach(i=>{i.value=C[i.dataset.c]||'';i.oninput=()=>{C[i.dataset.c]=i.value;touch();applyConfig()}});
  $('pLogo').style.backgroundImage=C.logo?`url("${C.logo}")`:'';$('pBand').style.backgroundImage=C.bandeau?`url("${C.bandeau}")`:'';

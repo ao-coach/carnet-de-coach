@@ -85,7 +85,9 @@
    "provenance": "Réseau d'anciens collègues",
    "public": "Managers de proximité",
    "probl": "Prise de poste",
-   "reco_in": true
+   "reco_in": true,
+   "rythme": 6,
+   "proximite": "proche"
   },
   {
    "id": 1,
@@ -95,7 +97,11 @@
    "public": "Dirigeants",
    "probl": "Leadership",
    "reco_in": true,
-   "reco_dem": true
+   "reco_dem": true,
+   "reco_par": {
+    "pid": 4,
+    "mode": "reco"
+   }
   },
   {
    "id": 2,
@@ -103,7 +109,11 @@
    "titre": "Chef de projet, bureau d'études",
    "provenance": "Club d'entrepreneurs",
    "public": "Managers de proximité",
-   "probl": "Confiance en soi"
+   "probl": "Confiance en soi",
+   "reco_par": {
+    "pid": 13,
+    "mode": "presente"
+   }
   },
   {
    "id": 3,
@@ -120,7 +130,12 @@
    "provenance": "Recommandation",
    "public": "Managers de proximité",
    "probl": "Gestion des conflits",
-   "reco_in": true
+   "reco_in": true,
+   "reco_par": {
+    "pid": 0,
+    "mode": "reco"
+   },
+   "sujet": "Sa nouvelle équipe depuis septembre : comment ça se passe ?"
   },
   {
    "id": 5,
@@ -154,7 +169,11 @@
    "public": "Dirigeants",
    "probl": "Gestion des conflits",
    "reco_in": true,
-   "reco_dem": true
+   "reco_dem": true,
+   "reco_par": {
+    "pid": 0,
+    "mode": "reco"
+   }
   },
   {
    "id": 9,
@@ -184,13 +203,23 @@
    "id": 12,
    "nom": "Paul LAMBERT",
    "titre": "Superviseur, coach senior",
-   "provenance": "Fédération de coachs"
+   "provenance": "Fédération de coachs",
+   "rythme": 3,
+   "cercles": [
+    "Fédération de coachs",
+    "École de coaching"
+   ]
   },
   {
    "id": 13,
    "nom": "Hugo MERCIER",
    "titre": "Consultant indépendant",
-   "provenance": "Réseau d'anciens collègues"
+   "provenance": "Réseau d'anciens collègues",
+   "proximite": "proche",
+   "cercles": [
+    "Réseau d'anciens collègues",
+    "Club d'entrepreneurs"
+   ]
   },
   {
    "id": 14,
@@ -206,7 +235,71 @@
    "titre": "Directeur des opérations",
    "provenance": "Recommandation",
    "public": "Dirigeants",
-   "probl": "Gestion des conflits"
+   "probl": "Gestion des conflits",
+   "reco_par": {
+    "pid": 8,
+    "mode": "reco"
+   }
+  },
+  {
+   "id": 16,
+   "nom": "Bastien COLLIN",
+   "titre": "Fondateur, atelier de menuiserie",
+   "provenance": "Club d'entrepreneurs",
+   "cercles": [
+    "Club d'entrepreneurs",
+    "Réseau d'anciens collègues"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "reco_par": {
+    "pid": 0,
+    "mode": "presente"
+   },
+   "notes": "Ancien collègue de Julien. A repris l'atelier de son père en 2023 : fier, mais épuisé par la gestion.\nOuvert au coaching « un jour », pas pour lui maintenant.",
+   "sujet": "Son projet de former un apprenti : a-t-il trouvé ?"
+  },
+  {
+   "id": 17,
+   "nom": "Chloé VIDAL",
+   "titre": "DRH, laboratoire d'analyses",
+   "provenance": "Conférence RH",
+   "cercles": [
+    "Conférence RH"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 6,
+   "reco_par": {
+    "pid": 16,
+    "mode": "reco"
+   }
+  },
+  {
+   "id": 18,
+   "nom": "Damien ROCHE",
+   "titre": "Expert-comptable",
+   "provenance": "Salon des artisans",
+   "cercles": [
+    "Club d'entrepreneurs"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 12,
+   "reco_par": {
+    "pid": 16,
+    "mode": "presente"
+   },
+   "sujet": "Lui demander qui, parmi ses clients, vit une transmission d'entreprise"
+  },
+  {
+   "id": 19,
+   "nom": "Margaux PETIT",
+   "titre": "Coach, consœur de promotion",
+   "provenance": "École de coaching",
+   "cercles": [
+    "École de coaching"
+   ],
+   "proximite": "proche",
+   "rythme": 1
   }
  ],
  "entrees": [
@@ -375,6 +468,17 @@
    "dur": 90,
    "pid": 12,
    "com": "Supervision : un client qui piétine",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 268,
+   "date": "2025-10-15",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 18,
+   "com": "Rencontré au salon des artisans, sur le stand du club.",
    "cr": false,
    "syn": false,
    "ais": null
@@ -968,6 +1072,17 @@
    "ais": null
   },
   {
+   "id": 264,
+   "date": "2026-01-09",
+   "type": "reseau",
+   "dur": 90,
+   "pid": 16,
+   "com": "Vœux du club. M'a présenté Chloé, DRH d'un laboratoire.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
    "id": 80,
    "date": "2026-01-10",
    "type": "invitation",
@@ -1098,6 +1213,17 @@
     "m3": 3,
     "m4": 3
    }
+  },
+  {
+   "id": 266,
+   "date": "2026-01-20",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 17,
+   "com": "Café, présentée par Bastien. Réfléchit à un accompagnement pour ses managers.",
+   "cr": false,
+   "syn": false,
+   "ais": null
   },
   {
    "id": 22,
@@ -2762,6 +2888,18 @@
    }
   },
   {
+   "id": 265,
+   "date": "2026-08-02",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 16,
+   "com": "Apéro du club. Cherche un apprenti pour la rentrée, hésite à embaucher.\nParle de Damien (expert-comptable), qui pourrait m'intéresser.",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "notes": "Lui envoyer l'article sur la délégation."
+  },
+  {
    "id": 48,
    "date": "2026-08-04",
    "type": "reseau",
@@ -3261,6 +3399,17 @@
    "ais": null
   },
   {
+   "id": 267,
+   "date": "2026-09-30",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 17,
+   "com": "Déjeuner : le projet pour ses managers est reporté à 2027.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
    "id": 57,
    "date": "2026-10-02",
    "type": "reseau",
@@ -3491,6 +3640,17 @@
    "pa": {
     "2": 1
    }
+  },
+  {
+   "id": 269,
+   "date": "2026-10-20",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 19,
+   "com": "Intervision du mois : cas d'un client qui ne fixe pas d'objectif.",
+   "cr": false,
+   "syn": false,
+   "ais": null
   },
   {
    "id": 231,

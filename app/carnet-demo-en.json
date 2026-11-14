@@ -85,7 +85,9 @@
    "provenance": "Former colleagues network",
    "public": "Front-line managers",
    "probl": "New role",
-   "reco_in": true
+   "reco_in": true,
+   "rythme": 6,
+   "proximite": "proche"
   },
   {
    "id": 1,
@@ -95,7 +97,11 @@
    "public": "Executives",
    "probl": "Leadership",
    "reco_in": true,
-   "reco_dem": true
+   "reco_dem": true,
+   "reco_par": {
+    "pid": 4,
+    "mode": "reco"
+   }
   },
   {
    "id": 2,
@@ -103,7 +109,11 @@
    "titre": "Project lead, engineering firm",
    "provenance": "Entrepreneurs club",
    "public": "Front-line managers",
-   "probl": "Self-confidence"
+   "probl": "Self-confidence",
+   "reco_par": {
+    "pid": 13,
+    "mode": "presente"
+   }
   },
   {
    "id": 3,
@@ -120,7 +130,12 @@
    "provenance": "Referral",
    "public": "Front-line managers",
    "probl": "Conflict management",
-   "reco_in": true
+   "reco_in": true,
+   "reco_par": {
+    "pid": 0,
+    "mode": "reco"
+   },
+   "sujet": "His new team since September: how is it going?"
   },
   {
    "id": 5,
@@ -154,7 +169,11 @@
    "public": "Executives",
    "probl": "Conflict management",
    "reco_in": true,
-   "reco_dem": true
+   "reco_dem": true,
+   "reco_par": {
+    "pid": 0,
+    "mode": "reco"
+   }
   },
   {
    "id": 9,
@@ -184,13 +203,23 @@
    "id": 12,
    "nom": "Paul LAMBERT",
    "titre": "Supervisor, senior coach",
-   "provenance": "Coaching federation"
+   "provenance": "Coaching federation",
+   "rythme": 3,
+   "cercles": [
+    "Coaching federation",
+    "Coaching school"
+   ]
   },
   {
    "id": 13,
    "nom": "Hugo MERCIER",
    "titre": "Independent consultant",
-   "provenance": "Former colleagues network"
+   "provenance": "Former colleagues network",
+   "proximite": "proche",
+   "cercles": [
+    "Former colleagues network",
+    "Entrepreneurs club"
+   ]
   },
   {
    "id": 14,
@@ -206,7 +235,71 @@
    "titre": "Operations director",
    "provenance": "Referral",
    "public": "Executives",
-   "probl": "Conflict management"
+   "probl": "Conflict management",
+   "reco_par": {
+    "pid": 8,
+    "mode": "reco"
+   }
+  },
+  {
+   "id": 16,
+   "nom": "Ben COLLINS",
+   "titre": "Founder, joinery workshop",
+   "provenance": "Entrepreneurs club",
+   "cercles": [
+    "Entrepreneurs club",
+    "Former colleagues network"
+   ],
+   "proximite": "regulier",
+   "rythme": 3,
+   "reco_par": {
+    "pid": 0,
+    "mode": "presente"
+   },
+   "notes": "James's former colleague. Took over his father's workshop in 2023: proud, but worn out by the admin.\nOpen to coaching “one day”, not for himself right now.",
+   "sujet": "His plan to train an apprentice: has he found one?"
+  },
+  {
+   "id": 17,
+   "nom": "Chloe VIDAL",
+   "titre": "HR director, medical laboratory",
+   "provenance": "HR conference",
+   "cercles": [
+    "HR conference"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 6,
+   "reco_par": {
+    "pid": 16,
+    "mode": "reco"
+   }
+  },
+  {
+   "id": 18,
+   "nom": "Damien ROCHE",
+   "titre": "Chartered accountant",
+   "provenance": "Craft fair",
+   "cercles": [
+    "Entrepreneurs club"
+   ],
+   "proximite": "occasionnel",
+   "rythme": 12,
+   "reco_par": {
+    "pid": 16,
+    "mode": "presente"
+   },
+   "sujet": "Ask him which of his clients are handing over their business"
+  },
+  {
+   "id": 19,
+   "nom": "Maggie PETIT",
+   "titre": "Coach, classmate from training",
+   "provenance": "Coaching school",
+   "cercles": [
+    "Coaching school"
+   ],
+   "proximite": "proche",
+   "rythme": 1
   }
  ],
  "entrees": [
@@ -375,6 +468,17 @@
    "dur": 90,
    "pid": 12,
    "com": "Supervision: a client who is stuck",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
+   "id": 268,
+   "date": "2025-10-15",
+   "type": "reseau",
+   "dur": 30,
+   "pid": 18,
+   "com": "Met at the craft fair, on the club stand.",
    "cr": false,
    "syn": false,
    "ais": null
@@ -968,6 +1072,17 @@
    "ais": null
   },
   {
+   "id": 264,
+   "date": "2026-01-09",
+   "type": "reseau",
+   "dur": 90,
+   "pid": 16,
+   "com": "Club's new year drinks. Introduced me to Chloe, HR director at a lab.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
    "id": 80,
    "date": "2026-01-10",
    "type": "invitation",
@@ -1098,6 +1213,17 @@
     "m3": 3,
     "m4": 3
    }
+  },
+  {
+   "id": 266,
+   "date": "2026-01-20",
+   "type": "reseau",
+   "dur": 45,
+   "pid": 17,
+   "com": "Coffee, introduced by Ben. Thinking about support for her managers.",
+   "cr": false,
+   "syn": false,
+   "ais": null
   },
   {
    "id": 22,
@@ -2762,6 +2888,18 @@
    }
   },
   {
+   "id": 265,
+   "date": "2026-08-02",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 16,
+   "com": "Club drinks. Looking for an apprentice for September, unsure about hiring.\nMentioned Damien (accountant), who could be useful to me.",
+   "cr": false,
+   "syn": false,
+   "ais": null,
+   "notes": "Send him the article on delegation."
+  },
+  {
    "id": 48,
    "date": "2026-08-04",
    "type": "reseau",
@@ -3261,6 +3399,17 @@
    "ais": null
   },
   {
+   "id": 267,
+   "date": "2026-09-30",
+   "type": "reseau",
+   "dur": 60,
+   "pid": 17,
+   "com": "Lunch: the project for her managers is postponed to 2027.",
+   "cr": false,
+   "syn": false,
+   "ais": null
+  },
+  {
    "id": 57,
    "date": "2026-10-02",
    "type": "reseau",
@@ -3491,6 +3640,17 @@
    "pa": {
     "2": 1
    }
+  },
+  {
+   "id": 269,
+   "date": "2026-10-20",
+   "type": "reseau",
+   "dur": 120,
+   "pid": 19,
+   "com": "Monthly peer session: a client who won't set a goal.",
+   "cr": false,
+   "syn": false,
+   "ais": null
   },
   {
    "id": 231,

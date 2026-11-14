@@ -7,7 +7,7 @@ const VERSION=3, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
 /* Version affichée : x.y.z (x = version majeure, y = nouvelle fonctionnalité, z = correctif).
    APP_VERSION = numéro de publication interne, +1 à chaque publication quelle qu'elle soit :
    il est enregistré dans le carnet (app_version) et met en lecture seule les versions plus anciennes. */
-const APP_SEMVER='2.3.1', APP_VERSION=46, APP_DATE='14 novembre 2026';
+const APP_SEMVER='2.4.0', APP_VERSION=47, APP_DATE='14 novembre 2026';
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
@@ -23,7 +23,7 @@ const P_REQ_DEF=['conversation','session','proposition','debrief','reseau','invi
 const pReq=k=>{const t=TM[k];if(!t?.p)return false;const v=CFG().types[k]?.pReq;return v==null?P_REQ_DEF.includes(k):!!v};
 const TYPE_ROLE={conversation:{p:1,cr:1},proposition:{p:1,prop:1},session:{p:1,cr:1},reseau:{p:1},debrief:{p:1},supervision:{p:1},invitation:{p:1},annexe:{}};
 const KPI_DEFAULT=['h','delib','conv','coach','reg','caprop'];
-const KPI_ALL=['h','conv','coach','reg','newp','active','delib','disc','aism','obj','caprop','transfo','pending','accept','basket','rate','late','target','share','inv'];
+const KPI_ALL=['h','conv','coach','reg','newp','active','delib','disc','aism','obj','caprop','transfo','pending','accept','basket','rate','late','target','share','inv','rnet','pvues','recos'];
 const DEF_ORDER=['session','supervision','debrief','proposition','conversation','invitation','reseau','annexe'];
 let STACK=[...DEF_ORDER];
 let COACH=['conversation','session'],DELIB=['debrief','supervision'];
@@ -83,6 +83,12 @@ function migrate(d){
   d.personnes=d.personnes||[];d.entrees=d.entrees||[];
   d.objectifs=(d.objectifs&&!Array.isArray(d.objectifs))?d.objectifs:{};d.priorites=d.priorites||[];d.actions=d.actions||[];d.prefs=d.prefs||{};
   (d.personnes||[]).forEach(p=>{if(p.linkedin!==undefined){if(p.linkedin&&!p.site)p.site=p.linkedin;delete p.linkedin}});
+  /* 2.4.0 : cercles (la provenance devient un premier cercle, sauf une recommandation), proximité, rythme de contact */
+  d.personnes.forEach(p=>{if(!Array.isArray(p.cercles)){const s=String(p.provenance||'').trim();p.cercles=[];
+    if(/^(recommandation|referral|recommendation)(?![a-zà-ÿ])/i.test(s))p.reco_in=true;else if(s)p.cercles.push(s)}
+   if(!['proche','regulier','occasionnel'].includes(p.proximite))p.proximite='regulier';
+   if(p.rythme==null||![0,1,3,6,12].includes(+p.rythme))p.rythme=3;else p.rythme=+p.rythme;
+   if(p.etape?.v=='contact')p.etape.v='invite'});
   d.entrees.forEach(e=>{
     if(e.contrat&&!e.engagement_mois){e.engagement_mois=e.contrat;delete e.contrat}
     if(Array.isArray(e.ais)){const o={};e.ais.forEach((x,i)=>{if(x)o['m'+(i+1)]=x});e.ais=Object.keys(o).length?o:null}   // v2 : tableau → par identifiant
@@ -94,7 +100,7 @@ function migrate(d){
   c.metriques=c.metriques||D.metriques;
   if(!Array.isArray(c.kpis)||c.kpis.some(k=>k=='prop'||k=='ca'))c.kpis=[...KPI_DEFAULT];   // ancienne liste fixe → nouvelle sélection par défaut
   c.kpis=[...new Set(c.kpis.filter(k=>KPI_ALL.includes(k)))].slice(0,6);if(!c.kpis.length)c.kpis=[...KPI_DEFAULT];
-  c.finances={charges:0,supDefaut:0,mode:'entier',...(c.finances||{})};if(!Array.isArray(c.finances.lignes)){c.finances.lignes=+c.finances.charges>0?[{id:'c1',l:'Charges diverses',f:'',eur:+c.finances.charges}]:[]}c.crm={froid:30,...(c.crm||{})};
+  c.finances={charges:0,supDefaut:0,mode:'entier',...(c.finances||{})};if(!Array.isArray(c.finances.lignes)){c.finances.lignes=+c.finances.charges>0?[{id:'c1',l:'Charges diverses',f:'',eur:+c.finances.charges}]:[]}c.crm={froid:30,reporter:14,...(c.crm||{})};
   if(!Array.isArray(c.ordre))c.ordre=[...DEF_ORDER];c.ordre=[...new Set(c.ordre.filter(k=>KK.includes(k)))];KK.forEach(k=>{if(!c.ordre.includes(k))c.ordre.push(k)});['nom','outil','sousTitre'].forEach(k=>{if(c[k]==null)c[k]=D[k]});
   delete d.prefs.aisOrdre;delete d.prefs.kpiStyle;
   d.actions.forEach((a,i)=>{if(!a.id)a.id=i+1});

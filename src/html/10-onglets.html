@@ -75,10 +75,11 @@
 <!-- ===== PERSONNES ===== -->
 <div id="people" class="hide">
   <div class="card fold" id="ppRelCard" data-fold="1" style="margin-bottom:18px"><h2>À relancer <span class="cntb" id="ppRelN"></span></h2><div id="ppRelList"></div></div>
-  <div class="card"><div class="pphead"><span class="seg big" id="ppView" style="margin-left:0"><button data-v="pipe" class="on">Pipeline</button><button data-v="list">Liste</button></span><button class="btn2 pphelp" id="ppHelp" title="Comprendre ton pipeline">? Les étapes</button><input class="fin" id="ppQ" placeholder="Rechercher : nom, fonction, provenance, notes…" style="max-width:420px"><label class="small"><input type="checkbox" id="ppArch"> Personnes archivées</label><button class="cta" id="ppNew">+ Nouvelle personne</button></div>
+  <div class="card"><div class="pphead"><span class="seg big" id="ppView" style="margin-left:0"><button data-v="pipe" class="on">Pipeline</button><button data-v="list">Liste</button></span><button class="btn2 pphelp" id="ppHelp" title="Comprendre ton pipeline">? Les étapes</button><input class="fin" id="ppQ" placeholder="Rechercher : nom, fonction, cercle, provenance, notes…" style="max-width:420px"><label class="small"><input type="checkbox" id="ppArch"> Personnes archivées</label><button class="cta" id="ppNew">+ Nouvelle personne</button></div>
   <div class="chips" id="ppSt" style="margin-top:14px"></div></div>
   <div class="ppgrid sec" id="ppList"></div>
   <div class="pipe sec hide" id="ppPipe"></div>
+  <div class="pipeout hide" id="ppOut"></div>
 </div>
 
 <!-- ===== PARAMÈTRES ===== -->
@@ -124,6 +125,7 @@
   <div class="pgrid sec">
     <div class="card fold" id="setCrm" data-fold="0"><h2>Suivi des personnes</h2>
       <div class="field"><label>Alerte « sans contact »</label><div style="display:flex;align-items:center;gap:10px"><input class="fin" type="number" min="7" id="crmFroid" style="width:100px"><span class="hint" style="margin:0">jours sans contact pour une personne en conversation ou en attente de réponse</span></div></div>
+      <div class="field"><label>Plus tard</label><div style="display:flex;align-items:center;gap:10px"><input class="fin" type="number" min="1" id="crmRep" style="width:100px"><span class="hint" style="margin:0">jours de report quand tu choisis « Plus tard » dans À relancer (actions, propositions, personnes sans nouvelles, fins de contrat, relances au rythme)</span></div></div>
     </div>
     <div class="card fold" id="setKpi" data-fold="0"><h2>Indicateurs suivis en bandeaux</h2>
       <div class="hint">Les indicateurs affichés en bandeaux en haut du tableau de bord et du Suivi d'activité : jusqu'à 6 parmi 20, classés par pilier ; les 3 premiers sont les principaux.</div>
@@ -156,7 +158,7 @@
   </div>
 </div>
 <div id="about" class="hide"></div>
-<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="impJson">Importer un JSON</a><a id="impCsv">Importer un CSV</a><input type="file" id="csvFile" accept=".csv,text/csv,text/plain" class="hide"><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · <a id="newsLink">Nouveautés</a> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
+<div class="foot"><span id="footInfo"></span><a id="chDir">Changer de dossier</a><a id="expJson">Exporter JSON</a><a id="expCsv">Exporter CSV</a><a id="expCsvP">Exporter les personnes (CSV)</a><a id="impJson">Importer un JSON</a><a id="impCsv">Importer un CSV</a><input type="file" id="csvFile" accept=".csv,text/csv,text/plain" class="hide"><input type="file" id="impFile" accept=".json" class="hide"><span style="margin-left:auto"><span id="footName"></span> · <span id="appVer"></span> · <a id="newsLink">Nouveautés</a> · Outil © 2026 Allan Oudomphong · <a href="https://polyformproject.org/licenses/shield/1.0.0" target="_blank" rel="noopener">Licence PolyForm Shield 1.0.0</a></span></div>
 </main>
 
 
