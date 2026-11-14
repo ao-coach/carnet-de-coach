@@ -149,17 +149,18 @@ En mode simplifié :
 C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistrer un temps »**, en haut à droite. Il faut moins de 30 secondes.
 
 - **Date.** Aujourd'hui par défaut.
-- **Type.** Un bouton par type d'activité, dans sa couleur, dans l'ordre du parcours d'un client : **Invitation › Conversation › Proposition › Session › Débrief › Supervision**, puis tes autres types (Rencontre réseau…) sur la ligne suivante. Le type **Invitation** sert à noter chaque fois que tu proposes à quelqu'un une conversation de coaching (sans durée par défaut).
+- **Type.** Un bouton par type d'activité, dans sa couleur, dans l'ordre du parcours d'un client : **Rencontre réseau › Invitation › Conversation › Proposition › Session › Débrief › Supervision**, puis tes autres types (Annexe…) sur la ligne suivante. **Rencontre réseau** sert à noter un contact de ton réseau (café, événement, appel), le point de départ du parcours. Le type **Invitation** sert à noter chaque fois que tu proposes à quelqu'un une conversation de coaching (sans durée par défaut).
 - **Durée.**
   - Des boutons proposent les durées courantes.
   - Le champ « Autre durée » accepte `2,5`, `2.5`, `2h30`, `2h`, `150min` ou `1:30`.
   - Un nombre seul compte en heures jusqu'à 10, en minutes au-delà. Il n'y a pas de plafond.
 - **Personne.**
-  - Les personnes les plus fréquentes apparaissent en boutons.
-  - Les personnes archivées sont dans une liste déroulante.
-  - « + Nouvelle » crée une nouvelle personne : tape « Prénom Nom », puis Entrée.
+  - Les personnes récentes apparaissent en boutons.
+  - Pour une autre personne, tape quelques lettres dans le champ « Rechercher ou créer une personne… » : les noms s'affichent au fil de la frappe, sans tenir compte des accents ni des majuscules. Les débuts de prénom ou de nom passent en premier, puis les personnes vues récemment. Les personnes archivées y figurent aussi, avec la mention « archivée ».
+  - Choisis avec la souris, ou avec les flèches puis Entrée. Échap ferme la liste.
+  - « + Créer », en bas de la liste, suivi du nom tapé, crée une nouvelle personne.
   - Elle est **obligatoire** pour une rencontre, une invitation, une conversation, une proposition, une séance ou un débrief ; facultative pour une supervision et pour les types que tu ajoutes. Le réglage se change type par type (voir [Paramètres](#12-paramètres), colonne « Personne »).
-- **Ce qu'on a vu.** Une ligne : thème, déclic, pattern repéré.
+- **Ce qu'on a vu.** Une ligne : thème, déclic, pattern repéré. Pour une rencontre réseau, la zone accepte plusieurs lignes (qui, dans quel contexte, ce qui s'est dit, la suite) et s'agrandit avec ton texte.
 - **Notes sur l'entretien.** Une grande zone facultative, pour tout ce que tu veux garder en mémoire. Elle se retrouve dans Mes saisies (bouton ◎), dans l'export CSV et dans l'import CSV (colonne « Notes »).
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
 - **Réponse** (Invitation). Case « Elle a dit non » si la personne décline. Tu peux la cocher plus tard, dans Mes saisies. Tes non sont comptés dans Suivi d'activité.
@@ -351,7 +352,7 @@ Tes priorités du moment, avec pour chacune son objet et ce qu'elle veut dire po
 
 Ce bloc est ouvert par défaut. Clique sur son titre pour le replier : il affiche alors un résumé, avec le nombre d'actions en cours et en retard.
 
-Chaque action a un objectif prioritaire, une description, une personne (facultative), une date prévue, un résultat et un statut : En cours, Réalisée ou Annulée.
+Chaque action a un objectif prioritaire, une description, une personne (facultative), une date prévue, un résultat et un statut : En cours, Réalisée ou Annulée. Un clic sur la personne ouvre le même champ de recherche que dans la saisie ; « — Aucune personne » la retire.
 
 - Une action en retard s'affiche en rouge.
 - Les pastilles « En cours », « Réalisées » et « Annulées » filtrent la liste.
@@ -421,7 +422,7 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 
 - **Filtres.**
   - Clique sur une année, un type ou une ou plusieurs personnes. Clique à nouveau pour retirer le filtre.
-  - Les clients archivés sont dans une liste déroulante.
+  - Les personnes archivées sont dans une liste déroulante, « Personnes archivées ».
 - **Résumé.** Nombre de saisies, temps total, dont coaching, pratique délibérée, et pourcentages de CR et de synthèses faits.
 - **Tuile de la personne.** Quand tu sélectionnes une personne, sa tuile s'affiche à droite des filtres. Si tu en sélectionnes plusieurs, un onglet par personne permet de passer de l'une à l'autre.
   - **À gauche :** son étape dans le pipeline (Rencontre, En conversation, Client.e…), sa fonction et son site, ses dates, ses chiffres, et les boutons Fiche et Archiver.
@@ -431,7 +432,7 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
 - **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, Notes, Contrat / coût.
   - **Notes** est replié par défaut et montre un résumé des valeurs. Un clic sur l'en-tête ou sur une cellule déplie les colonnes d'axes, sur un fond bleu pâle, pour les modifier.
   - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut ; sur une invitation, la case « Elle a dit non ».
-  - **Personne** est une liste : tu peux changer la personne d'une saisie, ou la retirer (« — ») sur un type où elle est facultative. Une saisie à qui il manque une personne obligatoire est entourée en rouge ; « Personne supprimée » signale une saisie dont la personne a été effacée. La petite loupe à côté filtre le tableau sur cette personne.
+  - **Personne** : un clic sur le nom ouvre un champ de recherche (personnes récentes d'abord) pour changer la personne d'une saisie, en créer une, ou la retirer (« — Aucune personne ») sur un type où elle est facultative. Une saisie à qui il manque une personne obligatoire est entourée en rouge ; « Personne supprimée » signale une saisie dont la personne a été effacée. La petite loupe à côté filtre le tableau sur cette personne.
   - **Durée** : « Autre… », en bas de la liste, permet d'écrire n'importe quelle durée (`2,5`, `2h30`, `150min`), puis Entrée.
   - Chaque modification est enregistrée aussitôt.
   - **◎** ouvre les détails de la saisie : notes sur l'entretien, et sa pratique délibérée (réponses aux actions, notes d'aisance, remarques, retours d'une supervision) pour la compléter ou la corriger. Il est coloré quand la saisie en contient.
@@ -676,7 +677,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **2.2.0** | 11/11/2026 | Supprimer une personne (ses saisies restent). Durée libre dans Mes saisies (« Autre… »). Personne obligatoire, réglable type par type. Les barres de niveau repartent de zéro à chaque niveau. |
+| **2.3.0** | 13/11/2026 | Recherche de personne au fil de la frappe (accents et majuscules ignorés, « + Créer ») dans la saisie, Mes saisies et le plan d'action. Rencontre réseau en tête du parcours, avec « Ce qu'on a vu » sur plusieurs lignes. « Personnes archivées » au lieu de « Clients archivés ». |
+| 2.2.0 | 11/11/2026 | Supprimer une personne (ses saisies restent). Durée libre dans Mes saisies (« Autre… »). Personne obligatoire, réglable type par type. Les barres de niveau repartent de zéro à chaque niveau. |
 | 2.1.0 | 09/11/2026 | Visite guidée du carnet de démonstration : la démarche en un écran, puis les pages en neuf étapes ; « Revoir la visite » dans le bandeau. La démonstration s'ouvre en mode simplifié. La petite maison ouvre le site carnet-de-coach.fr. |
 | 2.0.0 | 11/2026 | Carnet de coach a son site (présentation, démarche, captures, questions fréquentes, en français et en anglais). Nouvelle adresse : **carnet-de-coach.fr**, avec l'application sur carnet-de-coach.fr/app/. Réinstalle-la depuis cette adresse, puis choisis « J'ai déjà un carnet : ouvrir son dossier » et sélectionne ton dossier ; tes données ne bougent pas. |
 | 1.12.2 | 08/11/2026 | Lien direct vers le carnet de démonstration (adresse se terminant par ?demo=1). Le lien « Explorer un carnet de démonstration » est masqué quand ton carnet est ouvert. |

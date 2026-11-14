@@ -149,17 +149,18 @@ In simple mode:
 This is the everyday gesture: after each meeting, click **“+ Log time”**, top right. It takes less than 30 seconds.
 
 - **Date.** Today by default.
-- **Type.** One button per activity type, in its colour, in the order of a client's journey: **Invitation › Conversation › Proposal › Session › Debrief › Supervision**, then your other types (Networking…) on the next line. The **Invitation** type is used to log each time you offer someone a coaching conversation (no default length).
+- **Type.** One button per activity type, in its colour, in the order of a client's journey: **Networking › Invitation › Conversation › Proposal › Session › Debrief › Supervision**, then your other types (Other…) on the next line. **Networking** logs a contact from your network (coffee, event, call), the starting point of the journey. The **Invitation** type is used to log each time you offer someone a coaching conversation (no default length).
 - **Length.**
   - Buttons offer the usual lengths.
   - The “Other length” field accepts `2,5`, `2.5`, `2h30`, `2h`, `150min` or `1:30`.
   - A number on its own counts as hours up to 10, minutes beyond. There is no cap.
 - **Person.**
-  - The most frequent people appear as buttons.
-  - Archived people are in a drop-down list.
-  - “+ New” creates a new person: type “First Last”, then Enter.
+  - Your recent people appear as buttons.
+  - For anyone else, type a few letters in the “Search or create a person…” field: names show up as you type, ignoring accents and capitals. Matches at the start of a first or last name come first, then the people you have seen recently. Archived people are included too, marked “archived”.
+  - Pick with the mouse, or with the arrow keys then Enter. Escape closes the list.
+  - “+ Create”, at the bottom of the list, followed by the name you typed, creates a new person.
   - It is **required** for a meeting, an invitation, a conversation, a proposal, a session or a debrief; optional for a supervision and for the types you add. The setting can be changed type by type (see [Settings](#12-settings), “Person” column).
-- **What came up.** One line: theme, insight, pattern spotted.
+- **What came up.** One line: theme, insight, pattern spotted. For a networking entry, the area takes several lines (who, in what context, what was said, what's next) and grows with your text.
 - **Meeting notes.** A large optional area, for anything you want to remember. It shows up in My entries (◎ button), in the CSV export and in the CSV import (“Notes” column).
 - **Follow-up.** “Notes sent” and “Summary written” boxes, for face-to-face meetings.
 - **Answer** (Invitation). “They said no” box if the person declines. You can tick it later, in My entries. Your noes are counted in Activity.
@@ -351,7 +352,7 @@ Your current priorities, each with its objective and what it means for you. You 
 
 This block is open by default. Click its title to collapse it: it then shows a summary, with the number of actions in progress and overdue.
 
-Each action has a priority goal, a description, a person (optional), a due date, a result and a status: In progress, Done or Cancelled.
+Each action has a priority goal, a description, a person (optional), a due date, a result and a status: In progress, Done or Cancelled. A click on the person opens the same search field as in the entry form; “— No person” removes it.
 
 - An overdue action is shown in red.
 - The “In progress”, “Done” and “Cancelled” pills filter the list.
@@ -421,7 +422,7 @@ The detail of all your meetings, filterable and editable directly in the table.
 
 - **Filters.**
   - Click a year, a type or one or more people. Click again to remove the filter.
-  - Archived clients are in a drop-down list.
+  - Archived people are in a drop-down list, “Archived people”.
 - **Summary.** Number of entries, total time, of which coaching, deliberate practice, and percentages of notes and summaries done.
 - **Person tile.** When you select a person, their tile shows to the right of the filters. If you select several, one tab per person lets you switch between them.
   - **Left:** their pipeline stage (Met, In conversation, Client…), role and website, dates, figures, and the Profile and Archive buttons.
@@ -431,7 +432,7 @@ The detail of all your meetings, filterable and editable directly in the table.
 - **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., What came up, Ratings, Contract / cost.
   - **Ratings** is collapsed by default and shows a summary of values. A click on the header or a cell expands the skill columns, on a pale blue background, to edit them.
   - **Contract / cost** is collapsed by default. Once expanded, on a pinkish background, it shows: Accepted (status), Amount (or a supervision's cost), Length, Sessions. On a supervision, the “unpaid” box replaces the status; on an invitation, the “They said no” box.
-  - **Person** is a list: you can change an entry's person, or remove it (“—”) on a type where it is optional. An entry missing a required person is outlined in red; “Deleted person” marks an entry whose person was deleted. The small magnifier next to it filters the table on that person.
+  - **Person**: a click on the name opens a search field (recent people first) to change an entry's person, create one, or remove it (“— No person”) on a type where it is optional. An entry missing a required person is outlined in red; “Deleted person” marks an entry whose person was deleted. The small magnifier next to it filters the table on that person.
   - **Length**: “Other…”, at the bottom of the list, lets you type any length (`2,5`, `2h30`, `150min`), then Enter.
   - Every change is saved immediately.
   - **◎** opens the entry's details: meeting notes, and its deliberate practice (action answers, ease ratings, notes, supervision feedback) to complete or correct it. It is coloured when the entry contains some.
@@ -676,7 +677,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **2.2.0** | 11/11/2026 | Delete a person (their entries remain). Any length in My entries (“Other…”). Required person, set type by type. Level bars start again from zero at each level. |
+| **2.3.0** | 13/11/2026 | Search for a person as you type (accents and capitals ignored, “+ Create”) in the entry form, My entries and the action plan. Networking at the start of the journey, with “What came up” on several lines. “Archived people” instead of “Archived clients”. |
+| 2.2.0 | 11/11/2026 | Delete a person (their entries remain). Any length in My entries (“Other…”). Required person, set type by type. Level bars start again from zero at each level. |
 | 2.1.0 | 09/11/2026 | Guided tour of the demo notebook: the approach in one screen, then the pages in nine steps; “Replay the tour” in the bar. The demo opens in simple mode. The small house opens the carnet-de-coach.fr website. |
 | 2.0.0 | 11/2026 | Carnet de coach has its own website (presentation, approach, screenshots, FAQ, in French and English). New address: **carnet-de-coach.fr**, with the app at carnet-de-coach.fr/app/. Reinstall it from that address, then choose “I already have a notebook: open its folder” and select your folder; your data does not move. |
 | 1.12.2 | 08/11/2026 | Direct link to the demo notebook (address ending in ?demo=1). The “Explore a demo notebook” link is hidden when your notebook is open. |
