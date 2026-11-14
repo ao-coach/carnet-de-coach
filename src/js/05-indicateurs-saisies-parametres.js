@@ -33,7 +33,7 @@ const pids=(L,types)=>new Set(L.filter(e=>types.includes(e.type)&&e.pid!=null).m
 function firstCoach(){const m={};E().forEach(e=>{if(COACH.includes(e.type)&&e.pid!=null&&(!m[e.pid]||e.date<m[e.pid]))m[e.pid]=e.date});return m}
 function weeksActive(D){const d=new Date(D.t+'T12:00:00Z'),mon=addDays(D.t,-((d.getUTCDay()+6)%7));
   return Array.from({length:12},(_,i)=>{const a=addDays(mon,-7*(11-i)),b=addDays(a,6);return E().some(e=>COACH.includes(e.type)&&e.date>=a&&e.date<=b)?1:0})}
-function discipline(L){const f=L.filter(e=>TM[e.type]?.cr),a=L.filter(e=>xpBudget(e)>0),r=[];
+function discipline(L){const f=L.filter(e=>TM[e.type]?.cr),a=L.filter(e=>xpBudget(e)>0&&xpSig(e)),r=[];
   const cr=f.length?f.filter(e=>e.cr).length/f.length:null,sy=f.length?f.filter(e=>e.syn).length/f.length:null,no=a.length?a.filter(e=>xpLeft(e)<=0).length/a.length:null;
   [cr,sy,no].forEach(v=>{if(v!=null)r.push(v)});return{g:r.length?r.reduce((x,y)=>x+y,0)/r.length:null,cr,sy,no,n:f.length}}
 function aisAvg(L,id){const v=[];L.forEach(e=>{if(!e.ais)return;Object.entries(e.ais).forEach(([k,x])=>{if(x&&(!id||k==id))v.push(x)})});return v.length?v.reduce((a,b)=>a+b,0)/v.length:null}
@@ -334,11 +334,11 @@ const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
 const short=s=>{s=TR(s);return s.length>12?s.slice(0,11)+'.':s};
 const LV={notes:false,k:false};
 /* 3.0.0 : état des XP d'une saisie dans Mes saisies (mode complet) : à répartir (jaune), dépassement (rouge) */
-const xpRowCls=e=>{const B=xpBudget(e),l=xpLeft(e);return l<0?'xpov':B>0&&l>0?'xpna':''};
+const xpRowCls=e=>xpLeft(e)<0?'xpov':xpTodo(e)?'xpna':'';
 function xpStat(e){const B=xpBudget(e),l=xpLeft(e),fc=xpFcOf(e);if(!B&&!xpPut(e))return isCom(e.type)?(fc?`<small>${fc} XP</small>`:''):'<small>—</small>';
- return `<b>${B}</b>${l>0?`<small class="na">${l} à répartir</small>`:l<0?`<small class="ov">${-l} de trop</small>`:'<small class="ok">✓</small>'}`}
+ return `<b>${B}</b>${l>0?(xpSig(e)?`<small class="na">${l} à répartir</small>`:''):l<0?`<small class="ov">${-l} de trop</small>`:'<small class="ok">✓</small>'}`}
 function xpSumTxt(e,MS){const B=xpBudget(e),l=xpLeft(e),p=MS.filter(m=>+e.xp?.[m.id]>0).map(m=>`${xpAbbr(m.l)} ${e.xp[m.id]}`);
- if(!B&&!p.length)return '';const h=[B?`${B} XP`:'',...p].filter(Boolean).join(' · ');return `${h}${B&&l>0?` <small class="na">· ${l} à répartir</small>`:l<0?` <small class="ov">· ${-l} de trop</small>`:''}`}
+ if((!B||!xpSig(e))&&!p.length)return '';const h=[B?`${B} XP`:'',...p].filter(Boolean).join(' · ');return `${h}${xpTodo(e)?` <small class="na">· ${l} à répartir</small>`:l<0?` <small class="ov">· ${-l} de trop</small>`:''}`}
 function renderRows(L){
  const MS=SIMPLE()?[]:$('showArch').checked?metrics():mActive();
  const NH=!MS.length?'':LV.notes?`<th class="c cn fit"><button class="tgl" data-tg="notes" title="Replier les XP">◂</button>XP</th>`+MS.map(m=>`<th class="c cn fit ${m.actif?'':'arch'}" title="${esc(m.l)}">${esc(short(m.l))}</th>`).join(''):`<th class="cn fit"><button class="tgl" data-tg="notes" title="Déplier pour répartir les XP">XP ▸</button></th>`;

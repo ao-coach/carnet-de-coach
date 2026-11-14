@@ -25,7 +25,7 @@ const xpEarned=e=>xpBudget(e)+xpFcOf(e);
 function xpInfo(mid,T,G){T=T||xpTotals();G=G||xp30();const tot=Math.max(0,T[mid]||0);return{tot,d30:G[mid]||0,...xpLvl(tot)}}
 const xpAbbr=l=>{const w=String(l||'').split(/[\s'’&\-]+/).filter(x=>x.length>2);return (w.length>1?w.slice(0,2).map(x=>x[0]):[(w[0]||String(l||'?'))[0]]).join('').toUpperCase()};
 /* XP à répartir : saisies dont le budget n'est pas entièrement réparti (signalées en mode complet seulement) */
-function xpPending(){let n=0,x=0;E().forEach(e=>{const l=xpLeft(e);if(xpBudget(e)>0&&l>0){n++;x+=l}});return{n,x}}
+function xpPending(){let n=0,x=0;E().forEach(e=>{if(xpTodo(e)){n++;x+=xpLeft(e)}});return{n,x}}
 const trTxt=t=>t>0?' ↗':t<0?' ↘':'';
 const starsH=(v,cls)=>`<span class="pdst ${cls||''}">${[1,2,3,4,5].map(j=>`<i class="${v!=null&&j<=Math.round(v)?'on':''}">★</i>`).join('')}</span>`;
 const dotsH=a=>`<span class="pdots">${a.last.map(v=>`<i class="r${v}"></i>`).join('')}${'<i class="r-"></i>'.repeat(Math.max(0,10-a.last.length))}</span>`;

@@ -91,6 +91,10 @@ const isFc=id=>{const f=fcMet();return!!f&&String(f.id)===String(id)};
 /* XP répartis sur les compétences de pratique (hors Facultés commerciales) ; reste = budget − répartis (négatif = dépassement) */
 const xpPut=e=>{let s=0;if(e.xp)for(const[k,v] of Object.entries(e.xp))if(!isFc(k))s+=+v||0;return s};
 const xpLeft=e=>xpBudget(e)-xpPut(e);
+/* « à répartir » n'est signalé que pour les saisies postérieures à la migration (prefs.xp_migre, absente d'un carnet neuf),
+   déjà réparties (même en partie) ou issues de la conversion : les anciennes saisies jamais notées restent silencieuses, sans XP. */
+const xpSig=e=>{const m=DB?.prefs?.xp_migre;return !m||(e.date||'')>=m||!!e.xp||e.ais_v2!=null};
+const xpTodo=e=>xpBudget(e)>0&&xpLeft(e)>0&&xpSig(e);
 const xpFcOf=e=>{const f=fcMet();return f&&e.xp?+e.xp[f.id]||0:0};
 /* seuils de niveau : 5·L·(L+1) = 10, 30, 60, 100, 150… (même courbe pour toutes les compétences), niveau max 100 */
 const xpSeuil=L=>5*L*(L+1);
@@ -147,7 +151,7 @@ function migrate(d){
   d.supprimes.t=d.supprimes.t||{};
   d.entrees.forEach(e=>{if('ais' in e)xpFromAis(e,c,d.pd.focus);if(e.xp&&(typeof e.xp!='object'||Array.isArray(e.xp)))delete e.xp;
    else if(e.xp){Object.keys(e.xp).forEach(k=>{const v=Math.max(0,Math.round(+e.xp[k]||0));if(v)e.xp[k]=v;else delete e.xp[k]});if(!Object.keys(e.xp).length)delete e.xp}});
-  if(v<4&&!d.prefs.xp_migre)d.prefs.xp_migre=today();
+  if(v<4&&v>0&&d.entrees.length&&!d.prefs.xp_migre)d.prefs.xp_migre=today();
   d.version_schema=VERSION;return d;
 }
 
