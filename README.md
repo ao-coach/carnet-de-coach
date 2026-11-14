@@ -1,6 +1,6 @@
 # Suivi de pratique de coaching
 
-**Version 3.1.0 (novembre 2026)** · *English version: [README.en.md](README.en.md)* · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
+**Version 3.2.0 (novembre 2026)** · *English version: [README.en.md](README.en.md)* · Outil © 2026 Allan Oudomphong · Licence PolyForm Shield 1.0.0
 
 ## À quoi sert ton carnet
 
@@ -95,7 +95,7 @@ Un carnet neuf s'ouvre sur quatre écrans :
 |---|---|
 | Bienvenue | Une lettre d'accueil. Un lien permet d'importer une sauvegarde ou un modèle transmis par un pair, un autre d'**explorer un carnet de démonstration**. |
 | À quoi sert ton carnet | Les trois valeurs du carnet en une page : coacher beaucoup, affûter quelques compétences, créer ton activité par la relation (le texte [en tête de ce manuel](#à-quoi-sert-ton-carnet)). Il reste lisible ensuite en tête de l'onglet À propos. |
-| Ton mode | **Simplifié** ou **complet** (voir ci-dessous). |
+| Tes modules | « Sur quoi veux-tu travailler ? » : coche ① Coacher beaucoup, ② Affûter mes compétences, ③ Créer mon activité et, en option, ④ Le jeu ; ou un raccourci, **Essentiel** (proposé par défaut) ou **Tout** (voir [Mon carnet : les modules](#mon-carnet--les-modules)). |
 | Ton identité | Ton nom ou celui de ton cabinet, ton logo, une palette de couleurs. |
 
 « Entrer dans mon carnet » t'amène directement sur l'outil, et la première mission t'est montrée.
@@ -104,23 +104,24 @@ La **petite maison**, à gauche des onglets, ouvre le site [carnet-de-coach.fr](
 
 ### Le carnet de démonstration
 
-« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Il s'ouvre en mode simplifié, sur une courte présentation de la démarche suivie d'une visite des pages en onze étapes, treize en mode complet (à suivre ou à passer). Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Revoir la visite » relance la présentation ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
+« Explorer un carnet de démonstration », à l'accueil, ouvre le carnet de Camille Martin, une coach de managers **fictive** : quatorze mois de pratique, des personnes à toutes les étapes, une fiche de coach remplie. Tous ses modules sont activés. Il s'ouvre sur une courte présentation de la démarche suivie d'une visite des pages en treize étapes (à suivre ou à passer), dont une sur le menu « Mon carnet » ; si tu masques des modules, la visite saute les étapes qui s'y rapportent. Tout se manipule librement. Un bandeau rappelle que c'est une démonstration ; « Revoir la visite » relance la présentation ; « Créer mon propre carnet » la referme et lance l'accueil d'un carnet neuf. Le carnet de démonstration n'est jamais écrit dans un dossier. Il existe en français et en anglais, selon la langue choisie.
 
 ### Le carnet de route
 
-Le reste se découvre en l'utilisant. Le **carnet de route**, en bas à droite, propose **une mission à la fois**, en quatre chapitres :
+Le reste se découvre en l'utilisant. Le **carnet de route**, en bas à droite, propose **une mission à la fois**, en quatre chapitres, plus un dernier tant qu'un module est masqué :
 
 | Chapitre | Missions |
 |---|---|
 | 1. Premiers pas | Enregistrer ton premier entretien, le relier à une personne, écrire une note, regarder ton suivi d'activité, ouvrir la fiche d'une personne, choisir où ranger ton carnet, le protéger par un mot de passe. |
-| 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer un contact réseau, donner un rythme de contact à une personne, enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse. En mode simplifié : découvrir le mode complet. |
-| 3. Pratiquer délibérément | Compléter ton profil de coach, nommer au moins 3 compétences, répartir tes premiers XP, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
-| 4. Piloter | Choisir tes indicateurs, fixer ton objectif prioritaire, renseigner tes coûts. |
+| 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer un contact réseau, donner un rythme de contact à une personne, enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse ; regarder ton réseau (module ③). |
+| 3. Pratiquer délibérément (module ②) | Compléter ton profil de coach (avec ④), nommer au moins 3 compétences, répartir tes premiers XP, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
+| 4. Piloter (module ①) | Choisir tes indicateurs, fixer ton objectif prioritaire, renseigner tes coûts (avec ③). |
+| Aller plus loin | Activer un module, avec le menu « Mon carnet ». |
 
 - **« Montre-moi »** met en lumière l'endroit où agir, sur le bon onglet.
 - Une mission se coche **toute seule** quand tu fais l'action, d'où que tu la fasses.
 - Chaque chapitre terminé débloque un haut fait **« Carnet de route : … »**.
-- Les missions du mode complet n'apparaissent pas en mode simplifié.
+- Les missions d'un module masqué n'apparaissent pas.
 - **Carnet existant** : à la mise à jour, les missions déjà faites sont cochées en silence et le carnet de route reste replié.
 - Pour le masquer ou le réafficher : **Paramètres > Parcours de démarrage > Afficher le carnet de route**.
 
@@ -131,7 +132,7 @@ La mission « Comprendre ton pipeline » ouvre deux pages, qu'on retrouve à tou
 1. **L'approche.** On conseille souvent aux coachs les réseaux sociaux, le contenu et le marketing : une voie légitime, avec son prix. Ce carnet suit celle de coachs qui en vivent depuis des années : le coaching se vend par le coaching, et l'on crée ses clients une discussion à la fois. Six principes, chacun avec le type de saisie qui lui correspond : rencontrer chaque jour, aider sans rien attendre, faire vivre le coaching, choisir tes clients, proposer et demander la recommandation, travailler sur un cycle de durée fixée à un prix juste. Avec les repères du carnet pour un contrat signé : environ 13 invitations, 4 personnes en conversation, 10 conversations, 2 propositions.
 2. **Les étapes.** Le chemin d'une personne, de la rencontre au contrat, et pour chaque étape **la saisie qui la fait avancer** (voir la [partie 9](#9-personnes)).
 
-Entre les deux, **le socle : entretenir ton réseau.** Rencontrer ne s'arrête pas au premier café : les personnes que tu connais déjà sont ton terrain le plus fertile. Donne à chacune un rythme de contact, et le carnet te la rappelle dans « À relancer » quand c'est le moment ; en mode complet, l'onglet Réseau montre tes cercles, les passerelles entre eux et les groupes à réchauffer.
+Entre les deux, **le socle : entretenir ton réseau.** Rencontrer ne s'arrête pas au premier café : les personnes que tu connais déjà sont ton terrain le plus fertile. Donne à chacune un rythme de contact, et le carnet te la rappelle dans « À relancer » quand c'est le moment ; avec le module ③, l'onglet Réseau montre tes cercles, les passerelles entre eux et les groupes à réchauffer.
 
 ### Les célébrations
 
@@ -143,21 +144,34 @@ Quand tu franchis un cap, l'outil le salue, avec trois niveaux d'intensité :
 
 Plusieurs caps franchis d'un coup s'enchaînent, du plus grand au plus petit. Une mission accomplie est signalée par une petite notification du carnet de route. Pour couper les célébrations : **Paramètres > Parcours de démarrage > Célébrations animées**.
 
-### Mode simplifié ou complet
+### Mon carnet : les modules
 
-Le bouton **Mode simplifié**, en haut à droite, s'active et se désactive à tout moment. **Rien n'est perdu** : il masque, il n'efface pas. Le mode est enregistré dans ton carnet.
+Le **socle** est toujours là : enregistrer un temps, Suivi d'activité, Mes saisies, Personnes (pipeline, fiche, « À relancer » et « Traiter », rythme de contact et relances au rythme), Paramètres et À propos. Tu y ajoutes les **modules** sur lesquels tu veux travailler, calqués sur [les trois valeurs du carnet](#à-quoi-sert-ton-carnet), plus le jeu :
 
-En mode simplifié :
+| Module | Ce qu'il ajoute |
+|---|---|
+| ① **Coacher beaucoup** | Le **tableau de bord** (indicateurs, objectif prioritaire, plan d'action, suivi indicateurs), les indicateurs 4 à 6 sous les bandeaux, le choix et le glisser-déposer des indicateurs, Paramètres > Indicateurs suivis en bandeaux. |
+| ② **Affûter mes compétences** | L'onglet **Pratique délibérée** (boussole, XP de pratique, transferts, préparation de la supervision), le bloc XP, focus et remarques de la saisie et du détail ◎, les colonnes XP de Mes saisies, les XP investis avec une personne, Paramètres > Compétences. |
+| ③ **Créer mon activité** | L'onglet **Réseau**, la proximité, le public et la problématique dans la fiche, les **Facultés commerciales** (0 à 5 XP et commentaire), la carte « Développer ton activité » (entonnoir), la vue **Liste** des personnes, le coût des supervisions, Paramètres > Suivi des personnes et Coûts de l'activité (taux horaire réel). |
+| ④ **Le jeu** (en option) | La **fiche Coach** (rang, niveau, hauts faits, victoires) et les **célébrations**. |
 
-- **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres. Le tableau de bord, la fiche Coach, la Pratique délibérée et le Réseau sont masqués.
-- **Aucune notion d'XP de pratique, d'objectif, d'action ni de coût.** Les XP de tes saisies restent « à répartir », sans aucun signalement, et rien n'est jamais obligatoire.
+Deux raccourcis : **Essentiel** (aucun module) et **Tout** (les quatre). Dès qu'un module est actif, Paramètres montre aussi les types d'activité et la personnalisation (nom de l'outil, phrase de motivation, bandeau, couleurs).
+
+Le choix se fait au démarrage (« Sur quoi veux-tu travailler ? »), puis à tout moment avec le menu **Mon carnet ▾**, en haut à droite, ou dans **Paramètres > Mon carnet**. Il est enregistré dans ton carnet. **Rien n'est perdu** : un module masqué n'efface rien, et **ce qu'il masque ne te signale plus rien** (pas d'XP « à répartir », pas de commentaire de Facultés commerciales exigé). Si l'onglet ouvert disparaît, le carnet revient sur le Suivi d'activité.
+
+En **Essentiel** (l'ancien mode simplifié) :
+
+- **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres, À propos.
 - **Saisie** : les types sont présentés l'un sous l'autre, avec leur sens (« J'ai proposé à une personne de découvrir le coaching »…), puis tes autres types. Il reste la durée, la personne, « Ce qu'on a vu », les notes sur l'entretien et le suivi (CR, synthèse). Une proposition garde son montant et sa durée d'engagement.
 - **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors XP de pratique, objectifs et coûts).
-- **Mes saisies** : identique, sans les colonnes XP ni le coût des supervisions.
-- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche personne n'a plus la proximité, les XP investis, le public ni la problématique.
-- **Paramètres** : ton nom, ton logo et une palette de couleurs proposée ; sécurité, stockage, partage et parcours. Les types d'activité, les compétences, les indicateurs, le suivi des personnes et les coûts sont masqués.
+- **Mes saisies** : sans les colonnes XP ni le coût des supervisions.
+- **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche n'a ni proximité, ni XP investis, ni public, ni problématique.
+- **Paramètres** : Mon carnet, ton nom, ton logo et une palette proposée ; sécurité, stockage, partage et parcours.
+
+**Mise à jour depuis la 3.1** : un carnet en mode simplifié passe en Essentiel, un carnet en mode complet passe en Tout. Rien d'autre ne change.
 
 ---
+
 
 ## 3. Enregistrer un temps
 
@@ -180,13 +194,13 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
 - **Réponse** (Invitation). Case « Elle a dit non » si la personne décline. Tu peux la cocher plus tard, dans Mes saisies. Tes non sont comptés dans Suivi d'activité.
 - **Actions de pratique délibérée.** Pour chacune de tes actions en cours qui concerne ce type d'entretien : **Oui**, **En partie** ou **Non**. Un nouveau clic sur la réponse l'efface. C'est le plus rapide : commence par là.
-- **XP de pratique** (mode complet). Chaque entretien rapporte des XP selon sa durée et son type : **10 minutes = 1 XP**, arrondi au plus proche, multiplié par **2** pour une séance ou une conversation, **3** pour une supervision, **1** pour un débrief ou un type d'entraînement que tu as ajouté (rôle « Pratique délibérée » ; un type ajouté de rôle « Heures de coaching » compte ×2). Une séance de 1h30 rapporte 18 XP, une conversation d'1 h 12 XP, une supervision de 1h30 27 XP, un débrief de 1h30 9 XP. Les multiplicateurs sont fixes.
+- **XP de pratique** (module ②). Chaque entretien rapporte des XP selon sa durée et son type : **10 minutes = 1 XP**, arrondi au plus proche, multiplié par **2** pour une séance ou une conversation, **3** pour une supervision, **1** pour un débrief ou un type d'entraînement que tu as ajouté (rôle « Pratique délibérée » ; un type ajouté de rôle « Heures de coaching » compte ×2). Une séance de 1h30 rapporte 18 XP, une conversation d'1 h 12 XP, une supervision de 1h30 27 XP, un débrief de 1h30 9 XP. Les multiplicateurs sont fixes.
   - L'en-tête annonce « 18 XP à répartir » et le détail du calcul ; il suit en direct le type et la durée.
   - Toutes tes compétences suivies s'affichent, **tes focus en premier**, avec **−** et **+**. Le compteur indique « reste 6 », puis « tout est réparti ✓ » ; on ne peut pas dépasser le budget.
   - Raccourcis : **Tout sur le focus** et **Répartir également**.
   - Tu peux enregistrer sans tout répartir : les XP restants attendent dans Mes saisies et dans le détail ◎. Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis.
   - Une rencontre réseau, une invitation, une proposition ou une annexe ne rapporte pas d'XP de pratique.
-- **Facultés commerciales** (mode complet). Après une rencontre réseau, une invitation ou une proposition : **de 0 à 5 XP** selon ton aisance, et **ce qui a été facile, ce qui a été difficile**. Ce commentaire est obligatoire, même à 0 XP ; en mode simplifié, le bloc n'apparaît pas et rien n'est exigé.
+- **Facultés commerciales** (module ③). Après une rencontre réseau, une invitation ou une proposition : **de 0 à 5 XP** selon ton aisance, et **ce qui a été facile, ce qui a été difficile**. Ce commentaire est obligatoire, même à 0 XP ; sans le module ③, le bloc n'apparaît pas et rien n'est exigé.
 - **Focus.** Pour chacune de tes compétences en focus, une grande zone **« Ce que j'ai remarqué »** et une case **« Retenir pour la prochaine supervision »**. Tout est facultatif.
 - **Remarques · autres compétences.** « + Remarque » ouvre une zone de remarque pour l'une de tes autres compétences.
 - **Proposition.** Montant, nombre de séances prévues, durée d'engagement. Une proposition est enregistrée « En attente » (voir la [partie 10](#10-propositions-et-contrats)).
@@ -458,7 +472,7 @@ Le catalogue compte 23 indicateurs, répartis en 4 piliers :
 - **Année.** Les boutons 2024, 2025, 2026… choisissent l'année affichée.
 - **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail.
 - **Développer ton activité.** Deux vues, pour l'année choisie :
-  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). À droite : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, tes **Facultés commerciales** (XP de l'année sur tes rencontres réseau, invitations et propositions ; masquées en mode simplifié) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
+  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). À droite : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, tes **Facultés commerciales** (XP de l'année sur tes rencontres réseau, invitations et propositions) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
   - **Par mois** : invitations, conversations, propositions et signatures, mois par mois, pour voir ton rythme.
 - Les XP de pratique se lisent sur la boussole de pratique et dans le panneau XP de l'onglet Pratique délibérée.
 
@@ -478,8 +492,8 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
   - **En dessous :** la frise de ses échanges, avec la date (jj/mm) au-dessus de chaque échange et l'année au milieu de sa période.
 - **Années.** Elles sont classées de la plus récente à la plus ancienne.
 - **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, XP, Contrat / coût.
-  - **XP** (mode complet) est replié par défaut et montre un résumé : « 18 XP · Q 12 · É 6 » (les initiales de tes compétences). Un clic sur l'en-tête ou sur une cellule déplie une colonne par compétence, avec un petit champ numérique, et une colonne qui donne les XP gagnés et ce qui reste à répartir. On ne peut pas dépasser le budget de la saisie ; les Facultés commerciales vont de 0 à 5.
-  - Une saisie dont des XP restent **à répartir** a ses cellules XP en jaune. Si tu raccourcis la durée ou changes le type d'une saisie déjà répartie, le budget est recalculé : un **dépassement** colore la ligne en rouge, sans rien supprimer, jusqu'à ce que tu ajustes. En mode simplifié, rien n'est signalé.
+  - **XP** (module ②) est replié par défaut et montre un résumé : « 18 XP · Q 12 · É 6 » (les initiales de tes compétences). Un clic sur l'en-tête ou sur une cellule déplie une colonne par compétence, avec un petit champ numérique, et une colonne qui donne les XP gagnés et ce qui reste à répartir. On ne peut pas dépasser le budget de la saisie ; les Facultés commerciales vont de 0 à 5.
+  - Une saisie dont des XP restent **à répartir** a ses cellules XP en jaune. Si tu raccourcis la durée ou changes le type d'une saisie déjà répartie, le budget est recalculé : un **dépassement** colore la ligne en rouge, sans rien supprimer, jusqu'à ce que tu ajustes. Sans le module ②, rien n'est signalé.
   - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut ; sur une invitation, la case « Elle a dit non ».
   - **Personne** : un clic sur le nom ouvre un champ de recherche (personnes récentes d'abord) pour changer la personne d'une saisie, en créer une, ou la retirer (« — Aucune personne ») sur un type où elle est facultative. Une saisie à qui il manque une personne obligatoire est entourée en rouge ; « Personne supprimée » signale une saisie dont la personne a été effacée. La petite loupe à côté filtre le tableau sur cette personne.
   - **Durée** : « Autre… », en bas de la liste, permet d'écrire n'importe quelle durée (`2,5`, `2h30`, `150min`), puis Entrée.
@@ -557,7 +571,7 @@ Puis trois onglets.
 - **Provenance** : d'où vient la personne quand personne ne te l'a présentée (salon, LinkedIn, atelier…). Le petit ▾ déroule les valeurs déjà utilisées ; une nouvelle valeur est ajoutée à la liste.
 - **Recommandations** : deux cases, « Vient d'une recommandation » (on t'a recommandé à elle) et « Je lui ai demandé une recommandation ».
 - **A recommandé ou présenté** : les personnes qu'elle t'a fait connaître. « + Ajouter une personne » en relie une nouvelle ; le ✕ retire le lien.
-- **Public** et **problématique** (mode complet) : à quel public appartient la personne, et ce qu'elle vient travailler. Même liste déroulante que la provenance, avec saisie libre. Ils alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)).
+- **Public** et **problématique** (module ③) : à quel public appartient la personne, et ce qu'elle vient travailler. Même liste déroulante que la provenance, avec saisie libre. Ils alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)).
 
 **Notes** (le nombre de notes est dans l'intitulé de l'onglet)
 
@@ -570,7 +584,7 @@ Puis trois onglets.
 - **Chiffres.** Dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
 - **Contrat**, s'il y en a un. Montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
 - **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. Quand des pastilles se chevauchent, celles des types les mieux classés dans Paramètres > Types d'activité passent au-dessus : par exemple les sessions au-dessus des débriefs. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
-- **XP investis avec cette personne**, compétence par compétence (mode complet).
+- **XP investis avec cette personne**, compétence par compétence (module ②).
 - **Plan d'action.** Les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
 
 **En bas :**
@@ -582,9 +596,9 @@ Puis trois onglets.
 
 Tout est enregistré pendant la frappe.
 
-### L'onglet Réseau (mode complet)
+### L'onglet Réseau (module ③)
 
-L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il est masqué en mode simplifié. Rien n'y est saisi : tout vient des fiches (cercles, proximité, public, problématique, « Recommandé·e ou présenté·e par ») et de tes saisies.
+L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il est masqué sans le module ③ « Créer mon activité ». Rien n'y est saisi : tout vient des fiches (cercles, proximité, public, problématique, « Recommandé·e ou présenté·e par ») et de tes saisies.
 
 - **Quatre vues.** **Cercles**, **Public** et **Problématique** regroupent les personnes autour de pivots : un disque par groupe, avec son nombre de membres, et chaque personne reliée à ses groupes. Une personne sans groupe est reliée au pivot gris « Sans cercle » (ou « Non renseigné »). **Orbites** te place au centre : les anneaux disent la proximité (proche, régulier, occasionnel), les parts du disque les cercles, proportionnelles à leur nombre de membres. Une personne de plusieurs cercles est placée dans le premier, avec de petits traits vers les autres.
 - **Ce que montre chaque point.** La **couleur** dit l'étape (contact réseau, invité·e, en conversation, proposition envoyée, client·e, accompagnement terminé, superviseur·e) ; la **taille**, le nombre d'échanges. Un point **pâle entouré de pointillés rouges** est à relancer (rythme de contact dépassé, ou pas de nouvelles depuis un moment). Un **contour doré** signale une **passerelle** : une personne dans plusieurs groupes. Les **flèches dorées** vont de la personne qui recommande à la personne recommandée (en pointillés : présentée).
@@ -645,7 +659,7 @@ Réglages dans **Paramètres > Coûts de l'activité**.
 
 Tous les blocs sont **repliés par défaut**. Clique sur un titre, ou sur le triangle placé avant lui, pour ouvrir ou fermer le bloc. Replié, chaque bloc affiche un résumé d'une ligne. Ton choix est mémorisé sur ton ordinateur.
 
-Les blocs vont par deux, dans cet ordre :
+Les blocs vont par deux, dans cet ordre ; **Mon carnet** (les modules et les raccourcis Essentiel / Tout, ouvert par défaut) s'insère sur toute la largeur sous Identité et Apparence. Certains blocs n'apparaissent qu'avec leur module (voir [Mon carnet : les modules](#mon-carnet--les-modules)) :
 
 | Gauche | Droite |
 |---|---|
@@ -755,7 +769,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.1.0** | 14/11/2026 | Écran « À quoi sert ton carnet » dans le parcours de démarrage (2e étape) et en tête de l'onglet À propos. Version anglaise complétée (messages, missions, rappels, anciennes nouveautés). Trois questions de plus dans À propos (retrouver ou corriger une saisie, choisir tes indicateurs, contenu de Paramètres). Site refondu autour des trois valeurs, captures renouvelées. |
+| **3.2.0** | 14/11/2026 | Modules à la carte à la place du mode simplifié ou complet : ① Coacher beaucoup, ② Affûter mes compétences, ③ Créer mon activité, ④ Le jeu, avec les raccourcis Essentiel et Tout. Choix au démarrage (« Sur quoi veux-tu travailler ? »), dans le menu « Mon carnet » en haut à droite et dans Paramètres. Le mode simplifié devient Essentiel, le complet devient Tout. Un module masqué ne fait rien perdre et ne signale plus rien. Visite de la démo (tous modules activés) et carnet de route qui suivent les modules ; mission « Activer un module ». |
+| 3.1.0 | 14/11/2026 | Écran « À quoi sert ton carnet » dans le parcours de démarrage (2e étape) et en tête de l'onglet À propos. Version anglaise complétée (messages, missions, rappels, anciennes nouveautés). Trois questions de plus dans À propos (retrouver ou corriger une saisie, choisir tes indicateurs, contenu de Paramètres). Site refondu autour des trois valeurs, captures renouvelées. |
 | 3.0.0 | 14/11/2026 | XP de pratique à la place des notes d'aisance de 1 à 5 : chaque entretien rapporte des XP selon sa durée et son type, à répartir entre tes compétences (focus en tête, raccourcis, XP non répartis signalés dans Mes saisies). Niveaux par compétence, boussole de pratique (part des XP et 30 derniers jours), panneau XP avec transferts et historique. Compétence Facultés commerciales (0 à 5 XP et commentaire après une rencontre, une invitation ou une proposition). Indicateur XP de pratique, hauts faits d'XP, export CSV. Conversion des anciennes notes, avec une copie de sécurité automatique avant la migration. |
 | 2.5.0 | 14/11/2026 | Onglet Réseau (mode complet) : vues Cercles, Public, Problématique et Orbites, avec l'étape, le nombre d'échanges, les personnes à relancer, les passerelles et les recommandations ; panneau « Ce que montre ton réseau » (passerelles, groupes à réchauffer, pistes de développement, chaînes de recommandation). Le socle de la démarche : entretenir ton réseau. Démo enrichie de dix contacts réseau. |
 | 2.4.0 | 14/11/2026 | « Traiter » dans À relancer (fait, annulée, replanifier, plus tard, commentaire). Rythme de contact par personne et relance au rythme, avec « Préparer ». Fiche personne en onglets Infos, Notes et Échanges : cercles, proximité, recommandé·e ou présenté·e par, prochain sujet à évoquer, notes des échanges. Pipeline à partir de l'invitation (colonne Invité·e), contacts réseau hors pipeline. Indicateurs Réseau entretenu, Personnes vues et Recommandations ; niveau et total dans les bandeaux. « Plus tard » réglable. Export CSV des personnes. |

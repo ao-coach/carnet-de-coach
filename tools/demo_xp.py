@@ -10,7 +10,8 @@ contacts réseau, saisies, actions : tout est gardé) et produit les données XP
   - XP de Facultés commerciales (0 à 5) et commentaire sur chaque rencontre réseau,
     invitation et proposition, avec une aisance qui progresse au fil des mois ;
   - deux transferts dans l'historique ;
-  - deux saisies récentes laissées à répartir (visibles en mode complet) ;
+  - deux saisies récentes laissées à répartir (visibles avec le module compétences) ;
+  - tous les modules activés (3.2.0) ;
   - version_schema 4, plus aucune note de 1 à 5 (ni ais, ni ais_v2).
 Tous les noms sont fictifs.
 
@@ -148,6 +149,10 @@ def build(lang, d):
     d["pd"]["transferts"] = [dict(t, maj=t["date"] + "T18:00:00.000Z") for t in TRANSFERTS[lang]]
     d.setdefault("supprimes", {}).setdefault("t", {})
     d["version_schema"] = 4
+    # 3.2.0 : Camille a tous les modules activés (la visite explique le menu « Mon carnet ») ;
+    # simple reste écrit, cohérent avec les modules, pour une application plus ancienne
+    d.setdefault("prefs", {})["modules"] = {k: True for k in ("coacher", "competences", "activite", "jeu")}
+    d["prefs"]["simple"] = False
     return d
 
 

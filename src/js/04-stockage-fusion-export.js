@@ -87,6 +87,9 @@ function mergeDB(A,B,base,prefA){
   if(isObj(R.pd)){const L=[...(Array.isArray(R.pd.transferts)?R.pd.transferts:[])],seen=new Set(L.map(t=>String(t?.id)));
    [A,B].forEach(X=>(X.pd?.transferts||[]).forEach(t=>{if(t&&!seen.has(String(t.id))&&!(base&&(base.pd?.transferts||[]).some(b=>String(b.id)===String(t.id)))){seen.add(String(t.id));L.push(JSON.parse(JSON.stringify(t)))}}));
    R.pd.transferts=L.filter(t=>t&&!sup.t[String(t.id)])}
+  /* 3.2.0 : modules = réglage de la copie où ils ont été changés le plus récemment (modules_maj), sinon de la copie la plus récente ; jamais mélangés case par case */
+  {const ma=A.prefs?.modules,mb=B.prefs?.modules;if(isObj(ma)||isObj(mb)){const ta=A.prefs?.modules_maj||'',tb=B.prefs?.modules_maj||'',W=!isObj(mb)?A:!isObj(ma)?B:ta!==tb?(ta>tb?A:B):N;
+   R.prefs=R.prefs||{};R.prefs.modules=JSON.parse(JSON.stringify(W.prefs.modules));R.prefs.simple=!MODS.some(k=>R.prefs.modules[k]);if(W.prefs.modules_maj)R.prefs.modules_maj=W.prefs.modules_maj;else delete R.prefs.modules_maj}}
   R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
   {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
   return{db:R,added}}
@@ -204,12 +207,11 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
   ['Préparer le contact',"« Préparer » ouvre l'onglet Notes de sa fiche : ce qu'il faut garder en tête, le prochain sujet à évoquer et les notes de vos derniers échanges."],
   ['Le chemin de chaque personne',"De la rencontre à l'accompagnement : chaque personne change de colonne à mesure que tu enregistres vos échanges. Le bouton « ? Les étapes » explique chaque colonne."],
   ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
-  ['Simplifié ou complet',"Camille est en mode simplifié : l'essentiel. Le mode complet ajoute le tableau de bord, la pratique délibérée et ses XP de pratique, la fiche de coach, les objectifs et le taux horaire réel."],
-  ['Ton réseau',"En mode complet, l'onglet Réseau dessine tes personnes autour de leurs cercles : la couleur dit l'étape, la taille le nombre d'échanges, les pointillés rouges qui relancer, le contour doré qui fait le pont entre deux cercles. À droite, ce que ton réseau montre : qui réchauffer, où inviter, qui remercier."],
-  ['XP de pratique',"En mode complet, chaque entretien rapporte des XP selon sa durée et son type : une séance de 1h30, 18 XP. Tu les répartis entre les compétences travaillées ; chacune monte de niveau, la boussole montre où tu investis, et un transfert déplace des XP sans en créer."],
+  ['Mon carnet',"Camille a tout activé. « Mon carnet » choisit les modules affichés : ① Coacher beaucoup (tableau de bord, objectifs), ② Affûter mes compétences (pratique délibérée, XP), ③ Créer mon activité (réseau, coûts), ④ Le jeu (fiche de coach, rang). « Essentiel » garde le suivi de tes entretiens et de tes personnes. Masquer un module ne fait rien perdre."],
+  ['Ton réseau',"Avec le module « Créer mon activité », l'onglet Réseau dessine tes personnes autour de leurs cercles : la couleur dit l'étape, la taille le nombre d'échanges, les pointillés rouges qui relancer, le contour doré qui fait le pont entre deux cercles. À droite, ce que ton réseau montre : qui réchauffer, où inviter, qui remercier."],
+  ['XP de pratique',"Avec le module « Affûter mes compétences », chaque entretien rapporte des XP selon sa durée et son type : une séance de 1h30, 18 XP. Tu les répartis entre les compétences travaillées ; chacune monte de niveau, la boussole montre où tu investis, et un transfert déplace des XP sans en créer."],
   ['À toi de jouer',"Explore librement : rien n'est enregistré. Quand tu le souhaites, « Créer mon propre carnet » démarre le tien, vide et rien qu'à toi. Pour revoir ce tour : « Revoir la visite », ici."]],
- openPeople:'Ouvrir Personnes',stay:'Rester en simplifié',full:'Voir le mode complet',stayFull:'Garder le mode complet',simpleBack:'Revenir au simplifié',end:'Terminer',
- fullT:'Le mode complet',fullP:"Le tableau de bord, la pratique délibérée et la fiche de coach sont maintenant visibles dans les onglets. Le bouton « Mode simplifié » permet de revenir à l'essentiel à tout moment."},
+ openPeople:'Ouvrir Personnes',end:'Terminer'},
 en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandSub:'Demo notebook',quote:'Coach a lot, practise deliberately, grow my practice',
  skip:'Skip and explore freely',back:'Back',next:'Continue',go:"Let's go",stop:'Stop the tour',suiv:'Next',step:(n,t)=>`Step ${n} of ${t}`,
  i1t:"Welcome to Camille's notebook",
@@ -232,12 +234,11 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
   ['Prepare the contact','“Prepare” opens the Notes tab of their profile: what to keep in mind, the next topic to raise and the notes from your last exchanges.'],
   ["Each person's path","From first meeting to engagement: each person moves from one column to the next as you log your exchanges. The “? The stages” button explains each column."],
   ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
-  ['Simple or full','Camille is in simple mode: the essentials. Full mode adds the dashboard, deliberate practice and its practice XP, the coach profile, goals and the real hourly rate.'],
-  ['Your network',"In full mode, the Network tab draws your people around their circles: colour shows the stage, size the number of exchanges, red dots who to follow up, a gold outline who bridges two circles. On the right, what your network shows: who to warm up, where to invite, who to thank."],
-  ['Practice XP','In full mode, every session earns XP based on its length and type: a 1h30 session earns 18 XP. You assign them to the skills you worked on; each skill levels up, the compass shows where you invest, and a transfer moves XP without creating any.'],
+  ['My notebook','Camille has everything switched on. “My notebook” picks the modules on display: ① Coach a lot (dashboard, goals), ② Sharpen my skills (deliberate practice, XP), ③ Build my practice (network, costs), ④ The game (coach profile, rank). “Essentials” keeps the tracking of your sessions and your people. Hiding a module loses nothing.'],
+  ['Your network',"With the “Build my practice” module, the Network tab draws your people around their circles: colour shows the stage, size the number of exchanges, red dots who to follow up, a gold outline who bridges two circles. On the right, what your network shows: who to warm up, where to invite, who to thank."],
+  ['Practice XP','With the “Sharpen my skills” module, every session earns XP based on its length and type: a 1h30 session earns 18 XP. You assign them to the skills you worked on; each skill levels up, the compass shows where you invest, and a transfer moves XP without creating any.'],
   ['Your turn','Explore freely: nothing is saved. Whenever you like, “Create my own notebook” starts yours, empty and yours alone. To see this tour again: “Replay the tour”, here.']],
- openPeople:'Open People',stay:'Stay in simple mode',full:'See full mode',stayFull:'Keep full mode',simpleBack:'Back to simple mode',end:'Finish',
- fullT:'Full mode',fullP:'The dashboard, deliberate practice and the coach profile are now visible in the tabs. The “Simple mode” button takes you back to the essentials at any time.'}};
+ openPeople:'Open People',end:'Finish'}};
 const DT={on:false,kind:null,i:0,choice:'tour',full:false};
 const dtX=()=>DTX[typeof LANG!=='undefined'&&LANG==='en'?'en':'fr'];
 const dtFirstTab=()=>[...document.querySelectorAll('.tabs button[data-tab]')].find(b=>b.offsetParent)?.dataset.tab||'dash';
@@ -247,7 +248,7 @@ function dtRoot(){let r=$('dtour');if(!r){r=document.createElement('div');r.id='
 function dtClose(){DT.on=false;DT.kind=null;const r=$('dtour');if(r)r.innerHTML='';document.body.classList.remove('dt-lock')}
 function dtIntro(i=0){DT.on=true;DT.kind='intro';DT.i=i;const X=dtX(),r=dtRoot();document.body.classList.add('dt-lock');
  const body=i===0?X.i1:i===1?`${CITE?`<p class="dt-cite">${X.cite}</p>`:''}${X.i2a}<div class="dt-flow">${X.flow.map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('<i>→</i>')}</div>${X.i2b}`
-  :`${X.i3}<div class="dt-ch"><button class="${DT.choice==='tour'?'on':''}" data-c="tour"><b>${X.c1[0]}</b><span>${X.c1[1]}</span></button><button class="${DT.choice==='free'?'on':''}" data-c="free"><b>${X.c2[0]}</b><span>${X.c2[1]}</span></button></div>`;
+  :`${X.i3}<div class="dt-ch"><button class="${DT.choice==='tour'?'on':''}" data-c="tour"><b>${X.c1[0]}</b><span>${X.c1[1].replace(/\d+/,dtVis().length)}</span></button><button class="${DT.choice==='free'?'on':''}" data-c="free"><b>${X.c2[0]}</b><span>${X.c2[1]}</span></button></div>`;
  r.innerHTML=`<div class="dt-veil"></div><div class="dt-wrap"><div class="dt-card" role="dialog" aria-modal="true"><div class="dt-side"><div class="dt-brand"><div class="ini">CM</div><div><b>${X.brand}</b><span>${X.brandSub}</span></div></div>
   <ul class="dt-steps">${X.side.map((x,j)=>`<li class="${j<i?'ok':j==i?'cur':''}"><b>${j<i?'✓':j+1}</b>${x}</li>`).join('')}</ul><div class="dt-q">${X.quote}</div></div>
   <div class="dt-main"><h2>${[X.i1t,X.i2t,X.i3t][i]}</h2>${body}<div class="dt-foot">${i>0?`<button class="dt-bk" id="dtBack">${X.back}</button>`:''}<a href="#" id="dtSkip">${X.skip}</a><button class="dt-go" id="dtGo">${i<2?X.next:X.go}</button></div></div></div></div>`;
@@ -265,29 +266,25 @@ const DTS=[
  {sel:'#pfM .pftab.on .gold',pre:()=>{goTab('people');const R=relItems().filter(y=>y.k=='ryt'),x=R.find(y=>y.p.notes)||R[0];if(x)openFiche(x.p.id,'notes')}},
  {sel:'#ppPipe',pre:()=>{dtFicheX();goTab('people');const e=$('ppPipe');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-110)},big:true},
  {sel:'#qOpen',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
- {sel:'#modeBtn',mode:true},
- {sel:'#netSvg',full:true,big:true,pre:()=>{dtFicheX();goTab('reseau');const e=$('netView');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
- {sel:'#pdXpCard',full:true,big:true,pre:()=>{dtFicheX();goTab('pd');const e=$('pdXpCard');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
+ {sel:'#modBtn',pre:()=>{dtFicheX();goTab(dtFirstTab());scrollTo(0,0)}},
+ {sel:'#netSvg',mod:'activite',big:true,pre:()=>{dtFicheX();goTab('reseau');const e=$('netView');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
+ {sel:'#pdXpCard',mod:'competences',big:true,pre:()=>{dtFicheX();goTab('pd');const e=$('pdXpCard');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-90)}},
  {sel:'#demoBar',last:true}];
-/* une bulle marquée full n'apparaît qu'en mode complet (onglets Réseau et Pratique délibérée masqués en simplifié) */
-const dtVis=()=>DTS.filter(s=>!s.full||!SIMPLE());
+/* 3.2.0 : une bulle marquée mod n'apparaît que si son module est affiché (onglets Réseau et Pratique délibérée) */
+const dtVis=()=>DTS.filter(s=>!s.mod||MOD(s.mod));
 const dtFicheX=()=>{if($('pfM')?.classList.contains('show'))closeFiche()};
-function dtTour(i=0,dir=1){if(DTS[i]?.full&&SIMPLE()){dtTour(i+dir,dir);return}DT.on=true;DT.kind='tip';DT.i=i;DT.fullNote=false;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];
+function dtTour(i=0,dir=1){if(DTS[i]?.mod&&!MOD(DTS[i].mod)){dtTour(i+dir,dir);return}DT.on=true;DT.kind='tip';DT.i=i;dtRoot();document.body.classList.add('dt-lock');const s=DTS[i];
  if(s.pre)try{s.pre()}catch(e){}requestAnimationFrame(()=>requestAnimationFrame(dtDraw))}
 function dtDraw(){const X=dtX(),i=DT.i,s=DTS[i],r=$('dtour');const V=dtVis(),n=V.length,vi=Math.max(0,V.indexOf(s));
  let t=X.t[i][0],p=X.t[i][1],btns;
- if(DT.fullNote){t=X.fullT;p=X.fullP;btns=`<button id="dtSimple">${X.simpleBack}</button><button class="p" id="dtNext">${X.stayFull}</button>`}
- else if(s.mode)btns=`<button id="dtNext">${X.stay}</button><button class="p" id="dtFull">${X.full}</button>`;
- else if(s.btn)btns=`<button id="dtPrev">${X.back}</button><button class="p" id="dtNext">${X[s.btn]}</button>`;
+ if(s.btn)btns=`<button id="dtPrev">${X.back}</button><button class="p" id="dtNext">${X[s.btn]}</button>`;
  else btns=`${i>0?`<button id="dtPrev">${X.back}</button>`:''}<button class="p" id="dtNext">${s.last?X.end:X.suiv}</button>`;
- const stop=s.mode||s.last?'':`<a href="#" id="dtStop">${X.stop}</a>`;
+ const stop=s.last?'':`<a href="#" id="dtStop">${X.stop}</a>`;
  r.innerHTML=`<div class="dt-catch"></div><div class="dt-hole" id="dtHole"></div><div class="dt-tip" id="dtTip" role="dialog"><div class="k">${X.step(vi+1,n)}</div><h3>${t}</h3><p>${p}</p><div class="b">${stop||'<span></span>'}${btns}</div></div>`;
  dtPlace();
  if($('dtStop'))$('dtStop').onclick=e=>{e.preventDefault();dtClose()};
  if($('dtPrev'))$('dtPrev').onclick=()=>dtTour(i-1,-1);
- if($('dtFull'))$('dtFull').onclick=()=>{if(document.body.classList.contains('simple'))$('modeBtn').click();DT.fullNote=true;requestAnimationFrame(dtDraw)};
- if($('dtSimple'))$('dtSimple').onclick=()=>{if(!document.body.classList.contains('simple'))$('modeBtn').click();DT.fullNote=false;dtTour(i+1)};
- $('dtNext').onclick=()=>{if(s.last){dtClose();return}if(DT.fullNote){DT.fullNote=false}dtTour(i+1)};$('dtNext').focus()}
+ $('dtNext').onclick=()=>{if(s.last){dtClose();return}dtTour(i+1)};$('dtNext').focus()}
 function dtPlace(){const s=DTS[DT.i],el=document.querySelector(s.sel),h=$('dtHole'),tp=$('dtTip');if(!h||!tp)return;
  const W=innerWidth,H=innerHeight,pad=8,g=16;
  if(!el||!el.getClientRects().length){h.style.display='none';tp.style.left=Math.max(16,(W-tp.offsetWidth)/2)+'px';tp.style.top=Math.max(16,(H-tp.offsetHeight)/2)+'px';return}
@@ -303,9 +300,9 @@ function dtPlace(){const s=DTS[DT.i],el=document.querySelector(s.sel),h=$('dtHol
    bandeau ni messages, puis pose html[data-shot=ready]. Clés : SHOTS ci-dessous. Sans effet hors du carnet de démonstration. */
 const SHOT=(()=>{try{return new URLSearchParams(location.search).get('shot')||''}catch(e){return ''}})();
 const SHOTS={dash:{tab:'dash'},log:{tab:'dash',log:1,wait:1500},coach:{tab:'coach'},practice:{tab:'pd'},xp:{tab:'pd',sel:'#pdXpCard'},
- funnel:{tab:'metrics',sel:'#mFunnel'},pipeline:{tab:'people',simple:1},reseau:{tab:'reseau',wait:2500}};
+ funnel:{tab:'metrics',sel:'#mFunnel'},pipeline:{tab:'people',ess:1},reseau:{tab:'reseau',wait:2500}};
 async function demoShot(){const k=SHOTS[SHOT],w=ms=>new Promise(r=>setTimeout(r,ms));dtClose();document.body.classList.add('shot');
- DB.prefs.simple=!!k.simple;applyMode();goTab(k.tab);await w(400);if(k.log)openM();
+ DB.prefs.modules=modsAll(!k.ess);DB.prefs.simple=!!k.ess;applyMode();goTab(k.tab);await w(400);if(k.log)openM();
  const e=k.sel&&document.querySelector(k.sel);if(e)e.scrollIntoView({block:'start'});else scrollTo(0,0);
  await w(k.wait||600);document.documentElement.dataset.shot='ready'}
 function demoTourAuto(){if(!DB?.demo)return;if(SHOT&&SHOTS[SHOT]){demoShot();return}if(DT.on){DT.kind==='intro'?dtIntro(DT.i):dtTour(DT.i);return}

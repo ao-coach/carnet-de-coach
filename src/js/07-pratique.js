@@ -149,12 +149,14 @@ function xpBlock(st,type,dur){const mu=xpMult(type),B=Math.round((+dur||0)/10)*m
   <div class="xph"><b>${B} XP à répartir</b><small>${fmtD(+dur||0)} · ${esc(TM[type]?.l||type)} ×${mu}</small><span class="xpc ${left==0?'ok':left<0?'over':''}">${left>0?`reste ${left}`:left==0?'tout est réparti ✓':`${-left} de trop`}</span></div>
   ${xpRows(st,L,B)}
   <div class="xpsh">${FL.length?'<button type="button" class="btn2" data-xpall>Tout sur le focus</button>':''}<button type="button" class="btn2" data-xpeq>Répartir également</button>${xpSum(st.xp)?'<button type="button" class="lnk0" data-xp0>Remettre à zéro</button>':''}</div>`}
-function pdForm(st,type,dur){const t=TM[type]||{},AC=actsCours().filter(a=>actTypes(a).includes(type)),M=mActive().filter(m=>!m.fc),F=PD().focus.map(String);
- st.xp=st.xp||{};const FM=M.filter(m=>F.includes(String(m.id))),OM=M.filter(m=>!F.includes(String(m.id)));let h='';
+function pdForm(st,type,dur){const t=TM[type]||{},C2=MOD('competences'),AC=C2?actsCours().filter(a=>actTypes(a).includes(type)):[],M=C2?mActive().filter(m=>!m.fc):[],F=PD().focus.map(String);
+ st.xp=st.xp||{};
+ /* 3.2.0 : actions, XP et remarques = module ② ; Facultés commerciales = module ③ */
+ const cm=isCom(type)&&!!fcMet();if(cm?!MOD('activite')&&!C2:!C2)return '';const FM=M.filter(m=>F.includes(String(m.id))),OM=M.filter(m=>!F.includes(String(m.id)));let h='';
  const remBox=(m,ph)=>{const r=st.rem[m.id]||{};return `<textarea class="fin pdta" data-remt="${esc(m.id)}" rows="3" placeholder="${ph}">${esc(r.t||'')}</textarea>
    ${r.sid?`<div class="pdsid">Vue en supervision le ${dShort(E().find(x=>x.id==r.sid)?.date||'')}</div>`:`<label class="cb"><input type="checkbox" data-rems="${esc(m.id)}" ${r.sup?'checked':''}><span>Retenir pour la prochaine supervision</span></label>`}`};
  if(AC.length)h+=`<div class="lab">Actions de pratique délibérée</div>`+AC.map(a=>{const v=st.pa[a.id];return `<div class="pdq"><span>${esc(a.a)}</span><span class="pdseg">${[[2,'Oui'],[1,'En partie'],[0,'Non']].map(([n,l])=>`<b class="${v===n?'on':''}" data-pa="${a.id}" data-n="${n}">${l}</b>`).join('')}</span></div>`}).join('');
- h+=xpBlock(st,type,dur);
+ if(cm?MOD('activite'):C2)h+=xpBlock(st,type,dur);
  if((t.ais||xpMult(type)>0)&&M.length){
   if(FM.length)h+=`<div class="lab">Focus <span class="lab0">· ce que tu remarques, facultatif</span></div>`+FM.map(m=>`<div class="pdfq"><div class="pdfh"><b>${esc(m.l)}</b></div>${remBox(m,'Ce que j\'ai remarqué…')}</div>`).join('');
   else h+=`<div class="lab">Focus</div><div class="hint" style="margin:0">Choisis jusqu'à 3 compétences à travailler dans l'onglet Pratique délibérée : tu pourras noter ici ce que tu remarques sur chacune.</div>`;
@@ -191,17 +193,17 @@ let PDE=null;
 function openPdEdit(id){const e=E().find(x=>String(x.id)===String(id));if(!e)return;
  PDE={e,notes:e.notes||'',st:{pa:{...(e.pa||{})},xp:{...(e.xp||{})},fcom:e.fcom||'',rem:JSON.parse(JSON.stringify(e.rem||{}))},ret:JSON.parse(JSON.stringify(e.retours||[]))};
  $('pdeT').textContent=`${TM[e.type]?.l||e.type} · ${dShort(e.date)}${e.pid!=null?' · '+pname(e.pid):''}`;renderPdEdit();$('pdeM').classList.add('show')}
-function renderPdEdit(){const b=$('pdeB'),R=PDE.ret;let h=`<div class="lab">Notes sur l'entretien</div><textarea class="fin pdta" data-notes rows="3" placeholder="Ce que tu veux garder en mémoire sur cet entretien…">${esc(PDE.notes)}</textarea>`+(SIMPLE()?'':pdForm(PDE.st,PDE.e.type,PDE.e.dur));
- if(R.length&&!SIMPLE())h+=`<div class="lab">Retours de supervision</div>`+R.map((x,i)=>{const src=E().find(y=>y.id==x.eid),m=mById(x.mid);return `<div class="pdfq"><div class="cmh"><b>${esc(m?.l||'Compétence supprimée')}</b>${src?` · ${dShort(src.date)} · ${esc(TM[src.type]?.l||src.type)}${src.pid!=null?' · '+esc(pname(src.pid)):''}`:''}</div>${src?.rem?.[x.mid]?.t?`<div class="spx" style="margin-left:0">${esc(src.rem[x.mid].t)}</div>`:''}<textarea class="fin pdta" data-ret="${i}" rows="2" placeholder="Ce que je retiens de la supervision…">${esc(x.t||'')}</textarea></div>`}).join('');
+function renderPdEdit(){const b=$('pdeB'),R=PDE.ret;let h=`<div class="lab">Notes sur l'entretien</div><textarea class="fin pdta" data-notes rows="3" placeholder="Ce que tu veux garder en mémoire sur cet entretien…">${esc(PDE.notes)}</textarea>`+pdForm(PDE.st,PDE.e.type,PDE.e.dur);
+ if(R.length&&MOD('competences'))h+=`<div class="lab">Retours de supervision</div>`+R.map((x,i)=>{const src=E().find(y=>y.id==x.eid),m=mById(x.mid);return `<div class="pdfq"><div class="cmh"><b>${esc(m?.l||'Compétence supprimée')}</b>${src?` · ${dShort(src.date)} · ${esc(TM[src.type]?.l||src.type)}${src.pid!=null?' · '+esc(pname(src.pid)):''}`:''}</div>${src?.rem?.[x.mid]?.t?`<div class="spx" style="margin-left:0">${esc(src.rem[x.mid].t)}</div>`:''}<textarea class="fin pdta" data-ret="${i}" rows="2" placeholder="Ce que je retiens de la supervision…">${esc(x.t||'')}</textarea></div>`}).join('');
  b.innerHTML=h;bindPdForm(b,PDE.st,renderPdEdit);
  b.querySelectorAll('[data-ret]').forEach(t=>t.oninput=()=>{R[+t.dataset.ret].t=t.value});b.querySelector('[data-notes]').oninput=ev=>{PDE.notes=ev.target.value}}
 $('pdeX').onclick=()=>{$('pdeM').classList.remove('show');PDE=null};
 $('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,c=cleanPd(PDE.st);
  /* commentaire des Facultés commerciales : exigé si l'on change leurs XP ou si l'on efface un commentaire existant (l'historique converti n'en demande pas) */
- if(!SIMPLE()&&isCom(e.type)){const f=fcMet(),nv=f?+PDE.st.xp[f.id]||0:0,ov=xpFcOf(e),t=(PDE.st.fcom||'').trim();
+ if(MOD('activite')&&isCom(e.type)){const f=fcMet(),nv=f?+PDE.st.xp[f.id]||0:0,ov=xpFcOf(e),t=(PDE.st.fcom||'').trim();
   if(!t&&(nv!==ov||(e.fcom||'').trim())){toast(`${f?f.l:'Facultés commerciales'} : écris ce qui a été facile ou difficile`);const ta=$('pdeB').querySelector('[data-fcom]');if(ta)ta.focus();return}}
  if(c.pa)e.pa=c.pa;else delete e.pa;if(c.rem)e.rem=c.rem;else delete e.rem;if(PDE.notes.trim())e.notes=PDE.notes.trim();else delete e.notes;
- if(!SIMPLE()){const x=xpClean(PDE.st,e.type,e.dur,true);if(x)e.xp=x;else delete e.xp;const t=(PDE.st.fcom||'').trim();if(t)e.fcom=t;else delete e.fcom}if(PDE.ret.length)e.retours=PDE.ret.map(x=>({...x,t:(x.t||'').trim()}));
+ if(MOD('competences')||MOD('activite')){const x=xpClean(PDE.st,e.type,e.dur,true);if(x)e.xp=x;else delete e.xp}if(MOD('activite')){const t=(PDE.st.fcom||'').trim();if(t)e.fcom=t;else delete e.fcom}if(PDE.ret.length)e.retours=PDE.ret.map(x=>({...x,t:(x.t||'').trim()}));
  e.maj=new Date().toISOString();touch();$('pdeM').classList.remove('show');PDE=null;renderAll();toast('Saisie mise à jour')};
 
 /* ---------- historique d'une compétence ---------- */

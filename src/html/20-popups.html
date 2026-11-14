@@ -22,8 +22,8 @@
     <input class="fin" id="mPQ" placeholder="Rechercher ou créer une personne…" autocomplete="off" spellcheck="false" style="margin-top:8px"></div>
   <div class="lab">Ce qu'on a vu</div><textarea class="fin mcom" id="mCom" rows="1" placeholder="1 ligne : thème, déclic, pattern repéré…"></textarea>
   <div class="lab">Notes sur l'entretien <span class="lab0">· facultatif</span></div><textarea class="fin pdta" id="mNotes" rows="3" placeholder="Ce que tu veux garder en mémoire sur cet entretien…"></textarea>
-  <div id="mSup" class="hide"><div class="lab">Coût de cette supervision <span style="text-transform:none;letter-spacing:0;font-weight:600">· vide = prix moyen</span></div><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"><label class="small" style="display:flex;align-items:center;gap:7px;font-weight:700;cursor:pointer"><input type="checkbox" id="mFree"> Supervision non payante</label></div>
-   <div id="mSupP" class="hide"><div class="lab">Remarques retenues pour cette supervision</div><label class="cb" style="margin:0 0 6px"><input type="checkbox" id="mSupJ" checked><span>Joindre les remarques cochées et ce que j'en retiens</span></label><div id="mSupL"></div></div></div>
+  <div id="mSup" class="hide"><div class="m-act"><div class="lab">Coût de cette supervision <span style="text-transform:none;letter-spacing:0;font-weight:600">· vide = prix moyen</span></div><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><input type="number" min="0" class="fin" id="mCout" placeholder="€" style="width:160px"><label class="small" style="display:flex;align-items:center;gap:7px;font-weight:700;cursor:pointer"><input type="checkbox" id="mFree"> Supervision non payante</label></div></div>
+   <div id="mSupP" class="m-cmp hide"><div class="lab">Remarques retenues pour cette supervision</div><label class="cb" style="margin:0 0 6px"><input type="checkbox" id="mSupJ" checked><span>Joindre les remarques cochées et ce que j'en retiens</span></label><div id="mSupL"></div></div></div>
   <div id="mInv" class="hide"><div class="lab">Réponse <span class="lab0">· tu pourras la changer dans Mes saisies</span></div><div class="two"><div class="tog" id="tNON"><b>✓</b>Elle a dit non</div></div></div>
   <div id="mProp" class="hide"><div class="lab">Proposition · montant et durée d'engagement</div>
     <div class="two"><input type="number" class="fin" id="mEur" placeholder="Montant €" style="width:140px;flex:none"><input type="number" min="1" class="fin" id="mSea" placeholder="Séances" title="Nombre de séances prévues" style="width:110px;flex:none"><div class="chips" id="mCdur"></div></div></div>
@@ -57,7 +57,7 @@
     <div class="pflab">Cercles</div>
     <div class="crc" id="pfCer"></div>
     <div class="prr">
-     <div class="cx"><div class="pflab">Proximité</div><div class="seg l" id="pfProx"></div></div>
+     <div class="m-act"><div class="pflab">Proximité</div><div class="seg l" id="pfProx"></div></div>
      <div><div class="pflab">Rythme de contact</div><select class="fin" id="pfRy" style="width:auto;margin-top:6px"></select></div>
     </div>
     <div class="nxt" id="pfNext"></div>
@@ -71,7 +71,7 @@
     <div class="pflab">A recommandé ou présenté</div>
     <div class="rlist" id="pfRecL"></div>
     <button type="button" class="btn2" id="pfRecAdd" style="margin-top:8px">+ Ajouter une personne</button>
-    <div class="pf2c cx" style="margin-top:4px"><label class="pflab">Public<span class="cmb"><input class="fin" id="pfPub" autocomplete="off" placeholder="À quel public appartient cette personne ?"><button type="button" class="cmbb" data-cmb="pfPub" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPubM"></span></span></label><label class="pflab">Problématique<span class="cmb"><input class="fin" id="pfPrb" autocomplete="off" placeholder="Ce qu'elle vient travailler"><button type="button" class="cmbb" data-cmb="pfPrb" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPrbM"></span></span></label></div>
+    <div class="pf2c m-act" style="margin-top:4px"><label class="pflab">Public<span class="cmb"><input class="fin" id="pfPub" autocomplete="off" placeholder="À quel public appartient cette personne ?"><button type="button" class="cmbb" data-cmb="pfPub" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPubM"></span></span></label><label class="pflab">Problématique<span class="cmb"><input class="fin" id="pfPrb" autocomplete="off" placeholder="Ce qu'elle vient travailler"><button type="button" class="cmbb" data-cmb="pfPrb" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPrbM"></span></span></label></div>
    </div>
   </div></div>
   <!-- 2.4.0 : onglet Notes -->
@@ -92,7 +92,7 @@
    </div>
    <div class="pfsep"></div>
    <div class="pfR">
-    <div class="pflab2 cx" style="margin-top:4px">XP investis avec cette personne</div><div class="pfais cx" id="pfAis"></div>
+    <div class="pflab2 m-cmp" style="margin-top:4px">XP investis avec cette personne</div><div class="pfais m-cmp" id="pfAis"></div>
     <div class="pflab2">Plan d'action</div><div id="pfActs"></div>
     <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div>
    </div>

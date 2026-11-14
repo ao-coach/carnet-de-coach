@@ -1,6 +1,6 @@
 # Coaching practice tracker (Carnet de coach)
 
-**Version 3.1.0 (November 2026)** · Tool © 2026 Allan Oudomphong · PolyForm Shield 1.0.0 licence · *Version française : [README.md](README.md)*
+**Version 3.2.0 (November 2026)** · Tool © 2026 Allan Oudomphong · PolyForm Shield 1.0.0 licence · *Version française : [README.md](README.md)*
 
 ## What your notebook is for
 
@@ -95,7 +95,7 @@ A new notebook opens on four screens:
 |---|---|
 | Welcome | A welcome letter. One link imports a backup or a template passed on by a peer, another lets you **explore a demo notebook**. |
 | What your notebook is for | The notebook's three values on one page: coach a lot, sharpen a few skills, build your practice through relationships (the text [at the top of this manual](#what-your-notebook-is-for)). You can read it again at the top of the About tab. |
-| Your mode | **Simple** or **full** (see below). |
+| Your modules | “What do you want to work on?”: tick ① Coach a lot, ② Sharpen my skills, ③ Build my practice and, optionally, ④ The game; or a shortcut, **Essentials** (offered by default) or **All** (see [My notebook: the modules](#my-notebook-the-modules)). |
 | Your identity | Your name or your practice's name, your logo, a colour palette. |
 
 “Enter my notebook” takes you straight to the tool, and the first mission is shown to you.
@@ -104,23 +104,24 @@ The **small house**, left of the tabs, opens the [carnet-de-coach.fr](https://ca
 
 ### The demo notebook
 
-“Explore a demo notebook”, on the welcome screen, opens the notebook of Camille Martin, a **fictional** coach of managers: fourteen months of practice, people at every stage, a filled-in coach profile. It opens in simple mode, with a short presentation of the approach followed by an eleven-step tour of the pages, thirteen in full mode (to follow or skip). Everything can be explored freely. A banner reminds you it is a demo; “Replay the tour” restarts the presentation; “Create my own notebook” closes it and starts the welcome of a new notebook. The demo notebook is never written to a folder. It exists in English and in French, depending on the language chosen.
+“Explore a demo notebook”, on the welcome screen, opens the notebook of Camille Martin, a **fictional** coach of managers: fourteen months of practice, people at every stage, a filled-in coach profile. All its modules are switched on. It opens with a short presentation of the approach followed by a thirteen-step tour of the pages (to follow or skip), including one on the “My notebook” menu; if you hide modules, the tour skips the steps about them. Everything can be explored freely. A banner reminds you it is a demo; “Replay the tour” restarts the presentation; “Create my own notebook” closes it and starts the welcome of a new notebook. The demo notebook is never written to a folder. It exists in English and in French, depending on the language chosen.
 
 ### The roadmap
 
-The rest is discovered by using it. The **roadmap**, at the bottom right, suggests **one mission at a time**, in four chapters:
+The rest is discovered by using it. The **roadmap**, at the bottom right, suggests **one mission at a time**, in four chapters, plus a last one while a module is hidden:
 
 | Chapter | Missions |
 |---|---|
 | 1. First steps | Log your first meeting, link it to a person, write a note, look at your activity, open a person's profile, choose where to keep your notebook, protect it with a password. |
-| 2. Grow your practice | Understand your pipeline (see below), log a network contact, give a person a contact frequency, log an invitation, send a proposal, follow it through to the answer. In simple mode: discover full mode. |
-| 3. Practise deliberately | Complete your coach profile, name at least 3 skills, assign your first XP, choose a focus, create an action, write a note and keep it for supervision, log a prepared supervision. |
-| 4. Steer | Choose your indicators, set your priority goal, enter your costs. |
+| 2. Grow your practice | Understand your pipeline (see below), log a network contact, give a person a contact frequency, log an invitation, send a proposal, follow it through to the answer; look at your network (module ③). |
+| 3. Practise deliberately (module ②) | Complete your coach profile (with ④), name at least 3 skills, assign your first XP, choose a focus, create an action, write a note and keep it for supervision, log a prepared supervision. |
+| 4. Steer (module ①) | Choose your indicators, set your priority goal, enter your costs (with ③). |
+| Going further | Switch on a module, with the “My notebook” menu. |
 
 - **“Show me”** highlights where to act, on the right tab.
 - A mission checks itself off **on its own** when you do the action, wherever you do it.
 - Each completed chapter unlocks a **“Roadmap: …”** achievement.
-- Full-mode missions do not appear in simple mode.
+- Missions of a hidden module do not appear.
 - **Existing notebook**: when updating, missions already done are ticked silently and the roadmap stays collapsed.
 - To hide or show it again: **Settings > Getting started > Show the roadmap**.
 
@@ -131,7 +132,7 @@ The “Understand your pipeline” mission opens two pages, available at any tim
 1. **The approach.** Coaches are often advised to use social media, content and marketing: a legitimate path, with its price. This notebook follows that of coaches who have been making a living from it for years: coaching sells through coaching, and you create your clients one conversation at a time. Six principles, each with the entry type that goes with it: meet people every day, help with no strings attached, let people experience coaching, choose your clients, make the offer and ask for referrals, work in a cycle of set length at a fair price. With the notebook's benchmarks for one signed contract: about 13 invitations, 4 people in conversation, 10 conversations, 2 proposals.
 2. **The stages.** A person's path, from first meeting to contract, and for each stage **the entry that moves it forward** (see [part 9](#9-people)).
 
-In between, **the foundation: keeping your network alive.** Meeting people does not stop at the first coffee: the people you already know are your most fertile ground. Give each of them a contact frequency, and the notebook brings them back in “To follow up” when the time comes; in full mode, the Network tab shows your circles, the bridges between them and the groups to warm up.
+In between, **the foundation: keeping your network alive.** Meeting people does not stop at the first coffee: the people you already know are your most fertile ground. Give each of them a contact frequency, and the notebook brings them back in “To follow up” when the time comes; with module ③, the Network tab shows your circles, the bridges between them and the groups to warm up.
 
 ### Celebrations
 
@@ -143,21 +144,34 @@ When you pass a milestone, the tool celebrates it, at three levels of intensity:
 
 Several milestones passed at once follow one another, from the biggest to the smallest. A completed mission is signalled by a small roadmap notification. To turn celebrations off: **Settings > Getting started > Animated celebrations**.
 
-### Simple or full mode
+### My notebook: the modules
 
-The **Simple mode** button, top right, can be switched on and off at any time. **Nothing is lost**: it hides, it does not delete. The mode is saved in your notebook.
+The **core** is always there: logging time, Activity, My entries, People (pipeline, profile, “To follow up” and “Handle”, contact frequency and follow-ups at your pace), Settings and About. On top, you add the **modules** you want to work on, modelled on [the notebook's three values](#what-your-notebook-is-for), plus the game:
 
-In simple mode:
+| Module | What it adds |
+|---|---|
+| ① **Coach a lot** | The **dashboard** (indicators, priority goal, action plan, indicator tracking), indicators 4 to 6 below the banners, choosing and dragging indicators, Settings > Banner indicators. |
+| ② **Sharpen my skills** | The **Deliberate practice** tab (compass, practice XP, transfers, supervision prep), the XP, focus and remarks block of the entry form and of the ◎ details, the XP columns of My entries, the XP invested with a person, Settings > Skills. |
+| ③ **Build my practice** | The **Network** tab, closeness, audience and topic in the profile, **Sales skills** (0 to 5 XP and a comment), the “Grow your practice” card (funnel), the **List** view of people, supervision costs, Settings > People tracking and Activity costs (real hourly rate). |
+| ④ **The game** (optional) | The **Coach profile** (rank, level, achievements, wins) and the **celebrations**. |
 
-- **Tabs**: Activity (the main screen), My entries, People, Settings. The dashboard, the Coach profile, Deliberate practice and Network are hidden.
-- **No notion of practice XP, goals, actions or costs.** The XP of your entries stay “to assign”, with no warning at all, and nothing is ever required.
+Two shortcuts: **Essentials** (no module) and **All** (all four). As soon as one module is on, Settings also shows activity types and customisation (tool name, motto, banner image, colours).
+
+You choose when you start (“What do you want to work on?”), then at any time with the **My notebook ▾** menu, top right, or in **Settings > My notebook**. The choice is saved in your notebook. **Nothing is lost**: a hidden module deletes nothing, and **what it hides stops flagging anything** (no XP “to assign”, no Sales skills comment required). If the open tab disappears, the notebook goes back to Activity.
+
+In **Essentials** (the former simple mode):
+
+- **Tabs**: Activity (the main screen), My entries, People, Settings, About.
 - **Entry form**: types are shown one below the other, with their meaning (“I invited someone to experience coaching”…), then your other types. What remains: length, person, “What came up”, meeting notes and follow-up (notes sent, summary). A proposal keeps its amount and commitment length.
 - **Activity**: the time-spent-per-month chart and your 3 main indicators (excluding practice XP, goals and costs).
-- **My entries**: the same, without the XP columns or supervision costs.
-- **People**: Pipeline view only, with “To follow up” above. The person profile no longer has closeness, invested XP, audience or topic.
-- **Settings**: your name, your logo and a suggested colour palette; security, storage, sharing and getting started. Activity types, skills, indicators, people tracking and costs are hidden.
+- **My entries**: without the XP columns or supervision costs.
+- **People**: Pipeline view only, with “To follow up” above. The profile has no closeness, invested XP, audience or topic.
+- **Settings**: My notebook, your name, your logo and a suggested palette; security, storage, sharing and getting started.
+
+**Updating from 3.1**: a notebook in simple mode moves to Essentials, a notebook in full mode moves to All. Nothing else changes.
 
 ---
+
 
 ## 3. Logging time
 
@@ -180,13 +194,13 @@ This is the everyday gesture: after each meeting, click **“+ Log time”**, to
 - **Follow-up.** “Notes sent” and “Summary written” boxes, for face-to-face meetings.
 - **Answer** (Invitation). “They said no” box if the person declines. You can tick it later, in My entries. Your noes are counted in Activity.
 - **Deliberate practice actions.** For each of your actions in progress that concerns this meeting type: **Yes**, **Partly** or **No**. Clicking the answer again clears it. It is the quickest part: start there.
-- **Practice XP** (full mode). Every meeting earns XP based on its length and type: **10 minutes = 1 XP**, rounded to the nearest, multiplied by **2** for a session or a conversation, **3** for a supervision, **1** for a debrief or a training type you added (role “Deliberate practice”; an added type with the role “Coaching hours” counts ×2). A 1h30 session earns 18 XP, a 1-hour conversation 12 XP, a 1h30 supervision 27 XP, a 1h30 debrief 9 XP. The multipliers are fixed.
+- **Practice XP** (module ②). Every meeting earns XP based on its length and type: **10 minutes = 1 XP**, rounded to the nearest, multiplied by **2** for a session or a conversation, **3** for a supervision, **1** for a debrief or a training type you added (role “Deliberate practice”; an added type with the role “Coaching hours” counts ×2). A 1h30 session earns 18 XP, a 1-hour conversation 12 XP, a 1h30 supervision 27 XP, a 1h30 debrief 9 XP. The multipliers are fixed.
   - The header shows “18 XP to assign” and how it is calculated; it follows the type and length live.
   - All your tracked skills are listed, **your focus first**, with **−** and **+**. The counter shows “6 left”, then “all assigned ✓”; you cannot go over the budget.
   - Shortcuts: **All on focus** and **Split evenly**.
   - You can save without assigning everything: the remaining XP wait in My entries and in the ◎ details. They count for no skill until they are assigned.
   - A networking meeting, an invitation, a proposal or an extra earns no practice XP.
-- **Sales skills** (full mode). After a networking meeting, an invitation or a proposal: **0 to 5 XP** depending on how at ease you were, and **what was easy, what was hard**. This comment is required, even at 0 XP; in simple mode the block does not appear and nothing is required.
+- **Sales skills** (module ③). After a networking meeting, an invitation or a proposal: **0 to 5 XP** depending on how at ease you were, and **what was easy, what was hard**. This comment is required, even at 0 XP; without module ③ the block does not appear and nothing is required.
 - **Focus.** For each of your focus skills, a large **“What I noticed”** area and a **“Keep for the next supervision”** box. Everything is optional.
 - **Notes · other skills.** “+ Note” opens a note area for one of your other skills.
 - **Proposal.** Amount, number of planned sessions, commitment length. A proposal is saved as “Pending” (see [part 10](#10-proposals-and-contracts)).
@@ -458,7 +472,7 @@ The catalogue has 23 indicators, in 4 pillars:
 - **Year.** The 2024, 2025, 2026… buttons select the year shown.
 - **Time spent per month.** One stacked bar per month, with your number 1 type at the base. Hover a bar to see the detail.
 - **Grow your practice.** Two views, for the selected year:
-  - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). On the right: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **Sales skills** (the year's XP on your networking meetings, invitations and proposals; hidden in simple mode) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
+  - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). On the right: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **Sales skills** (the year's XP on your networking meetings, invitations and proposals) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
   - **By month**: invitations, conversations, proposals and signatures, month by month, to see your pace.
 - Practice XP are read on the practice compass and in the XP panel of the Deliberate practice tab.
 
@@ -478,8 +492,8 @@ The detail of all your meetings, filterable and editable directly in the table.
   - **Below:** the timeline of their interactions, with the date (dd/mm) above each one and the year in the middle of its period.
 - **Years.** Sorted from most recent to oldest.
 - **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., What came up, XP, Contract / cost.
-  - **XP** (full mode) is collapsed by default and shows a summary: “18 XP · Q 12 · L 6” (the initials of your skills). A click on the header or a cell expands one column per skill, with a small number field, and a column giving the XP earned and what is left to assign. You cannot go over the entry's budget; Sales skills go from 0 to 5.
-  - An entry with XP still **to assign** has its XP cells in yellow. If you shorten the length or change the type of an entry already assigned, the budget is recalculated: an **overrun** turns the row red, without deleting anything, until you adjust. In simple mode, nothing is flagged.
+  - **XP** (module ②) is collapsed by default and shows a summary: “18 XP · Q 12 · L 6” (the initials of your skills). A click on the header or a cell expands one column per skill, with a small number field, and a column giving the XP earned and what is left to assign. You cannot go over the entry's budget; Sales skills go from 0 to 5.
+  - An entry with XP still **to assign** has its XP cells in yellow. If you shorten the length or change the type of an entry already assigned, the budget is recalculated: an **overrun** turns the row red, without deleting anything, until you adjust. Without module ②, nothing is flagged.
   - **Contract / cost** is collapsed by default. Once expanded, on a pinkish background, it shows: Accepted (status), Amount (or a supervision's cost), Length, Sessions. On a supervision, the “unpaid” box replaces the status; on an invitation, the “They said no” box.
   - **Person**: a click on the name opens a search field (recent people first) to change an entry's person, create one, or remove it (“— No person”) on a type where it is optional. An entry missing a required person is outlined in red; “Deleted person” marks an entry whose person was deleted. The small magnifier next to it filters the table on that person.
   - **Length**: “Other…”, at the bottom of the list, lets you type any length (`2,5`, `2h30`, `150min`), then Enter.
@@ -557,7 +571,7 @@ Then three tabs.
 - **Source**: where the person comes from when nobody introduced them (fair, LinkedIn, workshop…). The small ▾ lists the values already used; a new value is added to the list.
 - **Referrals**: two boxes, “Came through a referral” (you were recommended to them) and “I asked them for a referral”.
 - **Has referred or introduced**: the people they put you in touch with. “+ Add a person” links a new one; the ✕ removes the link.
-- **Audience** and **topic** (full mode): which audience the person belongs to, and what they come to work on. Same drop-down list as the source, with free typing. They feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)).
+- **Audience** and **topic** (module ③): which audience the person belongs to, and what they come to work on. Same drop-down list as the source, with free typing. They feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)).
 
 **Notes** (the number of notes is in the tab title)
 
@@ -570,7 +584,7 @@ Then three tabs.
 - **Figures.** Last contact, coaching hours, conversations, sessions, contract, first contact.
 - **Contract**, if there is one. Amount, length and progress, with the start, planned sessions and length, all editable.
 - **Interactions.** A timeline with one dot per interaction, in its type's colour. When dots overlap, those of the types ranked highest in Settings > Activity types come on top: for example sessions above debriefs. The date (dd/mm) is above each dot and the year in the middle of its period. Hover a dot to see the detail.
-- **XP invested with this person**, skill by skill (full mode).
+- **XP invested with this person**, skill by skill (module ②).
 - **Action plan.** The actions linked to the person. You can add some with a date and tick them once done. They also appear in the dashboard's action plan.
 
 **Bottom:**
@@ -582,9 +596,9 @@ Then three tabs.
 
 Everything is saved as you type.
 
-### The Network tab (full mode)
+### The Network tab (module ③)
 
-The **Network** tab draws the people in your notebook and what links them. It is hidden in simple mode. Nothing is entered there: everything comes from the profiles (circles, closeness, audience, topic, “Referred or introduced by”) and from your entries.
+The **Network** tab draws the people in your notebook and what links them. It is hidden without module ③ “Build my practice”. Nothing is entered there: everything comes from the profiles (circles, closeness, audience, topic, “Referred or introduced by”) and from your entries.
 
 - **Four views.** **Circles**, **Audience** and **Topic** group people around hubs: one disc per group, with its number of members, and each person linked to their groups. A person with no group is linked to the grey “No circle” (or “Not specified”) hub. **Orbits** puts you in the centre: the rings show closeness (close, regular, occasional), the slices of the disc the circles, in proportion to their number of members. A person in several circles is placed in the first one, with short strokes towards the others.
 - **What each dot shows.** **Colour** shows the stage (network contact, invited, in conversation, proposal sent, client, engagement ended, supervisor); **size**, the number of exchanges. A **pale dot circled with red dots** needs a follow-up (contact frequency overdue, or no news for a while). A **gold outline** marks a **bridge**: a person in several groups. **Gold arrows** go from the person who referred to the person referred (dashed: introduced).
@@ -645,7 +659,7 @@ Settings in **Settings > Practice costs**.
 
 All blocks are **collapsed by default**. Click a title, or the triangle before it, to open or close the block. Collapsed, each block shows a one-line summary. Your choice is remembered on your computer.
 
-Blocks come in pairs, in this order:
+Blocks come in pairs, in this order; **My notebook** (the modules and the Essentials / All shortcuts, open by default) sits full width below Identity and Appearance. Some blocks only appear with their module (see [My notebook: the modules](#my-notebook-the-modules)):
 
 | Left | Right |
 |---|---|
@@ -755,7 +769,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.1.0** | 14/11/2026 | “What your notebook is for” screen in the onboarding (step 2) and at the top of the About tab. English version completed (messages, missions, reminders, older release notes). Three more questions in About (finding or fixing an entry, choosing your indicators, what's in Settings). Website rebuilt around the three values, new screenshots. |
+| **3.2.0** | 14/11/2026 | Modules to pick and choose instead of simple or full mode: ① Coach a lot, ② Sharpen my skills, ③ Build my practice, ④ The game, with the Essentials and All shortcuts. Chosen at start-up (“What do you want to work on?”), in the “My notebook” menu top right and in Settings. Simple mode becomes Essentials, full mode becomes All. A hidden module loses nothing and stops flagging anything. Demo tour (all modules on) and roadmap follow the modules; “Switch on a module” mission. |
+| 3.1.0 | 14/11/2026 | “What your notebook is for” screen in the onboarding (step 2) and at the top of the About tab. English version completed (messages, missions, reminders, older release notes). Three more questions in About (finding or fixing an entry, choosing your indicators, what's in Settings). Website rebuilt around the three values, new screenshots. |
 | 3.0.0 | 14/11/2026 | Practice XP instead of 1-to-5 ease ratings: every meeting earns XP based on its length and type, to assign to your skills (focus first, shortcuts, unassigned XP flagged in My entries). Levels per skill, practice compass (share of XP and last 30 days), XP panel with transfers and history. Sales skills (0 to 5 XP and a comment after a meeting, an invitation or a proposal). Practice XP indicator, XP achievements, CSV export. Old ratings converted, with an automatic safety copy before the migration. |
 | 2.5.0 | 14/11/2026 | Network tab (full mode): Circles, Audience, Topic and Orbits views, showing stage, number of exchanges, people to follow up, bridges and referrals; “What your network shows” panel (bridges, groups to warm up, growth leads, referral chains). The foundation of the approach: keeping your network alive. Demo enriched with ten network contacts. |
 | 2.4.0 | 14/11/2026 | “Handle” in To follow up (done, cancelled, reschedule, later, comment). Contact frequency per person and regular follow-up, with “Prepare”. Person profile in Info, Notes and Interactions tabs: circles, closeness, referred or introduced by, next topic to raise, notes from exchanges. Pipeline from the invitation (Invited column), network contacts outside the pipeline. Network kept alive, People seen and Referrals indicators; level and total in the banners. Adjustable “Later”. CSV export of people. |

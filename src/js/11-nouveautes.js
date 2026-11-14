@@ -3,6 +3,10 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:51,s:'3.2.0',d:'14 novembre 2026',items:[
+  {t:'Mon carnet : des modules à la carte',p:"Le mode simplifié et le mode complet laissent la place à quatre modules : ① Coacher beaucoup (tableau de bord, objectifs, plan d'action), ② Affûter mes compétences (pratique délibérée, XP de pratique), ③ Créer mon activité (réseau, Facultés commerciales, coûts), ④ Le jeu (fiche de coach, rang, célébrations). Le menu « Mon carnet », en haut à droite, les affiche ou les masque. Un module masqué ne fait rien perdre et ne te signale plus rien."},
+  {t:'Rien ne change pour toi',p:"Ton carnet garde ce que tu voyais : le mode simplifié devient « Essentiel » (aucun module, le suivi de tes entretiens et de tes personnes), le mode complet devient « Tout » (les quatre modules)."},
+  {t:'Au démarrage et dans Paramètres',p:"Un carnet neuf choisit ses modules juste après « À quoi sert ton carnet ». Le même choix est dans Paramètres, et une mission du carnet de route te propose d'activer un module quand tu es prêt.",go:'settings',b:'Paramètres'}]},
  {v:50,s:'3.1.0',d:'14 novembre 2026',items:[
   {t:'À quoi sert ton carnet',p:"En quelques lignes, ce que ton carnet t'apporte : coacher beaucoup, affûter quelques compétences, créer ton activité par la relation, et tout cela en jouant. Un carnet neuf le présente au démarrage ; le tien le garde en tête de l'onglet À propos.",go:'about',b:'Lire'},
   {t:'Une version anglaise complète',p:"Les messages, missions, rappels et anciennes nouveautés qui restaient en français dans la version anglaise sont traduits."},

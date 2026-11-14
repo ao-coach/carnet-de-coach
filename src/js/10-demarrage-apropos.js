@@ -2,7 +2,7 @@
    PARCOURS DE DÉMARRAGE
    ========================================================= */
 const WZ=['hello','valeur','mode','ident'];
-const WZL={hello:'Bienvenue',valeur:'À quoi sert ton carnet',mode:'Ton mode',principe:'Le principe',ident:'Ton identité',types:'Tes entretiens',suivi:'Le suivi',axes:'Tes axes de progression',prio:'Priorités et objectifs',actions:'Premières actions',activite:'Personnes et coûts',first:'Premier entretien',secu:'Sécurité',done:'C\'est prêt'};
+const WZL={hello:'Bienvenue',valeur:'À quoi sert ton carnet',mode:'Tes modules',principe:'Le principe',ident:'Ton identité',types:'Tes entretiens',suivi:'Le suivi',axes:'Tes axes de progression',prio:'Priorités et objectifs',actions:'Premières actions',activite:'Personnes et coûts',first:'Premier entretien',secu:'Sécurité',done:'C\'est prêt'};
 const ICO={home:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
  lock:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
  save:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>'};
@@ -23,8 +23,8 @@ function renderWiz(){const k=WZ[WI],st=WS[k]();wzSide();
  $('wzNext').onclick=async()=>{let ok=true;if(st.go){$('wzNext').disabled=true;try{ok=await st.go()}catch(e){ok=false;toast('Une erreur est survenue')}$('wzNext').disabled=false}if(ok!==false)wzGo(1)};
  $('wzSkip').onclick=()=>wzGo(1);$('wzBack').onclick=()=>wzGo(-1);$('wzMain').scrollTop=0}
 const WZSKIP=['types','axes','prio','actions','activite'];
-const wzVis=()=>WZ.filter(k=>!(SIMPLE()&&WZSKIP.includes(k)));
-function wzGo(d){WI=Math.max(0,Math.min(WZ.length-1,WI+d));while(SIMPLE()&&WZSKIP.includes(WZ[WI])&&WI>0&&WI<WZ.length-1)WI+=d>=0?1:-1;renderWiz()}
+const wzVis=()=>WZ.filter(k=>!(ESS()&&WZSKIP.includes(k)));
+function wzGo(d){WI=Math.max(0,Math.min(WZ.length-1,WI+d));while(ESS()&&WZSKIP.includes(WZ[WI])&&WI>0&&WI<WZ.length-1)WI+=d>=0?1:-1;renderWiz()}
 const wzLive=()=>{touch();applyConfig();wzSide()};
 async function wzPickDir(){let nd;try{nd=await window.showDirectoryPicker({id:'aocoach',mode:'readwrite'})}catch(e){return}
  const t=await readFile(nd,FILE);if(t){let f=null;try{f=JSON.parse(t)}catch(e){}if(!f||!sameBook(f,DB)){toast('Ce dossier contient déjà un autre carnet : choisis un dossier vide');return}}
@@ -40,6 +40,11 @@ const VAL=[["Coacher beaucoup.","Marketing, formations, veille : intéressant, m
  ["Affûter quelques compétences.","On sort de l'école en sachant beaucoup et en maîtrisant peu. Choisis une ou deux compétences, investis-y chaque séance et ta supervision jusqu'à en faire des automatismes, puis passe aux suivantes. C'est ce qui donne du poids à tout ce que tu as appris."],
  ["Créer ton activité par la relation.","Le coaching se vend en coachant. Ton carnet te pousse aux gestes qui créent des rencontres : entretenir ton réseau, inviter, proposer, t'entourer de pairs qui partagent tes défis. Ce qu'on vit souvent comme une épreuve devient un jeu."]];
 const valCards=()=>`<div class="wzcards val">${VAL.map(([t,p],i)=>`<div class="wzc"><div class="ic">${i+1}</div><b>${t}</b><p>${p}</p></div>`).join('')}</div>`;
+/* 3.2.0 : les modules dans le parcours de démarrage */
+const WZMOD={coacher:['Coacher beaucoup',"Ton tableau de bord : tes indicateurs, ton objectif prioritaire et ton plan d'action, pour garder le cap sur les heures qui comptent."],
+ competences:['Affûter mes compétences',"La pratique délibérée : des XP de pratique à répartir après chaque entretien, ta boussole de compétences, la préparation de ta supervision."],
+ activite:['Créer mon activité',"Ton réseau en image, la proximité de chaque personne, tes Facultés commerciales, l'entonnoir de tes propositions, tes coûts et ton vrai taux horaire."],
+ jeu:['④ Le jeu, en option',"Ta fiche de coach, ton rang, tes hauts faits, et une célébration à chaque niveau passé."]};
 /* ---------- À propos ---------- */
 function letterHtml(){return `<div class="wzletter">
   <div class="lthead"><img class="ltph" src="${ALLAN_PH}" alt="Allan Oudomphong"><p>Salut à toi, confrère ou consœur coach,</p></div>
@@ -58,20 +63,20 @@ const FAQ=()=>[
   ['Ça marche sur téléphone, Safari ou Firefox ?',"Pas encore : il faut Chrome ou Edge sur ordinateur pour écrire dans un dossier. Ailleurs, les saisies restent dans le navigateur : exporte-les régulièrement."]]],
  ['Utiliser le carnet',[
   ['Que faut-il saisir, au minimum ?',"Chaque entretien : le type, la durée et la personne. Trente secondes. Les notes, les XP de pratique et le suivi sont facultatifs et enrichissent ta fiche."],
-  ['Comment retrouver ou corriger une saisie ?',"Dans Mes saisies : filtre par type, par personne ou par période, puis modifie directement la ligne (date, durée, personne, montant). Le bouton ◎ ouvre le détail : notes, ce qu'on a vu et, en mode complet, les XP de pratique. Les XP pas encore répartis y sont signalés « à répartir »."],
+  ['Comment retrouver ou corriger une saisie ?',"Dans Mes saisies : filtre par type, par personne ou par période, puis modifie directement la ligne (date, durée, personne, montant). Le bouton ◎ ouvre le détail : notes, ce qu'on a vu et, avec le module « Affûter mes compétences », les XP de pratique. Les XP pas encore répartis y sont signalés « à répartir »."],
   ['Comment choisir mes indicateurs ?',"« Changer mes indicateurs », dans Suivi d'activité, ouvre un catalogue classé en trois piliers : coacher, pratiquer, développer ton activité. Jusqu'à 6 indicateurs ; les 3 premiers deviennent tes bandeaux principaux, avec ton niveau. Peu d'indicateurs, regardés souvent."],
   ['Que trouve-t-on dans Paramètres ?',"Ton identité et l'apparence (nom, logo, couleurs), la sécurité (chiffrement, verrouillage), le dossier où ranger ton carnet, tes types d'activité et tes compétences, le suivi des personnes (« Plus tard »), les indicateurs en bandeaux, tes coûts pour le taux horaire réel, le partage à un pair et le parcours de démarrage. En bas de page : exports et imports (JSON, CSV)."],
-  ['Que sont les XP de pratique ?',"En mode complet, chaque entretien rapporte des XP selon sa durée : 10 minutes = 1 XP, multiplié par 2 pour une séance ou une conversation, par 3 pour une supervision, par 1 pour un débrief ou un entraînement. Tu les répartis entre les compétences que tu as travaillées, et chacune monte de niveau (10, 30, 60, 100, 150 XP…). Les rencontres réseau, invitations et propositions rapportent de 0 à 5 XP de Facultés commerciales, avec ce qui a été facile ou difficile. Un transfert, dans l'onglet Pratique délibérée, déplace des XP d'une compétence à une autre sans en créer."],
+  ['Que sont les XP de pratique ?',"Avec le module « Affûter mes compétences », chaque entretien rapporte des XP selon sa durée : 10 minutes = 1 XP, multiplié par 2 pour une séance ou une conversation, par 3 pour une supervision, par 1 pour un débrief ou un entraînement. Tu les répartis entre les compétences que tu as travaillées, et chacune monte de niveau (10, 30, 60, 100, 150 XP…). Les rencontres réseau, invitations et propositions rapportent de 0 à 5 XP de Facultés commerciales, avec ce qui a été facile ou difficile. Un transfert, dans l'onglet Pratique délibérée, déplace des XP d'une compétence à une autre sans en créer."],
   ['Que sont devenues mes notes de 1 à 5 ?',"À la mise à jour 3.0.0, chaque entretien noté a reçu ses XP, répartis à parts égales entre les compétences que tu avais notées (le reste va à ton focus). Une rencontre, une invitation ou une proposition notée donne sa note en XP de Facultés commerciales. Une copie de ton carnet a été faite juste avant, dans le dossier sauvegardes, et tes notes d'origine restent gardées dans chaque saisie. Tes anciennes saisies non notées restent sans XP : tu peux les répartir si tu veux, dans Mes saisies ou le détail ◎."],
   ['Invitation, conversation, séance : quelle différence ?',`<b>${esc(TM.invitation?.l||'Invitation')}</b> : tu proposes à quelqu'un de découvrir le coaching. <b>${esc(TM.conversation?.l||'Conversation')}</b> : un échange offert, une vraie séance de découverte. <b>${esc(TM.session?.l||'Séance')}</b> : une séance sous contrat, après une proposition acceptée.`],
   ['Comment noter un non ?',"Pour une invitation déclinée, coche « Elle a dit non » dans la saisie (ou plus tard dans Mes saisies). Pour une proposition, passe-la à « Refusée ». Tes non sont comptés dans Suivi d'activité : ils prouvent que tu proposes."],
   ["Comment l'étape d'une personne change-t-elle ?","Toute seule, au fil de tes saisies : une conversation la fait passer « En conversation », une proposition « Proposition envoyée », etc. Tu peux aussi la choisir à la main dans sa fiche. Le bouton « ? Les étapes » de l'onglet Personnes détaille tout."],
   ['Que fait « Traiter » dans À relancer ?',"Une petite fenêtre pour chaque relance : c'est fait, annulée, une autre date (+2 j, +1 semaine, +1 mois ou la date de ton choix), plus tard (14 jours par défaut, réglable dans Paramètres > Suivi des personnes), et un commentaire. Pour une action, le commentaire s'ajoute, daté, à son « Résultat » ; pour une personne, il devient le prochain sujet à évoquer."],
   ['Qu\'est-ce que le rythme de contact ?',"Chaque personne a un rythme : tous les mois, tous les 3 mois (par défaut), tous les 6 mois, une fois par an, ou pas de relance. Quand le dernier échange est plus ancien, elle revient dans « À relancer ». « Préparer » ouvre alors l'onglet Notes de sa fiche, pour relire ce qu'il faut garder en tête avant de la recontacter."],
-  ["À quoi sert l'onglet Réseau ?","En mode complet, il dessine tes personnes autour de leurs cercles (ou de leur public, de leur problématique), ou en orbites autour de toi selon la proximité. La couleur dit l'étape, la taille le nombre d'échanges ; les pointillés rouges signalent les personnes à relancer, le contour doré les passerelles entre deux cercles. Le panneau de droite repère les passerelles, les groupes à réchauffer, les pistes de développement et les chaînes de recommandation. Un clic sur un point ouvre la fiche, un clic sur un groupe le met en avant."],
+  ["À quoi sert l'onglet Réseau ?","Avec le module « Créer mon activité », il dessine tes personnes autour de leurs cercles (ou de leur public, de leur problématique), ou en orbites autour de toi selon la proximité. La couleur dit l'étape, la taille le nombre d'échanges ; les pointillés rouges signalent les personnes à relancer, le contour doré les passerelles entre deux cercles. Le panneau de droite repère les passerelles, les groupes à réchauffer, les pistes de développement et les chaînes de recommandation. Un clic sur un point ouvre la fiche, un clic sur un groupe le met en avant."],
   ['Les personnes archivées ou « Sans suite » sont-elles dans le réseau ?',"Pas par défaut. La case « Inclure archivé·es et sans suite » les affiche en gris. Le dessin est recalculé à l'identique à chaque ouverture ; tu peux déplacer un point à la souris, le temps de la consultation, sans que rien soit enregistré."],
   ['Pourquoi certaines personnes ne sont pas dans le pipeline ?',"Le pipeline commence à l'invitation. Une personne seulement rencontrée (Rencontre réseau), ou sans aucune saisie, est un contact réseau : elle garde sa fiche, ses cercles et son rythme, et se retrouve par la recherche de l'onglet Personnes. Une invitation la fait entrer dans la colonne « Invité·e »."],
-  ['Mode simplifié ou complet ?',"Le simplifié garde l'essentiel : tes entretiens, tes personnes, ton activité. Le complet ajoute les XP de pratique, la pratique délibérée, les objectifs et les coûts. Bascule à tout moment, en haut à droite : rien n'est perdu."],
+  ['Que sont les modules de « Mon carnet » ?',"Le socle est toujours là : tes entretiens, Mes saisies, tes personnes, « À relancer » et ton suivi d'activité. Tu y ajoutes ce sur quoi tu travailles : ① Coacher beaucoup (tableau de bord, objectifs, plan d'action), ② Affûter mes compétences (pratique délibérée, XP de pratique, supervision), ③ Créer mon activité (réseau, proximité, Facultés commerciales, coûts et taux horaire), ④ Le jeu (fiche de coach, rang, hauts faits). « Essentiel » n'en garde aucun, « Tout » les affiche tous. Le menu « Mon carnet », en haut à droite, ou Paramètres : un module masqué ne fait rien perdre et ne te signale plus rien."],
   ['Comment sont calculés mon niveau et mon rang ?',"Chaque statistique a son niveau, de 1 à 100, calé sur le parcours d'un coach régulier : le niveau 25 correspond à environ un an de pratique, le niveau 100 à une trentaine d'années. Ton niveau global est la moyenne des statistiques que tu as déjà commencé à remplir."],
   ["J'ai déjà des années de pratique : je repars de zéro ?","Non. Dans Coach > Reprendre ton historique, importe tes anciennes saisies en CSV ou déclare simplement tes totaux d'avant l'outil."]]],
  ["L'outil",[
@@ -101,11 +106,15 @@ const WS={
 
  valeur:()=>({t:VAL_T,lead:VAL_L,html:`${valCards()}<div class="wznote wzvalf">${VAL_F}</div>`,next:'Continuer'}),
 
- mode:()=>({t:'Comment veux-tu commencer ?',lead:'Tu pourras changer à tout moment avec le bouton « Mode simplifié », en haut à droite. Rien n\'est perdu quand tu changes.',
-  html:`<div class="wzmode"><button class="wzmc ${SIMPLE()?'on':''}" data-md="1"><b>Simplifié</b><p>L'essentiel : enregistrer tes entretiens, suivre ton activité et les personnes que tu accompagnes. Idéal pour démarrer.</p></button>
-   <button class="wzmc ${DB&&DB.prefs.simple===false?'on':''}" data-md="0"><b>Complet</b><p>Tout l'outil : XP de pratique et pratique délibérée, fiche de coach, objectifs et plan d'action, coûts et taux horaire réel.</p></button></div>`,
-  bind:()=>{document.querySelectorAll('[data-md]').forEach(b=>b.onclick=()=>{DB.prefs.simple=b.dataset.md=='1';touch();applyMode();renderWiz()})},
-  go:()=>{if(DB&&DB.prefs.simple==null){DB.prefs.simple=true;touch();applyMode()}return true}}),
+ /* 3.2.0 : « Sur quoi veux-tu travailler ? » remplace « Ton mode » ; Essentiel par défaut, comme l'ancien simplifié */
+ mode:()=>{if(DB&&!(DB.prefs.modules&&typeof DB.prefs.modules=='object'))setMods(modsAll(false));
+  const card=(k,i)=>`<button class="wzmc ${MOD(k)?'on':''}${k=='jeu'?' wzjeu':''}" data-wm="${k}"><span class="wzck">${MOD(k)?'✓':''}</span>${k=='jeu'?'':`<span class="ic">${i+1}</span>`}<b>${WZMOD[k][0]}</b><p>${WZMOD[k][1]}</p></button>`;
+  return{t:'Sur quoi veux-tu travailler ?',lead:'Coche ce qui compte pour toi maintenant. Le suivi de tes entretiens et de tes personnes est toujours là. Tu pourras changer à tout moment avec « Mon carnet », en haut à droite : rien n\'est perdu.',
+  html:`<div class="wzmods">${['coacher','competences','activite'].map(card).join('')}</div>${card('jeu',3)}
+   <div class="wzsc"><span>Raccourcis :</span><button type="button" class="btn2 ${ESS()?'on':''}" data-wms="0">Essentiel</button><button type="button" class="btn2 ${MODS.every(MOD)?'on':''}" data-wms="1">Tout</button><span>${ESS()?'Essentiel : tes entretiens, tes personnes, ton suivi d\'activité. Idéal pour démarrer.':''}</span></div>`,
+  bind:()=>{document.querySelectorAll('[data-wm]').forEach(b=>b.onclick=()=>{const o=Object.fromEntries(MODS.map(k=>[k,MOD(k)]));o[b.dataset.wm]=!o[b.dataset.wm];setMods(o);renderWiz()});
+   document.querySelectorAll('[data-wms]').forEach(b=>b.onclick=()=>{setMods(modsAll(b.dataset.wms=='1'));renderWiz()})},
+  go:()=>true}},
  principe:()=>({t:'Le principe',lead:'Une application simple, qui travaille pour toi et ne garde rien ailleurs que chez toi.',
   html:`<div class="wzcards">
    <div class="wzc"><div class="ic">${ICO.home}</div><b>Chez toi, pas dans le cloud</b><p>L'application tourne dans ton navigateur. Rien n'est envoyé sur internet : toutes tes données tiennent dans un seul fichier, sur ton ordinateur ou ton OneDrive.</p></div>
@@ -121,7 +130,7 @@ const WS={
    <label class="wzl">Couleurs</label><div class="pals">${PALETTES.map((p,i)=>`<button class="pal ${i==cur?'on':''}" data-p="${i}"><span>${stackColors(p.c).slice(0,4).concat([p.c.fonce]).map(c=>`<i style="background:${c}"></i>`).join('')}</span>${p.n}</button>`).join('')}</div>`,
   bind:()=>{$('wNom').oninput=e=>{C.nom=e.target.value;wzLive()};$('wLogo').onclick=()=>{IMGT='logo';$('imgFile').click()};
    document.querySelectorAll('.pal').forEach(b=>b.onclick=()=>{C.couleurs={...PALETTES[+b.dataset.p].c};C.couleursAuto=true;applyStackColors(C);wzLive();renderWiz()})},
-  go:async()=>{if(!C.nom.trim()){toast('Donne un nom à ton carnet');return false}DB.prefs.onboarded=true;DB.prefs.nouveautes_vues=APP_VERSION;const Q=QS();Q.open=true;Q.hide=false;touch();closeWizard();$('main').style.visibility='visible';await afterLoad();goTab(SIMPLE()?'metrics':'dash');window.scrollTo({top:0});renderQuest();setTimeout(()=>showMe(qNext()),800);return false}}},
+  go:async()=>{if(!C.nom.trim()){toast('Donne un nom à ton carnet');return false}DB.prefs.onboarded=true;DB.prefs.nouveautes_vues=APP_VERSION;const Q=QS();Q.open=true;Q.hide=false;touch();closeWizard();$('main').style.visibility='visible';await afterLoad();goTab(MOD('coacher')?'dash':'metrics');window.scrollTo({top:0});renderQuest();setTimeout(()=>showMe(qNext()),800);return false}}},
 
  types:()=>{const C=CFG(),O=C.ordre;
   return{t:'Tes types d\'entretien',lead:'Nomme tes activités et classe-les <b>par ordre d\'importance</b> en les faisant glisser. Le n° 1 forme la base des graphiques et reçoit la couleur la plus forte.',
@@ -237,7 +246,7 @@ const WS={
    <label class="wzl">Durée</label><div class="chips">${DURS.map(d=>`<button class="chip ${d==f.dur?'on':''}" data-fd="${d}">${fmtD(d)}</button>`).join('')}</div>
    <label class="wzl">Personne</label><input class="fin" id="fwP" list="fwPL" value="${esc(f.nom)}" placeholder="Prénom Nom (ou initiales)"><datalist id="fwPL">${DB.personnes.map(p=>`<option value="${esc(p.nom)}">`).join('')}</datalist>
    <label class="wzl">Ce qu'on a vu</label><input class="fin" id="fwC" value="${esc(f.com)}" placeholder="1 ligne : thème, déclic, pattern repéré…">
-  </div><div>${SIMPLE()?'<div class="wznote" style="margin-top:0">En mode complet, chaque entretien rapporte des XP de pratique, que tu répartis entre les compétences travaillées.</div>':isCom(f.type)?'<div class="wznote" style="margin-top:0">Ce type rapporte de 0 à 5 XP de Facultés commerciales : tu les noteras dans le détail ◎ de la saisie, avec ce qui a été facile ou difficile.</div>':`<div id="fwXp">${xpBlock(f,f.type,f.dur)}</div>`}</div></div>`,
+  </div><div>${isCom(f.type)?(MOD('activite')?'<div class="wznote" style="margin-top:0">Ce type rapporte de 0 à 5 XP de Facultés commerciales : tu les noteras dans le détail ◎ de la saisie, avec ce qui a été facile ou difficile.</div>':''):MOD('competences')?`<div id="fwXp">${xpBlock(f,f.type,f.dur)}</div>`:'<div class="wznote" style="margin-top:0">Avec le module « Affûter mes compétences », chaque entretien rapporte des XP de pratique, que tu répartis entre les compétences travaillées.</div>'}</div></div>`,
   bind:()=>{const B=$('wzBody');
    B.querySelectorAll('[data-ft]').forEach(b=>b.onclick=()=>{f.type=b.dataset.ft;f.dur=TM[f.type].d;renderWiz()});
    B.querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{f.dur=+b.dataset.fd;renderWiz()});
@@ -245,7 +254,7 @@ const WS={
    $('fwD').onchange=e=>f.date=e.target.value;$('fwP').oninput=e=>f.nom=e.target.value;$('fwC').oninput=e=>f.com=e.target.value},
   go:()=>{const nom=f.nom.trim();if(!nom){toast('Indique la personne, ou clique sur « Plus tard »');return false}
    let p=DB.personnes.find(x=>byName(x.nom,nom)==0);if(!p){p={id:nextId(DB.personnes),nom};DB.personnes.push(p)}
-   const tt=TM[f.type],e={id:nextId(E()),maj:new Date().toISOString(),date:f.date||today(),type:f.type,dur:f.dur,pid:p.id,com:f.com.trim(),cr:false,syn:false};{const x=SIMPLE()||isCom(f.type)?null:xpClean(f,f.type,f.dur,false);if(x)e.xp=x}
+   const tt=TM[f.type],e={id:nextId(E()),maj:new Date().toISOString(),date:f.date||today(),type:f.type,dur:f.dur,pid:p.id,com:f.com.trim(),cr:false,syn:false};{const x=!MOD('competences')||isCom(f.type)?null:xpClean(f,f.type,f.dur,false);if(x)e.xp=x}
    if(tt.prop){e.eur=0;e.engagement_mois=3;e.statut='attente'}
    E().push(e);touch();WTMP.saved=1;return true}}},
 

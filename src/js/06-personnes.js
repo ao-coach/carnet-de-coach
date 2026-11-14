@@ -156,7 +156,7 @@ function renderPipe(base){const t=today(),q=PF.q.trim().toLowerCase();
  $('ppPipe').querySelectorAll('.pcol').forEach(col=>{col.ondragover=e=>{e.preventDefault();col.classList.add('over')};col.ondragleave=e=>{if(!col.contains(e.relatedTarget))col.classList.remove('over')};
   col.ondrop=e=>{e.preventDefault();col.classList.remove('over');const p=pById(dragP);dragP=null;if(!p)return;const k=col.dataset.col;
    p.etape=k==autoStage(p.id)?null:{v:k,at:new Date().toISOString()};p.maj=new Date().toISOString();touch();renderPeople();toast(`${p.nom} : ${ETL[k]}`)}})}
-function renderPeople(){renderRel($('ppRelList'),$('ppRelN'));if(SIMPLE())PF.view='pipe';const t=today();
+function renderPeople(){renderRel($('ppRelList'),$('ppRelN'));if(!MOD('activite'))PF.view='pipe';const t=today();
  $('ppView').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v==PF.view);b.onclick=()=>{PF.view=b.dataset.v;renderPeople()}});
  $('ppList').classList.toggle('hide',PF.view!='list');$('ppPipe').classList.toggle('hide',PF.view!='pipe');$('ppSt').classList.toggle('hide',PF.view!='list');
  const base=DB.personnes.filter(p=>PF.arch?p.archive:!p.archive).map(p=>({p,st:stageOf(p),last:lastContact(p.id),next:openActs(p.id)[0]}));
@@ -176,7 +176,7 @@ function renderPeople(){renderRel($('ppRelList'),$('ppRelN'));if(SIMPLE())PF.vie
  const out=base.filter(x=>x.st=='reseau'),nw=out.filter(x=>pEntries(x.p.id).length).length,ns=out.length-nw,o=$('ppOut');
  o.classList.toggle('hide',PF.view!='pipe'||!out.length);
  if(out.length){const qm=q?out.filter(x=>[x.p.nom,x.p.titre,x.p.provenance,x.p.notes,x.p.site,...(x.p.cercles||[])].join(' ').toLowerCase().includes(q)):[];
-  o.innerHTML=`<span>Hors pipeline :${nw?` <b>${pl(nw,'contact réseau').replace('contact réseaus','contacts réseau')}</b>`:''}${nw&&ns?' et':''}${ns?` <b>${ns>1?ns+' personnes sans saisie':'1 personne sans saisie'}</b>`:''}, trouvables par la recherche ci-dessus.</span>${SIMPLE()?'':'<button class="lnk" id="ppOutL">Les afficher en liste</button>'}`
+  o.innerHTML=`<span>Hors pipeline :${nw?` <b>${pl(nw,'contact réseau').replace('contact réseaus','contacts réseau')}</b>`:''}${nw&&ns?' et':''}${ns?` <b>${ns>1?ns+' personnes sans saisie':'1 personne sans saisie'}</b>`:''}, trouvables par la recherche ci-dessus.</span>${!MOD('activite')?'':'<button class="lnk" id="ppOutL">Les afficher en liste</button>'}`
    +(qm.length?`<div style="flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px">${qm.map(x=>`<button class="chip" data-pf="${x.p.id}">${esc(x.p.nom)}</button>`).join('')}</div>`:'');
   o.querySelectorAll('[data-pf]').forEach(b=>b.onclick=()=>openFiche(b.dataset.pf));
   if($('ppOutL'))$('ppOutL').onclick=()=>{PF.view='list';PF.st='reseau';renderPeople()}}}
@@ -432,7 +432,7 @@ function renderModal(){const t=TM[S.type];
  if(S.type=='supervision'){const d=+CFG().finances.supDefaut||0;$('mCout').placeholder=d?`Prix moyen : ${d} €`:'Montant €'}
  renderModalPd();
  const pool=S.type=='supervision'?supPool().length:0;$('mSupP').classList.toggle('hide',!pool);if(pool){$('mSupJ').onchange=()=>$('mSupL').classList.toggle('hide',!$('mSupJ').checked);renderSupPrep('mSupL',true)}}
-/* bloc « pratique délibérée » de la saisie : actions, XP de pratique ou Facultés commerciales, remarques (masqué en mode simplifié) */
+/* bloc « pratique délibérée » de la saisie : actions, XP de pratique ou Facultés commerciales, remarques (chaque partie suit son module, voir pdForm) */
 function renderModalPd(){const pdh=pdForm(S,S.type,S.dur);$('mAis').classList.toggle('hide',!pdh);$('mPD').innerHTML=pdh;bindPdForm($('mPD'),S,renderModalPd)}
 /* 2.3.0 : recherche de personne dans la saisie (les boutons gardent les personnes récentes) */
 const mPQcfg=()=>({input:1,boost:[...NEWP,...MREC],cur:S.pid,onPick:(id,created)=>{if(created)NEWP.unshift(id);S.pid=id;$('mPQ').value='';pkClose();renderModal()}});
@@ -446,16 +446,16 @@ const openM=ty=>{if(typeof ty=='string'&&TM[ty]){S.type=ty;S.dur=TM[ty].d}$('fDa
 $('openLog').onclick=()=>openM();$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape'){if($('cropM').classList.contains('show')){$('crClose').click()}else if($('vicDM').classList.contains('show'))$('vicDX').click();else if($('vicM').classList.contains('show'))$('vicX').click();else if($('pipeM').classList.contains('show'))$('pipeX').click();else if($('cel3').classList.contains('show'))$('c3ok')?.click();else if($('cel2').classList.contains('show'))$('c2ok')?.click();else if($('metM').classList.contains('show'))$('metX').click();else if($('coM').classList.contains('show'))$('coX').click();else if($('libM').classList.contains('show'))$('libX').click();else if($('pdeM').classList.contains('show'))$('pdeX').click();else if($('cmpM').classList.contains('show'))$('cmpX').click();else if($('cropM').classList.contains('show'))$('cropM').classList.remove('show');else if($('pfM').classList.contains('show'))closeFiche();else closeM()}});
 $('mSave').onclick=()=>{const t=TM[S.type];
  if(pReq(S.type)&&S.pid==null){toast('Choisis la personne : elle est obligatoire pour ce type de saisie');return}
- if(!SIMPLE()&&isCom(S.type)&&fcMet()&&!(S.fcom||'').trim()){const f=fcMet();toast(`${f.l} : écris ce qui a été facile ou difficile`);const ta=$('mPD').querySelector('[data-fcom]');if(ta)ta.focus();return}
- if(!SIMPLE()&&xpSum(S.xp)>Math.round((+S.dur||0)/10)*xpMult(S.type)&&!isCom(S.type)){toast('Plus d\'XP répartis que la saisie n\'en rapporte : retires-en');return}
+ if(MOD('activite')&&isCom(S.type)&&fcMet()&&!(S.fcom||'').trim()){const f=fcMet();toast(`${f.l} : écris ce qui a été facile ou difficile`);const ta=$('mPD').querySelector('[data-fcom]');if(ta)ta.focus();return}
+ if(MOD('competences')&&xpSum(S.xp)>Math.round((+S.dur||0)/10)*xpMult(S.type)&&!isCom(S.type)){toast('Plus d\'XP répartis que la saisie n\'en rapporte : retires-en');return}
  const e={id:nextId(E()),maj:new Date().toISOString(),date:$('fDate').value||today(),type:S.type,dur:S.dur,pid:t.p?S.pid:null,com:$('mCom').value.trim(),...($('mNotes').value.trim()?{notes:$('mNotes').value.trim()}:{}),
   cr:!!t.cr&&$('tCR').classList.contains('on'),syn:!!t.cr&&$('tSY').classList.contains('on')};
- if(!SIMPLE()){const x=xpClean(S,S.type,S.dur,false);if(x)e.xp=x;if(isCom(S.type)&&(S.fcom||'').trim())e.fcom=S.fcom.trim()}
+ if(isCom(S.type)?MOD('activite'):MOD('competences')){const x=xpClean(S,S.type,S.dur,false);if(x)e.xp=x;if(isCom(S.type)&&(S.fcom||'').trim())e.fcom=S.fcom.trim()}
  if(S.type=='supervision'){if($('mFree').checked){e.gratuit=true;e.cout=0}else if($('mCout').value!==''&&+$('mCout').value>0)e.cout=+$('mCout').value;$('mCout').value='';$('mFree').checked=false;$('mCout').disabled=false}
  if(S.type=='invitation'&&$('tNON').classList.contains('on'))e.non=true;$('tNON').classList.remove('on');
  if(t.prop){if(+$('mSea').value)e.seances=+$('mSea').value;$('mSea').value='';e.eur=+$('mEur').value||0;e.engagement_mois=S.cdur;e.statut='attente';$('mEur').value=''}
  {const c=cleanPd(S);if(c.pa)e.pa=c.pa;if(c.rem)e.rem=c.rem}
- let nsup=0;if(!SIMPLE()&&S.type=='supervision'&&supPool().length&&$('mSupJ').checked)nsup=attachSup(e);
+ let nsup=0;if(MOD('competences')&&S.type=='supervision'&&supPool().length&&$('mSupJ').checked)nsup=attachSup(e);
  E().push(e);$('mCom').value='';$('mNotes').value='';['tCR','tSY'].forEach(i=>$(i).classList.remove('on'));
  closeM();touch();renderAll();toast(`${t.l}${S.dur?' · '+fmtD(S.dur):''} enregistrée${nsup?` · ${nsup} remarque${nsup>1?'s':''} jointe${nsup>1?'s':''}`:''}`)};
 

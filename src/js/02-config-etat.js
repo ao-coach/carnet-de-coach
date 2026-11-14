@@ -7,7 +7,7 @@ const VERSION=4, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
 /* Version affichée : x.y.z (x = version majeure, y = nouvelle fonctionnalité, z = correctif).
    APP_VERSION = numéro de publication interne, +1 à chaque publication quelle qu'elle soit :
    il est enregistré dans le carnet (app_version) et met en lecture seule les versions plus anciennes. */
-const APP_SEMVER='3.1.0', APP_VERSION=50, APP_DATE='14 novembre 2026';
+const APP_SEMVER='3.2.0', APP_VERSION=51, APP_DATE='14 novembre 2026';
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
@@ -152,6 +152,11 @@ function migrate(d){
   d.entrees.forEach(e=>{if('ais' in e)xpFromAis(e,c,d.pd.focus);if(e.xp&&(typeof e.xp!='object'||Array.isArray(e.xp)))delete e.xp;
    else if(e.xp){Object.keys(e.xp).forEach(k=>{const v=Math.max(0,Math.round(+e.xp[k]||0));if(v)e.xp[k]=v;else delete e.xp[k]});if(!Object.keys(e.xp).length)delete e.xp}});
   if(v<4&&v>0&&d.entrees.length&&!d.prefs.xp_migre)d.prefs.xp_migre=today();
+  /* 3.2.0 : modules à la carte. simple:true → Essentiel (aucun module) ; simple:false, ou carnet déjà utilisé sans réglage → Tout ;
+     carnet neuf : choisi au démarrage. prefs.simple reste écrit (true en Essentiel) pour une application plus ancienne. Rien d'autre ne change. */
+  {const P=d.prefs,m=P.modules;if(m&&typeof m=='object'&&!Array.isArray(m))P.modules=Object.fromEntries(MODS.map(k=>[k,!!m[k]]));
+   else{delete P.modules;if(P.simple===true)P.modules=modsAll(false);else if(P.simple===false||P.onboarded||d.entrees.length)P.modules=modsAll(true)}
+   if(P.modules)P.simple=!MODS.some(k=>P.modules[k])}
   d.version_schema=VERSION;return d;
 }
 

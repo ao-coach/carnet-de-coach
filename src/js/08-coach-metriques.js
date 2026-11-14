@@ -145,7 +145,7 @@ function renderBiz(){const y=YSEL||today().slice(0,4),py=String(+y-1),B=bizYear(
    <div><small>Transformation</small><b>${glob!=null?glob+' %':'—'}</b><span>${glob!=null?gl+' deviennent des clients':'pas encore de données'}</span></div>
    <div><small>CA signé ${y}</small><b>${eur(B.ca)}</b><span>${Pv.ca?`${eur(Pv.ca)} en ${py}`:'&nbsp;'}</span></div>
    <div><small>Panier moyen</small><b>${B.nacc?eur(B.ca/B.nacc):'—'}</b><span>${B.nacc?pl(B.nacc,'contrat')+' signé'+(B.nacc>1?'s':''):'&nbsp;'}</span></div>
-   ${B.ac&&!SIMPLE()?`<div><small>${esc(B.ac.l)}</small><b>${num(B.ac.xp)}<span style="font-size:15px;color:var(--grey)"> XP</span></b><span>${B.ac.N?`sur ${pl(B.ac.N,'rencontre')}, invitations et propositions · ${n1(B.ac.n?B.ac.xp/B.ac.n:0)} XP en moyenne`:'de 0 à 5 XP après chaque rencontre réseau, invitation ou proposition'}</span></div>`:''}
+   ${B.ac&&MOD('activite')?`<div><small>${esc(B.ac.l)}</small><b>${num(B.ac.xp)}<span style="font-size:15px;color:var(--grey)"> XP</span></b><span>${B.ac.N?`sur ${pl(B.ac.N,'rencontre')}, invitations et propositions · ${n1(B.ac.n?B.ac.xp/B.ac.n:0)} XP en moyenne`:'de 0 à 5 XP après chaque rencontre réseau, invitation ou proposition'}</span></div>`:''}
    <div class="bznon"><small>Non reçus ${y}</small><b>${B.non}</b><span>${B.non?'chaque non prouve que tu as proposé':'invitations déclinées et propositions refusées'}</span></div></div></div>
    ${!B.inv?'<div class="hint" style="margin:8px 0 0">Enregistre tes invitations (type Invitation) pour voir le premier taux de l\'entonnoir.</div>':'<div class="hint" style="margin:8px 0 0">Les taux comparent des personnes distinctes sur l\'année ; « — » quand l\'étape précédente n\'est pas renseignée.</div>'}`;return}
  /* par mois */
@@ -281,17 +281,44 @@ async function importCsv(file){let rows;try{rows=parseCSV(await file.text())}cat
 $('csvFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)importCsv(f)};
 $('impCsv').onclick=()=>$('csvFile').click();
 
-/* ---------- mode simplifié (1.8.0) : masque l'aisance, les objectifs, les actions et les coûts ---------- */
-const SIMPLE=()=>!!(DB&&DB.prefs&&DB.prefs.simple);
-function applyMode(){document.body.classList.toggle('simple',SIMPLE());$('modeBtn').classList.toggle('on',SIMPLE());
- if(SIMPLE()&&['dash','coach','pd','reseau'].includes(TAB))goTab('metrics')}
-$('modeBtn').onclick=()=>{if(!DB)return;DB.prefs.simple=!SIMPLE();if(!SIMPLE())qFlag('full');touch();applyMode();renderAll();toast(SIMPLE()?'Mode simplifié : l\'essentiel seulement. Rien n\'est perdu.':'Mode complet : toutes les fonctions sont de retour.')};
+/* ---------- 3.2.0 : modules à la carte (remplacent le mode simplifié de la 1.8.0) ----------
+   prefs.modules = {coacher, competences, activite, jeu} ; aucun module = Essentiel (= ancien simplifié), tous = Tout (= ancien complet).
+   Un module désactivé est seulement masqué : aucune donnée n'est touchée, et ce qu'il masque ne signale rien.
+   prefs.simple reste écrit (true seulement en Essentiel) pour une application plus ancienne. Sans prefs.modules : comportement d'avant (simple). */
+const MODS=['coacher','competences','activite','jeu'];
+const MODTAB={dash:'coacher',coach:'jeu',pd:'competences',reseau:'activite'};
+const MODL={coacher:['① Coacher beaucoup','Tableau de bord, indicateurs, objectif prioritaire, plan d\'action.'],
+ competences:['② Affûter mes compétences','Pratique délibérée, XP de pratique, boussole, supervision.'],
+ activite:['③ Créer mon activité','Réseau, proximité, Facultés commerciales, entonnoir, coûts et taux horaire, vue Liste.'],
+ jeu:['④ Le jeu','Fiche de coach, rang, hauts faits, célébrations.']};
+const MOD=k=>{const p=DB&&DB.prefs;if(!p)return true;const m=p.modules;return m&&typeof m=='object'?!!m[k]:!p.simple};
+const ESS=()=>!MODS.some(MOD);
+const modsAll=v=>Object.fromEntries(MODS.map(k=>[k,!!v]));
+const modLbl=()=>{const n=MODS.filter(MOD).length;return n==0?'Essentiel':n==MODS.length?'Tout':pl(n,'module')};
+/* change les modules ; quest=true : un module activé au quotidien accomplit la mission « Activer un module » */
+function setMods(o,quest){if(!DB)return;const was=Object.fromEntries(MODS.map(k=>[k,MOD(k)]));DB.prefs.modules=Object.fromEntries(MODS.map(k=>[k,!!o[k]]));
+ DB.prefs.simple=!MODS.some(k=>o[k]);DB.prefs.modules_maj=new Date().toISOString();if(quest&&MODS.some(k=>o[k]&&!was[k]))qFlag('mod');touch();applyMode()}
+function modListHTML(cls){return MODS.map(k=>`<label class="${cls}"><input type="checkbox" data-mod="${k}" ${MOD(k)?'checked':''}><span><b>${MODL[k][0]}</b><small>${MODL[k][1]}</small></span></label>`).join('')}
+function modShortHTML(){const e=ESS(),t=MODS.every(MOD);return `<button type="button" class="btn2 ${e?'on':''}" data-mods="0">Essentiel</button><button type="button" class="btn2 ${t?'on':''}" data-mods="1">Tout</button>`}
+function modBind(box,after){box.querySelectorAll('[data-mod]').forEach(i=>i.onchange=()=>{const o=Object.fromEntries(MODS.map(k=>[k,MOD(k)]));o[i.dataset.mod]=i.checked;setMods(o,true);renderAll();if(after)after();toast(i.checked?'Module affiché.':'Module masqué : rien n\'est perdu.')});
+ box.querySelectorAll('[data-mods]').forEach(b=>b.onclick=()=>{const v=b.dataset.mods=='1';setMods(modsAll(v),true);renderAll();if(after)after();toast(v?'Tout : tous les modules sont affichés.':'Essentiel : le suivi de tes entretiens et de tes personnes. Rien n\'est perdu.')})}
+function renderModMenu(){const m=$('modMenu');if(!m||m.classList.contains('hide'))return;
+ m.innerHTML=`<div class="mmk">Sur quoi tu travailles</div>${modListHTML('mmi')}<div class="mmf">${modShortHTML()}</div><div class="mmh">Le suivi de tes entretiens, de tes personnes et « À relancer » est toujours là. Un module désactivé est seulement masqué : rien n'est perdu.</div>`;modBind(m,renderModMenu)}
+function renderModSet(){const b=$('setModsL');if(!b)return;if($('setModsN'))$('setModsN').textContent=modLbl();b.innerHTML=`<div class="modset">${modListHTML('msi')}</div><div class="mmf">${modShortHTML()}</div>`;modBind(b,renderModSet)}
+function applyMode(){const b=document.body;MODS.forEach(k=>b.classList.toggle('no-'+k,!MOD(k)));b.classList.toggle('ess',ESS());
+ if($('modLbl'))$('modLbl').textContent=modLbl();
+ /* onglet masqué : retour au Suivi d'activité (pas pendant le parcours de démarrage, qui choisit lui-même l'onglet d'arrivée) */
+ if(MODTAB[TAB]&&!MOD(MODTAB[TAB])&&$('wiz').classList.contains('hide'))goTab('metrics')}
+$('modBtn').onclick=e=>{e.stopPropagation();if(!DB)return;const m=$('modMenu');m.classList.toggle('hide');$('modBtn').classList.toggle('on',!m.classList.contains('hide'));renderModMenu();
+ /* menu calé à droite du bouton, ou à gauche s'il sortirait de l'écran (en-tête replié sur écran étroit) */
+ m.style.left=m.style.right='';if(!m.classList.contains('hide')&&m.getBoundingClientRect().left<8){m.style.left='0';m.style.right='auto'}};
+document.addEventListener('click',e=>{const m=$('modMenu');if(m&&!m.classList.contains('hide')&&e.target.isConnected&&!e.target.closest('#modMenu,#modBtn')){m.classList.add('hide');$('modBtn').classList.remove('on')}});
 const TORD=['reseau','invitation','conversation','proposition','session','debrief','supervision'];
 const TDESC={reseau:"J'ai rencontré une personne de mon réseau (café, événement, appel)",invitation:"J'ai proposé à une personne de découvrir le coaching",conversation:"J'ai fait découvrir mon coaching lors d'une session offerte",proposition:"J'ai proposé un contrat de coaching",
  session:"J'ai coaché lors d'une session sous contrat signé",debrief:"J'ai pris le temps de revenir sur mon entretien (contenu, posture, pratique)",supervision:"Je me suis fait superviser dans ma pratique"};
 function renderTypeChips(){const main=TORD.filter(k=>TM[k]),rest=STACK.filter(k=>TM[k]&&!main.includes(k)),box=$('mTypes');
  const btn=k=>`<button class="chip type ${k===S.type?'on':''}" data-ty="${k}" style="--c:${TM[k].c};--t:${tc(TM[k].c)}">${esc(TM[k].l)}</button>`;
- if(SIMPLE()){box.className='tylist';box.innerHTML=main.map(k=>`<div class="tyrow">${btn(k)}<span>${TDESC[k]}</span></div>`).join('')+(rest.length?`<div class="tyrest">${rest.map(btn).join('')}</div>`:'')}
+ if(ESS()){box.className='tylist';box.innerHTML=main.map(k=>`<div class="tyrow">${btn(k)}<span>${TDESC[k]}</span></div>`).join('')+(rest.length?`<div class="tyrest">${rest.map(btn).join('')}</div>`:'')}
  else{box.className='chips tyseq';box.innerHTML=main.map(btn).join('<span class="tysep">›</span>')+(rest.length?'<span class="tybar"></span>'+rest.map(btn).join(''):'')}
  box.querySelectorAll('[data-ty]').forEach(b=>b.onclick=()=>{S.type=b.dataset.ty;S.dur=TM[S.type].d;renderModal()})}
 

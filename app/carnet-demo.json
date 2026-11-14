@@ -4774,7 +4774,13 @@
  },
  "prefs": {
   "onboarded": true,
-  "simple": true
+  "simple": false,
+  "modules": {
+   "coacher": true,
+   "competences": true,
+   "activite": true,
+   "jeu": true
+  }
  },
  "supprimes": {
   "t": {}
