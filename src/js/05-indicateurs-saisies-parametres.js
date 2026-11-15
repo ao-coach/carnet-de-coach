@@ -269,15 +269,23 @@ $('addPrio').onclick=()=>{DB.priorites.push({o:'',d:''});touch();renderPrio();$(
 /* ---------- plan d'action ---------- */
 let AF='encours';
 const SL={encours:'En cours',realisee:'Réalisées',annulee:'Annulées'},SS={encours:'En cours',realisee:'Réalisée',annulee:'Annulée'};
+/* 3.4.0 : catégories fixes du plan d'action, proposées après les objectifs prioritaires (texte enregistré dans a.p, dans la langue de l'interface ; les deux langues sont reconnues) */
+const PCAT={reseau:['Réseau','Network'],pd:['Pratique délibérée','Deliberate practice']};/* i18n-ok : libellés FR/EN des catégories */
+const pcatLab=k=>PCAT[k][LANG==='en'?1:0];
+const pcatOf=p=>{const s=String(p||'').trim().toLowerCase();return Object.keys(PCAT).find(k=>PCAT[k].some(x=>x.toLowerCase()===s))||null};
 function renderActs(){const A=DB.actions,t=today();
  $('pills').innerHTML=Object.keys(SL).map(k=>`<button class="pill ${k} ${AF==k?'on':''}" data-f="${k}">${SL[k]}<span>${A.filter(a=>a.s==k).length}</span></button>`).join('');
  $('pills').querySelectorAll('.pill').forEach(b=>b.onclick=()=>{AF=b.dataset.f;renderActs()});
- const names=DB.priorites.map(p=>p.o).filter(Boolean);
+ const names=DB.priorites.map(p=>p.o).filter(Boolean),nk=names.map(n=>pcatOf(n));
+ /* 3.4.0 : suggestions de « Autre… » = valeurs déjà saisies hors objectifs et catégories fixes, les plus utilisées d'abord */
+ {const C={};A.forEach(a=>{const p=String(a.p||'').trim();if(p&&!names.includes(p)&&!pcatOf(p))C[p]=(C[p]||0)+1});
+  $('actSug').innerHTML=Object.keys(C).sort((x,y)=>C[y]-C[x]||byName(x,y)).map(p=>`<option value="${esc(p)}">`).join('')}
  const rows=A.filter(a=>a.s==AF).sort((x,y)=>(x.d||'9').localeCompare(y.d||'9'));
- $('acts').innerHTML=rows.map(a=>{const custom=!names.includes(a.p),late=a.s=='encours'&&a.d&&a.d<t;
+ $('acts').innerHTML=rows.map(a=>{const ck=names.includes(a.p)?null:pcatOf(a.p),custom=!names.includes(a.p)&&!ck,late=a.s=='encours'&&a.d&&a.d<t;
+  const cats=Object.keys(PCAT).filter(k=>!nk.includes(k)&&(k!=='pd'||ck==='pd'||MOD('competences')));
   return `<tr data-id="${a.id}" class="${a.s=='realisee'?'done':a.s=='annulee'?'cancel':''}">
-  <td><div class="prio-cell"><select class="ed" data-k="psel">${names.map(n=>`<option ${n==a.p?'selected':''}>${esc(n)}</option>`).join('')}<option value="__o" ${custom?'selected':''}>Autre…</option></select>
-   ${custom?`<input class="ed" data-k="p" value="${esc(a.p)}" placeholder="Saisir une valeur" style="font-size:13px;color:var(--am)">`:''}</div></td>
+  <td><div class="prio-cell"><select class="ed" data-k="psel">${names.map(n=>`<option ${n==a.p?'selected':''}>${esc(n)}</option>`).join('')}${cats.map(k=>`<option value="__${k}" ${ck===k?'selected':''}>${esc(PCAT[k][0])}</option>`).join('')}<option value="__o" ${custom?'selected':''}>Autre…</option></select>
+   ${custom?`<input class="ed" data-k="p" list="actSug" value="${esc(a.p)}" placeholder="Saisir une valeur" style="font-size:13px;color:var(--am)">`:''}</div></td>
   <td><input class="ed" data-k="a" value="${esc(a.a)}" placeholder="Décrire l'action"></td>
   <td><button type="button" class="ed pbtn" data-pp title="Choisir la personne">${a.pid!=null&&pById(a.pid)?esc(pname(a.pid)):'—'}</button></td>
   <td class="${late?'late':''}"><input type="date" class="ed" data-k="d" value="${a.d||''}">${late?'<div style="font-size:11px;color:var(--am);font-weight:800;padding-left:7px">En retard</div>':''}</td>
@@ -289,7 +297,7 @@ function renderActs(){const A=DB.actions,t=today();
    toast('Action supprimée','Annuler',()=>{const M=DB.actions;if(M.some(x=>String(x.id)===String(a.id)))return;M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()})};
   {const pb=tr.querySelector('[data-pp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:a.pid,none:true,onPick:id=>{a.pid=id;a.maj=new Date().toISOString();touch();renderActs()}})}
   tr.querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{const k=el.dataset.k;
-   if(k=='psel'){a.p=el.value=='__o'?'':el.value;touch();renderActs();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
+   if(k=='psel'){const v=el.value;a.p=v=='__o'?'':v.startsWith('__')&&PCAT[v.slice(2)]?pcatLab(v.slice(2)):v;a.maj=new Date().toISOString();touch();renderActs();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
    a[k]=el.value;a.maj=new Date().toISOString();touch();
    if(k=='s'){tr.className=a.s=='realisee'?'done':a.s=='annulee'?'cancel':'';el.className='st '+a.s;
     toast(a.s=='realisee'?'Action réalisée ✓':a.s=='annulee'?'Action annulée':'Action remise en cours');
