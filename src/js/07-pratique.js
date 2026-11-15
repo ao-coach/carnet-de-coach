@@ -136,7 +136,7 @@ function attachSup(e){const P=supPool();if(!P.length)return 0;let n=0;e.retours=
 /* st = {pa:{idAction:2|1|0}, xp:{idComp:XP}, fcom:'…', rem:{idComp:{t,sup,sid?,open?}}} ; dur = durée de la saisie (budget d'XP) */
 const xpSum=o=>Object.entries(o||{}).reduce((s,[k,v])=>s+(isFc(k)?0:+v||0),0);
 function xpRows(st,list,B){const F=PD().focus.map(String),left=B-xpSum(st.xp);
- return list.map(m=>{const v=+st.xp[m.id]||0;return `<div class="xpr"><span class="n">${esc(m.l)}${F.includes(String(m.id))?'<span class="fpill">focus</span>':''}${m.actif?'':' <small>(archivée)</small>'}</span><span class="stp"><button type="button" data-xpm="${esc(m.id)}" data-d="-1" ${v>0?'':'disabled'} aria-label="Retirer un XP">−</button><b>${v}</b><button type="button" data-xpm="${esc(m.id)}" data-d="1" ${left>0?'':'disabled'} aria-label="Ajouter un XP">+</button></span></div>`}).join('')}
+ return '<div class="xprs">'+list.map(m=>{const v=+st.xp[m.id]||0;return `<div class="xpr"><span class="n">${esc(m.l)}${F.includes(String(m.id))?'<span class="fpill">focus</span>':''}${m.actif?'':' <small>(archivée)</small>'}</span><span class="stp"><button type="button" data-xpm="${esc(m.id)}" data-d="-1" ${v>0?'':'disabled'} aria-label="Retirer un XP">−</button><b>${v}</b><button type="button" data-xpm="${esc(m.id)}" data-d="1" ${left>0?'':'disabled'} aria-label="Ajouter un XP">+</button></span></div>`}).join('')+'</div>'}
 function xpBlock(st,type,dur){const mu=xpMult(type),B=Math.round((+dur||0)/10)*mu,fc=fcMet();st._B=B;
  const extra=metrics().filter(m=>!m.fc&&+st.xp[m.id]>0&&(!m.actif||!mu));
  if(isCom(type)&&fc){const v=+st.xp[fc.id]||0;
@@ -349,10 +349,37 @@ $('libX').onclick=()=>{$('libM').classList.remove('show');renderAll()};
 /* 3.2.2 : liste des saisies aux XP non répartis (chemin principal pour répartir, depuis le panneau XP).
    Un clic ouvre la fiche sur la section XP ; à l'enregistrement de la fiche, la liste se met à jour. */
 const xpOverN=()=>MOD('competences')?E().filter(e=>xpLeft(e)<0).length:0;
-function openXpQ(){renderXpQ();$('xpqM').classList.add('show')}
-function renderXpQ(){const L=E().filter(e=>xpTodo(e)||(xpBudget(e)>0||xpPut(e)>0)&&xpLeft(e)<0).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
- $('xpqB').innerHTML=L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<button type="button" class="xpqi" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n ov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'<div class="xpqok">Tout est réparti ✓</div>';
- $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openPdEdit(b.dataset.xq,'xp'))}
+/* 3.2.4 : XQD = saisies réparties depuis l'ouverture de la liste : elles y restent, en vert, cliquables, jusqu'à la fermeture */
+const XQD=new Set();
+function openXpQ(){XQD.clear();renderXpQ();$('xpqM').classList.add('show')}
+function renderXpQ(){const L=E().filter(e=>xpTodo(e)||(xpBudget(e)>0||xpPut(e)>0)&&xpLeft(e)<0||XQD.has(String(e.id))).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id),P=xpPending(),ov=xpOverN();
+ const cnt=`<div class="xpqc ${P.x?'':'ok'}">${P.x?`<b>${num(P.x)}</b> XP restant à répartir · ${pl(P.n,'saisie')}`:'Tout est réparti ✓'}${ov?`<span class="ov"> · ${ov>1?`${ov} saisies avec des XP de trop`:'une saisie avec des XP de trop'}</span>`:''}</div>`;
+ $('xpqB').innerHTML=cnt+(L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'},dn=xpLeft(e)==0;return `<button type="button" class="xpqi${dn?' dn':''}" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n ov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:dn?`<span class="n ok">✓ réparti<small>${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'');
+ $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openXpR(b.dataset.xq))}
+/* 3.2.4 : petite fenêtre de répartition des XP d'une saisie (depuis la liste des XP en attente) :
+   rappel de la saisie, grille XP (xpBlock / bindPdForm, comme la saisie), Enregistrer ; lien vers la fiche complète. */
+let XPR=null;
+function openXpR(id){const e=E().find(x=>String(x.id)===String(id));if(!e)return;
+ XPR={e,st:{pa:{},rem:{},xp:{...(e.xp||{})},fcom:e.fcom||''}};renderXpR();XPR.snap=xprSnap();$('xprM').classList.add('show');$('xprM').querySelector('.modal').scrollTop=0}
+const xprSnap=()=>XPR?JSON.stringify([xpClean(XPR.st,XPR.e.type,XPR.e.dur,true),(XPR.st.fcom||'').trim()]):'';
+const xprDirty=()=>!!XPR&&$('xprM').classList.contains('show')&&xprSnap()!==XPR.snap;
+function renderXpR(){const e=XPR.e,t=TM[e.type]||{l:e.type,c:'#ccc'};
+ $('xprT').innerHTML=`<span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span>${dShort(e.date)} · ${fmtD(+e.dur||0)}${e.pid!=null?` · <b>${esc(pname(e.pid))}</b>`:''}</span>${e.com?`<small>${esc(e.com)}</small>`:''}`;
+ const b=$('xprB');b.innerHTML=xpBlock(XPR.st,e.type,e.dur);bindPdForm(b,XPR.st,renderXpR)}
+const xprClose=()=>{$('xprM').classList.remove('show');XPR=null};
+const xprLeave=go=>{if(!xprDirty()){xprClose();go&&go();return}
+ askBox({t:'Quitter sans enregistrer ?',h:'Tu as modifié la répartition de cette saisie. Si tu quittes maintenant, tes modifications seront perdues.',ok:'Quitter sans enregistrer',no:'Revenir à la répartition'},()=>{xprClose();go&&go()})};
+$('xprX').onclick=()=>xprLeave();$('xprM').onclick=ev=>{if(ev.target===$('xprM'))xprLeave()};
+$('xprF').onclick=()=>{const id=XPR&&XPR.e.id;xprLeave(()=>openPdEdit(id,'xp'))};
+addEventListener('beforeunload',ev=>{if(xprDirty()){ev.preventDefault();ev.returnValue=''}});
+$('xprS').onclick=()=>{if(!XPR)return;const e=XPR.e,st=XPR.st,B=xpBudget(e),n=xpSum(st.xp)-B;
+ if(MOD('competences')&&n>0){toast(`Retire ${n} XP de la répartition : la saisie n'en rapporte que ${B}`);return}
+ if(MOD('activite')&&isCom(e.type)){const f=fcMet(),nv=f?+st.xp[f.id]||0:0,t=(st.fcom||'').trim();
+  if(!t&&(nv!==xpFcOf(e)||(e.fcom||'').trim())){toast(`${f?f.l:'Facultés commerciales'} : écris ce qui a été facile ou difficile`);const ta=$('xprB').querySelector('[data-fcom]');if(ta)ta.focus();return}
+  if(t)e.fcom=t;else delete e.fcom}
+ const x=xpClean(st,e.type,e.dur,true);if(x)e.xp=x;else delete e.xp;
+ e.maj=new Date().toISOString();touch();xprClose();XQD.add(String(e.id));renderAll();if($('xpqM').classList.contains('show'))renderXpQ();
+ toast(xpLeft(e)>0?`Enregistré : il reste ${xpLeft(e)} XP à répartir sur cette saisie`:'XP répartis ✓')};
 $('xpqX').onclick=()=>$('xpqM').classList.remove('show');$('xpqM').onclick=e=>{if(e.target===$('xpqM'))$('xpqX').click()};
 
 /* =========================================================

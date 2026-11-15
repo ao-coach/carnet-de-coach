@@ -1057,3 +1057,12 @@ textarea.fsn{min-height:200px}
 .xpls{display:grid;grid-template-columns:1fr 1fr;column-gap:22px}
 .xpls .xpl{padding:7px 2px}.xpls .xpl .t b{font-size:13.5px}.xpls .xpl .v{font-size:12.5px}.xpls .xpl .xpbar{height:4px;margin:4px 0 2px}.xpls .xpl .s{font-size:11.5px}
 @media(max-width:700px){.xpls{grid-template-columns:1fr}}
+/* 3.2.4 : grille XP sur deux colonnes ; petite fenêtre de répartition ; liste : compteur et saisies réparties en vert */
+.xprs{display:grid;grid-template-columns:1fr 1fr;column-gap:22px}.xprs .xpr .n{font-size:13.5px}
+@media(max-width:600px){.xprs{grid-template-columns:1fr}}
+.xprt{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px;font-size:13.5px;color:var(--grey)}.xprt b{color:var(--jet)}
+.xprt .tp{font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px}.xprt small{flex-basis:100%;font-size:13px;color:var(--jet)}
+.xprf{align-items:center}
+.xpqc{margin-top:12px;background:#FFF8E6;border:1px solid #E9CF8A;border-radius:10px;padding:9px 12px;font-size:13.5px;color:#8A6100;font-weight:700}.xpqc b{font-size:18px}
+.xpqc.ok{background:#EAF6EF;border-color:#A9D8BC;color:#2E7D5B}.xpqc .ov{color:#C23B3B}
+.xpqi.dn{background:#EAF6EF;border-color:#A9D8BC}.xpqi.dn:hover{background:#DDF0E4}.xpqi .n.ok{color:#2E7D5B}
