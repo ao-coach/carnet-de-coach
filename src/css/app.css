@@ -1158,3 +1158,12 @@ body.no-activite .pfct2{grid-template-columns:minmax(0,1fr)}
 .nfi .nfz{font-weight:600;font-style:italic}
 .nfi .t .k{margin-right:6px}
 .nfi .t+.t{margin-top:6px}
+/* 3.3.0 : onglet Contrat, propositions (un clic ouvre la saisie, au-dessus de la fiche) */
+#pdeM{z-index:33}
+.pfkp{display:flex;flex-direction:column;max-width:760px}
+.pfkr{display:grid;grid-template-columns:110px minmax(0,1fr) 110px 100px;gap:10px;align-items:center;text-align:left;border:0;border-bottom:1px solid var(--soft);background:none;padding:8px 6px;font:inherit;font-size:14px;color:var(--jet);cursor:pointer;border-radius:8px}
+.pfkr:hover,.pfkr:focus-visible{background:var(--soft)}
+.pfkr small{color:var(--grey);font-weight:700}
+.kst{border-radius:10px;padding:1px 8px;font-size:11.5px;font-weight:800;text-align:center}
+.kst.a{background:#E6F2EC;color:#2D6A4F}.kst.r{background:#F8E6E8;color:#9B3A47}.kst.w{background:#FFF2D6;color:#8A6D1E}
+@media(max-width:560px){.pfkr{grid-template-columns:1fr 1fr}}

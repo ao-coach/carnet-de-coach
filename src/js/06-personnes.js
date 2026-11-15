@@ -275,6 +275,11 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
  if($('pfM').classList.contains('show'))pfTL();$('pfAis').innerHTML=aisBlock(all);
  $('pfKT').classList.toggle('hide',!all.some(e=>e.type=='proposition'));
  const K=contractOf(p.id);$('pfKS').classList.toggle('hide',!K);
+ /* 3.3.0 : onglet Contrat, toutes les propositions (la plus récente d'abord) ; un clic ouvre la fiche de la saisie */
+ const PR=all.filter(e=>e.type=='proposition').reverse(),SC={acceptee:'a',refusee:'r',attente:'w'};
+ $('pfKP').innerHTML=PR.map(e=>`<button type="button" class="pfkr" data-kpe="${esc(e.id)}" title="Ouvrir la saisie"><span>${dShort(e.date)}</span><span>${[e.seances?pl(+e.seances,'séance'):'',e.engagement_mois?e.engagement_mois+' mois':''].filter(Boolean).join(' · ')||'—'}${K&&e===K.e?' <small>· contrat en cours</small>':''}</span><b>${eur(+e.eur||0)}</b><span class="kst ${SC[e.statut||'attente']||'w'}">${STAT[e.statut||'attente']||''}</span></button>`).join('')
+  +(PR.length?'<div class="hint" style="margin:8px 0 0">Clique sur une proposition pour ouvrir sa saisie : montant, statut, séances.</div>':'');
+ $('pfKP').querySelectorAll('[data-kpe]').forEach(b=>b.onclick=()=>openPdEdit(b.dataset.kpe,'k'));
  if(K){$('pfK').innerHTML=`<div class="pfk"><div><b>${eur(K.eur)}</b>${K.e.engagement_mois?` · ${K.e.engagement_mois} mois`:''} · ${contractTxt(K)}${contractBar(K)}</div>
    <label class="pflab">Début<input class="fin" type="date" id="pfKD" value="${K.debut}"></label><label class="pflab">Séances prévues<input class="fin" type="number" min="1" id="pfKN" value="${K.prevues||''}" placeholder="—"></label>
    <label class="pflab">Durée<select class="fin" id="pfKM">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==K.e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></label></div>`;

@@ -293,7 +293,7 @@ $('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,d=PDE.d,c=cleanPd(PDE.st),ne
  if(d.type=='supervision'&&MOD('activite')){flag('gratuit',d.gratuit);put('cout',d.cout===''?null:+d.cout)}
  if(c.pa)e.pa=c.pa;else delete e.pa;if(c.rem)e.rem=c.rem;else delete e.rem;if(d.notes.trim())e.notes=d.notes.trim();else delete e.notes;
  if(MOD('competences')||MOD('activite')){const x=xpClean(PDE.st,d.type,d.dur,true);if(x)e.xp=x;else delete e.xp}if(MOD('activite')){const t=(PDE.st.fcom||'').trim();if(t)e.fcom=t;else delete e.fcom}if(PDE.ret.length)e.retours=PDE.ret.map(x=>({...x,t:(x.t||'').trim()}));
- e.maj=new Date().toISOString();touch();pkClose();$('pdeM').classList.remove('show');PDE=null;renderAll();if($('xpqM').classList.contains('show'))renderXpQ();toast('Saisie mise à jour')};
+ e.maj=new Date().toISOString();touch();pkClose();$('pdeM').classList.remove('show');PDE=null;renderAll();if($('xpqM').classList.contains('show'))renderXpQ();if(PFID!=null&&$('pfM').classList.contains('show'))renderFiche();toast('Saisie mise à jour')};
 
 /* ---------- historique d'une compétence ---------- */
 let CMP=null;
