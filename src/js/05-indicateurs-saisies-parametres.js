@@ -485,7 +485,7 @@ function renderSettings(){const C=CFG();renderModSet();$('setModsN').textContent
 $('imgFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{CFG()[IMGT]=await readImg(f,IMGT);cfgChanged();if(!$('wiz').classList.contains('hide'))renderWiz();toast('Image enregistrée')}catch(err){toast('Image non reconnue')}e.target.value=''};
 $('resetColors').onclick=()=>{const C=CFG();C.couleurs={...PALETTES[0].c};C.couleursAuto=true;applyStackColors(C);cfgChanged()};
 function renderMets(){$('discList').innerHTML=[...new Set(metrics().map(m=>(m.disc||'').trim()).filter(Boolean))].map(d=>`<option value="${esc(d)}">`).join('');const M=CFG().metriques,F=PD().focus.map(String),cnt=id=>E().filter(e=>+e.xp?.[id]>0||e.ais_v2?.[id]).length+XFERS().filter(t=>String(t.de)===String(id)||String(t.vers)===String(id)).length;
- $('metRows').innerHTML=M.map((m,i)=>`<tr class="${m.actif?'':'arch'}" data-i="${i}"><td><button class="ibtn" data-mv="-1" ${i?'':'disabled'}>↑</button><button class="ibtn" data-mv="1" ${i<M.length-1?'':'disabled'}>↓</button></td>
+ $('metRows').innerHTML=M.map((m,i)=>`<tr class="${m.actif?'':'arch'}" data-i="${i}"><td><span class="handle mhd" tabindex="0" role="button" aria-label="Déplacer cette compétence" title="Glisser pour déplacer (ou flèches ↑ ↓)">⋮⋮</span></td>
   <td><input class="ed" data-f="l" value="${esc(m.l)}" style="font-weight:700"></td><td><input class="ed" data-f="disc" list="discList" value="${esc(m.disc||'')}" placeholder="Discipline" style="width:150px"></td>
   <td>${m.fc?'<span class="hint" style="margin:0" title="Elle reçoit les XP de tes rencontres réseau, invitations et propositions">toujours</span>':`<button class="sw ${m.actif?'on':''}" data-act></button>`}</td><td>${m.actif?`<button class="sw ${F.includes(String(m.id))?'on':''}" data-foc></button>`:''}</td><td style="color:var(--grey);font-size:12.5px">${cnt(m.id)}</td>
   <td>${cnt(m.id)||m.fc?'':'<button class="ibtn del" data-del title="Supprimer">✕</button>'}</td></tr>`).join('');
@@ -493,8 +493,16 @@ function renderMets(){$('discList').innerHTML=[...new Set(metrics().map(m=>(m.di
   tr.querySelectorAll('[data-f]').forEach(inp=>inp.onchange=()=>{m[inp.dataset.f]=inp.value.trim();if(!m.l)m.l='Compétence '+(i+1);metChanged()});
   const ac=tr.querySelector('[data-act]');if(ac)ac.onclick=()=>{m.actif=!m.actif;if(!m.actif)PD().focus=PD().focus.filter(x=>String(x)!==String(m.id));metChanged()};
   const fo=tr.querySelector('[data-foc]');if(fo)fo.onclick=()=>{if(F.includes(String(m.id)))unFocus(m.id);else setFocus(m.id,true);renderMets()};
-  tr.querySelectorAll('[data-mv]').forEach(b=>b.onclick=()=>{const j=i+ +b.dataset.mv;if(j<0||j>=M.length)return;[M[i],M[j]]=[M[j],M[i]];metChanged()});
+  /* 3.4.0 : poignée de glisser-déposer (souris et doigt : événements pointer ; clavier : flèches ↑ ↓) */
+  const h=tr.querySelector('.mhd');if(h){const mv=(j,kb)=>{if(j<0||j>=M.length||j===i)return;const[x]=M.splice(i,1);M.splice(j,0,x);metChanged();if(kb)$('metRows').querySelector(`tr[data-i="${j}"] .mhd`)?.focus()};
+   h.onkeydown=ev=>{if(ev.key==='ArrowUp'||ev.key==='ArrowDown'){ev.preventDefault();mv(i+(ev.key==='ArrowUp'?-1:1),true)}};
+   const over=ev=>{const r=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('tr[data-i]');return r&&r.parentNode===tr.parentNode?r:null};
+   h.onpointerdown=ev=>{if(ev.button>0)return;ev.preventDefault();try{h.setPointerCapture(ev.pointerId)}catch(e){}tr.classList.add('drag');MDRG=true};
+   h.onpointermove=ev=>{if(!MDRG)return;$('metRows').querySelectorAll('tr.over').forEach(r=>r.classList.remove('over'));const r=over(ev);if(r&&r!==tr)r.classList.add('over')};
+   const end=ev=>{if(!MDRG)return;MDRG=false;const r=ev&&ev.type==='pointerup'?over(ev):null;$('metRows').querySelectorAll('tr.over,tr.drag').forEach(x=>x.classList.remove('over','drag'));if(r&&r!==tr)mv(+r.dataset.i)};
+   h.onpointerup=end;h.onpointercancel=end}
   const d=tr.querySelector('[data-del]');if(d)d.onclick=()=>{M.splice(i,1);metChanged()}});}
+let MDRG=false;
 function metChanged(){touch();applyConfig();renderMets();renderAll()}
 function openMets(){renderMets();$('metM').classList.add('show')}
 $('metX').onclick=()=>{$('metM').classList.remove('show');renderAll()};

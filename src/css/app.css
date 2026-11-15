@@ -324,6 +324,8 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 .bd.ar{background:#EDEDEF;color:#8A8D91}
 .rolefix{font-size:12.5px;color:var(--grey)}
 .pt tr.drag{opacity:.4} .pt tr.over td{background:#F0F6F9} .pt .handle{cursor:grab;font-size:15px;padding:0 6px}
+/* 3.4.0 : poignée des compétences (souris, doigt, clavier) */
+.pt .mhd{display:inline-block;touch-action:none;border-radius:6px;padding:2px 8px;border:1px dashed transparent;letter-spacing:-2px}.pt .mhd:hover,.pt .mhd:focus-visible{border-color:var(--line);background:var(--soft);outline:none;color:var(--jet)}.pt tr.over td{box-shadow:inset 0 3px 0 var(--am)}
 .rk{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-size:11.5px;font-weight:800;color:var(--grey)}
 .pt tr:first-child .rk{background:var(--jet);color:#fff}
 .durx{display:flex;align-items:center;gap:10px;margin-top:8px}.durx .fin{max-width:260px;padding:7px 12px;font-size:14px}.durx span{font-size:13px;font-weight:800;color:var(--afb)}.durx span.bad{color:var(--am);font-weight:700}
