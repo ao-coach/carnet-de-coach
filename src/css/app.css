@@ -387,10 +387,6 @@ details summary{cursor:pointer;font-size:13px;color:var(--grey);margin-top:12px;
 @media(max-width:860px){.nwi{grid-template-columns:1fr}}
 @media(max-width:860px){.pals{grid-template-columns:1fr 1fr}.wzt{font-size:25px}}
 .site{font-size:12.5px;font-weight:700;color:var(--afb);text-decoration:none;display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .site:hover{text-decoration:underline}
-.ent .cn,.ent th.cn{background:color-mix(in srgb,var(--afb) 10%,#fff)} .ent .kk,.ent th.kk{background:color-mix(in srgb,var(--am) 7%,#fff)}
-.ent th .tgl{border:0;background:none;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--jet);cursor:pointer;padding:2px 4px;border-radius:6px} .ent th .tgl:hover{background:rgba(0,0,0,.06)}
-.ent td.sumc{font-size:12.5px;color:var(--grey);white-space:nowrap;cursor:pointer;letter-spacing:.04em} .ent td.sumc b{font-weight:800}
-.ent td.kk .ed{font-size:13px}
 .pcard .pn,.pcard .pt2{overflow-wrap:anywhere}
 @media(min-width:1700px){.dashpair{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start}.dashpair>.card{margin-top:22px}}
 table .fit{width:1%;white-space:nowrap}
@@ -992,9 +988,8 @@ textarea.req{border-color:#E3A5AD}
 .xptf{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .xptf .fin,.xptf .sel{width:auto;margin:0;background:#fff}.xptf #xtMot{flex:1;min-width:150px}
 .xph2{font-size:13px}.xph2>div{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line)}.xph2 .d{color:var(--grey);width:72px;flex:none}.xph2 button,.xph2 .nox{margin-left:auto}
-#rows tr.xpna td.cn{background:#FFF4D6}#rows tr.xpov td{background:#F8E6E8}
-#rows input.xpi{width:46px;text-align:center;padding:3px 2px}
-td.xps{white-space:nowrap}td.xps small,td.sumc small{display:block;font-size:11px;font-weight:800}td.sumc small{display:inline}
+
+
 small.na{color:#8A6100}small.ov{color:#C23B3B}small.ok{color:#2E7D5B}
 .cf.jeu .xpbar{background:rgba(255,255,255,.12)}
 .wzcards.val .wzc p{color:#33403F}.wzvalf{font-style:italic;font-family:'Noto Serif',serif;font-size:15px}
@@ -1031,3 +1026,8 @@ body.shot .ov{background:transparent!important;backdrop-filter:none!important}
 .fscb{margin:0 0 9px}
 textarea.fsta{resize:vertical;overflow:hidden;font:inherit;font-size:14.5px;line-height:1.5}
 textarea.fsn{min-height:200px}
+/* 3.2.2 : Mes saisies, bouton « Fiche » avant « Ce qu'on a vu » (point jaune : XP à répartir) */
+.ent td.fcell{width:1%;padding-right:4px}
+.ent .fbtn{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 9px;font:inherit;font-weight:700;font-size:12.5px;color:var(--grey);cursor:pointer;position:relative;white-space:nowrap}
+.ent .fbtn:hover{color:var(--afb);border-color:var(--afb)}.ent .fbtn.on{color:var(--afb)}
+.ent .fbtn.todo::after{content:'';position:absolute;top:-4px;right:-4px;width:9px;height:9px;border-radius:50%;background:#E0A800;border:2px solid #fff}

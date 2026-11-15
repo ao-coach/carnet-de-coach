@@ -332,50 +332,25 @@ function renderPCards(){const ids=[...F.p].filter(pid=>E().some(e=>e.pid==pid));
   <div class="pc2tl"><div class="lab2">Échanges</div>${timelineSVG(all,700)}</div></div>`;
  $('pcards').querySelectorAll('[data-pct]').forEach(b=>b.onclick=()=>{PCTAB=b.dataset.pct;renderPCards();bindArch()})}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
-const short=s=>{s=TR(s);return s.length>12?s.slice(0,11)+'.':s};
-const LV={notes:false,k:false};
-/* 3.0.0 : état des XP d'une saisie dans Mes saisies (mode complet) : à répartir (jaune), dépassement (rouge) */
-const xpRowCls=e=>xpLeft(e)<0?'xpov':xpTodo(e)?'xpna':'';
-function xpStat(e){const B=xpBudget(e),l=xpLeft(e),fc=xpFcOf(e);if(!B&&!xpPut(e))return isCom(e.type)?(fc?`<small>${fc} XP</small>`:''):'<small>—</small>';
- return `<b>${B}</b>${l>0?(xpSig(e)?`<small class="na">${l} à répartir</small>`:''):l<0?`<small class="ov">${-l} de trop</small>`:'<small class="ok">✓</small>'}`}
-function xpSumTxt(e,MS){const B=xpBudget(e),l=xpLeft(e),p=MS.filter(m=>+e.xp?.[m.id]>0).map(m=>`${xpAbbr(m.l)} ${e.xp[m.id]}`);
- if((!B||!xpSig(e))&&!p.length)return '';const h=[B?`${B} XP`:'',...p].filter(Boolean).join(' · ');return `${h}${xpTodo(e)?` <small class="na">· ${l} à répartir</small>`:l<0?` <small class="ov">· ${-l} de trop</small>`:''}`}
+/* 3.2.2 : bouton « Fiche » d'une ligne de Mes saisies, avant « Ce qu'on a vu » (point jaune : XP à répartir) */
+function fBtn(e){const td=MOD('competences')&&xpTodo(e);return `<button class="fbtn ${pdHas(e)?'on':''}${td?' todo':''}" data-pde="${e.id}" title="${td?'Ouvrir la fiche de la saisie · XP à répartir':'Ouvrir la fiche de la saisie'}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h7M9 16h7"/></svg><span data-noi18n>${LANG==='en'?'Card':'Fiche'}</span></button>`} /* i18n-ok : libellé choisi selon LANG (« Fiche » vaut « Profile » dans I18N_EN) */
 function renderRows(L){
- /* 3.2.0 : colonnes XP avec le module ② (la colonne Facultés commerciales demande aussi le module ③) */
- const MS=!MOD('competences')?[]:($('showArch').checked?metrics():mActive()).filter(m=>!m.fc||MOD('activite'));
- const NH=!MS.length?'':LV.notes?`<th class="c cn fit"><button class="tgl" data-tg="notes" title="Replier les XP">◂</button>XP</th>`+MS.map(m=>`<th class="c cn fit ${m.actif?'':'arch'}" title="${esc(m.l)}">${esc(short(m.l))}</th>`).join(''):`<th class="cn fit"><button class="tgl" data-tg="notes" title="Déplier pour répartir les XP">XP ▸</button></th>`;
- const KH=LV.k?`<th class="kk fit"><button class="tgl" data-tg="k" title="Replier">◂</button>Accepté</th><th class="kk fit">Montant</th><th class="kk fit">Durée</th><th class="kk fit">Séances</th>`:`<th class="kk fit"><button class="tgl" data-tg="k" title="Déplier pour modifier">Contrat / coût ▸</button></th>`;
- $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th>Ce qu'on a vu</th>${NH}${KH}<th class="fit"></th></tr>`;
- $('rowsHead').querySelectorAll('[data-tg]').forEach(b=>b.onclick=()=>{LV[b.dataset.tg]=!LV[b.dataset.tg];renderRows(L)});
+ /* 3.2.2 : plus de colonnes XP ni Contrat / coût : ils se consultent et se modifient dans la fiche de la saisie (bouton « Fiche ») */
+ $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th class="fit"></th><th>Ce qu'on a vu</th><th class="fit"></th></tr>`;
  L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
- $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}" class="${MS.length?xpRowCls(e):''}">
+ $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
  <td class="pcell"><button type="button" class="ed psel pbtn${e.pid==null&&!e.psup&&pReq(e.type)?' miss':''}" data-pp title="${e.pid==null&&!e.psup&&pReq(e.type)?'Personne à renseigner':'Changer la personne'}">${e.pid!=null?esc(pname(e.pid))||'—':e.psup?'Personne supprimée':'—'}</button>${e.pid!=null?`<button class="pflt" data-p="${e.pid}" title="Filtrer sur cette personne"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>`:''}</td>
  <td><input type="date" class="ed" data-k="date" value="${e.date}" style="width:122px"></td>
  <td class="ty"><select class="tysel" data-k="type" style="background:${t.c};color:${tc(t.c)}">${T.map(x=>`<option value="${x.k}" ${x.k==e.type?'selected':''} style="background:#fff;color:#1d1d1f">${esc(x.l)}</option>`).join('')}</select></td>
  <td><select class="ed" data-k="dur" style="width:72px">${(DURS.includes(e.dur)?DURS:[e.dur,...DURS]).map(d=>`<option value="${d}" ${d==e.dur?'selected':''}>${fmtD(d)}</option>`).join('')}<option value="x">Autre…</option></select></td>
  <td>${t.cr?`<div class="ck ${e.cr?'on':''}" data-c="cr">✓</div>`:''}</td><td>${t.cr?`<div class="ck ${e.syn?'on':''}" data-c="syn">✓</div>`:''}</td>
+ <td class="fcell">${fBtn(e)}</td>
  <td class="grow">${LONGCOM(e.type)||/\n/.test(e.com||'')?`<textarea class="ed comta" data-k="com" rows="${Math.min(8,String(e.com||'').split('\n').length)}" placeholder="—">${esc(e.com)}</textarea>`:`<input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—">`}</td>
- ${!MS.length?'':LV.notes?`<td class="cn xps">${xpStat(e)}</td>`+MS.map(m=>{const v=+e.xp?.[m.id]||0,ok=m.fc?isCom(e.type):xpMult(e.type)>0;return `<td class="cn">${ok||v?`<input type="number" class="ed xpi" min="0" ${m.fc?'max="5"':''} step="1" data-xm="${esc(m.id)}" value="${v||''}" placeholder="·" title="${esc(m.l)}">`:''}</td>`}).join('')
-   :`<td class="cn sumc" data-open="notes">${xpSumTxt(e,MS)}</td>`}
- ${LV.k?(e.type=='proposition'?`<td class="kk"><select class="ed" data-k="statut" style="font-weight:800;width:auto;color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${Object.keys(STAT).map(k=>`<option value="${k}" ${k==e.statut?'selected':''}>${STAT[k]}</option>`).join('')}</select></td>
-   <td class="kk"><input class="ed" type="number" data-k="eur" value="${e.eur??''}" placeholder="€" style="width:80px"></td>
-   <td class="kk"><select class="ed" data-k="engagement_mois" style="width:auto">${[1,2,3,4,5,6,9,12].map(m=>`<option value="${m}" ${m==e.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></td>
-   <td class="kk"><input class="ed" type="number" min="1" data-k="seances" value="${e.seances??''}" placeholder="—" title="Séances prévues" style="width:62px"></td>`
-   :e.type=='invitation'?`<td class="kk"><label class="small" style="display:flex;gap:5px;align-items:center;white-space:nowrap;cursor:pointer;font-weight:800;color:${e.non?'var(--red)':'inherit'}"><input type="checkbox" data-non ${e.non?'checked':''}> Elle a dit non</label></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>`
-   :e.type=='supervision'&&MOD('activite')?`<td class="kk"><label class="small" style="display:flex;gap:5px;align-items:center;white-space:nowrap;cursor:pointer"><input type="checkbox" data-free ${e.gratuit?'checked':''}> non payante</label></td><td class="kk"><input class="ed" type="number" min="0" data-k="cout" value="${+e.cout>0?e.cout:''}" placeholder="${e.gratuit?'—':(+CFG().finances.supDefaut?'moy. '+CFG().finances.supDefaut+' €':'coût €')}" title="Vide = prix moyen" style="width:90px" ${e.gratuit?'disabled':''}></td><td class="kk"></td><td class="kk"></td>`:'<td class="kk"></td><td class="kk"></td><td class="kk"></td><td class="kk"></td>')
-   :`<td class="kk sumc" data-open="k">${e.type=='proposition'?`<b style="color:${e.statut=='acceptee'?'var(--afb)':e.statut=='refusee'?'var(--red)':'var(--am)'}">${STAT[e.statut]||'En attente'}</b> · ${eur(e.eur)}${e.engagement_mois?' · '+e.engagement_mois+' mois':''}${e.seances?' · '+e.seances+' séances':''}`:e.type=='invitation'?(e.non?'<b style="color:var(--red)">A dit non</b>':''):e.type=='supervision'&&MOD('activite')?(e.gratuit?'non payante':`coût ${eur(supCost(e))}${+e.cout>0?'':' (prix moyen)'}`):''}</td>`}
- <td class="nw2"><button class="pdb ${pdHas(e)?'on':''}" data-pde="${e.id}" title="Notes et pratique délibérée de l'entretien">◎</button><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="${8+(MS.length?(LV.notes?MS.length+1:1):0)+(LV.k?4:1)}" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
- $('rows').querySelectorAll('[data-open]').forEach(c=>c.ondblclick=c.onclick=()=>{LV[c.dataset.open]=true;renderRows(L)});
+ <td class="nw2"><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="9" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
  $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
   tr.querySelectorAll('.ck').forEach(c=>c.onclick=()=>{e[c.dataset.c]=!e[c.dataset.c];c.classList.toggle('on');fl()});
   {const pb=tr.querySelector('[data-pp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:e.pid,none:!pReq(e.type),onPick:id=>{if(id==null&&pReq(e.type)&&!e.psup){toast('La personne est obligatoire pour ce type de saisie');return}e.pid=id;if(id!=null)delete e.psup;fl();renderList()}})}
   tr.querySelectorAll('textarea.comta').forEach(ta=>{ta.addEventListener('input',()=>fitTA(ta));ta.addEventListener('focus',()=>fitTA(ta))});
-  const nn=tr.querySelector('[data-non]');if(nn)nn.onchange=()=>{if(nn.checked)e.non=true;else delete e.non;fl();renderList()};
-  const fr=tr.querySelector('[data-free]');if(fr)fr.onchange=()=>{if(fr.checked)e.gratuit=true;else delete e.gratuit;fl();renderList()};
-  /* 3.0.0 : XP par compétence ; jamais au-delà du budget à la saisie, Facultés commerciales de 0 à 5 */
-  tr.querySelectorAll('input.xpi').forEach(i=>i.onchange=()=>{const k=mById(i.dataset.xm)?.id??i.dataset.xm,old=+e.xp?.[k]||0;let v=Math.max(0,Math.round(+i.value||0));
-   if(isFc(k))v=Math.min(5,v);else{const room=Math.max(old,old+xpLeft(e));if(v>room){v=room;toast(`Pas plus de ${xpBudget(e)} XP pour cette saisie`)}}
-   e.xp=e.xp||{};if(v)e.xp[k]=v;else delete e.xp[k];if(!Object.keys(e.xp).length)delete e.xp;i.value=v||'';tr.className=xpRowCls(e);const st=tr.querySelector('.xps');if(st)st.innerHTML=xpStat(e);fl()});
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
    if(k=='dur'&&i.value==='x'){const inp=document.createElement('input');inp.className='ed';inp.placeholder='2h30';inp.style.width='72px';inp.title='2,5 · 2h30 · 150min';i.replaceWith(inp);inp.focus();let ok=false;
     inp.onkeydown=ev=>{if(ev.key==='Enter')inp.blur();if(ev.key==='Escape'){inp.value='';inp.blur()}};
@@ -386,7 +361,6 @@ function renderRows(L){
   tr.querySelector('[data-pde]').onclick=()=>openPdEdit(e.id);
   tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
   const p=tr.querySelector('.pflt');if(p)p.onclick=()=>{const v=DB.personnes.find(x=>String(x.id)===p.dataset.p)?.id;if(v==null)return;F.p.has(v)?F.p.delete(v):F.p.add(v);renderList();window.scrollTo({top:0,behavior:'smooth'})}})}
-$('showArch').onchange=renderList;
 $('mFree').onchange=e=>{$('mCout').disabled=e.target.checked};
 
 /* ---------- types ajoutés par l'utilisateur ---------- */
