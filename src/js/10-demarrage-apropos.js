@@ -75,6 +75,15 @@ const FAQ=()=>[
   ['Comment se font les mises à jour ?',"Automatiquement : au lancement, une bannière propose de recharger, puis un écran présente les nouveautés. Tes données ne sont jamais touchées par une mise à jour."],
   ['Comment le partager à un confrère ou une consœur ?',"Envoie simplement l'adresse de l'application. Pour transmettre aussi tes réglages (types, couleurs, indicateurs) sans tes données : Paramètres > Partager à un pair."],
   ['Une idée, un souci ?',"Parles-en à Allan : chaque retour de coach nourrit les prochaines versions."]]]];
+/* 3.2.6 : « Rester en lien », les trois liens du site (mêmes adresses que index.html racine : NEWS_URL, DON_URL, CONTACT_URL) */
+const LIENS={news:{fr:'https://tally.so/r/LDzr5j',en:'https://tally.so/r/Vpjebv'},don:'https://ko-fi.com/carnetdecoach',contact:{fr:'https://tally.so/r/DqKOdE',en:'https://tally.so/r/vXr6q0'}};
+const ABIC=d=>`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const lienUrl=k=>{const o=LIENS[k];return typeof o=='string'?o:(o[LANG==='en'?'en':'fr']||o.fr)};
+function lienHtml(){
+ const B=[['news','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>','Les nouveautés',"Une lettre à chaque nouvelle version, pas plus. Pour te désinscrire, il suffit de répondre « stop ».","M'inscrire"],
+  ['don','<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>','Soutenir',"Le carnet est gratuit et le restera. S'il t'aide, tu peux contribuer au temps que j'y consacre.",'Faire un don'],
+  ['contact','<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>','Une idée, un souci','Chaque retour de coach nourrit les prochaines versions.','Écrire à Allan']].filter(x=>lienUrl(x[0]));
+ return B.length?`<div class="card ab-t ab-lien"><div class="ab-k">Rester en lien</div><div class="ab-ls">${B.map(([k,ic,t,p,b])=>`<div class="ab-li"><div class="ic">${ABIC(ic)}</div><b>${t}</b><p>${p}</p><a class="btn2" href="${esc(lienUrl(k))}" data-lk="${k}" target="_blank" rel="noopener">${b}</a></div>`).join('')}</div></div>`:''}
 function renderAbout(){const R=$('about');if(!R)return;
  R.innerHTML=`<div class="ab-h"><div class="ab-ti">À propos</div><p>Pourquoi ce carnet, l'approche qu'il porte, et comment il est construit. <a href="../" target="_blank" rel="noopener" style="color:var(--am);font-weight:800">Le site de Carnet de coach</a></p></div>
  <div class="card ab-t ab-val" id="abVal"><div class="ab-k">À quoi sert ton carnet</div><h2>${VAL_T}</h2><p>${VAL_L}</p>${valCards()}<p class="ab-valf">${VAL_F}</p></div>
@@ -84,9 +93,10 @@ function renderAbout(){const R=$('about');if(!R)return;
    <div class="card ab-t"><div class="ab-k">La démarche</div><h2>Créer tes clients par la relation</h2><p>Le coaching se vend par le coaching : rencontrer, aider sans rien attendre, faire vivre une vraie séance, choisir tes clients, proposer dans un rendez-vous dédié, travailler sur des cycles à un prix juste.${CITE?" L'approche de Gianni Bergandi et Magali Wagner (Odyssée), et de Rich Litvin.":''}</p><button class="btn2" id="abPipe">Lire la démarche</button></div>
    <div class="card ab-t"><div class="ab-k">Sous le capot</div><h2>Comment l'outil est construit</h2><ul><li>Un seul fichier qui tourne dans ton navigateur, sans serveur ni compte.</li><li>Tes données dans un seul fichier, dans ton dossier.</li><li>Chaque saisie enregistrée en une fraction de seconde, fusionnée si le fichier a changé ailleurs.</li><li>Chiffrement AES-GCM, clé de secours, copies de sécurité.</li></ul><button class="btn2" id="abArch">Voir les schémas</button></div>
   </div></div>
+ ${lienHtml()}
  <div class="card ab-faq"><h2>Questions fréquentes</h2><div class="ab-fgs">${FAQ().map(([g,qs])=>`<div class="ab-fg"><div class="ab-k">${g}</div>${qs.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>`).join('')}</div></div>
 `;
- $('abPipe').onclick=()=>openPipe();$('abArch').onclick=()=>window.open('arch.html','_blank','noopener')}
+ $('abPipe').onclick=()=>openPipe();R.querySelectorAll('[data-lk]').forEach(a=>a.onclick=()=>{a.href=lienUrl(a.dataset.lk)});$('abArch').onclick=()=>window.open('arch.html','_blank','noopener')}
 
 const WS={
  hello:()=>({t:'Bienvenue',html:`${letterHtml()}
