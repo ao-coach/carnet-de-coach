@@ -488,7 +488,7 @@ function renderMets(){$('discList').innerHTML=[...new Set(metrics().map(m=>(m.di
  $('metRows').innerHTML=M.map((m,i)=>`<tr class="${m.actif?'':'arch'}" data-i="${i}"><td><span class="handle mhd" tabindex="0" role="button" aria-label="Déplacer cette compétence" title="Glisser pour déplacer (ou flèches ↑ ↓)">⋮⋮</span></td>
   <td><input class="ed" data-f="l" value="${esc(m.l)}" style="font-weight:700"></td><td><input class="ed" data-f="disc" list="discList" value="${esc(m.disc||'')}" placeholder="Discipline" style="width:150px"></td>
   <td>${m.fc?'<span class="hint" style="margin:0" title="Elle reçoit les XP de tes rencontres réseau, invitations et propositions">toujours</span>':`<button class="sw ${m.actif?'on':''}" data-act></button>`}</td><td>${m.actif?`<button class="sw ${F.includes(String(m.id))?'on':''}" data-foc></button>`:''}</td><td style="color:var(--grey);font-size:12.5px">${cnt(m.id)}</td>
-  <td>${cnt(m.id)||m.fc?'':'<button class="ibtn del" data-del title="Supprimer">✕</button>'}</td></tr>`).join('');
+  <td>${m.fc?'':'<button class="ibtn del" data-del title="Supprimer">✕</button>'}</td></tr>`).join('');
  $('metRows').querySelectorAll('tr').forEach(tr=>{const i=+tr.dataset.i,m=M[i];
   tr.querySelectorAll('[data-f]').forEach(inp=>inp.onchange=()=>{m[inp.dataset.f]=inp.value.trim();if(!m.l)m.l='Compétence '+(i+1);metChanged()});
   const ac=tr.querySelector('[data-act]');if(ac)ac.onclick=()=>{m.actif=!m.actif;if(!m.actif)PD().focus=PD().focus.filter(x=>String(x)!==String(m.id));metChanged()};
@@ -501,13 +501,52 @@ function renderMets(){$('discList').innerHTML=[...new Set(metrics().map(m=>(m.di
    h.onpointermove=ev=>{if(!MDRG)return;$('metRows').querySelectorAll('tr.over').forEach(r=>r.classList.remove('over'));const r=over(ev);if(r&&r!==tr)r.classList.add('over')};
    const end=ev=>{if(!MDRG)return;MDRG=false;const r=ev&&ev.type==='pointerup'?over(ev):null;$('metRows').querySelectorAll('tr.over,tr.drag').forEach(x=>x.classList.remove('over','drag'));if(r&&r!==tr)mv(+r.dataset.i)};
    h.onpointerup=end;h.onpointercancel=end}
-  const d=tr.querySelector('[data-del]');if(d)d.onclick=()=>{M.splice(i,1);metChanged()}});}
+  const d=tr.querySelector('[data-del]');if(d)d.onclick=()=>openCdel(m)});}
 let MDRG=false;
 function metChanged(){touch();applyConfig();renderMets();renderAll()}
 function openMets(){renderMets();$('metM').classList.add('show')}
+/* ---------- 3.4.0 : supprimer une compétence, avec le sort de ses XP (voir cmpPurge) ---------- */
+function cmpUse(id){id=String(id);const L=E().filter(e=>+e.xp?.[id]>0);
+ return{nE:L.length,xp:L.reduce((s,e)=>s+(+e.xp[id]||0),0),nR:E().filter(e=>e.rem?.[id]&&String(e.rem[id].t||'').trim()).length,nT:XFERS().filter(t=>String(t.de)===id||String(t.vers)===id).length,
+  nL:PD().lib.filter(a=>String(a.mid)===id).length,foc:PD().focus.map(String).includes(id)}}
+let CDEL=null;
+function openCdel(m){const U=cmpUse(m.id);
+ if(!U.nE&&!U.nR&&!U.nT&&!U.nL){const before=JSON.parse(JSON.stringify(DB));cmpDrop(m,null);toast('Compétence supprimée','Annuler',()=>cmpUndo(before));return}
+ CDEL={m,U,o:'a',vers:null};renderCdel();$('cdelM').classList.add('show')}
+function cmpDrop(m,vers){DB.supprimes.m=DB.supprimes.m||{};DB.supprimes.m[String(m.id)]={le:new Date().toISOString(),l:m.l,vers:vers==null?null:vers};cmpPurge(DB);metChanged()}
+function cmpUndo(before){adoptDB(before);touch();applyConfig();if($('metM').classList.contains('show'))renderMets();renderAll()}
+function renderCdel(){const{m,U}=CDEL,T=xpTotals(),O=metrics().filter(x=>!x.fc&&String(x.id)!==String(m.id));
+ if(CDEL.vers==null||!O.some(x=>String(x.id)===String(CDEL.vers)))CDEL.vers=O[0]?.id??null;const X=mById(CDEL.vers);
+ $('cdelT').textContent=`Supprimer « ${m.l} »`;
+ const chips=[pl(U.nE,'saisie'),`${num(U.xp)} XP`,U.nR?pl(U.nR,'remarque'):'',U.nT?pl(U.nT,'transfert'):'',U.nL?(U.nL>1?`${U.nL} actions de la bibliothèque`:'1 action de la bibliothèque'):'',U.foc?'en focus':''].filter(Boolean);
+ const P=[];if(CDEL.o==='a'){P.push(U.nE>1?`Les ${U.nE} saisies retournent dans « XP à répartir ».`:U.nE?'La saisie retourne dans « XP à répartir ».':'');
+   if(U.nR)P.push(U.nR>1?`Les ${U.nR} remarques sont ajoutées à la fin des notes de leur saisie.`:'La remarque est ajoutée à la fin des notes de sa saisie.');
+   if(U.nT)P.push(U.nT>1?'Les transferts qui la concernent sont annulés.':'Le transfert qui la concerne est annulé.');
+   if(U.nL)P.push('Ses actions de la bibliothèque passent à « aucune compétence en particulier ».');if(U.foc)P.push('Elle sort du focus.')}
+ else if(X){const a=Math.max(0,T[X.id]||0),gain=Math.max(0,T[m.id]||0);P.push(`${X.l} passe de ${num(a)} à ${num(a+gain)} XP.`);
+   if(U.nR)P.push('Les remarques suivent, mises bout à bout si la saisie en avait déjà une.');
+   if(U.nT)P.push(`Les transferts entre les deux compétences sont annulés ; les autres passent sur ${X.l}.`);
+   if(U.nL)P.push(`Ses actions de la bibliothèque passent sur ${X.l}.`);if(U.foc)P.push(PD().focus.map(String).includes(String(X.id))?'Elle sort du focus.':`${X.l} prend sa place dans le focus.`)}
+ $('cdelB').innerHTML=`<div class="cdrec">${chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>
+  <div class="lab2" style="margin:12px 0 4px">Que deviennent ses XP ?</div>
+  <label class="cdopt ${CDEL.o==='a'?'on':''}"><input type="radio" name="cdo" value="a" ${CDEL.o==='a'?'checked':''}><span><b>Ils redeviennent à répartir</b><small>Les saisies retournent dans « XP à répartir » ; les remarques vont dans leurs notes.</small></span></label>
+  <label class="cdopt ${CDEL.o==='b'?'on':''} ${O.length?'':'off'}"><input type="radio" name="cdo" value="b" ${CDEL.o==='b'?'checked':''} ${O.length?'':'disabled'}><span><b>Ils passent sur une autre compétence</b><small>Dans chaque saisie, elle est remplacée par celle-ci ; les XP s'additionnent.</small>
+   ${O.length?`<select class="sel" id="cdelV" style="margin:6px 0 0">${O.map(x=>`<option value="${esc(x.id)}" ${String(x.id)===String(CDEL.vers)?'selected':''}>${esc(x.l)}${x.actif?'':' (archivée)'}</option>`).join('')}</select>`:''}</span></label>
+  <div class="cdprev">${P.filter(Boolean).map(s=>`<div>${esc(s)}</div>`).join('')}</div>
+  <div class="hint" style="margin:8px 0 0">Une sauvegarde de ton carnet est faite avant. Une copie plus ancienne de ton carnet ne fera pas revenir cette compétence.</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="cta danger" style="margin:0" id="cdelGo">Supprimer la compétence</button><button class="btn2" id="cdelNo">Annuler</button></div>`;
+ $('cdelB').querySelectorAll('[name=cdo]').forEach(r=>r.onchange=()=>{CDEL.o=r.value;renderCdel()});
+ const v=$('cdelV');if(v){v.onchange=()=>{CDEL.vers=mById(v.value)?.id??v.value;CDEL.o='b';renderCdel()};v.onclick=ev=>ev.stopPropagation()}
+ $('cdelNo').onclick=()=>$('cdelM').classList.remove('show');
+ $('cdelGo').onclick=async()=>{const{m}=CDEL,vers=CDEL.o==='b'?CDEL.vers:null;if(CDEL.o==='b'&&vers==null)return;$('cdelGo').disabled=true;
+  if(!await backupBefore('avant-suppression-competence')){toast("Sauvegarde impossible : la compétence n'a pas été supprimée");$('cdelGo').disabled=false;return}
+  const before=JSON.parse(JSON.stringify(DB));$('cdelM').classList.remove('show');cmpDrop(m,vers);CDEL=null;
+  toast(vers==null?'Compétence supprimée : ses XP sont à répartir':'Compétence supprimée : ses XP sont transférés','Annuler',()=>cmpUndo(before))}}
+$('cdelX').onclick=()=>$('cdelM').classList.remove('show');
 $('metX').onclick=()=>{$('metM').classList.remove('show');renderAll()};
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-mets]');if(b){e.preventDefault();openMets()}});
-$('addMet').onclick=()=>{const M=CFG().metriques,n=M.reduce((x,m)=>Math.max(x,+String(m.id).slice(1)||0),0)+1;M.push({id:'m'+n,l:'Nouvelle compétence',actif:true,min:'',max:''});metChanged();
+/* 3.4.0 : l'identifiant d'une nouvelle compétence saute aussi ceux du registre des compétences supprimées */
+$('addMet').onclick=()=>{const M=CFG().metriques,n=[...M.map(m=>m.id),...Object.keys(DB.supprimes?.m||{})].reduce((x,id)=>Math.max(x,+String(id).slice(1)||0),0)+1;M.push({id:'m'+n,l:'Nouvelle compétence',actif:true,min:'',max:''});metChanged();
  const ins=$('metRows').querySelectorAll('input[data-f=l]');ins[ins.length-1].select()};
 
 /* ---------- onglets ---------- */

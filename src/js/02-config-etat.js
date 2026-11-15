@@ -121,6 +121,30 @@ function prbMigrate(p){const s=typeof p.probl=='string'?p.probl:p.probl==null?nu
   if(!Array.isArray(p.probls)){const L=prbSplit(s);if(L.length)prbSet(p,L);else delete p.probls;return}
   const L=prbSplit(p.probls),T=s==null?L:prbSplit(s),k=x=>x.join('\u0001').toLowerCase();
   if(s!=null&&k(T)!==k(L))prbSet(p,T);else if(L.length)prbSet(p,L);else{delete p.probls;if(s!=null)p.probl=''}}
+/* 3.4.0 : compétences supprimées. Registre supprimes.m = {id:{le, l:libellé, vers:id de la compétence qui reçoit ses XP | null}}.
+   cmpPurge applique le registre à tout le carnet (XP, remarques, retours de supervision, préparation, transferts, focus, bibliothèque) ;
+   elle est idempotente et appelée à chaque chargement (migrate) et après chaque fusion (mergeDB) : une copie qui a encore
+   la compétence ne la fait pas revenir. e.maj n'est pas touché : une modification faite ailleurs sur la saisie reste gagnante. */
+function cmpDest(S,id){let k=String(id);const seen=new Set();while(S[k]){if(seen.has(k))return null;seen.add(k);const v=S[k].vers;if(v==null)return null;k=String(v)}return k}
+function cmpPurge(d){const S=d?.supprimes?.m,c=d?.config;if(!S||!c||!Array.isArray(c.metriques)||!Object.keys(S).length)return d;
+ const isDel=id=>id!=null&&!!S[String(id)]&&!c.metriques.some(m=>m.fc&&String(m.id)===String(id)),now=new Date().toISOString();
+ c.metriques=c.metriques.filter(m=>!isDel(m.id));
+ const live=id=>c.metriques.find(m=>String(m.id)===String(id)),dest=id=>{const x=cmpDest(S,id),m=x!=null?live(x):null;return m&&!m.fc?m.id:null};
+ d.supprimes.t=d.supprimes.t||{};
+ (d.entrees||[]).forEach(e=>{
+  if(e.xp&&typeof e.xp=='object'){Object.keys(e.xp).forEach(k=>{if(!isDel(k))return;const v=+e.xp[k]||0,x=dest(k);delete e.xp[k];if(x!=null&&v>0)e.xp[x]=(+e.xp[x]||0)+v});if(!Object.keys(e.xp).length)delete e.xp}
+  if(e.rem&&typeof e.rem=='object'){Object.keys(e.rem).forEach(k=>{if(!isDel(k))return;const r=e.rem[k],x=dest(k);delete e.rem[k];if(!r)return;const t=String(r.t||'').trim();
+    if(x!=null){const o=e.rem[x];if(!o)e.rem[x]=r;else{o.t=[String(o.t||'').trim(),t].filter(Boolean).join('\n');if(r.sup)o.sup=true;if(r.sid&&!o.sid)o.sid=r.sid}}
+    else if(t)e.notes=[String(e.notes||'').replace(/\s+$/,''),`${S[String(k)].l||'?'} : ${t}`].filter(Boolean).join('\n\n')});if(!Object.keys(e.rem).length)delete e.rem}
+  if(Array.isArray(e.retours))e.retours.forEach(r=>{if(r&&isDel(r.mid)){const x=dest(r.mid);if(x!=null)r.mid=x}})});
+ const pd=d.pd;if(pd&&typeof pd=='object'){
+  if(pd.prep&&typeof pd.prep=='object')Object.keys(pd.prep).forEach(key=>{const i=key.indexOf(':'),mid=key.slice(i+1);if(i<0||!isDel(mid))return;const x=dest(mid),nk=key.slice(0,i+1)+x;if(x!=null&&!pd.prep[nk])pd.prep[nk]=pd.prep[key];delete pd.prep[key]});
+  if(Array.isArray(pd.transferts))pd.transferts=pd.transferts.filter(t=>{if(!t)return false;const a=isDel(t.de),b=isDel(t.vers);if(!a&&!b)return true;
+   const de=a?dest(t.de):t.de,vers=b?dest(t.vers):t.vers;if(de==null||vers==null||String(de)===String(vers)){if(t.id!=null&&!d.supprimes.t[t.id])d.supprimes.t[t.id]=now;return false}
+   t.de=de;t.vers=vers;return true});
+  if(Array.isArray(pd.focus)&&pd.focus.some(isDel)){const o=[];pd.focus.forEach(f=>{const x=isDel(f)?dest(f):f;if(x!=null&&!o.some(y=>String(y)===String(x)))o.push(x)});pd.focus=o.slice(0,3)}
+  if(Array.isArray(pd.lib))pd.lib.forEach(a=>{if(a&&isDel(a.mid))a.mid=dest(a.mid)})}
+ return d}
 function migrate(d){
   d=JSON.parse(JSON.stringify(d||{}));delete d.format;const v=d.version_schema||0;
   d.personnes=d.personnes||[];d.entrees=d.entrees||[];
@@ -169,6 +193,7 @@ function migrate(d){
   {const P=d.prefs,m=P.modules;if(m&&typeof m=='object'&&!Array.isArray(m))P.modules=Object.fromEntries(MODS.map(k=>[k,!!m[k]]));
    else{delete P.modules;if(P.simple===true)P.modules=modsAll(false);else if(P.simple===false||P.onboarded||d.entrees.length)P.modules=modsAll(true)}
    if(P.modules)P.simple=!MODS.some(k=>P.modules[k])}
+  d.supprimes.m=(d.supprimes.m&&typeof d.supprimes.m=='object'&&!Array.isArray(d.supprimes.m))?d.supprimes.m:{};cmpPurge(d);
   d.version_schema=VERSION;return d;
 }
 

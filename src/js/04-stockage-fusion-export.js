@@ -24,6 +24,9 @@ async function encryptOldBackups(){let k=0;try{for(const n of await listBackups(
   await writeBackup(n,JSON.stringify(await sealObj(o),null,1));k++}catch(e){}}}catch(e){}return k}
 
 async function payload(){return DEKK?await sealObj(DB):DB}
+/* 3.4.0 : copie de sécurité avant une réécriture en masse (suppression d'une compétence, répartition en lot) :
+   dans le dossier sauvegardes si un dossier est relié, sinon dans le navigateur. Faux si la copie a échoué. */
+async function backupBefore(tag){if(!DB||DB.demo)return true;try{const o=await payload();if(DIR&&!NEEDPERM)await snapshot(JSON.stringify(o,null,1),tag);else await idb.set('data_'+tag.replace(/-/g,'_'),o);return true}catch(e){return false}}
 
 /* =========================================================
    FUSION : on ne remplace jamais un carnet par un autre, on fusionne.
@@ -61,7 +64,7 @@ function inPlace(o,n){
 function adoptDB(n){if(!DB){DB=n;return}inPlace(DB,n)}
 function mergeDB(A,B,base,prefA){
   const [N,O]=(A.enregistre_le||'')>=(B.enregistre_le||'')?[A,B]:[B,A],R=JSON.parse(JSON.stringify(N));
-  const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})},t:{...(O.supprimes?.t||{}),...(N.supprimes?.t||{})}};R.supprimes=sup;
+  const sup={e:{...(O.supprimes?.e||{}),...(N.supprimes?.e||{})},a:{...(O.supprimes?.a||{}),...(N.supprimes?.a||{})},p:{...(O.supprimes?.p||{}),...(N.supprimes?.p||{})},t:{...(O.supprimes?.t||{}),...(N.supprimes?.t||{})},m:{...(O.supprimes?.m||{}),...(N.supprimes?.m||{})}};R.supprimes=sup;
   const remap={},eremap={},fromO=new Set();let added=0;
   (O.personnes||[]).forEach(p=>{if(sup.p[String(p.id)])return;const q=R.personnes.find(x=>String(x.id)===String(p.id));
     if(q&&(byName(q.nom,p.nom)==0||(q.maj&&p.maj))){if((p.maj||'')>(q.maj||'')){Object.assign(q,JSON.parse(JSON.stringify(p)));fromO.add(q)}return}
@@ -94,6 +97,8 @@ function mergeDB(A,B,base,prefA){
    R.prefs=R.prefs||{};R.prefs.modules=JSON.parse(JSON.stringify(W.prefs.modules));R.prefs.simple=!MODS.some(k=>R.prefs.modules[k]);if(W.prefs.modules_maj)R.prefs.modules_maj=W.prefs.modules_maj;else delete R.prefs.modules_maj}}
   R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
   {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
+  /* 3.4.0 : une copie qui a encore une compétence supprimée ne la fait pas revenir (ni ses XP) */
+  cmpPurge(R);
   return{db:R,added}}
 
 function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version de l\'application est périmée. Recharge-la (Ctrl+F5).');return}
