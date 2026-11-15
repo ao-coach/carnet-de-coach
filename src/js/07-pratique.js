@@ -270,7 +270,7 @@ $('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,d=PDE.d,c=cleanPd(PDE.st),ne
  if(d.type=='supervision'&&MOD('activite')){flag('gratuit',d.gratuit);put('cout',d.cout===''?null:+d.cout)}
  if(c.pa)e.pa=c.pa;else delete e.pa;if(c.rem)e.rem=c.rem;else delete e.rem;if(d.notes.trim())e.notes=d.notes.trim();else delete e.notes;
  if(MOD('competences')||MOD('activite')){const x=xpClean(PDE.st,d.type,d.dur,true);if(x)e.xp=x;else delete e.xp}if(MOD('activite')){const t=(PDE.st.fcom||'').trim();if(t)e.fcom=t;else delete e.fcom}if(PDE.ret.length)e.retours=PDE.ret.map(x=>({...x,t:(x.t||'').trim()}));
- e.maj=new Date().toISOString();touch();pkClose();$('pdeM').classList.remove('show');PDE=null;renderAll();toast('Saisie mise à jour')};
+ e.maj=new Date().toISOString();touch();pkClose();$('pdeM').classList.remove('show');PDE=null;renderAll();if($('xpqM').classList.contains('show'))renderXpQ();toast('Saisie mise à jour')};
 
 /* ---------- historique d'une compétence ---------- */
 let CMP=null;
@@ -332,6 +332,14 @@ function renderLib(){const q=(LIBO.q||'').trim().toLowerCase(),L=PD().lib.filter
 $('libX').onclick=()=>{$('libM').classList.remove('show');renderAll()};
 
 
+/* 3.2.2 : liste des saisies aux XP non répartis (chemin principal pour répartir, depuis le panneau XP).
+   Un clic ouvre la fiche sur la section XP ; à l'enregistrement de la fiche, la liste se met à jour. */
+function openXpQ(){renderXpQ();$('xpqM').classList.add('show')}
+function renderXpQ(){const L=E().filter(xpTodo).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ $('xpqB').innerHTML=L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<button type="button" class="xpqi" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span><span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span></button>`}).join('')}</div>`:'<div class="xpqok">Tout est réparti ✓</div>';
+ $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openPdEdit(b.dataset.xq,'xp'))}
+$('xpqX').onclick=()=>$('xpqM').classList.remove('show');$('xpqM').onclick=e=>{if(e.target===$('xpqM'))$('xpqX').click()};
+
 /* =========================================================
    3.0.0 : panneau « XP de pratique » (totaux, niveaux, transferts)
    ========================================================= */
@@ -341,7 +349,7 @@ function renderXpPanel(){const box=$('pdXp');if(!box)return;const T=xpTotals(),G
  const opt=cur=>metrics().filter(m=>m.actif||(T[m.id]||0)>0||String(m.id)===String(cur)).map(m=>`<option value="${esc(m.id)}" ${String(m.id)===String(cur)?'selected':''}>${esc(m.l)}${m.actif?'':' (archivée)'}</option>`).join('');
  const st=XPT,H=[...X].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(+b.id||0)-(+a.id||0));
  box.innerHTML=`<div class="xptot"><div><b>${num(tot)} XP</b>gagnés en tout</div><div><b>+${num(g30)}</b>ces 30 jours</div><div class="${pend.x?'na':''}"><b>${num(pend.x)}</b>${pend.x?`XP à répartir · ${pl(pend.n,'saisie')}`:'XP à répartir'}</div></div>
-  ${pend.x?'<div class="hint" style="margin:-2px 0 10px">Ils attendent dans Mes saisies (colonnes XP) ou dans le détail ◎ de chaque saisie : ils ne comptent pour aucune compétence tant qu\'ils ne sont pas répartis. <button class="lnk0" data-golist style="text-decoration:underline">Ouvrir Mes saisies</button></div>':''}
+  ${pend.x?`<div class="hint xpqh">Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis. <button type="button" class="btn2" data-xpq>Répartir les XP en attente</button></div>`:''}
   ${M.map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="xpl" data-cmp="${esc(m.id)}"><span class="t"><b>${esc(m.l)}${F.includes(String(m.id))?'<span class="fpill">focus</span>':''}${m.actif?'':' <small>(archivée)</small>'}</b><span class="v">${num(a.tot)} XP · <em>Niv. ${a.L}</em></span></span><span class="xpbar"><i style="width:${a.pct}%"></i></span><span class="s">${a.d30?`+${num(a.d30)} ces 30 j`:'rien ces 30 j'} · ${a.L>=100?'niveau maximum':`niveau suivant à ${num(a.next)}`}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie.</div>'}
   <div class="lab">Transférer des XP</div>
   <div class="xptf"><span>Transférer</span><input type="number" class="fin" id="xtN" min="1" step="1" value="${esc(st.n||'')}" placeholder="N" style="width:74px"><span>XP de</span><select class="sel" id="xtDe">${opt(st.de)}</select><span>vers</span><select class="sel" id="xtVers">${opt(st.vers)}</select>
@@ -349,7 +357,7 @@ function renderXpPanel(){const box=$('pdXp');if(!box)return;const T=xpTotals(),G
   <div class="hint">Un transfert déplace des XP déjà gagnés, sans en créer : utile quand tu fusionnes deux compétences, ou quand un entretien a surtout servi une autre compétence.</div>
   ${H.length?`<div class="lab">Historique des transferts</div><div class="xph2">${H.map(t=>{const A=mById(t.de),B=mById(t.vers),ok=(T[t.vers]||0)>=(+t.xp||0);return `<div><span class="d">${dShort(t.date)}</span><span>${esc(A?.l||'Compétence supprimée')} → ${esc(B?.l||'Compétence supprimée')} · <b>${num(t.xp)} XP</b>${t.motif?' · '+esc(t.motif):''}</span>${ok?`<button class="lnk0" data-xtx="${esc(t.id)}">annuler</button>`:`<span class="hint nox" title="Annulation impossible : la compétence qui a reçu ces XP n'en a plus assez">—</span>`}</div>`}).join('')}</div>`:''}`;
  box.querySelectorAll('[data-cmp]').forEach(b=>b.onclick=()=>openCmp(b.dataset.cmp));
- box.querySelectorAll('[data-golist]').forEach(b=>b.onclick=()=>goTab('list'));
+ box.querySelectorAll('[data-xpq]').forEach(b=>b.onclick=openXpQ);
  if(!st.vers){const f=$('xtDe'),v=$('xtVers');if(f&&v&&v.options.length>1&&v.value===f.value)v.selectedIndex=1}
  const keep=()=>{XPT={n:$('xtN').value,de:$('xtDe').value,vers:$('xtVers').value,motif:$('xtMot').value}};
  ['xtN','xtDe','xtVers','xtMot'].forEach(id=>{const i=$(id);i.oninput=i.onchange=keep});

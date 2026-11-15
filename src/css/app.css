@@ -1036,3 +1036,13 @@ textarea.fsn{min-height:200px}
 .modal.askm{width:min(440px,100%)}
 #askB{margin:6px 0 0;font-size:14px}
 .trfoot #askNo{margin-left:auto}.trfoot #askNo+.save{margin-left:0}
+/* 3.2.2 : répartir les XP en attente (panneau XP et liste des saisies) */
+.xpqh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-2px 0 10px}
+.xpq{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.xpqi{display:grid;grid-template-columns:62px auto minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;cursor:pointer;text-align:left;font:inherit;color:var(--jet)}
+.xpqi:hover{border-color:var(--afb);background:var(--soft)}
+.xpqi .d{font-size:13px;color:var(--grey);font-weight:700;white-space:nowrap}
+.xpqi .tp{font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.xpqi .w{min-width:0;display:flex;flex-direction:column}.xpqi .w b{font-size:14px}.xpqi .w small{color:var(--grey);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.xpqi .n{text-align:right;font-size:13px;font-weight:800;color:#8A6100;white-space:nowrap}.xpqi .n small{display:block;color:var(--grey);font-weight:600;font-size:11.5px}
+.xpqok{margin-top:14px;font-weight:800;color:#2E7D5B}
