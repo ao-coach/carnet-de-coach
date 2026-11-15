@@ -4,7 +4,8 @@
    ========================================================= */
 const NEWS=[
  {v:54,s:'3.2.3',d:'15 novembre 2026',items:[
-  {t:"Tes notes ne se perdent plus en fermant la fiche",p:"Si tu fermes la fiche d'une saisie après l'avoir modifiée, sans l'enregistrer, le carnet te demande confirmation : « Revenir à la fiche » ou « Quitter sans enregistrer ». Même chose si tu fermes ou recharges la page."}]},
+  {t:"Tes notes ne se perdent plus en fermant la fiche",p:"Si tu fermes la fiche d'une saisie après l'avoir modifiée, sans l'enregistrer, le carnet te demande confirmation : « Revenir à la fiche » ou « Quitter sans enregistrer ». Même chose si tu fermes ou recharges la page."},
+  {t:"Durée changée, XP à corriger",p:"Si tu raccourcis une saisie ou changes son type alors que ses XP étaient déjà répartis, elle peut en avoir plus qu'elle n'en rapporte. Le carnet te le dit aussitôt et t'ouvre la répartition à corriger ; la fiche ne s'enregistre pas tant que c'est le cas. « Plus tard » laisse un point rouge sur « Fiche », et la saisie attend dans « Répartir les XP en attente ».",go:'list',b:'Voir'}]},
  {v:53,s:'3.2.2',d:'15 novembre 2026',items:[
   {t:"La fiche de la saisie",p:"Dans Mes saisies, le bouton « Fiche », juste avant « Ce qu'on a vu », ouvre toute la saisie dans une fenêtre large, en sections repliables : Infos, Notes, XP de pratique, Contrat et coût, selon tes modules. Tout s'y modifie, puis « Enregistrer ». Les colonnes XP et Contrat / coût quittent le tableau, qui gagne en lisibilité.",go:'list',b:'Voir'},
   {t:"Répartir les XP en attente",p:"Dans Pratique délibérée, le panneau XP de pratique liste d'un bouton les saisies dont les XP ne sont pas encore répartis. Un clic ouvre la fiche sur les XP ; tu répartis, tu enregistres, et tu reviens à la liste, à jour.",go:'pd',b:'Voir'},

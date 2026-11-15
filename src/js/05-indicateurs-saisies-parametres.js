@@ -338,8 +338,8 @@ function renderPCards(){const ids=[...F.p].filter(pid=>E().some(e=>e.pid==pid));
   <div class="pc2tl"><div class="lab2">Échanges</div>${timelineSVG(all,700)}</div></div>`;
  $('pcards').querySelectorAll('[data-pct]').forEach(b=>b.onclick=()=>{PCTAB=b.dataset.pct;renderPCards();bindArch()})}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
-/* 3.2.2 : bouton « Fiche » d'une ligne de Mes saisies, avant « Ce qu'on a vu » (point jaune : XP à répartir) */
-function fBtn(e){const td=MOD('competences')&&xpTodo(e);return `<button class="fbtn ${pdHas(e)?'on':''}${td?' todo':''}" data-pde="${e.id}" title="${td?'Ouvrir la fiche de la saisie · XP à répartir':'Ouvrir la fiche de la saisie'}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h7M9 16h7"/></svg><span data-noi18n>${LANG==='en'?'Card':'Fiche'}</span></button>`} /* i18n-ok : libellé choisi selon LANG (« Fiche » vaut « Profile » dans I18N_EN) */
+/* 3.2.2 : bouton « Fiche » d'une ligne de Mes saisies, avant « Ce qu'on a vu » (point jaune : XP à répartir ; 3.2.3 : point rouge : XP de trop) */
+function fBtn(e){const C2=MOD('competences'),ov=C2&&xpLeft(e)<0,td=!ov&&C2&&xpTodo(e);return `<button class="fbtn ${pdHas(e)?'on':''}${td?' todo':''}${ov?' over':''}" data-pde="${e.id}" title="${ov?'Ouvrir la fiche de la saisie · XP de trop':td?'Ouvrir la fiche de la saisie · XP à répartir':'Ouvrir la fiche de la saisie'}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h7M9 16h7"/></svg><span data-noi18n>${LANG==='en'?'Card':'Fiche'}</span></button>`} /* i18n-ok : libellé choisi selon LANG (« Fiche » vaut « Profile » dans I18N_EN) */
 function renderRows(L){
  /* 3.2.2 : plus de colonnes XP ni Contrat / coût : ils se consultent et se modifient dans la fiche de la saisie (bouton « Fiche ») */
  $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th class="fit"></th><th>Ce qu'on a vu</th><th class="fit"></th></tr>`;
@@ -360,10 +360,10 @@ function renderRows(L){
   tr.querySelectorAll('[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;
    if(k=='dur'&&i.value==='x'){const inp=document.createElement('input');inp.className='ed';inp.placeholder='2h30';inp.style.width='72px';inp.title='2,5 · 2h30 · 150min';i.replaceWith(inp);inp.focus();let ok=false;
     inp.onkeydown=ev=>{if(ev.key==='Enter')inp.blur();if(ev.key==='Escape'){inp.value='';inp.blur()}};
-    inp.onblur=()=>{if(ok)return;ok=true;const v=parseDur(inp.value);if(v>0){e.dur=v;fl()}else if(inp.value.trim())toast('Durée non reconnue : 2,5 · 2h30 · 150min');renderList()};return}
+    inp.onblur=()=>{if(ok)return;ok=true;const v=parseDur(inp.value);if(v>0){e.dur=v;fl();xpOverAsk(e)}else if(inp.value.trim())toast('Durée non reconnue : 2,5 · 2h30 · 150min');renderList()};return}
    e[k]=['dur','eur','engagement_mois','cout','seances'].includes(k)?(i.value===''?null:+i.value):i.value;
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
-   fl();if(['type','date','statut','dur'].includes(k))renderList()});
+   fl();if(['type','date','statut','dur'].includes(k))renderList();if(k=='dur'||k=='type')xpOverAsk(e)});
   tr.querySelector('[data-pde]').onclick=()=>openPdEdit(e.id);
   /* 3.2.2 : confirmation avant de supprimer (date et type rappelés) ; le toast « Annuler » reste après la suppression */
   tr.querySelector('.del').onclick=()=>askBox({t:'Supprimer cette saisie ?',h:`<b>${esc(TM[e.type]?.l||e.type)} · ${dShort(e.date)}</b>${e.pid!=null?' · '+esc(pname(e.pid)):''}<br>Tu pourras encore revenir en arrière juste après.`,ok:'Supprimer'},

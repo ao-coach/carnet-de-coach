@@ -245,12 +245,18 @@ function renderPdEdit(){const b=$('pdeB'),d=PDE.d,R=PDE.ret,t=TM[d.type]||{l:d.t
   i[i.tagName=='SELECT'||i.type=='date'?'onchange':'oninput']=()=>{
    if(f=='dur'&&i.value==='x'){PDE.durx=true;renderPdEdit();const x=b.querySelector('[data-fdx]');if(x)x.focus();return}
    let v=i.value;if(f=='com'&&!LONGCOM(d.type)&&/\n/.test(v)){v=v.replace(/\s*\n+\s*/g,' ');i.value=v}
-   d[f]=f=='dur'||f=='engagement_mois'?+v:v;if(re)renderPdEdit()}});
- const dx=b.querySelector('[data-fdx]');if(dx){let ok=false;const done=()=>{if(ok)return;ok=true;const v=parseDur(dx.value);if(v>0)d.dur=v;else if(dx.value.trim())toast('Durée non reconnue : 2,5 · 2h30 · 150min');PDE.durx=false;renderPdEdit()};
+   d[f]=f=='dur'||f=='engagement_mois'?+v:v;if(re)renderPdEdit();if(f=='dur'||f=='type')fsOverMsg()}});
+ const dx=b.querySelector('[data-fdx]');if(dx){let ok=false;const done=()=>{if(ok)return;ok=true;const v=parseDur(dx.value);if(v>0)d.dur=v;else if(dx.value.trim())toast('Durée non reconnue : 2,5 · 2h30 · 150min');PDE.durx=false;renderPdEdit();if(v>0)fsOverMsg()};
   dx.onkeydown=ev=>{if(ev.key==='Enter')dx.blur();if(ev.key==='Escape'){ev.stopPropagation();dx.value='';dx.blur()}};dx.onblur=done}
  b.querySelectorAll('[data-ft]').forEach(x=>x.onclick=()=>{const f=x.dataset.ft;d[f]=!d[f];x.classList.toggle('on',d[f])});
  const g=b.querySelector('[data-fg]');if(g)g.onchange=()=>{d.gratuit=g.checked;renderPdEdit()};
  const pb=b.querySelector('[data-fp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:d.pid,none:!pReq(d.type),onPick:id=>{d.pid=id;if(id!=null)d.psup=false;renderPdEdit()}})}
+/* 3.2.3 : XP de trop après un changement de durée ou de type (module ②) : la répartition est à corriger.
+   fsOver : dans la fiche (brouillon) ; xpOverAsk : dans Mes saisies, après un changement fait dans le tableau. */
+function fsOver(){if(!PDE||!MOD('competences'))return null;const d=PDE.d,B=Math.round((+d.dur||0)/10)*xpMult(d.type),n=xpSum(PDE.st.xp)-B;return n>0?{n,B}:null}
+function fsOverMsg(){const o=fsOver();if(!o)return;if(!PDE.open.has('xp')){PDE.open.add('xp');renderPdEdit()}toast(`La saisie rapporte maintenant ${o.B} XP : retire ${o.n} XP de la répartition`)}
+function xpOverAsk(e){if(!MOD('competences')||xpLeft(e)>=0)return;const B=xpBudget(e),n=-xpLeft(e);
+ askBox({t:'Corriger la répartition des XP ?',h:`Avec sa nouvelle durée ou son nouveau type, cette saisie rapporte <b>${B} XP</b>, mais <b>${xpPut(e)} XP</b> sont répartis. Retire ${n} XP : sinon tes compétences gardent des XP que cette saisie ne rapporte plus.`,ok:'Corriger maintenant',no:'Plus tard'},()=>openPdEdit(e.id,'xp'))}
 /* 3.2.3 : quitter une fiche modifiée sans l'enregistrer demande confirmation (✕, Échap, fermeture de la page) */
 function fsSnap(){if(!PDE)return '';const d=PDE.d,st=PDE.st;return JSON.stringify([d,xpClean(st,d.type,d.dur,true),(st.fcom||'').trim(),cleanPd(st),PDE.ret.map(x=>(x.t||'').trim())])}
 const fsDirty=()=>!!PDE&&$('pdeM').classList.contains('show')&&fsSnap()!==PDE.snap;
@@ -262,6 +268,8 @@ $('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,d=PDE.d,c=cleanPd(PDE.st),ne
  if(!d.date){toast('Indique la date de la saisie');need('infos');return}
  if(!(+d.dur>0)){toast('Indique la durée de la saisie');need('infos');return}
  if(pReq(d.type)&&d.pid==null&&!d.psup){toast('Choisis la personne : elle est obligatoire pour ce type de saisie');need('infos');return}
+ /* 3.2.3 : pas d'enregistrement avec plus d'XP répartis que la saisie n'en rapporte */
+ {const o=fsOver();if(o){toast(`Retire ${o.n} XP de la répartition : la saisie n'en rapporte plus que ${o.B}`);need('xp');return}}
  /* commentaire des Facultés commerciales : exigé si l'on change leurs XP ou si l'on efface un commentaire existant (l'historique converti n'en demande pas) */
  if(MOD('activite')&&isCom(d.type)){const f=fcMet(),nv=f?+PDE.st.xp[f.id]||0:0,ov=xpFcOf(e),t=(PDE.st.fcom||'').trim();
   if(!t&&(nv!==ov||(e.fcom||'').trim())){toast(`${f?f.l:'Facultés commerciales'} : écris ce qui a été facile ou difficile`);need('xp');const ta=$('pdeB').querySelector('[data-fcom]');if(ta)ta.focus();return}}
@@ -340,9 +348,10 @@ $('libX').onclick=()=>{$('libM').classList.remove('show');renderAll()};
 
 /* 3.2.2 : liste des saisies aux XP non répartis (chemin principal pour répartir, depuis le panneau XP).
    Un clic ouvre la fiche sur la section XP ; à l'enregistrement de la fiche, la liste se met à jour. */
+const xpOverN=()=>MOD('competences')?E().filter(e=>xpLeft(e)<0).length:0;
 function openXpQ(){renderXpQ();$('xpqM').classList.add('show')}
-function renderXpQ(){const L=E().filter(xpTodo).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
- $('xpqB').innerHTML=L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<button type="button" class="xpqi" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span><span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span></button>`}).join('')}</div>`:'<div class="xpqok">Tout est réparti ✓</div>';
+function renderXpQ(){const L=E().filter(e=>xpTodo(e)||(xpBudget(e)>0||xpPut(e)>0)&&xpLeft(e)<0).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ $('xpqB').innerHTML=L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<button type="button" class="xpqi" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n ov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'<div class="xpqok">Tout est réparti ✓</div>';
  $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openPdEdit(b.dataset.xq,'xp'))}
 $('xpqX').onclick=()=>$('xpqM').classList.remove('show');$('xpqM').onclick=e=>{if(e.target===$('xpqM'))$('xpqX').click()};
 
@@ -355,7 +364,7 @@ function renderXpPanel(){const box=$('pdXp');if(!box)return;const T=xpTotals(),G
  const opt=cur=>metrics().filter(m=>m.actif||(T[m.id]||0)>0||String(m.id)===String(cur)).map(m=>`<option value="${esc(m.id)}" ${String(m.id)===String(cur)?'selected':''}>${esc(m.l)}${m.actif?'':' (archivée)'}</option>`).join('');
  const st=XPT,H=[...X].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(+b.id||0)-(+a.id||0));
  box.innerHTML=`<div class="xptot"><div><b>${num(tot)} XP</b>gagnés en tout</div><div><b>+${num(g30)}</b>ces 30 jours</div><div class="${pend.x?'na':''}"><b>${num(pend.x)}</b>${pend.x?`XP à répartir · ${pl(pend.n,'saisie')}`:'XP à répartir'}</div></div>
-  ${pend.x?`<div class="hint xpqh">Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis. <button type="button" class="btn2" data-xpq>Répartir les XP en attente</button></div>`:''}
+  ${pend.x?`<div class="hint xpqh">Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis. <button type="button" class="btn2" data-xpq>Répartir les XP en attente</button></div>`:''}${!pend.x&&xpOverN()?`<div class="hint xpqh">${xpOverN()>1?`${xpOverN()} saisies ont plus d'XP répartis qu'elles n'en rapportent.`:"Une saisie a plus d'XP répartis qu'elle n'en rapporte."} <button type="button" class="btn2" data-xpq>Corriger la répartition</button></div>`:''}
   ${M.map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="xpl" data-cmp="${esc(m.id)}"><span class="t"><b>${esc(m.l)}${F.includes(String(m.id))?'<span class="fpill">focus</span>':''}${m.actif?'':' <small>(archivée)</small>'}</b><span class="v">${num(a.tot)} XP · <em>Niv. ${a.L}</em></span></span><span class="xpbar"><i style="width:${a.pct}%"></i></span><span class="s">${a.d30?`+${num(a.d30)} ces 30 j`:'rien ces 30 j'} · ${a.L>=100?'niveau maximum':`niveau suivant à ${num(a.next)}`}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie.</div>'}
   <div class="lab">Transférer des XP</div>
   <div class="xptf"><span>Transférer</span><input type="number" class="fin" id="xtN" min="1" step="1" value="${esc(st.n||'')}" placeholder="N" style="width:74px"><span>XP de</span><select class="sel" id="xtDe">${opt(st.de)}</select><span>vers</span><select class="sel" id="xtVers">${opt(st.vers)}</select>
