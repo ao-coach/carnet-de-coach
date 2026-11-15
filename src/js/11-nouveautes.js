@@ -3,6 +3,11 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:59,s:'3.4.0',d:'15 novembre 2026',items:[
+  {t:"Réordonner et supprimer tes compétences",p:"Dans « Gérer mes compétences », glisse une compétence par sa poignée ⋮⋮ (souris, doigt, ou flèches du clavier). Une compétence qui porte déjà des XP se supprime aussi : tu choisis si ses XP redeviennent à répartir (ses remarques passent dans les notes) ou s'ils vont sur une autre compétence. Une sauvegarde est faite juste avant.",go:'pd',b:'Voir'},
+  {t:"Répartir en lot tes anciennes saisies",p:"Derrière la case « XP à répartir », « Répartir en lot » : types, période, compétences, et le reste de chaque saisie est partagé à parts égales, sans toucher à ce qui est déjà réparti. « Annuler » reste possible juste après."},
+  {t:"Plan d'action : Réseau, et des mots réutilisés",p:"Dans la première colonne du plan d'action, « Réseau » et « Pratique délibérée » sont toujours proposés, après tes objectifs. « Autre… » te suggère les valeurs que tu as déjà saisies. Un statut « En pause » rejoint En cours, Réalisée et Annulée.",go:'dash',b:'Voir'},
+  {t:"Plan d'action et pratique délibérée, liés",p:"Tes actions de pratique délibérée apparaissent dans le plan d'action, catégorie « Pratique délibérée », et inversement. Texte et statut suivent des deux côtés : en pause, acquise ou réalisée, renommée. Supprimer d'un côté supprime de l'autre, sauf une action déjà utilisée dans tes saisies, gardée en pause."}]},
  {v:58,s:'3.3.0',d:'15 novembre 2026',items:[
   {t:"Une fiche personne refondue",p:"Une photo plus grande (un clic pour la changer ou la retirer), les coordonnées à droite du nom, et sous l'en-tête la frise de vos échanges, sans les débriefs. Quatre onglets : Situation (chiffres, XP investis, plan d'action), Contact, Notes et Contrat, dès qu'une proposition existe.",go:'people',b:'Personnes'},
   {t:"Les débriefs ne comptent plus comme contact",p:"Un débrief n'est pas un échange avec la personne : il ne repousse plus son dernier contact, et ne grossit plus son point dans le Réseau. La relance au rythme et « Sans contact » partent de votre vrai dernier échange."},

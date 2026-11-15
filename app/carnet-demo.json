@@ -4682,6 +4682,55 @@
    "r": "",
    "s": "encours",
    "pid": 14
+  },
+  {
+   "id": 4,
+   "p": "Réseau",
+   "a": "Déjeuner avec deux anciens collègues du club RH",
+   "d": "2026-11-27",
+   "r": "",
+   "s": "encours",
+   "maj": "2026-11-10T10:00:00.000Z"
+  },
+  {
+   "id": 101,
+   "p": "Pratique délibérée",
+   "a": "Poser une seule question à la fois, puis me taire",
+   "d": "",
+   "r": "",
+   "s": "encours",
+   "lib": 1,
+   "maj": "2026-09-01T10:00:00.000Z"
+  },
+  {
+   "id": 102,
+   "p": "Pratique délibérée",
+   "a": "Annoncer mon prix, puis laisser le silence",
+   "d": "",
+   "r": "",
+   "s": "encours",
+   "lib": 2,
+   "maj": "2026-06-10T10:00:00.000Z"
+  },
+  {
+   "id": 103,
+   "p": "Pratique délibérée",
+   "a": "Reformuler avant de challenger",
+   "d": "",
+   "r": "",
+   "s": "realisee",
+   "lib": 3,
+   "maj": "2026-03-15T10:00:00.000Z"
+  },
+  {
+   "id": 104,
+   "p": "Pratique délibérée",
+   "a": "Nommer ce que je remarque dans le corps",
+   "d": "",
+   "r": "",
+   "s": "pause",
+   "lib": 4,
+   "maj": "2026-04-01T10:00:00.000Z"
   }
  ],
  "pd": {

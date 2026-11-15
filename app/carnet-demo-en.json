@@ -4682,6 +4682,55 @@
    "r": "",
    "s": "encours",
    "pid": 14
+  },
+  {
+   "id": 4,
+   "p": "Network",
+   "a": "Lunch with two former colleagues from the HR club",
+   "d": "2026-11-27",
+   "r": "",
+   "s": "encours",
+   "maj": "2026-11-10T10:00:00.000Z"
+  },
+  {
+   "id": 101,
+   "p": "Deliberate practice",
+   "a": "Ask one question at a time, then stay silent",
+   "d": "",
+   "r": "",
+   "s": "encours",
+   "lib": 1,
+   "maj": "2026-09-01T10:00:00.000Z"
+  },
+  {
+   "id": 102,
+   "p": "Deliberate practice",
+   "a": "State my price, then let the silence sit",
+   "d": "",
+   "r": "",
+   "s": "encours",
+   "lib": 2,
+   "maj": "2026-06-10T10:00:00.000Z"
+  },
+  {
+   "id": 103,
+   "p": "Deliberate practice",
+   "a": "Reflect back before challenging",
+   "d": "",
+   "r": "",
+   "s": "realisee",
+   "lib": 3,
+   "maj": "2026-03-15T10:00:00.000Z"
+  },
+  {
+   "id": 104,
+   "p": "Deliberate practice",
+   "a": "Name what I notice in the body",
+   "d": "",
+   "r": "",
+   "s": "pause",
+   "lib": 4,
+   "maj": "2026-04-01T10:00:00.000Z"
   }
  ],
  "pd": {
