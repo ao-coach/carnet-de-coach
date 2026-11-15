@@ -252,11 +252,10 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
   $('pfWebI').innerHTML=p.site?`<a href="${esc(webUrl(p.site))}" target="_blank" rel="noopener" title="Voir le site">${SVGI.web}</a>`:SVGI.web;
   $('pfTelI').innerHTML=p.tel&&IS_TOUCH?`<a href="tel:${esc(p.tel.replace(/[^\d+]/g,''))}" title="Appeler">${SVGI.tel}</a>`:SVGI.tel;
   [['pfMailI',p.email],['pfWebI',p.site],['pfTelI',p.tel]].forEach(([i,v])=>$(i).classList.toggle('on',!!(v&&String(v).trim())))};links();
- $('pfPrb').value=prbOf(p).join('; ');$('pfPrb').oninput=e=>{prbSet(p,e.target.value);mk()};
- [['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl']].forEach(([id,k])=>{const inp=$(id),M=$(id+'M'),vals=()=>[...new Set(DB.personnes.filter(x=>x!==p).flatMap(x=>k=='probl'?prbOf(x):[String(x[k]||'').trim()]).filter(Boolean))].sort(byName);
+ [['pfSrc','provenance'],['pfPub','public']].forEach(([id,k])=>{const inp=$(id),M=$(id+'M'),vals=()=>[...new Set(DB.personnes.filter(x=>x!==p).map(x=>String(x[k]||'').trim()).filter(Boolean))].sort(byName);
   const show=all=>{const q=all?'':inp.value.trim().toLowerCase(),V=vals().filter(v=>!q||v.toLowerCase().includes(q));
    M.innerHTML=V.length?V.map(v=>`<div data-v="${esc(v)}">${esc(v)}</div>`).join(''):`<div class="e">${vals().length?'Aucune valeur proche : la tienne sera ajoutée':'Pas encore de valeur : la première sera proposée ensuite'}</div>`;M.classList.add('show');
-   M.querySelectorAll('[data-v]').forEach(d=>d.onmousedown=ev=>{ev.preventDefault();inp.value=d.dataset.v;if(k=='probl')prbSet(p,d.dataset.v);else p[k]=d.dataset.v;mk();M.classList.remove('show')})};
+   M.querySelectorAll('[data-v]').forEach(d=>d.onmousedown=ev=>{ev.preventDefault();inp.value=d.dataset.v;p[k]=d.dataset.v;mk();M.classList.remove('show')})};
   inp.parentNode.querySelector('.cmbb').onmousedown=ev=>{ev.preventDefault();M.classList.contains('show')?M.classList.remove('show'):(inp.focus(),show(true))};
   inp.onfocus=()=>show(!inp.value.trim());inp.addEventListener('input',()=>show(false));inp.onblur=()=>setTimeout(()=>M.classList.remove('show'),120);
   inp.onkeydown=ev=>{if(ev.key=='Escape')M.classList.remove('show')}});
@@ -293,6 +292,10 @@ function renderFicheNet(p,mk){const t=today(),all=pEntries(p.id);
  $('pfCer').innerHTML=(p.cercles||[]).map(c=>crPill(c,1)).join('')+'<button type="button" class="cradd" id="pfCerAdd">+ cercle</button>';
  $('pfCer').querySelectorAll('[data-crx]').forEach(i=>i.onclick=()=>{p.cercles=(p.cercles||[]).filter(c=>c!==i.dataset.crx);mk();rf()});
  $('pfCerAdd').onclick=()=>crOpen($('pfCerAdd'),p,()=>{mk();rf()});
+ /* 3.3.0 : problématiques en étiquettes (chercher ou créer) */
+ $('pfPrb').innerHTML=prbOf(p).map(v=>`<span class="crp prp">${esc(v)}<i data-prx="${esc(v)}" title="Retirer cette problématique">✕</i></span>`).join('')+'<button type="button" class="cradd" id="pfPrbAdd">+ problématique</button>';
+ $('pfPrb').querySelectorAll('[data-prx]').forEach(i=>i.onclick=()=>{prbSet(p,prbOf(p).filter(v=>v!==i.dataset.prx));mk();rf()});
+ $('pfPrbAdd').onclick=()=>prOpen($('pfPrbAdd'),p,()=>{mk();rf()});
  /* proximité et rythme */
  $('pfProx').innerHTML=PROX.map(([k,l])=>`<button type="button" class="${(p.proximite||'regulier')==k?'on':''}" data-px="${k}">${l}</button>`).join('');
  $('pfProx').querySelectorAll('[data-px]').forEach(b=>b.onclick=()=>{p.proximite=b.dataset.px;mk();rf()});
@@ -339,6 +342,24 @@ function crOpen(anchor,p,done){pkClose();const el=document.createElement('div');
   el.querySelector('.ppl').innerHTML=L.map((c,n)=>`<button type="button" class="ppi ${n==PK.i?'on':''}" data-n="${n}"><span>${esc(c.c)}</span><small>${pl(c.n,'personne')}</small></button>`).join('')
    +(q&&!exact?`<button type="button" class="ppi new ${L.length==PK.i?'on':''}" data-n="${L.length}"><span>+ Créer le cercle</span><span data-noi18n>« ${esc(inp.value.trim())} »</span></button>`:'')
    +(!PK.items.length?`<div class="ppe">${allCercles().length?'Tape le nom d\'un cercle':'Tape le nom d\'un premier cercle : club, école, anciens collègues…'}</div>`:'');
+  el.querySelectorAll('.ppi').forEach(b=>{b.onpointerdown=e=>e.preventDefault();b.onclick=()=>pick(PK.items[+b.dataset.n])});pkPos()};
+ inp.oninput=()=>{PK.i=0;draw()};
+ inp.onkeydown=e=>{const n=PK.items.length;if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(n){PK.i=(PK.i+(e.key=='ArrowDown'?1:-1)+n)%n;draw()}}
+  else if(e.key=='Enter'){e.preventDefault();if(n)pick(PK.items[PK.i]);else pick(inp.value)}else if(e.key=='Escape'){e.preventDefault();e.stopPropagation();pkClose()}};
+ draw();inp.focus()}
+/* 3.3.0 : choix d'une problématique : celles déjà utilisées (les plus fréquentes d'abord), ou création ; « A; B » en ajoute plusieurs */
+function allProbls(){const m=new Map();DB.personnes.forEach(p=>prbOf(p).forEach(c=>{const k=fold(c);if(!m.has(k))m.set(k,{c,n:0});m.get(k).n++}));return[...m.values()].sort((a,b)=>b.n-a.n||byName(a.c,b.c))}
+function prOpen(anchor,p,done){pkClose();const el=document.createElement('div');el.className='ppk';
+ el.innerHTML='<input class="fin ppq" placeholder="Chercher ou créer une problématique…" autocomplete="off" spellcheck="false"><div class="ppl"></div>';document.body.appendChild(el);
+ PK.el=el;PK.anchor=anchor;PK.cfg={};PK.inp=el.querySelector('.ppq');PK.items=[];PK.i=0;const inp=PK.inp;
+ const pick=v=>{const add=prbSplit(v).map(x=>{const ex=allProbls().find(c=>fold(c.c)===fold(x));return ex?ex.c:x});if(!add.length)return;
+  prbSet(p,[...prbOf(p),...add]);pkClose();done()};
+ const draw=()=>{const raw=inp.value.trim(),q=fold(raw.replace(/[;,]/g,' ')),mine=new Set(prbOf(p).map(fold)),multi=/[;,]/.test(raw);
+  const L=multi?[]:allProbls().filter(c=>!mine.has(fold(c.c))&&(!q||fold(c.c).includes(q))).slice(0,8),exact=q&&allProbls().some(c=>fold(c.c)===q);
+  PK.items=[...L.map(c=>c.c),...(q&&!exact?[raw]:[])];if(PK.i>=PK.items.length)PK.i=0;
+  el.querySelector('.ppl').innerHTML=L.map((c,n)=>`<button type="button" class="ppi ${n==PK.i?'on':''}" data-n="${n}"><span>${esc(c.c)}</span><small>${pl(c.n,'personne')}</small></button>`).join('')
+   +(q&&!exact?`<button type="button" class="ppi new ${L.length==PK.i?'on':''}" data-n="${L.length}"><span>${multi?'+ Ajouter':'+ Créer'}</span><span data-noi18n>« ${esc(prbSplit(raw).join(' » « '))} »</span></button>`:'')
+   +(!PK.items.length?`<div class="ppe">${allProbls().length?'Tape une problématique':'Tape une première problématique : légitimité, prise de poste, leadership…'}</div>`:'');
   el.querySelectorAll('.ppi').forEach(b=>{b.onpointerdown=e=>e.preventDefault();b.onclick=()=>pick(PK.items[+b.dataset.n])});pkPos()};
  inp.oninput=()=>{PK.i=0;draw()};
  inp.onkeydown=e=>{const n=PK.items.length;if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(n){PK.i=(PK.i+(e.key=='ArrowDown'?1:-1)+n)%n;draw()}}
