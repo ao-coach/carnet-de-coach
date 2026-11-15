@@ -3,6 +3,9 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:55,s:'3.2.4',d:'15 novembre 2026',items:[
+  {t:"Un total d'XP qui tombe juste",p:"Sous « XP gagnés en tout », le détail : ce qui est réparti, ce qui reste à répartir. Tes anciennes saisies, d'avant le passage aux XP, comptaient dans le total sans apparaître nulle part : elles sont maintenant dans les XP à répartir."},
+  {t:"Répartir tes XP en quelques clics",p:"Dans le panneau XP de pratique, la case « XP à répartir » ouvre la liste des saisies concernées, avec un compteur. Un clic sur une saisie ouvre une petite fenêtre avec seulement ses XP, sur deux colonnes ; une fois enregistrée, la saisie passe en vert et reste modifiable."}]},
  {v:54,s:'3.2.3',d:'15 novembre 2026',items:[
   {t:"Tes notes ne se perdent plus en fermant la fiche",p:"Si tu fermes la fiche d'une saisie après l'avoir modifiée, sans l'enregistrer, le carnet te demande confirmation : « Revenir à la fiche » ou « Quitter sans enregistrer ». Même chose si tu fermes ou recharges la page."},
   {t:"Durée changée, XP à corriger",p:"Si tu raccourcis une saisie ou changes son type alors que ses XP étaient déjà répartis, elle peut en avoir plus qu'elle n'en rapporte. Le carnet te le dit aussitôt et t'ouvre la répartition à corriger ; la fiche ne s'enregistre pas tant que c'est le cas. « Plus tard » laisse un point rouge sur « Fiche », et la saisie attend dans « Répartir les XP en attente ».",go:'list',b:'Voir'}]},
