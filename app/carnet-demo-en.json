@@ -92,10 +92,14 @@
    "titre": "Production manager, food SME",
    "provenance": "Former colleagues network",
    "public": "Front-line managers",
-   "probl": "New role",
+   "probl": "New role; Self-confidence",
    "reco_in": true,
    "rythme": 6,
-   "proximite": "proche"
+   "proximite": "proche",
+   "probls": [
+    "New role",
+    "Self-confidence"
+   ]
   },
   {
    "id": 1,
@@ -103,13 +107,17 @@
    "titre": "Sales director, software company",
    "provenance": "Referral",
    "public": "Executives",
-   "probl": "Leadership",
+   "probl": "Leadership; Legitimacy",
    "reco_in": true,
    "reco_dem": true,
    "reco_par": {
     "pid": 4,
     "mode": "reco"
-   }
+   },
+   "probls": [
+    "Leadership",
+    "Legitimacy"
+   ]
   },
   {
    "id": 2,
@@ -154,7 +162,11 @@
    "titre": "Head of department, hospital",
    "provenance": "Discovery workshop",
    "public": "Front-line managers",
-   "probl": "New role"
+   "probl": "New role; Legitimacy",
+   "probls": [
+    "New role",
+    "Legitimacy"
+   ]
   },
   {
    "id": 6,
@@ -182,7 +194,7 @@
    "titre": "Plant director",
    "provenance": "Referral",
    "public": "Executives",
-   "probl": "Conflict management",
+   "probl": "Conflict management; Leadership",
    "reco_in": true,
    "reco_dem": true,
    "reco_par": {
@@ -191,6 +203,10 @@
    },
    "cercles": [
     "Entrepreneurs club"
+   ],
+   "probls": [
+    "Conflict management",
+    "Leadership"
    ]
   },
   {
