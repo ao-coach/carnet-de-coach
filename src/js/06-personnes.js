@@ -142,8 +142,8 @@ function saveTrt(){const x=TRT.x;if(!x)return;const p=x.p,now=new Date().toISOSt
  touch();closeTrt();renderAll();toast(msg||'Prochain sujet enregistré')}
 $('trClose').onclick=closeTrt;$('trCancel').onclick=closeTrt;$('trOk').onclick=saveTrt;$('trM').onclick=e=>{if(e.target==$('trM'))closeTrt()};
 $('trDel').onclick=()=>{const x=TRT.x;if(!x)return;const p=x.p,now=new Date().toISOString();
- if(x.k=='act'){const a=x.a,L=DB.actions,idx=L.indexOf(a);if(idx<0)return;L.splice(idx,1);DB.supprimes.a[a.id]=now;touch();closeTrt();renderAll();
-  toast('Action supprimée','Annuler',()=>{const M=DB.actions;if(M.some(y=>String(y.id)===String(a.id)))return;M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()});return}
+ if(x.k=='act'){const a=x.a,L=DB.actions,idx=L.indexOf(a);if(idx<0)return;L.splice(idx,1);DB.supprimes.a[a.id]=now;const X=planDelLib(a);touch();closeTrt();renderAll();
+  toast(X.msg,'Annuler',()=>{const M=DB.actions;if(M.some(y=>String(y.id)===String(a.id)))return;X.undo();M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()});return}
  if(x.k=='ryt'){const old=p.rythme;p.rythme=0;p.maj=now;qFlag('rythme');touch();closeTrt();renderAll();toast(`${p.nom} : plus de relance au rythme`,'Annuler',()=>{p.rythme=old;p.maj=new Date().toISOString();touch();renderAll()});return}
  if(x.k=='cold'){p.etape={v:'perdu',at:now};p.maj=now;touch();closeTrt();renderAll();toast(`${p.nom} classé « Sans suite »`)}};
 

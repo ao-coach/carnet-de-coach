@@ -98,10 +98,11 @@ function mergeDB(A,B,base,prefA){
   R.app_version=Math.max(+A.app_version||0,+B.app_version||0);R.app_semver=((+A.app_version||0)>=(+B.app_version||0)?A:B).app_semver;if(!R.app_semver)delete R.app_semver;
   {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
   /* 3.4.0 : une copie qui a encore une compétence supprimée ne la fait pas revenir (ni ses XP) */
-  cmpPurge(R);
+  cmpPurge(R);planLink(R);
   return{db:R,added}}
 
 function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version de l\'application est périmée. Recharge-la (Ctrl+F5).');return}
+  try{planLink(DB)}catch(e){}
   DB.enregistre_le=new Date().toISOString();setStatus('busy');clearTimeout(saveT);saveT=setTimeout(persist,400);clearTimeout(CELT);CELT=setTimeout(celCheck,700)}
 /* les écritures passent une par une (file d'attente) pour ne jamais se chevaucher */
 let PQ=Promise.resolve();

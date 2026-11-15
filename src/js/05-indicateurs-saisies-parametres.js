@@ -268,11 +268,40 @@ $('addPrio').onclick=()=>{DB.priorites.push({o:'',d:''});touch();renderPrio();$(
 
 /* ---------- plan d'action ---------- */
 let AF='encours';
-const SL={encours:'En cours',realisee:'Réalisées',annulee:'Annulées'},SS={encours:'En cours',realisee:'Réalisée',annulee:'Annulée'};
+const SL={encours:'En cours',pause:'En pause',realisee:'Réalisées',annulee:'Annulées'},SS={encours:'En cours',pause:'En pause',realisee:'Réalisée',annulee:'Annulée'};
 /* 3.4.0 : catégories fixes du plan d'action, proposées après les objectifs prioritaires (texte enregistré dans a.p, dans la langue de l'interface ; les deux langues sont reconnues) */
 const PCAT={reseau:['Réseau','Network'],pd:['Pratique délibérée','Deliberate practice']};/* i18n-ok : libellés FR/EN des catégories */
 const pcatLab=k=>PCAT[k][LANG==='en'?1:0];
 const pcatOf=p=>{const s=String(p||'').trim().toLowerCase();return Object.keys(PCAT).find(k=>PCAT[k].some(x=>x.toLowerCase()===s))||null};
+/* ---------- 3.4.0 : plan d'action ↔ bibliothèque de pratique délibérée (n° 31) ----------
+   Une action du plan de catégorie « Pratique délibérée » porte a.lib = id de son action de bibliothèque. Texte et statut sont communs :
+   en cours ↔ En cours, en pause ↔ En pause, acquise ↔ Réalisée ; Annulée (plan) → en pause. Une action de bibliothèque déliée
+   (supprimée du plan alors qu'elle a déjà servi) porte horsPlan. planLink tient les deux côtés d'accord : appelée par migrate(),
+   mergeDB() et touch() ; idempotente ; en cas d'écart (texte, statut), le côté modifié le plus récemment (maj) l'emporte. */
+const LKT='Action liée à la bibliothèque de pratique délibérée : pour la délier, supprime-la';
+const L2P={cours:'encours',pause:'pause',acquise:'realisee'},P2L={encours:'cours',pause:'pause',realisee:'acquise',annulee:'pause'};
+function planLink(d){const L=d?.pd?.lib;if(!Array.isArray(L)||!Array.isArray(d.actions))return d;d.supprimes=d.supprimes||{};d.supprimes.a=d.supprimes.a||{};
+ const now=new Date().toISOString(),byLib=new Map(L.filter(l=>l&&l.id!=null).map(l=>[String(l.id),l])),seen=new Map(),drop=new Set();
+ d.actions.forEach(a=>{if(!a||a.lib==null)return;const k=String(a.lib),l=byLib.get(k);if(!l){drop.add(a);return}if(l.horsPlan){delete a.lib;return}
+  const o=seen.get(k);if(!o){seen.set(k,a);return}const keep=(+o.id||0)<=(+a.id||0)?o:a;seen.set(k,keep);drop.add(keep===o?a:o)});
+ if(drop.size){drop.forEach(a=>{if(!d.supprimes.a[a.id])d.supprimes.a[a.id]=now});d.actions=d.actions.filter(a=>!drop.has(a))}
+ L.forEach(l=>{if(!l||l.id==null||l.horsPlan)return;if(!L2P[l.st])l.st='pause';const a=seen.get(String(l.id));
+  if(!a){const n={id:nextId(d.actions),p:pcatLab('pd'),a:l.a||'',d:'',r:'',s:L2P[l.st],lib:l.id,maj:l.maj||now};d.actions.push(n);seen.set(String(l.id),n);return}
+  if(pcatOf(a.p)!=='pd')a.p=pcatLab('pd');if(!P2L[a.s])a.s=L2P[l.st];
+  const lw=(l.maj||'')>=(a.maj||'');
+  if((a.a||'')!==(l.a||'')){if(lw){a.a=l.a||'';a.maj=l.maj||a.maj}else{l.a=a.a||'';l.maj=a.maj}}
+  if(P2L[a.s]!==l.st){if(lw){a.s=L2P[l.st];a.maj=l.maj||a.maj}else{l.st=P2L[a.s];l.maj=a.maj}}});
+ return d}
+/* l'action du plan passe dans la catégorie « Pratique délibérée » : son action de bibliothèque est créée */
+function planToLib(a){const now=new Date().toISOString();let st=P2L[a.s]||'pause';
+ if(st=='cours'&&!canStart()){st='pause';a.s='pause';toast(`${MAXA} actions en cours maximum : celle-ci entre dans la bibliothèque en pause`)}
+ const l={id:nextId(PD().lib),a:a.a||'',mid:null,types:[...COACH],st,cree:today(),maj:now};PD().lib.push(l);a.lib=l.id;a.maj=now;return l}
+/* suppression d'une action du plan : son action de bibliothèque est supprimée si elle n'a jamais servi, sinon gardée en pause et déliée.
+   Renvoie une fonction qui rétablit la bibliothèque (Annuler) et le message à afficher. */
+function planDelLib(a){const L=PD().lib,l=a.lib!=null?L.find(x=>String(x.id)===String(a.lib)):null;if(!l)return{undo:()=>{},msg:'Action supprimée'};
+ const snap=JSON.parse(JSON.stringify(l)),i=L.indexOf(l);
+ if(actRes(l).n){l.st='pause';l.horsPlan=true;l.maj=new Date().toISOString();return{msg:'Action supprimée du plan : déjà utilisée dans des saisies, elle reste dans la bibliothèque, en pause',undo:()=>{Object.keys(l).forEach(k=>delete l[k]);Object.assign(l,snap)}}}
+ PD().lib=L.filter(x=>x!==l);return{msg:'Action supprimée, ici et dans la bibliothèque',undo:()=>{const M=PD().lib;if(!M.some(x=>String(x.id)===String(l.id)))M.splice(Math.min(i,M.length),0,l)}}}
 function renderActs(){const A=DB.actions,t=today();
  $('pills').innerHTML=Object.keys(SL).map(k=>`<button class="pill ${k} ${AF==k?'on':''}" data-f="${k}">${SL[k]}<span>${A.filter(a=>a.s==k).length}</span></button>`).join('');
  $('pills').querySelectorAll('.pill').forEach(b=>b.onclick=()=>{AF=b.dataset.f;renderActs()});
@@ -283,24 +312,26 @@ function renderActs(){const A=DB.actions,t=today();
  const rows=A.filter(a=>a.s==AF).sort((x,y)=>(x.d||'9').localeCompare(y.d||'9'));
  $('acts').innerHTML=rows.map(a=>{const ck=names.includes(a.p)?null:pcatOf(a.p),custom=!names.includes(a.p)&&!ck,late=a.s=='encours'&&a.d&&a.d<t;
   const cats=Object.keys(PCAT).filter(k=>!nk.includes(k)&&(k!=='pd'||ck==='pd'||MOD('competences')));
-  return `<tr data-id="${a.id}" class="${a.s=='realisee'?'done':a.s=='annulee'?'cancel':''}">
-  <td><div class="prio-cell"><select class="ed" data-k="psel">${names.map(n=>`<option ${n==a.p?'selected':''}>${esc(n)}</option>`).join('')}${cats.map(k=>`<option value="__${k}" ${ck===k?'selected':''}>${esc(PCAT[k][0])}</option>`).join('')}<option value="__o" ${custom?'selected':''}>Autre…</option></select>
+  return `<tr data-id="${a.id}" class="${a.s=='realisee'?'done':a.s=='annulee'?'cancel':''}${a.lib!=null?' plk':''}">
+  <td><div class="prio-cell"><select class="ed" data-k="psel" ${a.lib!=null?`disabled title="${esc(LKT)}"`:''}>${names.map(n=>`<option ${n==a.p?'selected':''}>${esc(n)}</option>`).join('')}${cats.map(k=>`<option value="__${k}" ${ck===k?'selected':''}>${esc(PCAT[k][0])}</option>`).join('')}<option value="__o" ${custom?'selected':''}>Autre…</option></select>
    ${custom?`<input class="ed" data-k="p" list="actSug" value="${esc(a.p)}" placeholder="Saisir une valeur" style="font-size:13px;color:var(--am)">`:''}</div></td>
-  <td><input class="ed" data-k="a" value="${esc(a.a)}" placeholder="Décrire l'action"></td>
+  <td><input class="ed" data-k="a" value="${esc(a.a)}" placeholder="Décrire l'action">${a.lib!=null?(()=>{const l=PD().lib.find(x=>String(x.id)===String(a.lib)),m=l?mById(l.mid):null;return `<span class="alk">↔ bibliothèque${m?` · ${esc(m.l)}`:''}</span>`})():''}</td>
   <td><button type="button" class="ed pbtn" data-pp title="Choisir la personne">${a.pid!=null&&pById(a.pid)?esc(pname(a.pid)):'—'}</button></td>
   <td class="${late?'late':''}"><input type="date" class="ed" data-k="d" value="${a.d||''}">${late?'<div style="font-size:11px;color:var(--am);font-weight:800;padding-left:7px">En retard</div>':''}</td>
   <td><input class="ed" data-k="r" value="${esc(a.r)}" placeholder="—"></td>
   <td><select class="st ${a.s}" data-k="s">${Object.keys(SS).map(k=>`<option value="${k}" ${k==a.s?'selected':''}>${SS[k]}</option>`).join('')}</select></td>
   <td><button type="button" class="ibtn del" data-adel title="Supprimer cette action">✕</button></td></tr>`}).join('')||`<tr><td colspan="7" class="empty">Aucune action ${SL[AF].toLowerCase()}.</td></tr>`;
  $('acts').querySelectorAll('tr[data-id]').forEach(tr=>{const a=A.find(x=>x.id==tr.dataset.id);
-  tr.querySelector('[data-adel]').onclick=()=>{const L=DB.actions,idx=L.indexOf(a);if(idx<0)return;L.splice(idx,1);DB.supprimes.a[a.id]=new Date().toISOString();touch();renderAll();
-   toast('Action supprimée','Annuler',()=>{const M=DB.actions;if(M.some(x=>String(x.id)===String(a.id)))return;M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()})};
+  tr.querySelector('[data-adel]').onclick=()=>{const L=DB.actions,idx=L.indexOf(a);if(idx<0)return;L.splice(idx,1);DB.supprimes.a[a.id]=new Date().toISOString();const X=planDelLib(a);touch();renderAll();
+   toast(X.msg,'Annuler',()=>{const M=DB.actions;if(M.some(x=>String(x.id)===String(a.id)))return;X.undo();M.splice(Math.min(idx,M.length),0,a);delete DB.supprimes.a[a.id];touch();renderAll()})};
   {const pb=tr.querySelector('[data-pp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:a.pid,none:true,onPick:id=>{a.pid=id;a.maj=new Date().toISOString();touch();renderActs()}})}
   tr.querySelectorAll('[data-k]').forEach(el=>el.onchange=()=>{const k=el.dataset.k;
-   if(k=='psel'){const v=el.value;a.p=v=='__o'?'':v.startsWith('__')&&PCAT[v.slice(2)]?pcatLab(v.slice(2)):v;a.maj=new Date().toISOString();touch();renderActs();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
+   if(k=='psel'){const v=el.value;a.p=v=='__o'?'':v.startsWith('__')&&PCAT[v.slice(2)]?pcatLab(v.slice(2)):v;a.maj=new Date().toISOString();
+    if(v=='__pd'&&a.lib==null){planToLib(a);toast('Action ajoutée à la bibliothèque de pratique délibérée')}touch();renderAll();if(el.value=='__o')$('acts').querySelector(`tr[data-id="${a.id}"] [data-k=p]`)?.focus();return}
+   if(k=='s'&&a.lib!=null&&el.value=='encours'&&a.s!='encours'&&!canStart(a.lib)){toast(`${MAXA} actions en cours maximum : mets-en une en pause d'abord`);el.value=a.s;return}
    a[k]=el.value;a.maj=new Date().toISOString();touch();
    if(k=='s'){tr.className=a.s=='realisee'?'done':a.s=='annulee'?'cancel':'';el.className='st '+a.s;
-    toast(a.s=='realisee'?'Action réalisée ✓':a.s=='annulee'?'Action annulée':'Action remise en cours');
+    toast(a.s=='realisee'?'Action réalisée ✓':a.s=='annulee'?'Action annulée':a.s=='pause'?'Action mise en pause':'Action remise en cours');if(a.lib!=null)renderAll();
     setTimeout(()=>{tr.classList.add('fade');setTimeout(renderActs,450)},700)}
    else if(k=='d')renderActs()})})}
 $('addAct').onclick=()=>{DB.actions.push({id:nextId(DB.actions),p:DB.priorites[0]?.o||'',a:'',d:'',r:'',s:'encours'});AF='encours';touch();renderActs();

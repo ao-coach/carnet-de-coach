@@ -347,7 +347,7 @@ function renderLib(){const q=(LIBO.q||'').trim().toLowerCase(),L=PD().lib.filter
  $('libB').querySelectorAll('.lbi').forEach(d=>{const a=PD().lib.find(x=>String(x.id)===d.dataset.id);
   const pk=d.querySelector('[data-pick]');if(pk)pk.onclick=()=>chooseAct(a);
   d.querySelector('[data-st]').onchange=ev=>{if(setSt(a,ev.target.value))touch();renderLib();renderAll()};
-  const del=d.querySelector('[data-del]');if(del)del.onclick=()=>{PD().lib=PD().lib.filter(x=>x!==a);touch();renderLib();renderAll()}});
+  const del=d.querySelector('[data-del]');if(del)del.onclick=()=>{const tw=DB.actions.some(x=>String(x.lib)===String(a.id));PD().lib=PD().lib.filter(x=>x!==a);touch();renderLib();renderAll();if(tw)toast('Action supprimée, ici et dans le plan d\'action')}});
  const nw=$('libNew');if(nw)nw.onclick=()=>newForm(LIBO.q||'');
  if(F){$('libA').oninput=()=>F.a=$('libA').value;$('libMid').onchange=()=>F.mid=$('libMid').value;
   $('libTy').querySelectorAll('[data-ty]').forEach(b=>b.onclick=()=>{const k=b.dataset.ty;F.types=F.types.includes(k)?F.types.filter(x=>x!=k):[...F.types,k];renderLib()});

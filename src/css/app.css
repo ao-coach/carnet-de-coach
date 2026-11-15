@@ -90,9 +90,9 @@ textarea.ed{resize:none;overflow:hidden;font-style:italic;line-height:1.35;font-
 .pills{display:flex;gap:6px;margin-left:auto}
 .pill{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;font-size:13px;font-weight:700;color:var(--grey);cursor:pointer;display:flex;gap:7px;align-items:center;font-family:Nunito,sans-serif}
 .pill span{background:var(--soft);border-radius:10px;padding:0 7px;font-size:12px}
-.pill.realisee{color:var(--afb)} .pill.annulee{color:var(--red)}
+.pill.realisee{color:var(--afb)} .pill.annulee{color:var(--red)} .pill.pause{color:var(--gold,#A07A2C)}
 .pill.on{background:var(--jet);color:#fff;border-color:var(--jet)}
-.pill.realisee.on{background:var(--afb);border-color:var(--afb)} .pill.annulee.on{background:var(--red);border-color:var(--red)}
+.pill.realisee.on{background:var(--afb);border-color:var(--afb)} .pill.pause.on{background:#A07A2C;border-color:#A07A2C;color:#fff} .pill.annulee.on{background:var(--red);border-color:var(--red)}
 .pill.on span{background:rgba(255,255,255,.22)}
 table.act{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
 .act th{text-align:left;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);padding:6px 8px;border-bottom:1px solid var(--line)}
@@ -102,7 +102,7 @@ table.act{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
 .act tr.done .ed{color:var(--afb)} .act tr.cancel .ed{color:var(--red)}
 .act tr{transition:.4s} .act tr.fade{opacity:0;transform:translateX(20px)}
 .st{border-radius:8px;padding:5px 8px;font-weight:800;font-size:12.5px;border:0;cursor:pointer}
-.st.encours{background:var(--soft)} .st.realisee{background:var(--bluebg);color:var(--afb)} .st.annulee{background:var(--redbg);color:var(--red)}
+.st.encours{background:var(--soft)} .st.pause{background:#FFF4DC;color:#8A6100} .st.realisee{background:var(--bluebg);color:var(--afb)} .st.annulee{background:var(--redbg);color:var(--red)}
 .prio-cell{display:flex;flex-direction:column;gap:2px;min-width:170px}
 /* saisies */
 .filt{display:grid;grid-template-columns:110px 1fr;gap:10px 14px;align-items:center}
@@ -1185,3 +1185,6 @@ body.no-activite .pfct2{grid-template-columns:minmax(0,1fr)}
 .xld{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.xld input{width:auto}.xlc{display:flex;flex-wrap:wrap;gap:4px 14px}.xlc .cb{margin:0}
 .xlp{background:#FFF8EC;border:1px solid #F1DCA4;border-radius:10px;padding:8px 12px;font-size:13px;margin:12px 0 10px}
 @media(max-width:640px){.xlr{grid-template-columns:1fr}}
+/* 3.4.0 : action du plan liée à la bibliothèque de pratique délibérée */
+.alk{display:block;font-size:11.5px;color:var(--afb);padding-left:8px;font-weight:700}
+table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}

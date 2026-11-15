@@ -193,7 +193,7 @@ function migrate(d){
   {const P=d.prefs,m=P.modules;if(m&&typeof m=='object'&&!Array.isArray(m))P.modules=Object.fromEntries(MODS.map(k=>[k,!!m[k]]));
    else{delete P.modules;if(P.simple===true)P.modules=modsAll(false);else if(P.simple===false||P.onboarded||d.entrees.length)P.modules=modsAll(true)}
    if(P.modules)P.simple=!MODS.some(k=>P.modules[k])}
-  d.supprimes.m=(d.supprimes.m&&typeof d.supprimes.m=='object'&&!Array.isArray(d.supprimes.m))?d.supprimes.m:{};cmpPurge(d);
+  d.supprimes.m=(d.supprimes.m&&typeof d.supprimes.m=='object'&&!Array.isArray(d.supprimes.m))?d.supprimes.m:{};cmpPurge(d);planLink(d);
   d.version_schema=VERSION;return d;
 }
 
