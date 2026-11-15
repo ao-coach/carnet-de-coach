@@ -201,7 +201,7 @@ function openPdEdit(id,sec){const e=E().find(x=>String(x.id)===String(id));if(!e
  const d={date:e.date,type:e.type,dur:e.dur,pid:e.pid??null,psup:!!e.psup,cr:!!e.cr,syn:!!e.syn,com:e.com||'',notes:e.notes||'',
   statut:e.statut||'attente',eur:e.eur??'',engagement_mois:e.engagement_mois||3,seances:e.seances??'',non:!!e.non,gratuit:!!e.gratuit,cout:+e.cout>0?e.cout:''};
  PDE={e,d,st:{pa:{...(e.pa||{})},xp:{...(e.xp||{})},fcom:e.fcom||'',rem:JSON.parse(JSON.stringify(e.rem||{}))},ret:JSON.parse(JSON.stringify(e.retours||[])),open:new Set([sec||'notes']),durx:false};
- renderPdEdit();$('pdeM').classList.add('show');const m=$('pdeM').querySelector('.modal');m.scrollTop=0;
+ renderPdEdit();PDE.snap=fsSnap();$('pdeM').classList.add('show');const m=$('pdeM').querySelector('.modal');m.scrollTop=0;
  const s=m.querySelector('.fss.op');if(s&&sec&&sec!=='notes')setTimeout(()=>s.scrollIntoView({block:'start',behavior:'smooth'}),60)}
 function fsSum(k,xpH){const d=PDE.d;
  if(k==='notes'){const s=(d.com||d.notes||'').replace(/\s+/g,' ').trim();return s?esc(s.length>90?s.slice(0,89)+'…':s):'—'}
@@ -251,7 +251,13 @@ function renderPdEdit(){const b=$('pdeB'),d=PDE.d,R=PDE.ret,t=TM[d.type]||{l:d.t
  b.querySelectorAll('[data-ft]').forEach(x=>x.onclick=()=>{const f=x.dataset.ft;d[f]=!d[f];x.classList.toggle('on',d[f])});
  const g=b.querySelector('[data-fg]');if(g)g.onchange=()=>{d.gratuit=g.checked;renderPdEdit()};
  const pb=b.querySelector('[data-fp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:d.pid,none:!pReq(d.type),onPick:id=>{d.pid=id;if(id!=null)d.psup=false;renderPdEdit()}})}
-$('pdeX').onclick=()=>{pkClose();$('pdeM').classList.remove('show');PDE=null};
+/* 3.2.3 : quitter une fiche modifiée sans l'enregistrer demande confirmation (✕, Échap, fermeture de la page) */
+function fsSnap(){if(!PDE)return '';const d=PDE.d,st=PDE.st;return JSON.stringify([d,xpClean(st,d.type,d.dur,true),(st.fcom||'').trim(),cleanPd(st),PDE.ret.map(x=>(x.t||'').trim())])}
+const fsDirty=()=>!!PDE&&$('pdeM').classList.contains('show')&&fsSnap()!==PDE.snap;
+const fsClose=()=>{pkClose();$('pdeM').classList.remove('show');PDE=null};
+$('pdeX').onclick=()=>{if(!fsDirty()){fsClose();return}
+ askBox({t:'Quitter sans enregistrer ?',h:'Tu as modifié cette fiche. Si tu quittes maintenant, tes modifications seront perdues.',ok:'Quitter sans enregistrer',no:'Revenir à la fiche'},fsClose)};
+addEventListener('beforeunload',ev=>{if(fsDirty()){ev.preventDefault();ev.returnValue=''}});
 $('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,d=PDE.d,c=cleanPd(PDE.st),need=s=>{PDE.open.add(s);renderPdEdit()};
  if(!d.date){toast('Indique la date de la saisie');need('infos');return}
  if(!(+d.dur>0)){toast('Indique la durée de la saisie');need('infos');return}
