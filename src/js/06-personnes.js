@@ -220,12 +220,23 @@ function aisBlock(all){const G=xpGain(all),M=metrics().filter(m=>m.actif||(G[m.i
 const webUrl=v=>!v?'':/^https?:\/\//i.test(v.trim())?v.trim():'https://'+v.trim().replace(/^\/+/,'');
 const webHost=v=>{try{return new URL(webUrl(v)).hostname.replace(/^www\./,'')}catch(e){return v}};
 const siteLink=p=>p?.site?`<a class="site" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">${esc(webHost(p.site))} ↗</a>`:'';
-let PFTAB='infos';
-function openFiche(id,tab,focusSujet){PFID=pById(id)?.id;if(PFID==null)return;PFTAB=tab||'infos';qFlag('fiche');if(PFTAB=='notes')qFlag('notes');renderFiche();$('pfM').classList.add('show');$('pfM').querySelector('.modal').scrollTop=0;
+/* 3.3.0 : onglets Situation (par défaut) · Contact · Notes · Contrat (seulement s'il existe une proposition) */
+let PFTAB='sit';
+function openFiche(id,tab,focusSujet){PFID=pById(id)?.id;if(PFID==null)return;PFTAB=tab||'sit';qFlag('fiche');if(PFTAB=='notes')qFlag('notes');pfAvMenu(false);renderFiche();$('pfM').classList.add('show');$('pfM').querySelector('.modal').scrollTop=0;pfTL();
  if(focusSujet)setTimeout(()=>{const s=$('pfSujet');s.focus();s.setSelectionRange(s.value.length,s.value.length)},60)}
-function pfTab(k){PFTAB=k;if(k=='notes')qFlag('notes');$('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.classList.toggle('on',b.dataset.pt==k));$('pfM').querySelectorAll('.pftab').forEach(x=>x.classList.toggle('on',x.dataset.pt==k))}
+function pfTab(k){if(k=='kon'&&$('pfKT').classList.contains('hide'))k='sit';PFTAB=k;if(k=='notes')qFlag('notes');$('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.classList.toggle('on',b.dataset.pt==k));$('pfM').querySelectorAll('.pftab').forEach(x=>x.classList.toggle('on',x.dataset.pt==k))}
 $('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.onclick=()=>pfTab(b.dataset.pt));
-function closeFiche(){$('pfM').classList.remove('show');PFID=null;renderAll()}
+function closeFiche(){pfAvMenu(false);$('pfM').classList.remove('show');PFID=null;renderAll()}
+/* frise de l'en-tête : les échanges avec la personne, sans les débriefs (dessinée à la largeur réelle, une fois la fiche affichée) */
+const pfTLE=pid=>pEntries(pid).filter(e=>e.type!='debrief');
+function pfTL(){const p=pById(PFID);if(!p)return;const L=pfTLE(p.id),nd=pEntries(p.id).length-L.length,w=$('pfTL').clientWidth;
+ $('pfTL').innerHTML=timelineSVG(L,w>200?Math.round(w):760);
+ $('pfTLn').textContent=L.length?(L.length>1?`${L.length} échanges`:'1 échange')+(nd?' · hors débriefs':''):'';
+ const C={};L.forEach(e=>C[e.type]=(C[e.type]||0)+1);
+ $('pfTLL').innerHTML=Object.keys(C).sort((a,b)=>C[b]-C[a]||(TM[a]?.l||a).localeCompare(TM[b]?.l||b)).map(k=>`<span><i style="background:${TM[k]?.c||'#ccc'}"></i>${esc(TM[k]?.l||k)} <b>${C[k]}</b></span>`).join('')}
+addEventListener('resize',()=>{if(PFID!=null&&$('pfM').classList.contains('show')){clearTimeout(pfTL.t);pfTL.t=setTimeout(pfTL,150)}});
+/* photo : sans photo, le clic ouvre le choix du fichier ; avec photo, un petit menu Changer / Retirer */
+function pfAvMenu(v){$('pfAvM').classList.toggle('show',!!v)}
 function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new Date().toISOString();touch()};
  $('pfTitle').textContent='Fiche';
  const ini=(p.nom||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -236,7 +247,11 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
   $(id).oninput=e=>{p[k]=e.target.value;if(k=='nom'&&!p.nom.trim())return;mk();if(['email','site','tel'].includes(k))links()}});
  $('pfTel').value=fmtTel(p.tel);$('pfTel').onchange=e=>{const f=fmtTel(e.target.value);if(f!==e.target.value){e.target.value=f;p.tel=f;mk()}};
  $('pfNom').onchange=e=>{if(!e.target.value.trim()){p.nom='Sans nom';e.target.value=p.nom;mk()}};
- const links=()=>{$('pfIcons').innerHTML=[p.email?`<a class="pfi" href="mailto:${esc(p.email)}" title="Écrire un e-mail">${SVGI.mail}</a>`:'',p.site?`<a class="pfi" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener" title="Voir le site">${SVGI.web}</a>`:'',p.tel&&IS_TOUCH?`<a class="pfi" href="tel:${esc(p.tel.replace(/[^\d+]/g,''))}" title="Appeler">${SVGI.tel}</a>`:''].join('')};links();
+ /* 3.3.0 : une icône devant chaque coordonnée, cliquable quand elle est remplie (appel : sur écran tactile) */
+ const links=()=>{$('pfMailI').innerHTML=p.email?`<a href="mailto:${esc(p.email)}" title="Écrire un e-mail">${SVGI.mail}</a>`:SVGI.mail;
+  $('pfWebI').innerHTML=p.site?`<a href="${esc(webUrl(p.site))}" target="_blank" rel="noopener" title="Voir le site">${SVGI.web}</a>`:SVGI.web;
+  $('pfTelI').innerHTML=p.tel&&IS_TOUCH?`<a href="tel:${esc(p.tel.replace(/[^\d+]/g,''))}" title="Appeler">${SVGI.tel}</a>`:SVGI.tel;
+  [['pfMailI',p.email],['pfWebI',p.site],['pfTelI',p.tel]].forEach(([i,v])=>$(i).classList.toggle('on',!!(v&&String(v).trim())))};links();
  $('pfPrb').value=prbOf(p).join('; ');$('pfPrb').oninput=e=>{prbSet(p,e.target.value);mk()};
  [['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl']].forEach(([id,k])=>{const inp=$(id),M=$(id+'M'),vals=()=>[...new Set(DB.personnes.filter(x=>x!==p).flatMap(x=>k=='probl'?prbOf(x):[String(x[k]||'').trim()]).filter(Boolean))].sort(byName);
   const show=all=>{const q=all?'':inp.value.trim().toLowerCase(),V=vals().filter(v=>!q||v.toLowerCase().includes(q));
@@ -258,7 +273,8 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
  $('pfANew').onkeydown=e=>{if(e.key=='Enter')$('pfAAdd').click()};
  const all=pEntries(p.id),st=stats(all),l=lastContact(p.id);
  $('pfSum').innerHTML=[[l?dShort(l.date):'—','dernier contact'],[n1(st.h)+' h','de coaching'],[all.filter(e=>e.type=='conversation').length,'conversations'],[all.filter(e=>e.type=='session').length,'sessions'],[st.ca?eur(st.ca):'—','contrat'],[all[0]?dShort(all[0].date):'—','premier contact']].map(([v,k])=>`<div><b>${v}</b>${k}</div>`).join('');
- $('pfTL').innerHTML=timelineSVG(all);$('pfAis').innerHTML=aisBlock(all);
+ if($('pfM').classList.contains('show'))pfTL();$('pfAis').innerHTML=aisBlock(all);
+ $('pfKT').classList.toggle('hide',!all.some(e=>e.type=='proposition'));
  const K=contractOf(p.id);$('pfKS').classList.toggle('hide',!K);
  if(K){$('pfK').innerHTML=`<div class="pfk"><div><b>${eur(K.eur)}</b>${K.e.engagement_mois?` · ${K.e.engagement_mois} mois`:''} · ${contractTxt(K)}${contractBar(K)}</div>
    <label class="pflab">Début<input class="fin" type="date" id="pfKD" value="${K.debut}"></label><label class="pflab">Séances prévues<input class="fin" type="number" min="1" id="pfKN" value="${K.prevues||''}" placeholder="—"></label>
@@ -308,7 +324,7 @@ function renderFicheNet(p,mk){const t=today(),all=pEntries(p.id);
   x.reco_par={pid:p.id,mode:'reco'};x.maj=new Date().toISOString();touch();rf()}});
  /* notes des échanges : « Notes » et « Ce qu'on a vu », de la plus récente à la plus ancienne */
  const NF=[];[...all].reverse().forEach(e=>{if(e.com&&e.com.trim())NF.push({e,k:"Ce qu'on a vu",x:e.com});if(e.notes&&e.notes.trim())NF.push({e,k:'Notes',x:e.notes})});
- $('pfNN').textContent=NF.length||'';$('pfEN').textContent=all.length||'';
+ $('pfNN').textContent=NF.length||'';
  $('pfNF').innerHTML=NF.length?`<div class="nfr">${NF.map(n=>`<div class="nfi" style="--c:${TM[n.e.type]?.c||'#9A9DA1'}"><div class="h">${dLong(n.e.date)} · <span class="ty">${esc(TM[n.e.type]?.l||'')}</span> <span class="k">${n.k}</span></div><div class="t">${esc(n.x)}</div></div>`).join('')}</div>`
   :'<div class="hint" style="margin:0">Pas encore de notes : elles viennent de tes saisies (« Ce qu\'on a vu » et « Notes »).</div>'}
 /* choix d'un cercle : cercles existants (les plus fournis d'abord), ou création */
@@ -345,8 +361,12 @@ function crDraw(cv,size,overlay){const g=cv.getContext('2d'),im=CR.img,b=300/Mat
   g.strokeStyle='rgba(255,255,255,.9)';g.lineWidth=2;g.beginPath();g.arc(size/2,size/2,size/2-6,0,Math.PI*2);g.stroke()}}
 function crClamp(){const im=CR.img,b=300/Math.min(im.width,im.height),w=im.width*b*CR.z,h=im.height*b*CR.z,mx=Math.max(0,(w-300)/2),my=Math.max(0,(h-300)/2);
  CR.ox=Math.max(-mx,Math.min(mx,CR.ox));CR.oy=Math.max(-my,Math.min(my,CR.oy))}
-$('pfPh').onclick=()=>$('pfFile').click();$('pfAv').onclick=()=>$('pfFile').click();
-$('pfPhDel').onclick=()=>{const p=pById(PFID);delete p.photo;p.maj=new Date().toISOString();touch();renderFiche()};
+$('pfPh').onclick=()=>{pfAvMenu(false);$('pfFile').click()};
+$('pfAv').onclick=e=>{e.stopPropagation();if(!pById(PFID)?.photo){pfAvMenu(false);$('pfFile').click()}else pfAvMenu(!$('pfAvM').classList.contains('show'))};
+$('pfAv').onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();$('pfAv').click()}};
+document.addEventListener('pointerdown',e=>{if($('pfAvM').classList.contains('show')&&!$('pfAvM').contains(e.target)&&e.target!==$('pfAv'))pfAvMenu(false)},true);
+$('pfAvM').onkeydown=e=>{if(e.key=='Escape'){e.stopPropagation();pfAvMenu(false);$('pfAv').focus()}};
+$('pfPhDel').onclick=()=>{pfAvMenu(false);const p=pById(PFID);delete p.photo;p.maj=new Date().toISOString();touch();renderFiche();toast('Photo retirée')};
 $('pfFile').onchange=e=>{CRT=null;const f=e.target.files[0];e.target.value='';if(!f)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{CR.img=im;CR.z=1;CR.ox=0;CR.oy=0;$('crZoom').value=1;crDraw($('crCv'),300,true);$('cropM').classList.add('show')};im.onerror=()=>toast('Image non reconnue');im.src=fr.result};fr.readAsDataURL(f)};
 $('crZoom').oninput=e=>{CR.z=+e.target.value;crClamp();crDraw($('crCv'),300,true)};
 (()=>{const cv=$('crCv');let d=null;const sc=()=>300/cv.getBoundingClientRect().width;
@@ -451,7 +471,7 @@ $('mCom').onkeydown=e=>{if(e.key=='Enter'&&!LONGCOM(S.type)){e.preventDefault()}
 $('mCom').oninput=()=>{const c=$('mCom');if(!LONGCOM(S.type)&&/\n/.test(c.value))c.value=c.value.replace(/\s*\n+\s*/g,' ');fitTA(c)};
 ['tCR','tSY','tNON'].forEach(i=>$(i).onclick=()=>$(i).classList.toggle('on'));
 const openM=ty=>{if(typeof ty=='string'&&TM[ty]){S.type=ty;S.dur=TM[ty].d}$('fDate').value=today();$('mPQ').value='';$('mDurX').value='';$('mDurOk').textContent='';S.xp={};S.fcom='';S.pa={};S.rem={};$('mSupJ').checked=true;$('mSupL').classList.remove('hide');renderModal();$('ov').classList.add('show')},closeM=()=>{pkClose();$('ov').classList.remove('show')};
-$('openLog').onclick=()=>openM();$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape'){if($('askM').classList.contains('show'))askClose();else if($('cropM').classList.contains('show')){$('crClose').click()}else if($('vicDM').classList.contains('show'))$('vicDX').click();else if($('vicM').classList.contains('show'))$('vicX').click();else if($('pipeM').classList.contains('show'))$('pipeX').click();else if($('cel3').classList.contains('show'))$('c3ok')?.click();else if($('cel2').classList.contains('show'))$('c2ok')?.click();else if($('metM').classList.contains('show'))$('metX').click();else if($('coM').classList.contains('show'))$('coX').click();else if($('libM').classList.contains('show'))$('libX').click();else if($('pdeM').classList.contains('show'))$('pdeX').click();else if($('xprM').classList.contains('show'))$('xprX').click();else if($('xpqM').classList.contains('show'))$('xpqX').click();else if($('cmpM').classList.contains('show'))$('cmpX').click();else if($('cropM').classList.contains('show'))$('cropM').classList.remove('show');else if($('pfM').classList.contains('show'))closeFiche();else closeM()}});
+$('openLog').onclick=()=>openM();$('closeLog').onclick=closeM;$('ov').onclick=e=>{if(e.target==$('ov'))closeM()};document.addEventListener('keydown',e=>{if(e.key=='Escape'){if($('askM').classList.contains('show'))askClose();else if($('cropM').classList.contains('show')){$('crClose').click()}else if($('vicDM').classList.contains('show'))$('vicDX').click();else if($('vicM').classList.contains('show'))$('vicX').click();else if($('pipeM').classList.contains('show'))$('pipeX').click();else if($('cel3').classList.contains('show'))$('c3ok')?.click();else if($('cel2').classList.contains('show'))$('c2ok')?.click();else if($('metM').classList.contains('show'))$('metX').click();else if($('coM').classList.contains('show'))$('coX').click();else if($('libM').classList.contains('show'))$('libX').click();else if($('pdeM').classList.contains('show'))$('pdeX').click();else if($('xprM').classList.contains('show'))$('xprX').click();else if($('xpqM').classList.contains('show'))$('xpqX').click();else if($('cmpM').classList.contains('show'))$('cmpX').click();else if($('cropM').classList.contains('show'))$('cropM').classList.remove('show');else if($('pfAvM').classList.contains('show'))pfAvMenu(false);else if($('pfM').classList.contains('show'))closeFiche();else closeM()}});
 $('mSave').onclick=()=>{const t=TM[S.type];
  if(pReq(S.type)&&S.pid==null){toast('Choisis la personne : elle est obligatoire pour ce type de saisie');return}
  if(MOD('activite')&&isCom(S.type)&&fcMet()&&!(S.fcom||'').trim()){const f=fcMet();toast(`${f.l} : écris ce qui a été facile ou difficile`);const ta=$('mPD').querySelector('[data-fcom]');if(ta)ta.focus();return}

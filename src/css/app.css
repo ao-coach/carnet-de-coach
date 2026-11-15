@@ -1099,3 +1099,28 @@ textarea.fsn{min-height:200px}
 .ab-li{display:flex;flex-direction:column;align-items:flex-start;background:var(--soft);border-radius:12px;padding:14px 16px}
 .ab-li .ic{color:var(--am);margin-bottom:6px}.ab-li b{font-size:15px;color:var(--jet)}.ab-li p{margin:4px 0 12px;font-size:13.5px;flex:1}
 .ab-li a.btn2{text-decoration:none;margin-top:auto}
+/* 3.3.0 : fiche personne refondue. En-tête : photo plus grande (menu au clic), coordonnées à droite, frise des échanges dessous */
+.pfhd .pfgrid.pfg3{max-width:none;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.pfg3 .pfleft{position:relative}
+.pfg3 .pfav{width:150px;height:150px;font-size:46px;position:relative}
+.pfg3 .pfav:hover:after,.pfg3 .pfav:focus-visible:after{content:'Photo';position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font:800 11px Nunito,sans-serif;color:#fff;background:rgba(0,0,0,.45);padding:2px 9px;border-radius:8px}
+.pfavm{position:absolute;top:158px;left:6px;z-index:45;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:4px;min-width:190px;display:none}
+.pfavm.show{display:block}
+.pfavm button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:7px;font:700 13.5px Nunito,sans-serif;cursor:pointer;color:var(--jet)}
+.pfavm button:hover,.pfavm button:focus-visible{background:var(--soft)} .pfavm .d{color:var(--am)}
+.pfg3 .pfnom{font-size:23px}
+.pfco{display:grid;gap:8px}
+.pfcr{display:grid;grid-template-columns:40px minmax(0,1fr);gap:6px;align-items:stretch}
+.pfcr .pfi{width:40px;min-height:38px;color:#B5B7BA}.pfcr .pfi.on{color:var(--afb)}
+.pfcr .pfi a{color:inherit;display:grid;place-items:center;width:100%;height:100%}
+.pftl{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:8px 14px 6px;background:#fff}
+.pftlh{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+.pftlh span{text-transform:none;letter-spacing:0;font-weight:700}
+.pftll{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--grey);margin-top:2px}
+.pftll i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.pftll b{color:var(--jet)}
+/* onglets : plus d'air sous le trait ; Situation = indicateurs | XP investis, plan d'action dessous */
+.pftab.on{padding-top:14px}
+.pfplan{border-top:1px solid var(--line);margin-top:20px;padding-top:4px}
+body.no-competences .pfsit{grid-template-columns:1fr}
+@media(max-width:1000px){.pfhd .pfgrid.pfg3{grid-template-columns:120px minmax(0,1fr)}.pfg3 .pfav{width:120px;height:120px;font-size:38px}.pfavm{top:128px}.pfco{grid-column:2}}
+@media(max-width:560px){.pfhd .pfgrid.pfg3{grid-template-columns:1fr}.pfco{grid-column:auto}}
