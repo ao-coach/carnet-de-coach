@@ -56,7 +56,8 @@ année	# « {0} année de coaching » / « {0} années de coaching »
 années	# idem
 deviennent des clients	# « des invitations / des conversations deviennent des clients »
 signé	# « {0} contrat signé » / « {0} contrats signés »
-sur §, invitations et propositions · § XP en moyenne	# « sur {0} rencontre(s), invitations et propositions · {1} XP en moyenne »
+§ évaluée§ sur §, invitations et propositions · § XP en moyenne par évaluation	# « {0} évaluée(s) sur {1} rencontre(s), invitations et propositions · {2} XP en moyenne par évaluation » (3.2.6)
+aucune évaluée sur §, invitations et propositions	# « aucune évaluée sur {0} rencontre(s), invitations et propositions » (3.2.6)
 avant l	# test interne (h.includes('avant l')), le libellé affiché est « avant l'outil »
 § h de coaching ne sont pas encore classées.	# « … apparaîtront ici. {0} h de coaching ne sont pas encore classées. »
 (§ déjà présente§)	# « Aucune saisie à importer ({0} déjà présente(s)) »

@@ -125,7 +125,8 @@ const avN=k=>+AV()[k]||0;
 
 /* ---------- Métriques : développer ton activité ---------- */
 let BVIEW='fun';
-/* 3.0.0 : Facultés commerciales de l'année (XP de 0 à 5 par rencontre réseau, invitation ou proposition) */
+/* 3.0.0 : Facultés commerciales de l'année (XP de 0 à 5 par rencontre réseau, invitation ou proposition)
+   3.2.6 : la tuile dit combien de saisies ont été évaluées ; la moyenne porte sur elles seules */
 function aisCom(L){const f=fcMet();if(!f)return null;const V=L.filter(e=>isCom(e.type)&&e.xp&&e.xp[f.id]!=null);
  return{n:V.length,xp:V.reduce((s,e)=>s+(+e.xp[f.id]||0),0),N:L.filter(e=>isCom(e.type)).length,l:f.l}}
 function bizYear(y){const L=E().filter(e=>e.date.startsWith(y)),P=f=>new Set(L.filter(e=>f(e)&&e.pid!=null).map(e=>e.pid)).size;
@@ -148,7 +149,7 @@ function renderBiz(){const y=YSEL||today().slice(0,4),py=String(+y-1),B=bizYear(
    <div><small>Transformation</small><b>${glob!=null?glob+' %':'—'}</b><span>${glob!=null?gl+' deviennent des clients':'pas encore de données'}</span></div>
    <div><small>CA signé ${y}</small><b>${eur(B.ca)}</b><span>${Pv.ca?`${eur(Pv.ca)} en ${py}`:'&nbsp;'}</span></div>
    <div><small>Panier moyen</small><b>${B.nacc?eur(B.ca/B.nacc):'—'}</b><span>${B.nacc?pl(B.nacc,'contrat')+' signé'+(B.nacc>1?'s':''):'&nbsp;'}</span></div>
-   ${B.ac&&MOD('activite')?`<div><small>${esc(B.ac.l)}</small><b>${num(B.ac.xp)}<span style="font-size:15px;color:var(--grey)"> XP</span></b><span>${B.ac.N?`sur ${pl(B.ac.N,'rencontre')}, invitations et propositions · ${n1(B.ac.n?B.ac.xp/B.ac.n:0)} XP en moyenne`:'de 0 à 5 XP après chaque rencontre réseau, invitation ou proposition'}</span></div>`:''}
+   ${B.ac&&MOD('activite')?`<div><small>${esc(B.ac.l)}</small><b>${num(B.ac.xp)}<span style="font-size:15px;color:var(--grey)"> XP</span></b><span>${B.ac.N?(B.ac.n?`${B.ac.n} évaluée${B.ac.n>1?'s':''} sur ${pl(B.ac.N,'rencontre')}, invitations et propositions · ${n1(B.ac.xp/B.ac.n)} XP en moyenne par évaluation`:`aucune évaluée sur ${pl(B.ac.N,'rencontre')}, invitations et propositions`):'de 0 à 5 XP après chaque rencontre réseau, invitation ou proposition'}</span></div>`:''}
    <div class="bznon"><small>Non reçus ${y}</small><b>${B.non}</b><span>${B.non?'chaque non prouve que tu as proposé':'invitations déclinées et propositions refusées'}</span></div></div></div>
    ${!B.inv?'<div class="hint" style="margin:8px 0 0">Enregistre tes invitations (type Invitation) pour voir le premier taux de l\'entonnoir.</div>':'<div class="hint" style="margin:8px 0 0">Les taux comparent des personnes distinctes sur l\'année ; « — » quand l\'étape précédente n\'est pas renseignée.</div>'}`;return}
  /* par mois */
