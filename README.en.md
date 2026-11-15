@@ -762,6 +762,7 @@ The tool is published under the **PolyForm Shield 1.0.0 licence** (`LICENSE` fil
 - **Free for every coach**, including for professional use: you can use it, copy it, adapt it and share it.
 - **Not allowed without permission**: reselling it, or building a competing product or service from it (paid version, white label…).
 - When sharing it, pass on the `LICENSE` file too.
+- The source code is **open and readable** on [GitHub](https://github.com/ao-coach/carnet-de-coach). It is not “open source” in the strict sense, since the licence forbids competing use.
 
 For commercial use (resale, inclusion in a paid offer, white label), contact Allan Oudomphong.
 
