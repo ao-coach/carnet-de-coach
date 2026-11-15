@@ -92,10 +92,14 @@
    "titre": "Responsable de production, PME agroalimentaire",
    "provenance": "Réseau d'anciens collègues",
    "public": "Managers de proximité",
-   "probl": "Prise de poste",
+   "probl": "Prise de poste; Confiance en soi",
    "reco_in": true,
    "rythme": 6,
-   "proximite": "proche"
+   "proximite": "proche",
+   "probls": [
+    "Prise de poste",
+    "Confiance en soi"
+   ]
   },
   {
    "id": 1,
@@ -103,13 +107,17 @@
    "titre": "Directrice commerciale, éditeur de logiciels",
    "provenance": "Recommandation",
    "public": "Dirigeants",
-   "probl": "Leadership",
+   "probl": "Leadership; Légitimité",
    "reco_in": true,
    "reco_dem": true,
    "reco_par": {
     "pid": 4,
     "mode": "reco"
-   }
+   },
+   "probls": [
+    "Leadership",
+    "Légitimité"
+   ]
   },
   {
    "id": 2,
@@ -154,7 +162,11 @@
    "titre": "Cheffe de service, hôpital",
    "provenance": "Atelier découverte",
    "public": "Managers de proximité",
-   "probl": "Prise de poste"
+   "probl": "Prise de poste; Légitimité",
+   "probls": [
+    "Prise de poste",
+    "Légitimité"
+   ]
   },
   {
    "id": 6,
@@ -182,7 +194,7 @@
    "titre": "Directeur d'usine",
    "provenance": "Recommandation",
    "public": "Dirigeants",
-   "probl": "Gestion des conflits",
+   "probl": "Gestion des conflits; Leadership",
    "reco_in": true,
    "reco_dem": true,
    "reco_par": {
@@ -191,6 +203,10 @@
    },
    "cercles": [
     "Club d'entrepreneurs"
+   ],
+   "probls": [
+    "Gestion des conflits",
+    "Leadership"
    ]
   },
   {

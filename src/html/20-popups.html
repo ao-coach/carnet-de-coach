@@ -42,42 +42,64 @@
 <div class="ov" id="pfM"><div class="modal pfm">
   <div class="mh"><h2 id="pfTitle">Fiche</h2><button class="x" id="pfClose">✕</button></div>
   <div class="pfL pfhd">
-    <div class="pfgrid">
-     <div class="pfleft"><div class="pfav" id="pfAv" title="Changer la photo"></div>
-      <div class="pfavb"><button class="btn2" id="pfPh">Photo</button><button class="lnk" id="pfPhDel">Retirer</button></div>
+    <!-- 3.3.0 : photo plus grande (menu au clic), identité, coordonnées à droite -->
+    <div class="pfgrid pfg3">
+     <div class="pfleft"><div class="pfav" id="pfAv" title="Photo" role="button" tabindex="0"></div>
+      <div class="pfavm" id="pfAvM"><button type="button" id="pfPh">Changer la photo…</button><button type="button" id="pfPhDel" class="d">Retirer la photo</button></div>
       <input type="file" id="pfFile" accept="image/*" class="hide"></div>
      <div class="pfright">
-      <div class="pfnrow"><input class="fin pfnom" id="pfNom" placeholder="Prénom Nom"><span class="pfic" id="pfIcons"></span></div>
+      <input class="fin pfnom" id="pfNom" placeholder="Prénom Nom">
       <input class="fin" id="pfTit" placeholder="En une ligne : fonction, organisation" style="margin-top:8px">
-      <div class="pf3"><input class="fin" id="pfTel" placeholder="Téléphone" inputmode="tel"><input class="fin" id="pfMail" placeholder="E-mail" inputmode="email"><input class="fin" id="pfWeb" placeholder="Site web (lien)" inputmode="url"></div>
+     </div>
+     <div class="pfco">
+      <div class="pfcr"><span class="pfi" id="pfTelI"></span><input class="fin" id="pfTel" placeholder="Téléphone" inputmode="tel"></div>
+      <div class="pfcr"><span class="pfi" id="pfMailI"></span><input class="fin" id="pfMail" placeholder="E-mail" inputmode="email"></div>
+      <div class="pfcr"><span class="pfi" id="pfWebI"></span><input class="fin" id="pfWeb" placeholder="Site web (lien)" inputmode="url"></div>
      </div>
     </div>
+    <!-- 3.3.0 : frise des contacts sous l'en-tête, sans les débriefs -->
+    <div class="pftl"><div class="pftlh">Échanges <span id="pfTLn"></span></div><div id="pfTL"></div><div class="pftll" id="pfTLL"></div></div>
   </div>
-  <div class="pctabs pftabs" id="pfTabs"><button type="button" data-pt="infos">Infos</button><button type="button" data-pt="notes">Notes <small id="pfNN"></small></button><button type="button" data-pt="ech">Échanges <small id="pfEN"></small></button></div>
-  <!-- 2.4.0 : onglet Infos -->
-  <div class="pftab" data-pt="infos"><div class="pfcols">
-   <div class="pfL">
-    <label class="pflab">Étape<br><select class="fin" id="pfEt" style="width:auto;max-width:100%"></select></label>
-    <div class="pflab">Cercles</div>
-    <div class="crc" id="pfCer"></div>
-    <div class="prr">
-     <div class="m-act"><div class="pflab">Proximité</div><div class="seg l" id="pfProx"></div></div>
-     <div><div class="pflab">Rythme de contact</div><select class="fin" id="pfRy" style="width:auto;margin-top:6px"></select></div>
+  <div class="pctabs pftabs" id="pfTabs"><button type="button" data-pt="sit">Situation</button><button type="button" data-pt="con">Contact</button><button type="button" data-pt="notes" id="pfNT">Notes <small id="pfNN"></small></button><button type="button" data-pt="kon" id="pfKT">Contrat</button></div>
+  <!-- 3.3.0 : onglet Situation (ex-Échanges) : indicateurs, XP investis, plan d'action -->
+  <div class="pftab" data-pt="sit">
+   <div class="pfcols pfsit">
+    <div class="pfR"><div class="pflab2">Indicateurs</div><div class="pfsum" id="pfSum"></div></div>
+    <div class="pfsep m-cmp"></div>
+    <div class="pfR m-cmp"><div class="pflab2">XP investis avec cette personne</div><div class="pfais one" id="pfAis"></div></div>
+   </div>
+   <div class="pfplan"><div class="pflab2">Plan d'action</div><div id="pfActs"></div>
+    <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div></div>
+  </div>
+  <!-- 3.3.0 : onglet Contact (ex-Infos). En haut : étape, proximité, rythme, puis cercles, public, problématiques ; dessous : recommandations -->
+  <div class="pftab" data-pt="con">
+   <div class="pfct pfct1">
+    <div><div class="pflab">Étape</div><select class="fin" id="pfEt"></select></div>
+    <div class="m-act"><div class="pflab">Proximité</div><div class="seg l" id="pfProx"></div></div>
+    <div><div class="pflab">Rythme de contact</div><select class="fin" id="pfRy"></select></div>
+   </div>
+   <div class="pfct pfct2">
+    <div><div class="pflab">Cercles</div><div class="crc pfbox" id="pfCer"></div></div>
+    <div class="m-act"><div class="pflab">Public</div><span class="cmb"><input class="fin" id="pfPub" autocomplete="off" placeholder="À quel public appartient cette personne ?"><button type="button" class="cmbb" data-cmb="pfPub" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPubM"></span></span></div>
+    <div class="m-act"><div class="pflab">Problématique</div><div class="crc pfbox" id="pfPrb"></div></div>
+   </div>
+   <div class="nxt" id="pfNext"></div>
+   <div class="pfcols pfreco">
+    <div class="pfR">
+     <div class="pflab2">Recommandé·e ou présenté·e par</div>
+     <div class="rpb" id="pfRP"></div>
+     <div class="pflab">Provenance</div><span class="cmb"><input class="fin" id="pfSrc" autocomplete="off" placeholder="Salon, LinkedIn, atelier, club…"><button type="button" class="cmbb" data-cmb="pfSrc" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfSrcM"></span></span>
+     <div class="pfrc"><label><input type="checkbox" id="pfRecIn"> Vient d'une recommandation <span class="small" style="font-weight:400;color:var(--grey)">(on m'a recommandé·e à elle)</span></label></div>
     </div>
-    <div class="nxt" id="pfNext"></div>
+    <div class="pfsep"></div>
+    <div class="pfR">
+     <div class="pflab2">A recommandé ou présenté</div>
+     <div class="rlist" id="pfRecL"></div>
+     <button type="button" class="btn2" id="pfRecAdd" style="margin-top:8px">+ Ajouter une personne</button>
+     <div class="pfrc"><label><input type="checkbox" id="pfRecAsk"> Je lui ai demandé une recommandation</label></div>
+    </div>
    </div>
-   <div class="pfsep"></div>
-   <div class="pfR">
-    <div class="pflab">Recommandé·e ou présenté·e par</div>
-    <div class="rpb" id="pfRP"></div>
-    <label class="pflab">Provenance<span class="cmb"><input class="fin" id="pfSrc" autocomplete="off" placeholder="Salon, LinkedIn, atelier, club…"><button type="button" class="cmbb" data-cmb="pfSrc" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfSrcM"></span></span></label>
-    <div class="pfrc"><label><input type="checkbox" id="pfRecIn"> Vient d'une recommandation <span class="small" style="font-weight:400;color:var(--grey)">(on m'a recommandé·e à elle)</span></label><label><input type="checkbox" id="pfRecAsk"> Je lui ai demandé une recommandation</label></div>
-    <div class="pflab">A recommandé ou présenté</div>
-    <div class="rlist" id="pfRecL"></div>
-    <button type="button" class="btn2" id="pfRecAdd" style="margin-top:8px">+ Ajouter une personne</button>
-    <div class="pf2c m-act" style="margin-top:4px"><label class="pflab">Public<span class="cmb"><input class="fin" id="pfPub" autocomplete="off" placeholder="À quel public appartient cette personne ?"><button type="button" class="cmbb" data-cmb="pfPub" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPubM"></span></span></label><label class="pflab">Problématique<span class="cmb"><input class="fin" id="pfPrb" autocomplete="off" placeholder="Ce qu'elle vient travailler"><button type="button" class="cmbb" data-cmb="pfPrb" title="Choisir une valeur déjà utilisée">▾</button><span class="cmbm" id="pfPrbM"></span></span></label></div>
-   </div>
-  </div></div>
+  </div>
   <!-- 2.4.0 : onglet Notes -->
   <div class="pftab" data-pt="notes"><div class="pfcols pfcn">
    <div class="pfL"><div class="gold">
@@ -87,19 +109,10 @@
    <div class="pfsep"></div>
    <div class="pfR"><div class="pflab2" style="margin-top:4px">Notes des échanges</div><div id="pfNF"></div></div>
   </div></div>
-  <!-- onglet Échanges : le contenu d'avant la 2.4.0 -->
-  <div class="pftab" data-pt="ech"><div class="pfcols">
-   <div class="pfR">
-    <div class="pfsum" id="pfSum"></div>
-    <div id="pfKS"><div class="pflab2">Contrat</div><div id="pfK"></div></div>
-    <div class="pflab2">Échanges</div><div id="pfTL"></div>
-   </div>
-   <div class="pfsep"></div>
-   <div class="pfR">
-    <div class="pflab2 m-cmp" style="margin-top:4px">XP investis avec cette personne</div><div class="pfais m-cmp" id="pfAis"></div>
-    <div class="pflab2">Plan d'action</div><div id="pfActs"></div>
-    <div class="pfadd"><input class="fin" id="pfANew" placeholder="Ex. Relancer sur la proposition"><input class="fin" type="date" id="pfADate"><button class="btn2" id="pfAAdd">Ajouter</button></div>
-   </div>
+  <!-- 3.3.0 : onglet Contrat -->
+  <div class="pftab" data-pt="kon"><div class="pfR">
+   <div id="pfKS"><div class="pflab2">Contrat en cours</div><div id="pfK"></div></div>
+   <div class="pflab2">Propositions</div><div class="pfkp" id="pfKP"></div>
   </div></div>
   <div class="pffoot"><button class="btn2 danger" id="pfDel">Supprimer</button><button class="btn2" id="pfArch"></button><button class="btn2" id="pfSeeE">Voir ses saisies</button><button class="save" id="pfOk">Terminé</button></div>
 </div></div>

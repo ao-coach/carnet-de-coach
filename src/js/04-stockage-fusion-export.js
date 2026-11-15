@@ -165,7 +165,7 @@ function exportCsvP(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (nom
   const q=v=>`"${String(v??'').replace(/"/g,'""')}"`,PXL={proche:'Proche',regulier:'Régulier',occasionnel:'Occasionnel'};
   const head=['Nom','Fonction','Étape','Cercles','Proximité','Rythme de contact (mois)','Recommandé·e ou présenté·e par','Recommandé·e / présenté·e','Provenance','Public','Problématique','Téléphone','E-mail','Site','Dernier contact','Prochain sujet à évoquer','Archivée'].map(TR);
   const L=[...DB.personnes].sort((a,b)=>byName(a.nom,b.nom)).map(p=>{const r=p.reco_par&&pById(p.reco_par.pid),l=lastContact(p.id);
-   return[p.nom,p.titre||'',TR(ETL[stageOf(p)]),(p.cercles||[]).join(' ; '),TR(PXL[p.proximite||'regulier']),rythmeOf(p),r?r.nom:'',r?TR(p.reco_par.mode=='presente'?'présenté·e':'recommandé·e'):'',p.provenance||'',p.public||'',p.probl||'',p.tel||'',p.email||'',p.site||'',l?l.date:'',p.sujet||'',p.archive?TR('oui'):'']});
+   return[p.nom,p.titre||'',TR(ETL[stageOf(p)]),(p.cercles||[]).join(' ; '),TR(PXL[p.proximite||'regulier']),rythmeOf(p),r?r.nom:'',r?TR(p.reco_par.mode=='presente'?'présenté·e':'recommandé·e'):'',p.provenance||'',p.public||'',prbOf(p).join(' ; '),p.tel||'',p.email||'',p.site||'',l?l.date:'',p.sujet||'',p.archive?TR('oui'):'']});
   download(`coaching-personnes_${today()}.csv`,'\ufeff'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
 $('expJson').onclick=exportJson;$('expCsv').onclick=exportCsv;$('expCsvP').onclick=exportCsvP;
 $('impJson').onclick=()=>$('impFile').click();
@@ -207,6 +207,7 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
   ['À relancer',"Le carnet repère les personnes sans nouvelles depuis un moment, les accompagnements qui se terminent et les actions prévues. « Traiter » : c'est fait, une autre date, plus tard, ou un commentaire."],
   ['Relance au rythme',"Chaque personne a un rythme de contact, tous les 3 mois par défaut. Quand il est dépassé, elle revient ici, avec ses cercles et le sujet à reprendre. Entretenir ton réseau, sans rien vendre."],
   ['Préparer le contact',"« Préparer » ouvre l'onglet Notes de sa fiche : ce qu'il faut garder en tête, le prochain sujet à évoquer et les notes de vos derniers échanges."],
+  ['La fiche d\'une personne',"Sous son nom, la frise de vos échanges, débriefs à part. Quatre onglets : Situation (chiffres, XP investis, plan d'action), Contact (étape, cercles, problématiques, recommandations), Notes (à filtrer par type ; un clic sur la pastille d'une note la replie) et Contrat, dès qu'une proposition existe."],
   ['Le chemin de chaque personne',"De la rencontre à l'accompagnement : chaque personne change de colonne à mesure que tu enregistres vos échanges. Le bouton « ? Les étapes » explique chaque colonne."],
   ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
   ['Mon carnet',"Camille a tout activé. « Mon carnet » choisit les modules affichés : ① Coacher beaucoup (tableau de bord, objectifs), ② Affûter mes compétences (pratique délibérée, XP), ③ Créer mon activité (réseau, coûts), ④ Le jeu (fiche de coach, rang). « Essentiel » garde le suivi de tes entretiens et de tes personnes. Masquer un module ne fait rien perdre."],
@@ -234,6 +235,7 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
   ['To follow up','The notebook spots people you have not heard from in a while, engagements coming to an end and planned actions. “Handle”: done, another date, later, or a comment.'],
   ['Follow-up at your pace','Each person has a contact frequency, every 3 months by default. When it is overdue, they come back here, with their circles and the topic to pick up. Keeping your network alive, without selling anything.'],
   ['Prepare the contact','“Prepare” opens the Notes tab of their profile: what to keep in mind, the next topic to raise and the notes from your last exchanges.'],
+  ["A person's profile","Under their name, the timeline of your exchanges, debriefs left out. Four tabs: Overview (figures, XP invested, action plan), Contact (stage, circles, topics, referrals), Notes (filter by type; click a note's dot to collapse it) and Contract, as soon as there is a proposal."],
   ["Each person's path","From first meeting to engagement: each person moves from one column to the next as you log your exchanges. The “? The stages” button explains each column."],
   ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
   ['My notebook','Camille has everything switched on. “My notebook” picks the modules on display: ① Coach a lot (dashboard, goals), ② Sharpen my skills (deliberate practice, XP), ③ Build my practice (network, costs), ④ The game (coach profile, rank). “Essentials” keeps the tracking of your sessions and your people. Hiding a module loses nothing.'],
@@ -266,6 +268,7 @@ const DTS=[
  {sel:'#ppRelCard',pre:()=>{dtFicheX();goTab('people');scrollTo(0,0)}},
  {sel:'#ppRelList .rel[data-k=ryt]',pre:()=>{dtFicheX();goTab('people');const e=document.querySelector('#ppRelList .rel[data-k=ryt]');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-160)}},
  {sel:'#pfM .pftab.on .gold',pre:()=>{goTab('people');const R=relItems().filter(y=>y.k=='ryt'),x=R.find(y=>y.p.notes)||R[0];if(x)openFiche(x.p.id,'notes')}},
+ {sel:'#pfTabs',pre:()=>{goTab('people');const x=DB.personnes.find(p=>stageOf(p)=='client'&&prbOf(p).length>1)||DB.personnes.find(p=>stageOf(p)=='client');if(x)openFiche(x.id,'sit')}},
  {sel:'#ppPipe',pre:()=>{dtFicheX();goTab('people');const e=$('ppPipe');if(e)scrollTo(0,e.getBoundingClientRect().top+scrollY-110)},big:true},
  {sel:'#qOpen',pre:()=>{goTab(dtFirstTab());scrollTo(0,0)}},
  {sel:'#modBtn',pre:()=>{dtFicheX();goTab(dtFirstTab());scrollTo(0,0)}},

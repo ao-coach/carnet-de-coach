@@ -349,7 +349,7 @@ Sous les statistiques, tes **hauts faits** :
 
 ### Affinités
 
-Un tableau croise tes **heures de coaching** par **public** (en lignes) et par **problématique** (en colonnes), à partir de la fiche de tes clients (onglet Personnes). Les 5 publics et les 5 problématiques les plus fréquents s'affichent. Une case de **50 h et plus** est une **spécialité**. Les heures des clients dont le public ou la problématique ne sont pas renseignés sont comptées à part.
+Un tableau croise tes **heures de coaching** par **public** (en lignes) et par **problématique** (en colonnes), à partir de la fiche de tes clients (onglet Personnes). Les 5 publics et les 5 problématiques les plus fréquents s'affichent. Une case de **50 h et plus** est une **spécialité**. Un client à plusieurs problématiques compte toutes ses heures dans chacune (une seule fois pour son public) : une ligne sous le tableau le rappelle. Les heures des clients dont le public ou la problématique ne sont pas renseignés sont comptées à part.
 
 ### Reprendre ton historique
 
@@ -388,6 +388,8 @@ La liste de ce qui demande une action, avec les plus urgents en premier.
 | **Relance au rythme** | Le dernier échange avec la personne est plus ancien que son rythme de contact (tous les 3 mois par défaut), sans action prévue ni autre alerte pour elle. Concerne toutes les personnes, contacts réseau compris, sauf celles classées « Sans suite ». La ligne affiche ses cercles, son rythme et, s'il est rempli, « À reprendre : » suivi du prochain sujet à évoquer. | Préparer · Traiter |
 
 Une personne n'apparaît qu'une fois dans la liste. Clique sur un nom pour ouvrir la fiche de la personne.
+
+Un **débrief** n'est pas un échange avec la personne : il ne compte ni comme dernier contact (relance au rythme, « Sans contact », fiche, liste des personnes, Réseau), ni comme premier contact, ni dans la taille des points du Réseau.
 
 **Préparer** ouvre la fiche sur l'onglet Notes, le curseur dans « Prochain sujet à évoquer » : de quoi relire ce qu'il faut garder en tête avant de recontacter la personne.
 
@@ -545,47 +547,51 @@ Une étape choisie à la main, sur la fiche ou par glisser-déposer, reste valab
 
 ### La fiche personne
 
-Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « Fiche » dans la tuile d'une personne de Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ».
+Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », sur un point de l'onglet Réseau, ou sur « Fiche » dans la tuile d'une personne de Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ».
 
 **En haut, toujours visible :**
 
 - **Photo.**
-  - Clique sur le rond ou sur « Photo », choisis une image, puis cadre-la dans le disque : glisse pour centrer, puis zoome avec le curseur ou la molette.
+  - Clique sur le rond : sans photo, tu choisis une image ; avec une photo, un petit menu propose « Changer la photo… » ou « Retirer la photo ». Cadre l'image dans le disque : glisse pour centrer, puis zoome avec le curseur ou la molette.
   - La photo est compressée (environ 5 Ko) et stockée dans ton carnet, donc chiffrée avec lui.
-- **Nom.** Des icônes apparaissent à côté du nom dès que l'information correspondante est renseignée :
-  - l'enveloppe ouvre ta messagerie ;
-  - le globe ouvre le site ;
-  - le combiné lance l'appel, seulement sur un téléphone ou une tablette.
-- **Fonction**, en une ligne : fonction et organisation.
-- **Téléphone, e-mail, site web.** Le téléphone s'espace automatiquement : `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
+- **Nom** et **fonction**, en une ligne : fonction et organisation.
+- **Téléphone, e-mail, site web**, à droite du nom, dans des champs larges. L'icône devant chaque champ devient active dès qu'il est rempli : l'enveloppe ouvre ta messagerie, le globe ouvre le site, le combiné lance l'appel (seulement sur un téléphone ou une tablette). Le téléphone s'espace automatiquement : `0123456789` devient `01 23 45 67 89`, et `+33123456789` devient `+33 1 23 45 67 89`.
+- **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type, **sans les débriefs** (ce ne sont pas des échanges avec la personne). Au-dessus, le nombre d'échanges ; dessous, la légende des types présents avec leur nombre. Quand des pastilles se chevauchent, celles des types les mieux classés dans Paramètres > Types d'activité passent au-dessus. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
 
-Puis trois onglets.
+Puis quatre onglets. La fiche s'ouvre sur **Situation** ; « Préparer », dans « À relancer », l'ouvre sur **Notes**.
 
-**Infos**
+**Situation**
 
-- **Étape** : automatique ou choisie à la main.
-- **Cercles** : les groupes dont la personne fait partie (club d'entrepreneurs, anciens collègues, école de coaching…), autant que tu veux. « + cercle » propose les cercles déjà utilisés, les plus fournis d'abord ; tape un nom nouveau pour en créer un. Le ✕ d'une pastille la retire.
-- **Proximité** : Proche, Régulier (par défaut) ou Occasionnel. Indépendante des cercles.
-- **Rythme de contact** : tous les mois, tous les 3 mois (par défaut), tous les 6 mois, une fois par an ou pas de relance. Dessous : la date du dernier contact et le **prochain contact conseillé** (« 2 novembre 2026 · dépassé de 12 j », « 15 janvier 2027 (dans 2 mois) »).
-- **Recommandé·e ou présenté·e par** : la personne qui te l'a fait connaître, cherchée par son nom (même champ que dans la saisie), puis « Recommandé·e » ou « Présenté·e ».
-- **Provenance** : d'où vient la personne quand personne ne te l'a présentée (salon, LinkedIn, atelier…). Le petit ▾ déroule les valeurs déjà utilisées ; une nouvelle valeur est ajoutée à la liste.
-- **Recommandations** : deux cases, « Vient d'une recommandation » (on t'a recommandé à elle) et « Je lui ai demandé une recommandation ».
-- **A recommandé ou présenté** : les personnes qu'elle t'a fait connaître. « + Ajouter une personne » en relie une nouvelle ; le ✕ retire le lien.
-- **Public** et **problématique** (module ③) : à quel public appartient la personne, et ce qu'elle vient travailler. Même liste déroulante que la provenance, avec saisie libre. Ils alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)).
+- **Indicateurs**, à gauche : dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
+- **XP investis avec cette personne**, à droite, compétence par compétence (module ②).
+- **Plan d'action**, dessous : les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
 
-**Notes** (le nombre de notes est dans l'intitulé de l'onglet)
+**Contact**
+
+- En haut, sur deux lignes de cases alignées :
+  - **Étape** : automatique ou choisie à la main.
+  - **Proximité** (module ③) : Proche, Régulier (par défaut) ou Occasionnel. Indépendante des cercles.
+  - **Rythme de contact** : tous les mois, tous les 3 mois (par défaut), tous les 6 mois, une fois par an ou pas de relance.
+  - **Cercles** : les groupes dont la personne fait partie (club d'entrepreneurs, anciens collègues, école de coaching…), autant que tu veux. « + cercle » propose les cercles déjà utilisés, les plus fournis d'abord ; tape un nom nouveau pour en créer un. Le ✕ d'une pastille la retire.
+  - **Public** (module ③) : à quel public appartient la personne. Le petit ▾ déroule les valeurs déjà utilisées ; une nouvelle valeur est ajoutée à la liste.
+  - **Problématique** (module ③) : ce que la personne vient travailler, **une ou plusieurs**. « + problématique » propose celles déjà utilisées, les plus fréquentes d'abord, ou en crée une ; « Légitimité; Leadership » en ajoute deux d'un coup. Le ✕ d'une pastille la retire. Public et problématiques alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)) et les vues de l'onglet Réseau.
+- Dessous, la date du dernier contact (débriefs exclus) et le **prochain contact conseillé** (« 2 novembre 2026 · dépassé de 12 j », « 15 janvier 2027 (dans 2 mois) »).
+- Puis deux colonnes :
+  - **Recommandé·e ou présenté·e par** : la personne qui te l'a fait connaître, cherchée par son nom (même champ que dans la saisie), puis « Recommandé·e » ou « Présenté·e ». Avec la **provenance** (d'où vient la personne quand personne ne te l'a présentée : salon, LinkedIn, atelier…) et la case « Vient d'une recommandation » (on t'a recommandé à elle).
+  - **A recommandé ou présenté** : les personnes qu'elle t'a fait connaître. « + Ajouter une personne » en relie une nouvelle ; le ✕ retire le lien. Avec la case « Je lui ai demandé une recommandation ».
+
+**Notes** (dans l'intitulé de l'onglet, le nombre de saisies qui ont au moins une note)
 
 - **À garder en tête** : contexte, enjeux, ce qu'il faut savoir (l'ancienne « Description »).
 - **Prochain sujet à évoquer** : repris dans « À relancer » (« À reprendre : … »).
-- **Notes des échanges** : toutes les « Notes » et lignes « Ce qu'on a vu » des saisies de la personne, de la plus récente à la plus ancienne, avec la date et le type.
+- **Notes des échanges** : une carte par saisie, avec son « Ce qu'on a vu » et ses « Notes », de la plus récente à la plus ancienne, avec la date et le type.
+  - **Filtres par type** : seulement les types présents pour cette personne, avec leur nombre (« Séance 8 », « Débrief 3 »…) ; « Tout » les réaffiche.
+  - **Replier une note** : clic sur sa pastille. Repliée, elle garde sa date et son type, et sa pastille devient un anneau ; un nouveau clic la déplie. « Tout replier / Tout déplier » agit sur les notes affichées. Pratique pour préparer une synthèse en ne gardant ouvertes que les notes utiles. Cet état est retenu **par ce navigateur** : il n'est pas dans ton carnet, et ne se retrouve donc pas sur un autre ordinateur.
 
-**Échanges**
+**Contrat** (seulement pour une personne qui a au moins une proposition)
 
-- **Chiffres.** Dernier contact, heures de coaching, conversations, sessions, contrat, premier contact.
-- **Contrat**, s'il y en a un. Montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
-- **Échanges.** Une frise avec une pastille par échange, dans la couleur de son type. Quand des pastilles se chevauchent, celles des types les mieux classés dans Paramètres > Types d'activité passent au-dessus : par exemple les sessions au-dessus des débriefs. La date (jj/mm) est au-dessus de chaque pastille et l'année au milieu de sa période. Survole une pastille pour voir le détail.
-- **XP investis avec cette personne**, compétence par compétence (module ②).
-- **Plan d'action.** Les actions liées à la personne. Tu peux en ajouter avec une date et les cocher une fois faites. Elles apparaissent aussi dans le plan d'action du tableau de bord.
+- **Contrat en cours**, s'il y en a un : montant, durée et avancement, avec le début, les séances prévues et la durée, modifiables.
+- **Propositions** : toutes les propositions faites à la personne, la plus récente d'abord, avec les séances, la durée, le montant et le statut (en attente, acceptée, refusée). Un clic ouvre la fiche de la saisie (montant, statut, séances) ; à l'enregistrement, la fiche de la personne se met à jour.
 
 **En bas :**
 
@@ -600,7 +606,7 @@ Tout est enregistré pendant la frappe.
 
 L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il est masqué sans le module ③ « Créer mon activité ». Rien n'y est saisi : tout vient des fiches (cercles, proximité, public, problématique, « Recommandé·e ou présenté·e par ») et de tes saisies.
 
-- **Quatre vues.** **Cercles**, **Public** et **Problématique** regroupent les personnes autour de pivots : un disque par groupe, avec son nombre de membres, et chaque personne reliée à ses groupes. Une personne sans groupe est reliée au pivot gris « Sans cercle » (ou « Non renseigné »). **Orbites** te place au centre (ton logo, choisi dans Paramètres > Apparence, ou tes initiales sans logo) : les anneaux disent la proximité (proche, régulier, occasionnel), les parts du disque les cercles, proportionnelles à leur nombre de membres. Une personne de plusieurs cercles est placée dans le premier, avec de petits traits vers les autres.
+- **Quatre vues.** **Cercles**, **Public** et **Problématique** regroupent les personnes autour de pivots : un disque par groupe, avec son nombre de membres, et chaque personne reliée à ses groupes. Une personne sans groupe est reliée au pivot gris « Sans cercle » (ou « Non renseigné »). **Orbites** te place au centre (ton logo, choisi dans Paramètres > Apparence, ou tes initiales sans logo) : les anneaux disent la proximité (proche, régulier, occasionnel), les parts du disque les cercles, proportionnelles à leur nombre de membres. Une personne de plusieurs cercles est placée dans le premier, avec de petits traits vers les autres. Dans la vue Problématique, une personne à plusieurs problématiques est reliée à chacune et en fait une passerelle.
 - **Ce que montre chaque point.** La **couleur** dit l'étape (contact réseau, invité·e, en conversation, proposition envoyée, client·e, accompagnement terminé, superviseur·e) ; la **taille**, le nombre d'échanges. Un point **pâle entouré de pointillés rouges** est à relancer (rythme de contact dépassé, ou pas de nouvelles depuis un moment). Un **contour doré** signale une **passerelle** : une personne dans plusieurs groupes. Les **flèches dorées** vont de la personne qui recommande à la personne recommandée (en pointillés : présentée).
 - **Options.** « Recommandations » affiche ou masque les flèches ; « Signaler les personnes à relancer », les pointillés ; « Inclure archivé·es et sans suite » ajoute en gris les personnes archivées ou « Sans suite », absentes sinon.
 - **Survol et clic.** Survole un point : nom, étape, nombre d'échanges, dernier contact, groupes, relance, recommandé·e par. Clique : sa fiche s'ouvre. Clique sur un groupe : ses membres sont mis en avant, le reste s'estompe ; « Tout afficher », ou un clic dans le vide, revient à l'ensemble. Tu peux déplacer un point à la souris, le temps de la consultation : rien n'est enregistré, et le dessin est recalculé à l'identique à chaque ouverture.
@@ -773,7 +779,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.2.6** | 15/11/2026 | Finitions d'affichage. Pratique délibérée : compétence en focus dans une pastille bordeaux, étiquettes de la boussole jamais coupées et panneau de droite calé en haut, en-tête XP sur une ligne, créer une action depuis la recherche. Développer ton activité : entonnoir à l'horizontale, tuiles en ligne dessous, Facultés commerciales avec le nombre de saisies évaluées. Orbites : ton logo au centre. À propos : carte « Rester en lien ». |
+| **3.3.0** | 15/11/2026 | Fiche personne refondue. En-tête : photo plus grande (menu au clic), coordonnées à droite du nom, frise des échanges sans les débriefs. Onglets Situation (indicateurs, XP investis, plan d'action), Contact (cases alignées, recommandations sur deux colonnes), Notes (une carte par saisie, filtres par type, notes repliables retenues par le navigateur) et Contrat (contrat en cours, propositions). Problématiques multiples, en étiquettes : migration automatique de l'ancienne valeur, Réseau et Affinités à jour. |
+| 3.2.6 | 15/11/2026 | Finitions d'affichage. Pratique délibérée : compétence en focus dans une pastille bordeaux, étiquettes de la boussole jamais coupées et panneau de droite calé en haut, en-tête XP sur une ligne, créer une action depuis la recherche. Développer ton activité : entonnoir à l'horizontale, tuiles en ligne dessous, Facultés commerciales avec le nombre de saisies évaluées. Orbites : ton logo au centre. À propos : carte « Rester en lien ». |
 | 3.2.5 | 15/11/2026 | Mes saisies : trois boutons Infos / Notes / XP à la place de « Fiche », chacun ouvrant la fiche de la saisie sur sa section ; Notes et XP en vert avec ✓ quand les notes sont écrites et les XP répartis. Tri par date décroissante par défaut, et tri par colonne d'un clic sur son titre (second clic : ordre inverse, flèche visible). |
 | 3.2.4 | 15/11/2026 | XP de pratique : le total gagné est détaillé (répartis, à répartir) et tombe juste, les anciennes saisies d'avant les XP comptant dans les XP à répartir. La case « XP à répartir » ouvre la liste, avec compteur ; un clic sur une saisie ouvre une petite fenêtre de répartition, puis la saisie passe en vert. Compétences du panneau et grille de répartition sur deux colonnes. « De trop » de nouveau visible dans la liste et la fiche. |
 | 3.2.3 | 15/11/2026 | Fermer la fiche d'une saisie modifiée sans l'enregistrer demande confirmation (aussi en fermant ou rechargeant la page) : plus de notes perdues par mégarde. Raccourcir une saisie ou changer son type quand ses XP sont déjà répartis demande de corriger la répartition (point rouge sur « Fiche » et ligne « de trop » dans « Répartir les XP en attente » si tu reportes). |

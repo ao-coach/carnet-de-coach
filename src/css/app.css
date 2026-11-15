@@ -1099,3 +1099,73 @@ textarea.fsn{min-height:200px}
 .ab-li{display:flex;flex-direction:column;align-items:flex-start;background:var(--soft);border-radius:12px;padding:14px 16px}
 .ab-li .ic{color:var(--am);margin-bottom:6px}.ab-li b{font-size:15px;color:var(--jet)}.ab-li p{margin:4px 0 12px;font-size:13.5px;flex:1}
 .ab-li a.btn2{text-decoration:none;margin-top:auto}
+/* 3.3.0 : fiche personne refondue. En-tête : photo plus grande (menu au clic), coordonnées à droite, frise des échanges dessous */
+.pfhd .pfgrid.pfg3{max-width:none;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.pfg3 .pfleft{position:relative}
+.pfg3 .pfav{width:150px;height:150px;font-size:46px;position:relative}
+.pfg3 .pfav:hover:after,.pfg3 .pfav:focus-visible:after{content:'Photo';position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font:800 11px Nunito,sans-serif;color:#fff;background:rgba(0,0,0,.45);padding:2px 9px;border-radius:8px}
+.pfavm{position:absolute;top:158px;left:6px;z-index:45;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:4px;min-width:190px;display:none}
+.pfavm.show{display:block}
+.pfavm button{display:block;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:7px;font:700 13.5px Nunito,sans-serif;cursor:pointer;color:var(--jet)}
+.pfavm button:hover,.pfavm button:focus-visible{background:var(--soft)} .pfavm .d{color:var(--am)}
+.pfg3 .pfnom{font-size:23px}
+.pfco{display:grid;gap:8px}
+.pfcr{display:grid;grid-template-columns:40px minmax(0,1fr);gap:6px;align-items:stretch}
+.pfcr .pfi{width:40px;min-height:38px;color:#B5B7BA}.pfcr .pfi.on{color:var(--afb)}
+.pfcr .pfi a{color:inherit;display:grid;place-items:center;width:100%;height:100%}
+.pftl{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:8px 14px 6px;background:#fff}
+.pftlh{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+.pftlh span{text-transform:none;letter-spacing:0;font-weight:700}
+.pftll{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--grey);margin-top:2px}
+.pftll i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.pftll b{color:var(--jet)}
+/* onglets : plus d'air sous le trait ; Situation = indicateurs | XP investis, plan d'action dessous */
+.pftab.on{padding-top:14px}
+.pfplan{border-top:1px solid var(--line);margin-top:20px;padding-top:4px}
+body.no-competences .pfsit{grid-template-columns:1fr}
+@media(max-width:1000px){.pfhd .pfgrid.pfg3{grid-template-columns:120px minmax(0,1fr)}.pfg3 .pfav{width:120px;height:120px;font-size:38px}.pfavm{top:128px}.pfco{grid-column:2}}
+@media(max-width:560px){.pfhd .pfgrid.pfg3{grid-template-columns:1fr}.pfco{grid-column:auto}}
+/* 3.3.0 : onglet Contact, cases alignées (même hauteur, libellés au même niveau) */
+.pfct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 22px;align-items:start}
+.pfct2{margin-top:14px}
+.pfct .pflab{margin:0 0 6px}
+.pfct .fin,.pfct .seg.l{height:40px}
+.pfct .fin{padding-top:0;padding-bottom:0;font-size:14px}
+.pfct .seg.l{display:flex;margin:0;width:100%}.pfct .seg.l button{flex:1;padding:0 6px}
+.pfbox{margin:0;min-height:40px;border:1px solid var(--line);border-radius:10px;padding:4px 6px;background:#fff}
+.pfbox .crp,.pfbox .cradd{padding-top:2px;padding-bottom:2px;font-size:12.5px}
+.prp{--c:#508AA8}
+.pfct~.nxt{margin-top:14px;background:var(--soft);border-radius:10px;padding:8px 12px}
+.pfreco{border-top:1px solid var(--line);margin-top:18px;padding-top:2px}
+.pfreco .pfrc{margin:14px 0 4px}
+.pfreco .cmb{margin-top:0}
+body.no-activite .pfct1{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.no-activite .pfct2{grid-template-columns:minmax(0,1fr)}
+@media(max-width:860px){.pfct{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.pfct{grid-template-columns:1fr}}
+/* 3.3.0 : onglet Notes, filtres par type, une carte par saisie, pastille = replier / déplier */
+.nfflt{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px}
+.nfflt .chip{display:inline-flex;align-items:center;gap:5px}
+.nfflt .chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.nfflt .chip small{color:var(--grey);font-weight:700}.nfflt .chip.on small{color:inherit;opacity:.8}
+.nfflt .nfall{margin-left:auto;font-size:12.5px}
+.nfr{max-height:none}
+.nfi:before{display:none}
+.nfd{position:absolute;left:-19px;top:3px;width:14px;height:14px;padding:0;border-radius:50%;background:var(--c,#9A9DA1);border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
+.nfd:hover{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 35%,#fff)}
+.nfd:focus-visible{outline:2px solid var(--afb);outline-offset:2px}
+.nfi.fold .nfd{background:#fff;box-shadow:0 0 0 2px var(--c,#9A9DA1)}
+.nfi.fold .t{display:none}
+.nfi .nfz{font-weight:600;font-style:italic}
+.nfi .t .k{margin-right:6px}
+.nfi .t+.t{margin-top:6px}
+/* 3.3.0 : onglet Contrat, propositions (un clic ouvre la saisie, au-dessus de la fiche) */
+#pdeM{z-index:33}
+.pfkp{display:flex;flex-direction:column;max-width:760px}
+.pfkr{display:grid;grid-template-columns:110px minmax(0,1fr) 110px 100px;gap:10px;align-items:center;text-align:left;border:0;border-bottom:1px solid var(--soft);background:none;padding:8px 6px;font:inherit;font-size:14px;color:var(--jet);cursor:pointer;border-radius:8px}
+.pfkr:hover,.pfkr:focus-visible{background:var(--soft)}
+.pfkr small{color:var(--grey);font-weight:700}
+.kst{border-radius:10px;padding:1px 8px;font-size:11.5px;font-weight:800;text-align:center}
+.kst.a{background:#E6F2EC;color:#2D6A4F}.kst.r{background:#F8E6E8;color:#9B3A47}.kst.w{background:#FFF2D6;color:#8A6D1E}
+@media(max-width:560px){.pfkr{grid-template-columns:1fr 1fr}}
+/* 3.3.0 : écran étroit, l'onglet Notes passe aussi sur une colonne (la règle .pfcn l'emportait : les notes tombaient dans la colonne du séparateur) */
+@media(max-width:980px){.pfcols.pfcn{grid-template-columns:1fr}}

@@ -7,7 +7,7 @@ const VERSION=4, FILE='coaching-data.json', BKDIR='sauvegardes', KEEP=30;
 /* Version affichée : x.y.z (x = version majeure, y = nouvelle fonctionnalité, z = correctif).
    APP_VERSION = numéro de publication interne, +1 à chaque publication quelle qu'elle soit :
    il est enregistré dans le carnet (app_version) et met en lecture seule les versions plus anciennes. */
-const APP_SEMVER='3.2.6', APP_VERSION=57, APP_DATE='15 novembre 2026';
+const APP_SEMVER='3.3.0', APP_VERSION=58, APP_DATE='15 novembre 2026';
 let READONLY=false, LASTSEEN=null;
 
 /* ---------- structure fixe (rôle des types dans les calculs) ---------- */
@@ -110,6 +110,17 @@ function xpFromAis(e,C,focus){const a=e.ais;delete e.ais;if(!a||typeof a!='objec
  const F=K.filter(id=>(focus||[]).map(String).includes(String(id))),R=F.length?F:[K[0]];for(let i=0;r>0;i++,r--)o[R[i%R.length]]++;
  Object.keys(o).forEach(k=>{if(!o[k])delete o[k]});if(Object.keys(o).length)e.xp=o}
 
+/* 3.3.0 : problématiques multiples. La liste est dans « probls » ; « probl » en garde une copie texte (« A; B ») pour qu'une version
+   antérieure lise toujours le carnet (elle découpe déjà sur ; et ,). Les étiquettes ne contiennent donc ni « ; » ni « , ». */
+function prbSplit(v){const out=[],seen=new Set();(Array.isArray(v)?v:String(v??'').split(/[;,]/)).forEach(s=>{s=String(s??'').replace(/[;,]/g,' ').replace(/\s+/g,' ').trim();
+  const k=s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');if(s&&!seen.has(k)){seen.add(k);out.push(s)}});return out}
+function prbOf(p){return Array.isArray(p?.probls)?prbSplit(p.probls):prbSplit(p?.probl)}
+function prbSet(p,L){L=prbSplit(L);if(L.length){p.probls=L;p.probl=L.join('; ')}else{delete p.probls;p.probl=''}}
+/* au chargement : la liste suit le texte quand une version antérieure l'a modifié (le texte ne correspond plus à la liste) */
+function prbMigrate(p){const s=typeof p.probl=='string'?p.probl:p.probl==null?null:String(p.probl);
+  if(!Array.isArray(p.probls)){const L=prbSplit(s);if(L.length)prbSet(p,L);else delete p.probls;return}
+  const L=prbSplit(p.probls),T=s==null?L:prbSplit(s),k=x=>x.join('\u0001').toLowerCase();
+  if(s!=null&&k(T)!==k(L))prbSet(p,T);else if(L.length)prbSet(p,L);else{delete p.probls;if(s!=null)p.probl=''}}
 function migrate(d){
   d=JSON.parse(JSON.stringify(d||{}));delete d.format;const v=d.version_schema||0;
   d.personnes=d.personnes||[];d.entrees=d.entrees||[];
@@ -120,7 +131,7 @@ function migrate(d){
     if(/^(recommandation|referral|recommendation)(?![a-zà-ÿ])/i.test(s))p.reco_in=true;else if(s)p.cercles.push(s)}
    if(!['proche','regulier','occasionnel'].includes(p.proximite))p.proximite='regulier';
    if(p.rythme==null||![0,1,3,6,12].includes(+p.rythme))p.rythme=3;else p.rythme=+p.rythme;
-   if(p.etape?.v=='contact')p.etape.v='invite'});
+   if(p.etape?.v=='contact')p.etape.v='invite';prbMigrate(p)});
   d.entrees.forEach(e=>{
     if(e.contrat&&!e.engagement_mois){e.engagement_mois=e.contrat;delete e.contrat}
     if(Array.isArray(e.ais)){const o={};e.ais.forEach((x,i)=>{if(x)o['m'+(i+1)]=x});e.ais=Object.keys(o).length?o:null}   // v2 : tableau → par identifiant
