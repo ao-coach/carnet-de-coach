@@ -3,6 +3,11 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:57,s:'3.2.6',d:'15 novembre 2026',items:[
+  {t:"Pratique délibérée plus lisible",p:"Tes compétences en focus s'affichent dans une pastille bordeaux, sur la boussole comme dans le panneau XP. Les noms longs de la boussole ne sont plus coupés, et le panneau des focus et des actions se cale en haut. L'en-tête des XP tient sur une ligne."},
+  {t:"Créer une action depuis la recherche",p:"Dans « Ajouter une action », tape ton idée : si aucune action ne correspond, la ligne « + Créer » (ou Entrée) ouvre le formulaire, texte déjà rempli."},
+  {t:"Entonnoir à l'horizontale",p:"Dans « Développer ton activité », les étapes se lisent de gauche à droite, les chiffres clés en ligne dessous. Facultés commerciales indique combien de saisies tu as évaluées, et la moyenne porte sur elles seules."},
+  {t:"Ton logo au centre, et rester en lien",p:"Dans Réseau > Orbites, ton logo remplace tes initiales au centre. L'onglet À propos reprend les liens du site : suivre les nouveautés, soutenir le carnet, écrire à Allan."}]},
  {v:56,s:'3.2.5',d:'15 novembre 2026',items:[
   {t:"Infos, Notes, XP : trois boutons",p:"Dans Mes saisies, le bouton « Fiche » laisse la place à trois boutons. Chacun ouvre la saisie sur la partie voulue. Notes passe en vert avec ✓ quand tu as écrit des notes, XP quand tous ses XP sont répartis : tu vois d'un coup d'œil ce qui reste à remplir."},
   {t:"Trier Mes saisies",p:"Les saisies sont rangées de la plus récente à la plus ancienne. Clique sur un titre de colonne pour trier selon elle, une seconde fois pour inverser l'ordre ; une flèche indique le sens."}]},

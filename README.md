@@ -216,7 +216,7 @@ L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce 
 ### Boussole de pratique
 
 - Le graphique en toile montre **la part de tes XP sur chacune de tes compétences suivies**, rapportée à la compétence la plus fournie. En pointillé, la même chose sur **tes 30 derniers jours** : où tu investis en ce moment.
-- À côté de chaque compétence : son **niveau** et son total d'XP.
+- À côté de chaque compétence : son **niveau** et son total d'XP. Le cadre s'élargit si besoin : les noms longs ne sont jamais coupés. Sur un écran de moins de 1100 px, le panneau « Focus du moment / Actions en cours » passe sous la boussole.
 - **Gérer mes compétences** (en haut de la boussole) ouvre la liste de tes compétences : libellé, **discipline**, suivie ou non, **focus**, nombre de saisies. C'est le seul endroit où les gérer ; le bloc des Paramètres y renvoie. La compétence **Facultés commerciales** s'y trouve toujours : elle se renomme, mais ne se supprime pas. Sur la boussole, elle n'apparaît qu'avec le module ③.
 - Les compétences d'une même **discipline** (PNL, Analyse transactionnelle, Systémique…) sont regroupées sur la boussole, sous un arc de couleur portant son nom. La discipline est libre : des suggestions s'affichent quand tu la tapes.
 - Une compétence sans XP reste au centre, avec la mention « aucun XP ».
@@ -226,7 +226,7 @@ L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce 
 
 Sous la boussole, le panneau **XP de pratique** :
 
-- **en tête** : tes XP gagnés en tout, avec leur détail (« dont X répartis · Y à répartir »), ceux des 30 derniers jours, et la case **« XP à répartir »** (avec le nombre de saisies concernées). Les anciennes saisies, d'avant le passage aux XP, en font partie. Un clic sur cette case, même à 0, ouvre la liste des saisies à répartir, avec un compteur en tête ; un clic sur une saisie ouvre une **petite fenêtre de répartition** (la saisie, ses XP sur deux colonnes, Enregistrer, et un lien vers la fiche complète) ; une fois enregistrée, la saisie passe **en vert** dans la liste et reste cliquable tant que la liste est ouverte ; elle montre aussi, en rouge, les saisies qui ont des XP **de trop** après un changement de durée ou de type ;
+- **en tête**, sur une ligne de trois blocs : tes XP gagnés en tout, avec leur détail (« dont X répartis · Y à répartir »), ceux des 30 derniers jours, et la case **« XP à répartir »** (avec le nombre de saisies concernées ; son infobulle ⓘ rappelle que ces XP ne comptent pour aucune compétence tant qu'ils ne sont pas répartis). Les anciennes saisies, d'avant le passage aux XP, en font partie. Un clic sur cette case, même à 0, ouvre la liste des saisies à répartir, avec un compteur en tête ; un clic sur une saisie ouvre une **petite fenêtre de répartition** (la saisie, ses XP sur deux colonnes, Enregistrer, et un lien vers la fiche complète) ; une fois enregistrée, la saisie passe **en vert** dans la liste et reste cliquable tant que la liste est ouverte ; elle montre aussi, en rouge, les saisies qui ont des XP **de trop** après un changement de durée ou de type ;
 - **pour chaque compétence** : son total (XP répartis dans tes saisies, plus les transferts reçus, moins les transferts donnés), son **niveau**, une barre qui **repart de zéro à chaque niveau**, ses XP des 30 derniers jours et le seuil du niveau suivant. Toutes les compétences suivent la même courbe : niveau 1 à 10 XP, puis 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), jusqu'au niveau 100 ;
 - **Transférer des XP** : « Transférer N XP de A vers B », avec un motif facultatif. Un transfert déplace des XP déjà gagnés, sans en créer : utile quand tu fusionnes deux compétences, ou quand un entretien a surtout servi une autre compétence. N ne peut pas dépasser le total de A ; une compétence archivée peut être source ou cible ;
 - **Historique des transferts** : date, A → B, nombre d'XP, motif. « annuler » reste possible tant que B a encore assez d'XP.
@@ -234,7 +234,7 @@ Sous la boussole, le panneau **XP de pratique** :
 
 ### Focus du moment
 
-- Choisis **jusqu'à 3 compétences** à travailler. Elles sont entourées sur la boussole et apparaissent en tête de chaque saisie, avec une zone pour noter ce que tu remarques.
+- Choisis **jusqu'à 3 compétences** à travailler. Sur la boussole, leur nom s'affiche en blanc dans une **pastille bordeaux** (de même dans le panneau XP) et apparaissent en tête de chaque saisie, avec une zone pour noter ce que tu remarques.
 - Retirer un focus (×) met en pause les actions qui lui sont liées. Elles restent dans la bibliothèque, avec leur historique.
 
 ### Actions en cours
@@ -248,7 +248,8 @@ Sous la boussole, le panneau **XP de pratique** :
 
 - Toutes tes actions, gardées pour toujours : **en cours** d'abord, puis les autres, **du taux le plus faible au plus élevé**.
 - Statuts : **en cours**, **en pause**, **★ acquise** (quand le geste est devenu naturel). Change-le avec la liste à droite de l'action.
-- **+ Nouvelle action** : son texte, la compétence travaillée, les types de saisie concernés. Elle est ajoutée à la bibliothèque, et passe en cours s'il reste une place.
+- **Créer depuis la recherche** : quand le texte tapé ne correspond exactement à aucune action, une ligne **« + Créer « … » »** apparaît sous les résultats ; **Entrée** la valide quand rien ne correspond. Elle ouvre le formulaire de la nouvelle action, texte déjà rempli.
+- **+ Nouvelle action** (recherche vide) : son texte, la compétence travaillée, les types de saisie concernés. Elle est ajoutée à la bibliothèque, et passe en cours s'il reste une place.
 - Une action jamais utilisée peut être supprimée (✕).
 
 ### Historique d'une compétence
@@ -473,7 +474,7 @@ Le catalogue compte 23 indicateurs, répartis en 4 piliers :
 - **Année.** Les boutons 2024, 2025, 2026… choisissent l'année affichée.
 - **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail.
 - **Développer ton activité.** Deux vues, pour l'année choisie :
-  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). À droite : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, tes **Facultés commerciales** (XP de l'année sur tes rencontres réseau, invitations et propositions) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
+  - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). Les étapes se lisent de gauche à droite, en colonnes de hauteur proportionnelle. Dessous, sur une ligne : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, tes **Facultés commerciales** (XP de l'année sur tes rencontres réseau, invitations et propositions, avec le nombre de saisies évaluées et la moyenne par évaluation) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
   - **Par mois** : invitations, conversations, propositions et signatures, mois par mois, pour voir ton rythme.
 - Les XP de pratique se lisent sur la boussole de pratique et dans le panneau XP de l'onglet Pratique délibérée.
 
@@ -599,7 +600,7 @@ Tout est enregistré pendant la frappe.
 
 L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il est masqué sans le module ③ « Créer mon activité ». Rien n'y est saisi : tout vient des fiches (cercles, proximité, public, problématique, « Recommandé·e ou présenté·e par ») et de tes saisies.
 
-- **Quatre vues.** **Cercles**, **Public** et **Problématique** regroupent les personnes autour de pivots : un disque par groupe, avec son nombre de membres, et chaque personne reliée à ses groupes. Une personne sans groupe est reliée au pivot gris « Sans cercle » (ou « Non renseigné »). **Orbites** te place au centre : les anneaux disent la proximité (proche, régulier, occasionnel), les parts du disque les cercles, proportionnelles à leur nombre de membres. Une personne de plusieurs cercles est placée dans le premier, avec de petits traits vers les autres.
+- **Quatre vues.** **Cercles**, **Public** et **Problématique** regroupent les personnes autour de pivots : un disque par groupe, avec son nombre de membres, et chaque personne reliée à ses groupes. Une personne sans groupe est reliée au pivot gris « Sans cercle » (ou « Non renseigné »). **Orbites** te place au centre (ton logo, choisi dans Paramètres > Apparence, ou tes initiales sans logo) : les anneaux disent la proximité (proche, régulier, occasionnel), les parts du disque les cercles, proportionnelles à leur nombre de membres. Une personne de plusieurs cercles est placée dans le premier, avec de petits traits vers les autres.
 - **Ce que montre chaque point.** La **couleur** dit l'étape (contact réseau, invité·e, en conversation, proposition envoyée, client·e, accompagnement terminé, superviseur·e) ; la **taille**, le nombre d'échanges. Un point **pâle entouré de pointillés rouges** est à relancer (rythme de contact dépassé, ou pas de nouvelles depuis un moment). Un **contour doré** signale une **passerelle** : une personne dans plusieurs groupes. Les **flèches dorées** vont de la personne qui recommande à la personne recommandée (en pointillés : présentée).
 - **Options.** « Recommandations » affiche ou masque les flèches ; « Signaler les personnes à relancer », les pointillés ; « Inclure archivé·es et sans suite » ajoute en gris les personnes archivées ou « Sans suite », absentes sinon.
 - **Survol et clic.** Survole un point : nom, étape, nombre d'échanges, dernier contact, groupes, relance, recommandé·e par. Clique : sa fiche s'ouvre. Clique sur un groupe : ses membres sont mis en avant, le reste s'estompe ; « Tout afficher », ou un clic dans le vide, revient à l'ensemble. Tu peux déplacer un point à la souris, le temps de la consultation : rien n'est enregistré, et le dessin est recalculé à l'identique à chaque ouverture.
@@ -771,7 +772,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.2.5** | 15/11/2026 | Mes saisies : trois boutons Infos / Notes / XP à la place de « Fiche », chacun ouvrant la fiche de la saisie sur sa section ; Notes et XP en vert avec ✓ quand les notes sont écrites et les XP répartis. Tri par date décroissante par défaut, et tri par colonne d'un clic sur son titre (second clic : ordre inverse, flèche visible). |
+| **3.2.6** | 15/11/2026 | Finitions d'affichage. Pratique délibérée : compétence en focus dans une pastille bordeaux, étiquettes de la boussole jamais coupées et panneau de droite calé en haut, en-tête XP sur une ligne, créer une action depuis la recherche. Développer ton activité : entonnoir à l'horizontale, tuiles en ligne dessous, Facultés commerciales avec le nombre de saisies évaluées. Orbites : ton logo au centre. À propos : carte « Rester en lien ». |
+| 3.2.5 | 15/11/2026 | Mes saisies : trois boutons Infos / Notes / XP à la place de « Fiche », chacun ouvrant la fiche de la saisie sur sa section ; Notes et XP en vert avec ✓ quand les notes sont écrites et les XP répartis. Tri par date décroissante par défaut, et tri par colonne d'un clic sur son titre (second clic : ordre inverse, flèche visible). |
 | 3.2.4 | 15/11/2026 | XP de pratique : le total gagné est détaillé (répartis, à répartir) et tombe juste, les anciennes saisies d'avant les XP comptant dans les XP à répartir. La case « XP à répartir » ouvre la liste, avec compteur ; un clic sur une saisie ouvre une petite fenêtre de répartition, puis la saisie passe en vert. Compétences du panneau et grille de répartition sur deux colonnes. « De trop » de nouveau visible dans la liste et la fiche. |
 | 3.2.3 | 15/11/2026 | Fermer la fiche d'une saisie modifiée sans l'enregistrer demande confirmation (aussi en fermant ou rechargeant la page) : plus de notes perdues par mégarde. Raccourcir une saisie ou changer son type quand ses XP sont déjà répartis demande de corriger la répartition (point rouge sur « Fiche » et ligne « de trop » dans « Répartir les XP en attente » si tu reportes). |
 | 3.2.2 | 15/11/2026 | Fiche de la saisie : bouton « Fiche » dans Mes saisies, avant « Ce qu'on a vu », qui ouvre toute la saisie dans une fenêtre large en sections repliables (Infos, Notes, XP de pratique, Contrat et coût) où tout se modifie ; colonnes XP et Contrat / coût retirées du tableau. « Répartir les XP en attente » dans le panneau XP de pratique. Confirmation avant de supprimer une saisie. |
@@ -826,6 +828,7 @@ Le dernier onglet, **À propos**, rassemble :
 - **le mot d'accueil**, celui du premier lancement ;
 - **la démarche** « Créer tes clients par la relation », avec le bouton « Lire la démarche » ;
 - **la façon dont l'outil est construit**, avec le bouton « Voir les schémas » (voir la [partie 21](#21-comment-loutil-est-construit)) ;
+- **rester en lien** : suivre les nouveautés, soutenir le carnet, écrire à Allan (une idée, un souci), comme sur le site ;
 - **les questions fréquentes**, en trois groupes : tes données, utiliser le carnet, l'outil.
 
 Les onglets Paramètres et À propos ont leur propre couleur, pour les distinguer des onglets de travail.

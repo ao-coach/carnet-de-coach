@@ -216,7 +216,7 @@ The **Deliberate practice** tab is for choosing what you are working on right no
 ### Practice compass
 
 - The radar chart shows **the share of your XP on each of your tracked skills**, relative to the skill with the most. Dotted, the same over **your last 30 days**: where you are investing right now.
-- Next to each skill: its **level** and its XP total.
+- Next to each skill: its **level** and its XP total. The frame widens if needed: long names are never cut off. On a screen narrower than 1100 px, the “Current focus / Actions in progress” panel moves below the compass.
 - **Manage my skills** (at the top of the compass) opens the list of your skills: label, **discipline**, tracked or not, **focus**, number of entries. It is the only place to manage them; the Settings block points there. The **Sales skills** skill is always there: it can be renamed, but not deleted. On the compass, it only appears with module ③.
 - Skills of the same **discipline** (NLP, Transactional Analysis, Systemic…) are grouped on the compass, under a coloured arc bearing its name. The discipline is free text: suggestions appear as you type.
 - A skill with no XP stays at the centre, marked “no XP”.
@@ -226,7 +226,7 @@ The **Deliberate practice** tab is for choosing what you are working on right no
 
 Below the compass, the **Practice XP** panel:
 
-- **at the top**: your XP earned in total, with their breakdown (“of which X assigned · Y to assign”), those of the last 30 days, and the **“XP to assign”** box (with the number of entries concerned). Old entries, from before the switch to XP, are included. A click on this box, even at 0, opens the list of entries to assign, with a counter at the top; a click on an entry opens a **small assignment window** (the entry, its XP in two columns, Save, and a link to the full card); once saved, the entry turns **green** in the list and stays clickable while the list is open; it also shows, in red, the entries with **too much XP** after a change of length or type;
+- **at the top**, on a row of three blocks: your XP earned in total, with their breakdown (“of which X assigned · Y to assign”), those of the last 30 days, and the **“XP to assign”** box (with the number of entries concerned; its ⓘ tooltip reminds you that these XP count for no skill until they are assigned). Old entries, from before the switch to XP, are included. A click on this box, even at 0, opens the list of entries to assign, with a counter at the top; a click on an entry opens a **small assignment window** (the entry, its XP in two columns, Save, and a link to the full card); once saved, the entry turns **green** in the list and stays clickable while the list is open; it also shows, in red, the entries with **too much XP** after a change of length or type;
 - **for each skill**: its total (XP assigned in your entries, plus transfers received, minus transfers given), its **level**, a bar that **starts again from zero at each level**, its XP of the last 30 days and the threshold of the next level. All skills follow the same curve: level 1 at 10 XP, then 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), up to level 100;
 - **Transfer XP**: “Transfer N XP from A to B”, with an optional reason. A transfer moves XP already earned, without creating any: useful when you merge two skills, or when a meeting mostly served another skill. N cannot exceed A's total; an archived skill can be the source or the target;
 - **Transfer history**: date, A → B, number of XP, reason. “undo” stays possible as long as B still has enough XP.
@@ -234,7 +234,7 @@ Below the compass, the **Practice XP** panel:
 
 ### Current focus
 
-- Choose **up to 3 skills** to work on. They are circled on the compass and appear at the top of each entry, with an area to note what you notice.
+- Choose **up to 3 skills** to work on. On the compass, their name is shown in white in a **burgundy pill** (likewise in the XP panel) and appear at the top of each entry, with an area to note what you notice.
 - Removing a focus (×) pauses the actions linked to it. They stay in the library, with their history.
 
 ### Actions in progress
@@ -248,7 +248,8 @@ Below the compass, the **Practice XP** panel:
 
 - All your actions, kept forever: **in progress** first, then the others, **from lowest to highest rate**.
 - Statuses: **in progress**, **paused**, **★ mastered** (when the gesture has become natural). Change it with the list to the right of the action.
-- **+ New action**: its text, the skill worked on, the entry types concerned. It is added to the library, and moves to in progress if there is room.
+- **Create from the search**: when the text you type matches no action exactly, a **“+ Create “…”** line appears below the results; **Enter** confirms it when nothing matches. It opens the new action form with the text already filled in.
+- **+ New action** (empty search): its text, the skill worked on, the entry types concerned. It is added to the library, and moves to in progress if there is room.
 - An action never used can be deleted (✕).
 
 ### A skill's history
@@ -473,7 +474,7 @@ The catalogue has 23 indicators, in 4 pillars:
 - **Year.** The 2024, 2025, 2026… buttons select the year shown.
 - **Time spent per month.** One stacked bar per month, with your number 1 type at the base. Hover a bar to see the detail.
 - **Grow your practice.** Two views, for the selected year:
-  - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). On the right: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **Sales skills** (the year's XP on your networking meetings, invitations and proposals) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
+  - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). The stages read from left to right, in columns of proportional height. Below, on one row: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **Sales skills** (the year's XP on your networking meetings, invitations and proposals, with the number of rated entries and the average per rating) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
   - **By month**: invitations, conversations, proposals and signatures, month by month, to see your pace.
 - Practice XP are read on the practice compass and in the XP panel of the Deliberate practice tab.
 
@@ -599,7 +600,7 @@ Everything is saved as you type.
 
 The **Network** tab draws the people in your notebook and what links them. It is hidden without module ③ “Build my practice”. Nothing is entered there: everything comes from the profiles (circles, closeness, audience, topic, “Referred or introduced by”) and from your entries.
 
-- **Four views.** **Circles**, **Audience** and **Topic** group people around hubs: one disc per group, with its number of members, and each person linked to their groups. A person with no group is linked to the grey “No circle” (or “Not specified”) hub. **Orbits** puts you in the centre: the rings show closeness (close, regular, occasional), the slices of the disc the circles, in proportion to their number of members. A person in several circles is placed in the first one, with short strokes towards the others.
+- **Four views.** **Circles**, **Audience** and **Topic** group people around hubs: one disc per group, with its number of members, and each person linked to their groups. A person with no group is linked to the grey “No circle” (or “Not specified”) hub. **Orbits** puts you in the centre (your logo, chosen in Settings > Appearance, or your initials without a logo): the rings show closeness (close, regular, occasional), the slices of the disc the circles, in proportion to their number of members. A person in several circles is placed in the first one, with short strokes towards the others.
 - **What each dot shows.** **Colour** shows the stage (network contact, invited, in conversation, proposal sent, client, engagement ended, supervisor); **size**, the number of exchanges. A **pale dot circled with red dots** needs a follow-up (contact frequency overdue, or no news for a while). A **gold outline** marks a **bridge**: a person in several groups. **Gold arrows** go from the person who referred to the person referred (dashed: introduced).
 - **Options.** “Referrals” shows or hides the arrows; “Flag people to follow up”, the red dots; “Include archived and no follow-up” adds, in grey, archived people and those marked “No follow-up”, otherwise left out.
 - **Hover and click.** Hover a dot: name, stage, number of exchanges, last contact, groups, follow-up, referred by. Click: their profile opens. Click a group: its members are highlighted, the rest fades; “Show all”, or a click on an empty area, brings everything back. You can drag a dot with the mouse while you look: nothing is saved, and the drawing is recomputed identically each time it opens.
@@ -771,7 +772,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.2.5** | 15/11/2026 | My entries: three Info / Notes / XP buttons instead of “Card”, each opening the entry card on its section; Notes and XP turn green with ✓ once notes are written and XP assigned. Sorted by date, newest first, by default, and sortable by column with a click on its heading (second click: reverse order, arrow shown). |
+| **3.2.6** | 15/11/2026 | Display polish. Deliberate practice: skill in focus shown in a burgundy pill, compass labels never cut off and right-hand panel aligned to the top, XP header on one row, create an action from the search. Grow your practice: horizontal funnel, tiles in a row below, Sales skills with the number of rated entries. Orbits: your logo in the centre. About: “Stay in touch” card. |
+| 3.2.5 | 15/11/2026 | My entries: three Info / Notes / XP buttons instead of “Card”, each opening the entry card on its section; Notes and XP turn green with ✓ once notes are written and XP assigned. Sorted by date, newest first, by default, and sortable by column with a click on its heading (second click: reverse order, arrow shown). |
 | 3.2.4 | 15/11/2026 | Practice XP: the total earned is broken down (assigned, to assign) and adds up, old entries from before XP now counting as XP to assign. The “XP to assign” box opens the list, with a counter; a click on an entry opens a small assignment window, then the entry turns green. Panel skills and assignment grid in two columns. “Too many” visible again in the list and the card. |
 | 3.2.3 | 15/11/2026 | Closing a changed entry card without saving asks for confirmation (also when closing or reloading the page): no more notes lost by mistake. Shortening an entry or changing its type once its XP are assigned asks you to correct the assignment (red dot on “Card” and a “too many” line in “Assign pending XP” if you postpone). |
 | 3.2.2 | 15/11/2026 | Entry card: a “Card” button in My entries, before “What came up”, opens the whole entry in a wide window with collapsible sections (Info, Notes, Practice XP, Contract and cost) where everything can be edited; XP and Contract / cost columns removed from the table. “Assign pending XP” in the Practice XP panel. Confirmation before deleting an entry. |
@@ -826,6 +828,7 @@ The last tab, **About**, brings together:
 - **the welcome note**, the one from the first launch;
 - **the approach** “Create your clients through relationships”, with the “Read about the approach” button;
 - **how the tool is built**, with the “See the diagrams” button (see [part 21](#21-how-the-tool-is-built));
+- **stay in touch**: follow what's new, support the notebook, write to Allan (an idea, an issue), as on the website;
 - **frequently asked questions**, in three groups: your data, using the notebook, the tool.
 
 The Settings and About tabs have their own colour, to set them apart from the working tabs.
