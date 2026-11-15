@@ -1049,3 +1049,11 @@ textarea.fsn{min-height:200px}
 /* 3.2.3 : XP de trop (point rouge sur « Fiche », ligne de la liste des XP en attente) */
 .ent .fbtn.over::after{content:'';position:absolute;top:-4px;right:-4px;width:9px;height:9px;border-radius:50%;background:#C23B3B;border:2px solid #fff}
 .xpqi .n.ov{color:#C23B3B}
+/* 3.2.4 : panneau XP : total décomposé, tuile « XP à répartir » cliquable, compétences sur deux colonnes, jauges fines */
+.xptot{align-items:stretch}.xptot .xpdec{display:block;font-size:12px;color:var(--grey);margin-top:2px}.xptot .xpdec .ov{color:#C23B3B;font-weight:700}
+.xpqt{border:1px solid var(--line);background:#fff;border-radius:12px;padding:6px 14px;text-align:left;cursor:pointer;font:inherit;font-size:12.5px;color:var(--grey);display:flex;flex-direction:column}
+.xpqt:hover{border-color:var(--afb);background:var(--soft)}.xpqt b{display:block;font-size:22px;color:var(--jet)}.xpqt em{font-style:normal;font-weight:800;font-size:12.5px;margin-top:2px;color:var(--am)}
+.xpqt.na{border-color:#E9CF8A;background:#FFF8E6}.xpqt.na b{color:#8A6100}.xpqt.ok em{color:#2E7D5B}
+.xpls{display:grid;grid-template-columns:1fr 1fr;column-gap:22px}
+.xpls .xpl{padding:7px 2px}.xpls .xpl .t b{font-size:13.5px}.xpls .xpl .v{font-size:12.5px}.xpls .xpl .xpbar{height:4px;margin:4px 0 2px}.xpls .xpl .s{font-size:11.5px}
+@media(max-width:700px){.xpls{grid-template-columns:1fr}}
