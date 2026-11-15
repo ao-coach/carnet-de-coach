@@ -130,6 +130,21 @@ html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
 .pillars{padding-top:96px}
 @media(max-width:900px){.eng{padding:70px 0 40px}.eng .g4e{grid-template-columns:1fr 1fr;gap:20px}.pillars{padding-top:64px}}
 @media(max-width:560px){.eng .g4e{grid-template-columns:1fr}.eng .sigq{align-items:flex-start}}
+/* infobulle de licence (retour 7) */
+.tip{display:inline}
+.tip>button{all:unset;cursor:pointer;border-bottom:2px dotted var(--teal)}
+.tip>button::after{content:'i';display:inline-grid;place-items:center;width:17px;height:17px;margin-left:6px;border-radius:50%;background:var(--teal);color:#fff;font:italic 900 11px/1 'Noto Serif',serif;vertical-align:2px}
+.tip>button:hover{color:var(--teal)}
+.tip>button:focus-visible{outline:2px solid var(--am);outline-offset:3px;border-radius:3px}
+.tip .pop{position:absolute;z-index:30;right:0;top:calc(100% + 10px);width:min(340px,calc(100vw - 32px));background:var(--jet);color:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 18px 40px rgba(0,35,39,.3);font:600 14px/1.5 Nunito,sans-serif;text-align:left}
+.tip .pop[hidden]{display:none}
+.tip .pop strong{display:block;font:400 16px 'Noto Serif',serif;color:var(--gold);margin-bottom:8px}
+.tip .pop ul{list-style:none;margin:0 0 10px;padding:0}.tip .pop li{padding:2px 0 2px 24px;position:relative}
+.tip .pop li::before{position:absolute;left:0;font-weight:900}
+.tip .pop li.y::before{content:'✓';color:#7FD1B0}.tip .pop li.n::before{content:'✗';color:#FF9A9A}
+.tip .pop small{display:block;color:#A9C2C4;font-size:12.5px;margin-bottom:8px}
+.tip .pop a{color:#fff}
+@media(max-width:560px){.tip .pop{left:0;right:auto}}
 </style></head><body>
 
 <nav class="top"><div class="w">
@@ -154,7 +169,7 @@ html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
   <div class="e"><b><span class="fr">Gratuit, et il le restera</span><span class="en">Free, and it will stay free</span></b><p><span class="fr">Pas de version payante, pas de publicité. Un don si tu le souhaites, rien de plus.</span><span class="en">No paid version, no ads. A donation if you wish, nothing more.</span></p></div>
   <div class="e"><b><span class="fr">Sans compte</span><span class="en">No account</span></b><p><span class="fr">Rien à créer, aucune adresse demandée. Tu ouvres le carnet et tu commences.</span><span class="en">Nothing to sign up for, no email address asked. Open the notebook and get started.</span></p></div>
   <div class="e"><b><span class="fr">Tes données restent chez toi</span><span class="en">Your data stays with you</span></b><p><span class="fr">Un fichier sur ton ordinateur. Rien n'est envoyé, ni à moi ni à personne.</span><span class="en">One file on your computer. Nothing is sent, not to me, not to anyone.</span></p></div>
-  <div class="e"><b><span class="fr">Code source ouvert et consultable</span><span class="en">Open, readable source code</span></b><p><span class="fr">Tu peux lire comment il fonctionne, et vérifier tout ce qui précède.</span><span class="en">You can read how it works, and check everything above.</span></p></div>
+  <div class="e"><b><span class="tip"><button type="button" aria-expanded="false" aria-controls="licPop"><span class="fr">Code source ouvert et consultable</span><span class="en">Open, readable source code</span></button><span class="pop" id="licPop" role="dialog" aria-labelledby="licT" hidden><strong id="licT"><span class="fr">Licence</span><span class="en">Licence:</span> PolyForm Shield 1.0.0</strong><ul><li class="y"><span class="fr">L'utiliser gratuitement, y compris pour ton activité</span><span class="en">Use it for free, including for your business</span></li><li class="y"><span class="fr">Lire son code</span><span class="en">Read its code</span></li><li class="y"><span class="fr">Le modifier pour ton usage</span><span class="en">Modify it for your own use</span></li><li class="y"><span class="fr">Le partager, avec sa licence</span><span class="en">Share it, with its licence</span></li><li class="n"><span class="fr">T'en servir pour créer ou vendre un outil concurrent</span><span class="en">Use it to build or sell a competing tool</span></li></ul><small><span class="fr">Ce n'est donc pas de l'« open source » au sens strict : la licence interdit la concurrence.</span><span class="en">So it is not “open source” in the strict sense: the licence forbids competing use.</span></small><a href="https://github.com/ao-coach/carnet-de-coach/blob/main/LICENSE" target="_blank" rel="noopener"><span class="fr">Lire la licence</span><span class="en">Read the licence</span></a> · <a href="https://github.com/ao-coach/carnet-de-coach" target="_blank" rel="noopener" data-goatcounter-click="code-source"><span class="fr">Voir le code</span><span class="en">See the code</span></a></span></span></b><p><span class="fr">Tu peux lire comment il fonctionne, et vérifier tout ce qui précède.</span><span class="en">You can read how it works, and check everything above.</span></p></div>
  </div>
  <div class="sigq"><img src="assets/allan.jpg" alt="" loading="lazy"><div><q><span class="fr">J'ai construit ce carnet pour ma propre pratique. Je le donne parce qu'il peut aider d'autres coachs à progresser ; il ne collecte rien et ne cherche pas à te retenir.</span><span class="en">I built this notebook for my own practice. I give it away because it can help other coaches grow; it collects nothing and is not designed to keep you hooked.</span></q><span class="by">Allan Oudomphong, <span class="fr">coach professionnel</span><span class="en">professional coach</span></span></div></div>
 </div></section>
@@ -257,7 +272,7 @@ html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn p" href="#" data-app="" data-goatcounter-click="ouvrir-carnet"><span class="fr">Ouvrir le carnet</span><span class="en">Open the notebook</span></a><a class="btn g" href="#" data-app="demo=1" data-goatcounter-click="demo"><span class="fr">Explorer la démonstration</span><span class="en">Explore the demo</span></a></div>
 </div></section>
 
-<footer><div class="w"><span>Carnet de coach · © 2026 Allan Oudomphong · <span class="fr">Licence</span><span class="en">Licence</span> PolyForm Shield 1.0.0</span><span><a href="mentions.html" data-keeplang><span class="fr">Mentions légales et confidentialité</span><span class="en">Legal notice and privacy</span></a> · <a href="#" data-app-page="arch.html"><span class="fr">Comment l'outil est construit</span><span class="en">How the tool is built</span></a></span></div></footer>
+<footer><div class="w"><span>Carnet de coach · © 2026 Allan Oudomphong · <a href="https://github.com/ao-coach/carnet-de-coach/blob/main/LICENSE" target="_blank" rel="noopener"><span class="fr">Licence</span><span class="en">Licence</span> PolyForm Shield 1.0.0</a></span><span><a href="mentions.html" data-keeplang><span class="fr">Mentions légales et confidentialité</span><span class="en">Legal notice and privacy</span></a> · <a href="#" data-app-page="arch.html"><span class="fr">Comment l'outil est construit</span><span class="en">How the tool is built</span></a></span></div></footer>
 <script>
 /* ---------- réglages du site : à compléter une seule fois ---------- */
 var APP='app/';        // l'application, dans le sous-dossier app/
@@ -290,6 +305,13 @@ var CONTACT_URL={fr:'https://tally.so/r/DqKOdE',en:'https://tally.so/r/vXr6q0'};
  document.getElementById('copyBtn').onclick=function(e){var b=e.currentTarget,o=b.innerHTML;function done(){b.textContent=L==='en'?'Link copied':'Lien copié';setTimeout(function(){b.innerHTML=o},1800)}
   if(navigator.clipboard)navigator.clipboard.writeText(url()).then(done,function(){prompt('',url())});else prompt('',url())};
 })();
+/* infobulle de licence : clic, clavier (Entrée, Espace, Échap) et toucher */
+document.querySelectorAll('.tip>button').forEach(function(b){var p=document.getElementById(b.getAttribute('aria-controls'));
+ function show(o){p.hidden=!o;b.setAttribute('aria-expanded',o)}
+ b.addEventListener('click',function(e){e.stopPropagation();show(p.hidden)});
+ p.addEventListener('click',function(e){e.stopPropagation()});
+ document.addEventListener('click',function(){if(!p.hidden)show(false)});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!p.hidden){show(false);b.focus()}})});
 </script>
 <script data-goatcounter="https://ao-coach.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
