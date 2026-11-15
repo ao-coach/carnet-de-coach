@@ -36,8 +36,6 @@ nav.top .btn{padding:9px 14px;font-size:14px}
 .hero h1 em{font-style:normal;color:var(--gold)}
 .hero p.lead{font-size:18.5px;color:#D5E4E5;margin:0 0 26px;max-width:520px}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px}
-.hero .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:13.5px;color:#A9C2C4;font-weight:700}
-.hero .meta>span::before{content:'✓ ';color:var(--gold)}
 .hero .kick{color:var(--gold)}
 .shot{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12)}
 .shot .bar{height:28px;background:#EEF0F2;display:flex;align-items:center;gap:6px;padding:0 12px}.shot .bar i{width:9px;height:9px;border-radius:50%;background:#D3D6DA}
@@ -53,7 +51,6 @@ section{padding:96px 0}
 .pil ul{list-style:none;padding:0;margin:0}.pil li{padding:6px 0 6px 28px;position:relative;color:#33403F}.pil li::before{content:'';position:absolute;left:0;top:13px;width:14px;height:3px;border-radius:2px;background:var(--c)}
 .pil .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;font-weight:900}
 .pil .shot{box-shadow:0 24px 60px rgba(0,35,39,.16);border-color:var(--line)}
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 .pillars .end{font-size:clamp(20px,2.2vw,26px);font-style:italic;text-align:center;color:var(--jet);margin:0}
 .hero p.lead b{color:#fff;font-weight:800}
 /* fiche coach */
@@ -73,11 +70,6 @@ section{padding:96px 0}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
 .card .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--soft);font-size:20px;margin-bottom:12px}
 .card b{display:block;font:400 19px 'Noto Serif',serif;margin-bottom:6px}.card p{margin:0;color:#45504F;font-size:14.5px}
-/* mot */
-.mot .wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:36px;align-items:start;max-width:900px}
-.mot img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 5px #fff,0 12px 30px rgba(0,0,0,.15)}
-.mot blockquote{margin:0;font:400 20px/1.65 'Noto Serif',serif;color:#22302F}.mot blockquote b{color:var(--am);font-weight:600}
-.mot .sig{margin-top:14px;font:italic 400 20px 'Noto Serif',serif}.mot .sig>span{display:block;font:700 13px Nunito;color:var(--grey);font-style:normal}
 /* mobile + soutien */
 .mob{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center}
 .mob .ic{font-size:30px}.mob b{font:400 21px 'Noto Serif',serif;display:block}.mob p{margin:2px 0 0;color:#45504F}
@@ -94,8 +86,8 @@ footer{background:#001A1D;color:#8FA9AB;font-size:13.5px;padding:28px 0}footer .
 @media(max-width:900px){
  nav.top .links{display:none}
  .hero .w,.pil,.fiche .wrap,.mob{grid-template-columns:1fr}.hero .shot{transform:none;margin-bottom:-30px}
- .pil:nth-child(even) .txt{order:0}.six,.data .g4,.g3{grid-template-columns:1fr}.duo{grid-template-columns:1fr}
- .mot .wrap{grid-template-columns:1fr}.mob form{flex-direction:column}.mob input{min-width:0}
+ .pil:nth-child(even) .txt{order:0}.six,.data .g4,.g3{grid-template-columns:1fr}
+ .mob form{flex-direction:column}.mob input{min-width:0}
  section{padding:64px 0}.pillars{padding-top:90px}
 }
 
@@ -107,7 +99,6 @@ html.nonotes .note{display:none}
 @media(max-width:900px){nav.top .w{gap:10px}nav.top .btn{display:none}.lang{margin-left:auto}}
 .hero .w>div:first-child{padding-bottom:72px}
 .ic svg{width:22px;height:22px;stroke:var(--jet);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.mob .ic svg{width:30px;height:30px}
-.mot blockquote p{margin:0 0 14px}
 @media(max-width:900px){.hero .w>div:first-child{padding-bottom:20px}}
 
 html:not(.withcite) .cite,html.withcite .nocite{display:none}
@@ -115,27 +106,90 @@ img.fr,img.en{display:block}
 html[data-lang=fr] img.en,html[data-lang=en] img.fr{display:none!important}
 .mobsec{display:none}@media(max-width:900px),(pointer:coarse){.mobsec{display:block}}
 .mobb{display:flex;gap:8px;flex-wrap:wrap}
-.g2{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))!important;max-width:none}
-@media(max-width:900px){.g2{grid-template-columns:1fr!important}}
+/* engagements (retour 6) */
+.eng{background:#fff;border-bottom:1px solid var(--line);padding:120px 0 56px}
+.eng .g4e{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.eng .e{position:relative}
+.eng .e>b{display:flex;align-items:flex-start;gap:8px;font:400 19px/1.3 'Noto Serif',serif;margin:0 0 6px}
+.eng .e>b::before{content:'✓';flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--jet);font:900 13px/1 Nunito}
+.eng .e p{margin:0;color:#45504F;font-size:14.5px}
+.eng .sigq{margin:36px 0 0;padding-top:26px;border-top:1px solid var(--line);display:flex;gap:18px;align-items:center;max-width:860px}
+.eng .sigq img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none}
+.eng .sigq q{display:block;font:italic 400 18px/1.55 'Noto Serif',serif;color:#22302F;quotes:'« ' ' »'}
+html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
+.eng .sigq .by{display:block;margin-top:4px;font:700 13px Nunito;color:var(--grey)}
+.pillars{padding-top:96px}
+@media(max-width:900px){.eng{padding:70px 0 40px}.eng .g4e{grid-template-columns:1fr 1fr;gap:20px}.pillars{padding-top:64px}}
+@media(max-width:560px){.eng .g4e{grid-template-columns:1fr}.eng .sigq{align-items:flex-start}}
+/* infobulle de licence (retour 7) */
+.tip{display:inline}
+.tip>button{all:unset;cursor:pointer;border-bottom:2px dotted var(--teal)}
+.tip>button::after{content:'i';display:inline-grid;place-items:center;width:17px;height:17px;margin-left:6px;border-radius:50%;background:var(--teal);color:#fff;font:italic 900 11px/1 'Noto Serif',serif;vertical-align:2px}
+.tip>button:hover{color:var(--teal)}
+.tip>button:focus-visible{outline:2px solid var(--am);outline-offset:3px;border-radius:3px}
+.tip .pop{position:absolute;z-index:30;right:0;top:calc(100% + 10px);width:min(340px,calc(100vw - 32px));background:var(--jet);color:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 18px 40px rgba(0,35,39,.3);font:600 14px/1.5 Nunito,sans-serif;text-align:left}
+.tip .pop[hidden]{display:none}
+.tip .pop strong{display:block;font:400 16px 'Noto Serif',serif;color:var(--gold);margin-bottom:8px}
+.tip .pop ul{list-style:none;margin:0 0 10px;padding:0}.tip .pop li{padding:2px 0 2px 24px;position:relative}
+.tip .pop li::before{position:absolute;left:0;font-weight:900}
+.tip .pop li.y::before{content:'✓';color:#7FD1B0}.tip .pop li.n::before{content:'✗';color:#FF9A9A}
+.tip .pop small{display:block;color:#A9C2C4;font-size:12.5px;margin-bottom:8px}
+.tip .pop a{color:#fff}
+@media(max-width:560px){.tip .pop{left:0;right:auto}}
+/* à propos (retour 8) */
+.apropos{background:linear-gradient(180deg,#F1EEF4,#FBFAFC)}
+.apropos .wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:start;max-width:980px}
+.apropos .ph{width:160px;height:160px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 5px #fff,0 12px 30px rgba(0,0,0,.15)}
+.apropos h2{font:400 clamp(28px,3.2vw,40px)/1.2 'Noto Serif',serif;margin:8px 0 14px}
+.apropos p{color:#33403F;margin:0 0 14px;font-size:16.5px}.apropos p b{color:var(--am)}
+.apropos .why{font:400 18px/1.65 'Noto Serif',serif;color:#22302F;border-left:3px solid var(--gold);padding-left:18px;margin:20px 0}
+.apropos .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.apropos .acts small{display:block;width:100%;color:var(--grey);font-size:13px}
+@media(max-width:900px){.apropos .wrap{grid-template-columns:1fr;gap:20px}.apropos .ph{width:120px;height:120px}}
+/* captures en bande (retour 5) */
+.pil.wide{grid-template-columns:1fr;gap:28px}
+.pil.wide .txt{order:0!important;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 48px;align-items:start}
+.pil.wide .txt>.hd{grid-column:1/-1}
+.strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:16px}
+.strip figure{margin:0;min-width:0}
+.strip button{all:unset;box-sizing:border-box;display:block;width:100%;cursor:zoom-in;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(0,35,39,.12)}
+.strip button:hover{border-color:#C9C3D1}.strip button:focus-visible{outline:3px solid var(--am);outline-offset:3px}
+.strip img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left}
+.strip figcaption{font-size:13px;font-weight:700;color:var(--grey);padding:8px 12px;border-top:1px solid var(--line)}
+dialog.zoom{border:0;padding:0;border-radius:14px;max-width:min(1300px,94vw);max-height:92vh;overflow:auto;background:#fff}
+dialog.zoom::backdrop{background:rgba(0,26,29,.82)}
+dialog.zoom img{display:block;max-width:100%;height:auto}
+dialog.zoom form{position:sticky;top:0;display:flex;justify-content:flex-end;padding:8px;background:#fff}
+dialog.zoom .btn{padding:8px 12px}
+@media(max-width:900px){.pil.wide .txt{grid-template-columns:1fr}.strip{grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.strip figure{scroll-snap-align:start}}
 </style></head><body>
 
 <nav class="top"><div class="w">
  <a class="brand" href="#"><i>C</i>Carnet de coach</a>
- <div class="links"><a href="#piliers"><span class="fr">À quoi il sert</span><span class="en">What it's for</span></a><a href="#demarche"><span class="fr">La démarche</span><span class="en">The approach</span></a><a href="#donnees"><span class="fr">Tes données</span><span class="en">Your data</span></a><a href="#faq"><span class="fr">Questions</span><span class="en">FAQ</span></a></div>
+ <div class="links"><a href="#piliers"><span class="fr">À quoi il sert</span><span class="en">What it's for</span></a><a href="#demarche"><span class="fr">La démarche</span><span class="en">The approach</span></a><a href="#donnees"><span class="fr">Tes données</span><span class="en">Your data</span></a><a href="#faq"><span class="fr">Questions</span><span class="en">FAQ</span></a><a href="#apropos"><span class="fr">À propos</span><span class="en">About</span></a></div>
  <div class="lang" role="group" aria-label="Langue / Language"><button data-l="fr">FR</button><button data-l="en">EN</button></div>
  <a class="btn p" href="#" data-app="" data-goatcounter-click="ouvrir-carnet"><span class="fr">Ouvrir le carnet</span><span class="en">Open the notebook</span></a>
 </div></nav>
 
 <header class="hero"><div class="w">
  <div>
-  <div class="kick"><span class="fr">Pour les coachs qui veulent progresser et en vivre</span><span class="en">For coaches who want to grow, and make a living from it</span></div>
+  <div class="kick"><span class="fr">Un outil offert aux coachs · sans compte · tes données chez toi</span><span class="en">A tool given to coaches · no account · your data stays with you</span></div>
   <h1><span class="fr">Pilote ta pratique de coach en te concentrant sur <em>l'essentiel</em>.</span><span class="en">Run your coaching practice by focusing on <em>what matters</em>.</span></h1>
-  <p class="lead"><span class="fr"><b>Moins de dispersion, plus de pratique.</b> Ton carnet t'aide à faire les trois choses qui font de toi un coach, et à les faire en jouant. Trente secondes après chaque entretien suffisent ; tes données restent sur ton ordinateur.</span><span class="en"><b>Fewer distractions, more practice.</b> Your notebook helps you do the three things that make you a coach, and turns doing them into a game. Thirty seconds after each session is all it takes; your data stays on your computer.</span></p>
+  <p class="lead"><span class="fr"><b>Moins de dispersion, plus de pratique.</b> Ton carnet t'aide à faire les trois choses qui font de toi un coach, et à les faire en jouant. Il est gratuit, il tourne sur ton ordinateur, et il n'y a rien à vendre derrière.</span><span class="en"><b>Fewer distractions, more practice.</b> Your notebook helps you do the three things that make you a coach, and turns doing them into a game. It is free, it runs on your computer, and there is nothing to sell behind it.</span></p>
   <div class="cta"><a class="btn p" href="#" data-app="" data-goatcounter-click="ouvrir-carnet"><span class="fr">Ouvrir le carnet</span><span class="en">Open the notebook</span></a><a class="btn g" href="#" data-app="demo=1" data-goatcounter-click="demo"><span class="fr">Explorer le carnet de démonstration</span><span class="en">Explore the demo notebook</span></a></div>
-  <div class="meta"><span><span class="fr">Gratuit</span><span class="en">Free</span></span><span><span class="fr">Sans compte ni abonnement</span><span class="en">No account, no subscription</span></span><span><span class="fr">Fonctionne hors ligne</span><span class="en">Works offline</span></span></div>
  </div>
  <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/dash-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/dash-en.jpg" alt="" loading="lazy"></div>
 </div></header>
+
+<section class="eng" id="engagements"><div class="w">
+ <div class="g4e">
+  <div class="e"><b><span class="fr">Gratuit, et il le restera</span><span class="en">Free, and it will stay free</span></b><p><span class="fr">Pas de version payante, pas de publicité. Un don si tu le souhaites, rien de plus.</span><span class="en">No paid version, no ads. A donation if you wish, nothing more.</span></p></div>
+  <div class="e"><b><span class="fr">Sans compte</span><span class="en">No account</span></b><p><span class="fr">Rien à créer, aucune adresse demandée. Tu ouvres le carnet et tu commences.</span><span class="en">Nothing to sign up for, no email address asked. Open the notebook and get started.</span></p></div>
+  <div class="e"><b><span class="fr">Tes données restent chez toi</span><span class="en">Your data stays with you</span></b><p><span class="fr">Un fichier sur ton ordinateur. Rien n'est envoyé, ni à moi ni à personne.</span><span class="en">One file on your computer. Nothing is sent, not to me, not to anyone.</span></p></div>
+  <div class="e"><b><span class="tip"><button type="button" aria-expanded="false" aria-controls="licPop"><span class="fr">Code source ouvert et consultable</span><span class="en">Open, readable source code</span></button><span class="pop" id="licPop" role="dialog" aria-labelledby="licT" hidden><strong id="licT"><span class="fr">Licence</span><span class="en">Licence:</span> PolyForm Shield 1.0.0</strong><ul><li class="y"><span class="fr">L'utiliser gratuitement, y compris pour ton activité</span><span class="en">Use it for free, including for your business</span></li><li class="y"><span class="fr">Lire son code</span><span class="en">Read its code</span></li><li class="y"><span class="fr">Le modifier pour ton usage</span><span class="en">Modify it for your own use</span></li><li class="y"><span class="fr">Le partager, avec sa licence</span><span class="en">Share it, with its licence</span></li><li class="n"><span class="fr">T'en servir pour créer ou vendre un outil concurrent</span><span class="en">Use it to build or sell a competing tool</span></li></ul><small><span class="fr">Ce n'est donc pas de l'« open source » au sens strict : la licence interdit la concurrence.</span><span class="en">So it is not “open source” in the strict sense: the licence forbids competing use.</span></small><a href="https://github.com/ao-coach/carnet-de-coach/blob/main/LICENSE" target="_blank" rel="noopener"><span class="fr">Lire la licence</span><span class="en">Read the licence</span></a> · <a href="https://github.com/ao-coach/carnet-de-coach" target="_blank" rel="noopener" data-goatcounter-click="code-source"><span class="fr">Voir le code</span><span class="en">See the code</span></a></span></span></b><p><span class="fr">Tu peux lire comment il fonctionne, et vérifier tout ce qui précède.</span><span class="en">You can read how it works, and check everything above.</span></p></div>
+ </div>
+ <div class="sigq"><img src="assets/allan.jpg" alt="" loading="lazy"><div><q><span class="fr">J'ai construit ce carnet pour ma propre pratique. Je le donne parce qu'il peut aider d'autres coachs à progresser ; il ne collecte rien et ne cherche pas à te retenir.</span><span class="en">I built this notebook for my own practice. I give it away because it can help other coaches grow; it collects nothing and is not designed to keep you hooked.</span></q><span class="by">Allan Oudomphong, <span class="fr">coach professionnel</span><span class="en">professional coach</span></span></div></div>
+</div></section>
 
 <section class="pillars" id="piliers"><div class="w">
  <div class="sh"><div class="kick"><span class="fr">À quoi sert ton carnet</span><span class="en">What your notebook is for</span></div><h2><span class="fr">Moins de dispersion, plus de pratique.</span><span class="en">Fewer distractions, more practice.</span></h2><p><span class="fr">Ton carnet t'aide à faire les trois choses qui font de toi un coach, et à les faire en jouant.</span><span class="en">Your notebook helps you do the three things that make you a coach, and turns doing them into a game.</span></p></div>
@@ -146,16 +200,16 @@ html[data-lang=fr] img.en,html[data-lang=en] img.fr{display:none!important}
   <div class="shot" style="max-width:520px;justify-self:center"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/log-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/log-en.jpg" alt="" loading="lazy"></div>
  </div>
 
- <div class="pil" style="--c:var(--teal)">
-  <div class="txt"><span class="num">2</span><h3><span class="fr">Affûter quelques compétences</span><span class="en">Sharpen a few skills</span></h3><p><span class="fr">On sort de l'école en sachant beaucoup et en maîtrisant peu. Choisis une ou deux compétences, investis-y chaque séance et ta supervision jusqu'à en faire des automatismes, puis passe aux suivantes. C'est ce qui donne du poids à tout ce que tu as appris.</span><span class="en">You leave coaching school knowing a lot and mastering little. Pick one or two skills, pour every session and your supervision into them until they become second nature, then move on to the next ones. That is what gives weight to everything you have learned.</span></p>
+ <div class="pil wide" style="--c:var(--teal)">
+  <div class="txt"><div class="hd"><span class="num">2</span><h3><span class="fr">Affûter quelques compétences</span><span class="en">Sharpen a few skills</span></h3></div><p><span class="fr">On sort de l'école en sachant beaucoup et en maîtrisant peu. Choisis une ou deux compétences, investis-y chaque séance et ta supervision jusqu'à en faire des automatismes, puis passe aux suivantes. C'est ce qui donne du poids à tout ce que tu as appris.</span><span class="en">You leave coaching school knowing a lot and mastering little. Pick one or two skills, pour every session and your supervision into them until they become second nature, then move on to the next ones. That is what gives weight to everything you have learned.</span></p>
    <ul><li><span class="fr">Des XP de pratique à chaque séance (10 minutes = 1 XP, ×2 pour une séance, ×3 pour une supervision), à répartir entre les compétences travaillées</span><span class="en">Practice XP from every session (10 minutes = 1 XP, ×2 for a session, ×3 for supervision), to assign to the skills you worked on</span></li><li><span class="fr">Un niveau par compétence, et la boussole de pratique : où tu investis vraiment</span><span class="en">A level for each skill, and the practice compass: where you really invest</span></li><li><span class="fr">Un focus, des actions concrètes vérifiées à chaque séance, tes remarques gardées pour la supervision</span><span class="en">A focus, concrete actions checked at every session, your notes kept for supervision</span></li></ul></div>
-  <div class="duo"><div class="shot" style="grid-column:1/-1"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/practice-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/practice-en.jpg" alt="" loading="lazy"></div><div class="shot" style="grid-column:1/-1;max-width:560px;justify-self:end"><img class="fr" src="assets/xp-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/xp-en.jpg" alt="" loading="lazy"></div></div>
+  <div class="strip"><figure><button type="button" data-zoom><img class="fr" src="assets/practice-fr.jpg" alt="Pratique délibérée : focus et actions" loading="lazy"><img class="en" src="assets/practice-en.jpg" alt="Deliberate practice: focus and actions" loading="lazy"><figcaption><span class="fr">Pratique délibérée : focus et actions</span><span class="en">Deliberate practice: focus and actions</span></figcaption></button></figure><figure><button type="button" data-zoom><img class="fr" src="assets/xp-fr.jpg" alt="Les XP par compétence" loading="lazy"><img class="en" src="assets/xp-en.jpg" alt="XP by skill" loading="lazy"><figcaption><span class="fr">Les XP par compétence</span><span class="en">XP by skill</span></figcaption></button></figure></div>
  </div>
 
- <div class="pil" style="--c:var(--blue)">
-  <div class="txt"><span class="num">3</span><h3><span class="fr">Créer ton activité par la relation</span><span class="en">Build your practice through relationships</span></h3><p><span class="fr">Le coaching se vend en coachant. Ton carnet te pousse aux gestes qui créent des rencontres : entretenir ton réseau, inviter, proposer, t'entourer de pairs qui partagent tes défis. Ce qu'on vit souvent comme une épreuve devient un jeu.</span><span class="en">Coaching sells through coaching. Your notebook nudges you towards the moves that lead to real conversations: keeping your network alive, inviting, making offers, surrounding yourself with peers who face the same challenges. What many coaches dread becomes a game.</span></p>
+ <div class="pil wide" style="--c:var(--blue)">
+  <div class="txt"><div class="hd"><span class="num">3</span><h3><span class="fr">Créer ton activité par la relation</span><span class="en">Build your practice through relationships</span></h3></div><p><span class="fr">Le coaching se vend en coachant. Ton carnet te pousse aux gestes qui créent des rencontres : entretenir ton réseau, inviter, proposer, t'entourer de pairs qui partagent tes défis. Ce qu'on vit souvent comme une épreuve devient un jeu.</span><span class="en">Coaching sells through coaching. Your notebook nudges you towards the moves that lead to real conversations: keeping your network alive, inviting, making offers, surrounding yourself with peers who face the same challenges. What many coaches dread becomes a game.</span></p>
    <ul><li><span class="fr">Un rythme de contact par personne : elle revient dans « À relancer » au bon moment, avec le sujet à reprendre</span><span class="en">A contact rhythm for each person: they come back in “To follow up” at the right time, with the topic to pick up</span></li><li><span class="fr">Ton réseau dessiné par cercles : qui fait le pont, quel groupe réchauffer, qui t'a recommandé qui</span><span class="en">Your network drawn by circles: who bridges groups, which group to warm up, who referred whom</span></li><li><span class="fr">Ton pipeline, de l'invitation au contrat, et ton entonnoir de l'année ; tes non comptent aussi</span><span class="en">Your pipeline, from invitation to contract, and your year's funnel; your noes count too</span></li></ul></div>
-  <div class="duo"><div class="shot" style="grid-column:1/-1"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/reseau-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/reseau-en.jpg" alt="" loading="lazy"></div><div class="shot" style="grid-column:1/-1"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/pipeline-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/pipeline-en.jpg" alt="" loading="lazy"></div><div class="shot" style="grid-column:1/-1;max-width:560px;justify-self:end"><img class="fr" src="assets/funnel-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/funnel-en.jpg" alt="" loading="lazy"></div></div>
+  <div class="strip"><figure><button type="button" data-zoom><img class="fr" src="assets/reseau-fr.jpg" alt="Ton réseau par cercles" loading="lazy"><img class="en" src="assets/reseau-en.jpg" alt="Your network by circles" loading="lazy"><figcaption><span class="fr">Ton réseau par cercles</span><span class="en">Your network by circles</span></figcaption></button></figure><figure><button type="button" data-zoom><img class="fr" src="assets/pipeline-fr.jpg" alt="Le pipeline, de l'invitation au contrat" loading="lazy"><img class="en" src="assets/pipeline-en.jpg" alt="The pipeline, from invitation to contract" loading="lazy"><figcaption><span class="fr">Le pipeline, de l'invitation au contrat</span><span class="en">The pipeline, from invitation to contract</span></figcaption></button></figure><figure><button type="button" data-zoom><img class="fr" src="assets/funnel-fr.jpg" alt="L'entonnoir de l'année" loading="lazy"><img class="en" src="assets/funnel-en.jpg" alt="The year's funnel" loading="lazy"><figcaption><span class="fr">L'entonnoir de l'année</span><span class="en">The year's funnel</span></figcaption></button></figure></div>
  </div>
  <p class="end serif"><span class="fr">Trente secondes après chaque entretien suffisent.</span><span class="en">Thirty seconds after each session is all it takes.</span></p>
 </div></section>
@@ -194,13 +248,6 @@ html[data-lang=fr] img.en,html[data-lang=en] img.fr{display:none!important}
  <p style="margin:22px 0 0"><a class="btn o" href="#" data-app-page="arch.html"><span class="fr">Voir comment l'outil est construit →</span><span class="en">See how the tool is built →</span></a></p>
 </div></section>
 
-<section class="mot" style="padding-top:20px"><div class="w wrap">
- <img src="assets/allan.jpg" alt="Allan Oudomphong">
- <div><div class="kick"><span class="fr">Pourquoi ce carnet</span><span class="en">Why this notebook</span></div>
-  <blockquote style="margin-top:10px"><p><span class="fr">Je crois que les années qui viennent nous obligeront à interroger ce que nous faisons, pourquoi, et le sens que nous y mettons. Je crois aussi que le coaching, exercé avec exigence, peut aider les personnes, les équipes et les sociétés à traverser des défis sans précédent.</span><span class="en">I believe the years ahead will force us to question what we do, why, and the meaning we give it. I also believe that coaching, practised with rigour, can help individuals, teams and societies through unprecedented challenges.</span></p><p><span class="fr">Ce carnet est né de ma pratique. C'est un projet personnel, que je partage gratuitement pour aider celles et ceux qui veulent progresser dans cette voie à <b>piloter et développer la leur, en se concentrant sur l'essentiel</b>.</span><span class="en">This notebook was born from my practice. It is a personal project, which I share for free to help those who want to grow on this path <b>run and develop their own, by focusing on what matters</b>.</span></p></blockquote>
-  <div class="sig">Allan Oudomphong<span><span class="fr">Coach professionnel, auteur de Carnet de coach</span><span class="en">Professional coach, creator of Carnet de coach</span></span></div></div>
-</div></section>
-
 <section class="mobsec" style="padding-top:0"><div class="w">
  <div class="mob"><div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg></div><div><b><span class="fr">Tu lis ceci sur ton téléphone ?</span><span class="en">Reading this on your phone?</span></b><p><span class="fr">Le carnet s'utilise sur ordinateur, avec Chrome ou Edge. Envoie-toi le lien pour l'ouvrir plus tard.</span><span class="en">The notebook runs on a computer, in Chrome or Edge. Send yourself the link to open it later.</span></p></div>
   <div class="mobb"><button class="btn p" id="shareBtn" data-goatcounter-click="partage-mobile"><span class="fr">M'envoyer le lien</span><span class="en">Send me the link</span></button><button class="btn o" id="copyBtn"><span class="fr">Copier le lien</span><span class="en">Copy the link</span></button></div></div>
@@ -220,12 +267,14 @@ html[data-lang=fr] img.en,html[data-lang=en] img.fr{display:none!important}
  <details><summary><span class="fr">Le carnet existe-t-il en anglais ?</span><span class="en">Is the notebook available in English?</span></summary><p><span class="fr">Oui : le bouton FR / EN, en haut à droite de l'application, change la langue à tout moment. Le carnet de démonstration existe dans les deux langues.</span><span class="en">Yes: the FR / EN button, top right of the app, switches the language at any time. The demo notebook exists in both languages.</span></p></details>
 </div></section>
 
-<section id="stay" style="padding-top:0"><div class="w">
- <div class="sh" style="margin-bottom:0"><div class="kick"><span class="fr">Rester en lien</span><span class="en">Stay in touch</span></div><h2><span class="fr">Suivre le projet, poser une question</span><span class="en">Follow the project, ask a question</span></h2></div>
- <div class="g3 g2">
-  <div class="card" id="cardNews"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><b><span class="fr">Les nouveautés</span><span class="en">What's new</span></b><p><span class="fr">Une lettre à chaque nouvelle version, pas plus. Pour te désinscrire, il suffit de répondre « stop ».</span><span class="en">One email per new release, no more. To unsubscribe, just reply “stop”.</span></p><p style="margin-top:12px"><a class="btn o" id="newsBtn" href="#" target="_blank" rel="noopener" data-goatcounter-click="inscription"><span class="fr">M'inscrire</span><span class="en">Subscribe</span></a></p></div>
-  <div class="card" id="cardDon"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div><b><span class="fr">Soutenir</span><span class="en">Support</span></b><p><span class="fr">Le carnet est gratuit et le restera. S'il t'aide, tu peux contribuer au temps que j'y consacre.</span><span class="en">The notebook is free and will stay free. If it helps you, you can contribute to the time I put into it.</span></p><p style="margin-top:12px"><a class="btn o" id="donBtn" href="#" target="_blank" rel="noopener" data-goatcounter-click="don"><span class="fr">Faire un don</span><span class="en">Donate</span></a></p></div>
-  <div class="card" id="cardContact"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><b><span class="fr">Une idée, un souci</span><span class="en">An idea, an issue</span></b><p><span class="fr">Chaque retour de coach nourrit les prochaines versions.</span><span class="en">Every coach's feedback shapes the next versions.</span></p><p style="margin-top:12px"><a class="btn o" id="contactBtn" href="#" target="_blank" rel="noopener" data-goatcounter-click="contact"><span class="fr">Écrire à Allan</span><span class="en">Write to Allan</span></a></p></div>
+<section class="apropos" id="apropos"><div class="w wrap">
+ <img class="ph" src="assets/allan.jpg" alt="Allan Oudomphong" loading="lazy">
+ <div><div class="kick"><span class="fr">À propos</span><span class="en">About</span></div><h2><span class="fr">Qui fait ce carnet</span><span class="en">Who makes this notebook</span></h2>
+  <p><span class="fr">Je m'appelle Allan Oudomphong, je suis coach professionnel. Ce carnet est né de ma pratique : je le partage gratuitement, tel que je l'utilise, pour aider celles et ceux qui veulent progresser dans cette voie à <b>piloter et développer la leur, en se concentrant sur l'essentiel</b>. Il évolue avec les retours des coachs qui s'en servent.</span><span class="en">My name is Allan Oudomphong, and I am a professional coach. This notebook was born from my practice: I share it for free, just as I use it, to help those who want to grow on this path <b>run and develop their own, by focusing on what matters</b>. It evolves with feedback from the coaches who use it.</span></p>
+  <p class="why"><span class="fr">Je crois que les années qui viennent nous obligeront à interroger ce que nous faisons, pourquoi, et le sens que nous y mettons. Je crois aussi que le coaching, exercé avec exigence, peut aider les personnes, les équipes et les sociétés à traverser des défis sans précédent.</span><span class="en">I believe the years ahead will force us to question what we do, why, and the meaning we give it. I also believe that coaching, practised with rigour, can help individuals, teams and societies through unprecedented challenges.</span></p>
+  <p><span class="fr">Une question, une idée, un retour sur ta pratique ? Écris-moi, je lis tout et je réponds.</span><span class="en">A question, an idea, some feedback on your practice? Write to me: I read everything and I reply.</span></p>
+  <div class="acts"><a class="btn p" id="contactBtn" href="#" target="_blank" rel="noopener" data-goatcounter-click="contact"><span class="fr">Écrire à Allan</span><span class="en">Write to Allan</span></a><a class="btn o" id="newsBtn" href="#" target="_blank" rel="noopener" data-goatcounter-click="inscription"><span class="fr">Suivre les nouveautés</span><span class="en">Follow what's new</span></a><a class="btn o" id="donBtn" href="#" target="_blank" rel="noopener" data-goatcounter-click="don"><span class="fr">Soutenir le projet</span><span class="en">Support the project</span></a>
+   <small><span class="fr">Une lettre par nouvelle version, pas plus ; pour te désinscrire, réponds « stop ». Le carnet reste gratuit, le don est facultatif.</span><span class="en">One email per new release, no more; reply “stop” to unsubscribe. The notebook stays free; donating is optional.</span></small></div>
  </div>
 </div></section>
 
@@ -235,13 +284,14 @@ html[data-lang=fr] img.en,html[data-lang=en] img.fr{display:none!important}
  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn p" href="#" data-app="" data-goatcounter-click="ouvrir-carnet"><span class="fr">Ouvrir le carnet</span><span class="en">Open the notebook</span></a><a class="btn g" href="#" data-app="demo=1" data-goatcounter-click="demo"><span class="fr">Explorer la démonstration</span><span class="en">Explore the demo</span></a></div>
 </div></section>
 
-<footer><div class="w"><span>Carnet de coach · © 2026 Allan Oudomphong · <span class="fr">Licence</span><span class="en">Licence</span> PolyForm Shield 1.0.0</span><span><a href="mentions.html" data-keeplang><span class="fr">Mentions légales et confidentialité</span><span class="en">Legal notice and privacy</span></a> · <a href="#" data-app-page="arch.html"><span class="fr">Comment l'outil est construit</span><span class="en">How the tool is built</span></a></span></div></footer>
+<footer><div class="w"><span>Carnet de coach · © 2026 Allan Oudomphong · <a href="https://github.com/ao-coach/carnet-de-coach/blob/main/LICENSE" target="_blank" rel="noopener"><span class="fr">Licence</span><span class="en">Licence</span> PolyForm Shield 1.0.0</a></span><span><a href="mentions.html" data-keeplang><span class="fr">Mentions légales et confidentialité</span><span class="en">Legal notice and privacy</span></a> · <a href="#" data-app-page="arch.html"><span class="fr">Comment l'outil est construit</span><span class="en">How the tool is built</span></a></span></div></footer>
+<dialog class="zoom" id="zoom" aria-label="Capture"><form method="dialog"><button class="btn o" aria-label="Fermer / Close">✕</button></form><img alt=""></dialog>
 <script>
 /* ---------- réglages du site : à compléter une seule fois ---------- */
 var APP='app/';        // l'application, dans le sous-dossier app/
-var NEWS_URL={fr:'https://tally.so/r/LDzr5j',en:'https://tally.so/r/Vpjebv'};   // formulaires Tally « Suivre les nouveautés », français et anglais (vide = bloc masqué)
-var DON_URL='https://ko-fi.com/carnetdecoach';                 // lien de la page de don (vide = bloc masqué)
-var CONTACT_URL={fr:'https://tally.so/r/DqKOdE',en:'https://tally.so/r/vXr6q0'};  // liens des formulaires de contact Tally, français et anglais (vide = bloc masqué)
+var NEWS_URL={fr:'https://tally.so/r/LDzr5j',en:'https://tally.so/r/Vpjebv'};   // formulaires Tally « Suivre les nouveautés », français et anglais (vide = bouton masqué)
+var DON_URL='https://ko-fi.com/carnetdecoach';                 // lien de la page de don (vide = bouton masqué)
+var CONTACT_URL={fr:'https://tally.so/r/DqKOdE',en:'https://tally.so/r/vXr6q0'};  // liens des formulaires de contact Tally, français et anglais (vide = bouton masqué)
 /* ------------------------------------------------------------------- */
 /* l'application a déménagé dans app/ : une application installée qui s'ouvre ici y est renvoyée,
    et l'ancien service worker (qui couvrait cette adresse) est retiré */
@@ -254,9 +304,8 @@ var CONTACT_URL={fr:'https://tally.so/r/DqKOdE',en:'https://tally.so/r/vXr6q0'};
  function links(){document.querySelectorAll('[data-app]').forEach(function(a){var q=['lang='+L];if(a.dataset.app)q.push(a.dataset.app);if(cite)q.push('cite=1');a.href=APP+'?'+q.join('&')});
   document.querySelectorAll('[data-app-page]').forEach(function(a){a.href=APP+a.dataset.appPage+'?lang='+L});
   document.querySelectorAll('[data-keeplang]').forEach(function(a){a.href=a.getAttribute('href').split('?')[0]+'?lang='+L});
-  var bu=NEWS_URL[L]||NEWS_URL.fr||NEWS_URL.en,nb=document.getElementById('newsBtn');if(bu){nb.href=bu;document.getElementById('cardNews').style.display=''}else document.getElementById('cardNews').style.display='none';
-  var db=document.getElementById('donBtn');if(DON_URL){db.href=DON_URL;document.getElementById('cardDon').style.display=''}else document.getElementById('cardDon').style.display='none';
-  var cu=CONTACT_URL[L]||CONTACT_URL.fr||CONTACT_URL.en,cb=document.getElementById('contactBtn');if(cu){cb.href=cu;document.getElementById('cardContact').style.display=''}else document.getElementById('cardContact').style.display='none';if(!bu&&!cu&&!DON_URL)document.getElementById('stay').style.display='none'}
+  function lk(id,u){var a=document.getElementById(id);if(u)a.href=u;a.style.display=u?'':'none'}
+  lk('newsBtn',NEWS_URL[L]||NEWS_URL.fr||NEWS_URL.en);lk('donBtn',DON_URL);lk('contactBtn',CONTACT_URL[L]||CONTACT_URL.fr||CONTACT_URL.en)}
  function set(l){L=l;root.setAttribute('data-lang',l);root.lang=l;try{localStorage.setItem(KEY,l)}catch(e){}
   document.querySelectorAll('.lang button').forEach(function(b){b.classList.toggle('on',b.dataset.l===l);b.setAttribute('aria-pressed',b.dataset.l===l)});
   document.title=l==='en'?'Carnet de coach · run your coaching practice':'Carnet de coach · pilote ta pratique de coach';links()}
@@ -268,6 +317,17 @@ var CONTACT_URL={fr:'https://tally.so/r/DqKOdE',en:'https://tally.so/r/vXr6q0'};
  document.getElementById('copyBtn').onclick=function(e){var b=e.currentTarget,o=b.innerHTML;function done(){b.textContent=L==='en'?'Link copied':'Lien copié';setTimeout(function(){b.innerHTML=o},1800)}
   if(navigator.clipboard)navigator.clipboard.writeText(url()).then(done,function(){prompt('',url())});else prompt('',url())};
 })();
+/* infobulle de licence : clic, clavier (Entrée, Espace, Échap) et toucher */
+document.querySelectorAll('.tip>button').forEach(function(b){var p=document.getElementById(b.getAttribute('aria-controls'));
+ function show(o){p.hidden=!o;b.setAttribute('aria-expanded',o)}
+ b.addEventListener('click',function(e){e.stopPropagation();show(p.hidden)});
+ p.addEventListener('click',function(e){e.stopPropagation()});
+ document.addEventListener('click',function(){if(!p.hidden)show(false)});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!p.hidden){show(false);b.focus()}})});
+/* captures des piliers : un clic agrandit (Échap ou clic à côté pour fermer) */
+(function(){var z=document.getElementById('zoom'),zi=z.querySelector('img');
+ document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){var i=[].filter.call(b.querySelectorAll('img'),function(x){return x.offsetParent})[0]||b.querySelector('img');zi.src=i.currentSrc||i.src;zi.alt=i.alt;z.showModal()})});
+ z.addEventListener('click',function(e){if(e.target===z)z.close()})})();
 </script>
 <script data-goatcounter="https://ao-coach.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

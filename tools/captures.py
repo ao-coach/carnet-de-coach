@@ -49,7 +49,7 @@ CAPTURES = {
     "coach":    dict(shot="coach", vw=1300, vh=1100, sel="#coFiche", w=1200, h=1012),
     "practice": dict(shot="practice", vw=1300, vh=900, sel="#pd > .card", w=1100, h=509),
     "pipeline": dict(shot="pipeline", vw=1392, vh=900, sel="#ppPipe", w=900, h=491, fit=False),
-    "funnel":   dict(shot="funnel", vw=1400, vh=900, sel="#bizBox .bzf", w=None, h=None, scale=2),
+    "funnel":   dict(shot="funnel", vw=2100, vh=900, sel="#bizBox", w=None, h=None, hmax=700),
     "reseau":   dict(shot="reseau", vw=1400, vh=900, sel="#reseau .netcard", w=None, h=None, hmax=760),
     "xp":       dict(shot="xp", vw=1300, vh=1000, sel="#pdXpCard", w=1100, h=None, hmax=700),
 }

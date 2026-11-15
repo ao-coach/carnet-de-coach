@@ -763,6 +763,7 @@ L'outil est publié sous **licence PolyForm Shield 1.0.0** (fichier `LICENSE`).
 - **Gratuit pour tous les coachs**, y compris pour leur activité professionnelle : tu peux l'utiliser, le copier, l'adapter et le partager.
 - **Interdit sans accord** : le revendre, ou en tirer un produit ou un service concurrent (version payante, marque blanche…).
 - En le partageant, transmets aussi le fichier `LICENSE`.
+- Le code source est **ouvert et consultable** sur [GitHub](https://github.com/ao-coach/carnet-de-coach). Ce n'est pas de l'« open source » au sens strict, puisque la licence interdit la concurrence.
 
 Pour un usage commercial (revente, intégration dans une offre payante, marque blanche), contacte Allan Oudomphong.
 
