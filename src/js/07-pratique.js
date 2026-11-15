@@ -207,7 +207,7 @@ function fsSum(k,xpH){const d=PDE.d;
  if(k==='notes'){const s=(d.com||d.notes||'').replace(/\s+/g,' ').trim();return s?esc(s.length>90?s.slice(0,89)+'…':s):'—'}
  if(k==='xp'){const B=Math.round((+d.dur||0)/10)*xpMult(d.type),l=B-xpSum(PDE.st.xp),f=fcMet(),fv=f?+PDE.st.xp[f.id]||0:0;
   const h=[B?`${B} XP`:'',fv&&isCom(d.type)?`${esc(f.l)} ${fv} XP`:''].filter(Boolean).join(' · ');
-  return h+(B?(l>0?(xpSig(PDE.e)?` · <small class="na">${l} à répartir</small>`:''):l<0?` · <small class="ov">${-l} de trop</small>`:' · <small class="ok">tout est réparti ✓</small>'):'')}
+  return h+(B?(l>0?` · <small class="na">${l} à répartir</small>`:l<0?` · <small class="ov">${-l} de trop</small>`:' · <small class="ok">tout est réparti ✓</small>'):'')}
  if(k==='k'){if(d.type=='proposition')return `${STAT[d.statut]||'En attente'}${d.eur!==''?' · '+eur(+d.eur):''}${d.engagement_mois?' · '+d.engagement_mois+' mois':''}`;
   if(d.type=='invitation')return d.non?'A dit non':'—';
   if(d.type=='supervision')return d.gratuit?'non payante':`coût ${eur(+d.cout>0?+d.cout:(+CFG().finances.supDefaut||0))}${+d.cout>0?'':' (prix moyen)'}`}

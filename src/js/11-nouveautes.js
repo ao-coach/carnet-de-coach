@@ -226,7 +226,7 @@ async function boot(){setTimeout(()=>{try{if(/[?&]demo=1/.test(location.search)&
  /* 3.0.0 : avant le passage aux XP, copie de sécurité du carnet tel qu'il était (une seule fois : ensuite version_schema vaut 4) */
  if((+plain.version_schema||0)<4&&(plain.entrees||[]).length&&!plain.demo){let ok=false;
   try{if(DIR&&!NEEDPERM&&fileTxt&&base===fileRaw){await snapshot(fileTxt,'avant-xp');ok=true}else{await idb.set('data_avant_xp',base);ok=true}}catch(e){}
-  if(ok)toast(`Ton carnet passe aux XP : une sauvegarde a été faite${DIR&&!NEEDPERM&&base===fileRaw?` (dossier ${BKDIR})`:''}. Tes anciennes saisies non notées restent sans XP ; tu peux les répartir si tu veux.`,'OK',()=>{});
+  if(ok)toast(`Ton carnet passe aux XP : une sauvegarde a été faite${DIR&&!NEEDPERM&&base===fileRaw?` (dossier ${BKDIR})`:''}. Tes anciennes saisies non notées attendent leurs XP : « XP à répartir », dans Pratique délibérée.`,'OK',()=>{});
   else toast('Ton carnet passe aux XP. La copie de sécurité a échoué : tes anciennes notes restent gardées dans chaque saisie.','OK',()=>{})}
  if(added||base!==fileRaw||plain.version_schema!==VERSION||(+plain.app_version||0)<APP_VERSION||!plain.id||plain.prefs?.nouveautes_vues==null){if(added)DB.enregistre_le=new Date().toISOString();clearTimeout(saveT);await persist()}
  checkNews()

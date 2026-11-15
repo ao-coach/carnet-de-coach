@@ -91,10 +91,11 @@ const isFc=id=>{const f=fcMet();return!!f&&String(f.id)===String(id)};
 /* XP répartis sur les compétences de pratique (hors Facultés commerciales) ; reste = budget − répartis (négatif = dépassement) */
 const xpPut=e=>{let s=0;if(e.xp)for(const[k,v] of Object.entries(e.xp))if(!isFc(k))s+=+v||0;return s};
 const xpLeft=e=>xpBudget(e)-xpPut(e);
-/* « à répartir » n'est signalé que pour les saisies postérieures à la migration (prefs.xp_migre, absente d'un carnet neuf),
-   déjà réparties (même en partie) ou issues de la conversion : les anciennes saisies jamais notées restent silencieuses, sans XP. */
+/* xpSig : saisie postérieure à la migration (prefs.xp_migre), déjà répartie ou convertie ; ne sert plus qu'à l'indicateur de discipline.
+   3.2.4 : toute saisie dont le budget n'est pas réparti est « à répartir », y compris les anciennes jamais notées
+   (elles comptaient dans « XP gagnés en tout » sans apparaître nulle part : le total ne tombait pas juste). */
 const xpSig=e=>{const m=DB?.prefs?.xp_migre;return !m||(e.date||'')>=m||!!e.xp||e.ais_v2!=null};
-const xpTodo=e=>xpBudget(e)>0&&xpLeft(e)>0&&xpSig(e);
+const xpTodo=e=>xpBudget(e)>0&&xpLeft(e)>0;
 const xpFcOf=e=>{const f=fcMet();return f&&e.xp?+e.xp[f.id]||0:0};
 /* seuils de niveau : 5·L·(L+1) = 10, 30, 60, 100, 150… (même courbe pour toutes les compétences), niveau max 100 */
 const xpSeuil=L=>5*L*(L+1);
