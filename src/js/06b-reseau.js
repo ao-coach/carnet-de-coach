@@ -22,7 +22,8 @@ function netGroups(p,v){const L=v=='cercles'||v=='orbites'?(p.cercles||[]):v=='p
 /* ---------- données du graphe ---------- */
 function netData(v){const rel=new Map();relItems().forEach(x=>{if(x.k=='ryt'||x.k=='cold')rel.set(String(x.p.id),x)});
  const P=[];DB.personnes.forEach(p=>{const st=stageOf(p),off=!!p.archive||st=='perdu';if(off&&!NET.arch)return;
-  const L=pEntries(p.id),n=L.length;P.push({p,id:String(p.id),st,off,n,last:lastContact(p.id),r:Math.min(24,6+2.2*Math.sqrt(n)),rel:off?null:rel.get(String(p.id))||null,gk:[]})});
+  /* 3.3.0 : taille = nombre d'échanges avec la personne, sans les débriefs (comme la frise de la fiche) */
+  const n=pfTLE(p.id).length;P.push({p,id:String(p.id),st,off,n,last:lastContact(p.id),r:Math.min(24,6+2.2*Math.sqrt(n)),rel:off?null:rel.get(String(p.id))||null,gk:[]})});
  const G=new Map(),sans={k:NETSANS,l:NETNONE[v],sans:true,m:[]};
  P.forEach(x=>{const L=netGroups(x.p,v);if(!L.length){sans.m.push(x);x.gk=[NETSANS];return}
   L.forEach(([k,l])=>{if(!G.has(k))G.set(k,{k,l,m:[]});G.get(k).m.push(x);x.gk.push(k)})});

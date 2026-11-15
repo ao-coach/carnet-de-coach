@@ -389,7 +389,7 @@ The list of what needs action, most urgent first.
 
 A person appears only once in the list. Click a name to open the person's profile.
 
-A **debrief** is not an exchange with the person: it counts neither as the last contact (regular follow-up, “No contact”, profile, people list, Network) nor as the first contact.
+A **debrief** is not an exchange with the person: it counts neither as the last contact (regular follow-up, “No contact”, profile, people list, Network), nor as the first contact, nor in the size of Network dots.
 
 **Prepare** opens the profile on the Notes tab, with the cursor in “Next topic to raise”: a way to reread what to keep in mind before getting back in touch.
 

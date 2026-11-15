@@ -389,7 +389,7 @@ La liste de ce qui demande une action, avec les plus urgents en premier.
 
 Une personne n'apparaît qu'une fois dans la liste. Clique sur un nom pour ouvrir la fiche de la personne.
 
-Un **débrief** n'est pas un échange avec la personne : il ne compte ni comme dernier contact (relance au rythme, « Sans contact », fiche, liste des personnes, Réseau), ni comme premier contact.
+Un **débrief** n'est pas un échange avec la personne : il ne compte ni comme dernier contact (relance au rythme, « Sans contact », fiche, liste des personnes, Réseau), ni comme premier contact, ni dans la taille des points du Réseau.
 
 **Préparer** ouvre la fiche sur l'onglet Notes, le curseur dans « Prochain sujet à évoquer » : de quoi relire ce qu'il faut garder en tête avant de recontacter la personne.
 
