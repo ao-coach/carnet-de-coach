@@ -338,10 +338,13 @@ function renderPCards(){const ids=[...F.p].filter(pid=>E().some(e=>e.pid==pid));
   <div class="pc2tl"><div class="lab2">Échanges</div>${timelineSVG(all,700)}</div></div>`;
  $('pcards').querySelectorAll('[data-pct]').forEach(b=>b.onclick=()=>{PCTAB=b.dataset.pct;renderPCards();bindArch()})}
 const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
-/* 3.2.2 : bouton « Fiche » d'une ligne de Mes saisies, avant « Ce qu'on a vu » (point jaune : XP à répartir ; 3.2.3 : point rouge : XP de trop) */
-function fBtn(e){const C2=MOD('competences'),ov=C2&&xpLeft(e)<0,td=!ov&&C2&&xpTodo(e);return `<button class="fbtn ${pdHas(e)?'on':''}${td?' todo':''}${ov?' over':''}" data-pde="${e.id}" title="${ov?'Ouvrir la fiche de la saisie · XP de trop':td?'Ouvrir la fiche de la saisie · XP à répartir':'Ouvrir la fiche de la saisie'}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h7M9 16h7"/></svg><span data-noi18n>${LANG==='en'?'Card':'Fiche'}</span></button>`} /* i18n-ok : libellé choisi selon LANG (« Fiche » vaut « Profile » dans I18N_EN) */
+/* 3.2.5 : trois boutons Infos / Notes / XP à la place de « Fiche » ; chacun ouvre la fiche de la saisie sur sa seule section.
+   Notes : vert avec ✓ quand le champ Notes est rempli. XP (module ②, masqué si la saisie ne rapporte aucun XP) :
+   vert avec ✓ quand tout est réparti, point rouge s'il y a des XP de trop, neutre sinon. */
+function eBtns(e){const C2=MOD('competences'),B=xpBudget(e),P=xpPut(e),ov=C2&&P>B,shX=C2&&(B>0||P>0),okX=B>0&&P==B,okN=!!(e.notes&&e.notes.trim());
+ return `<span class="fbts"><button type="button" class="fbtn" data-pde="${e.id}" data-sec="infos" title="Ouvrir les infos de la saisie">Infos</button><button type="button" class="fbtn${okN?' ok':''}" data-pde="${e.id}" data-sec="notes" title="${okN?'Notes remplies':'Ouvrir les notes de la saisie'}">${okN?'<i>✓</i>':''}Notes</button>${shX?`<button type="button" class="fbtn${okX?' ok':''}${ov?' over':''}" data-pde="${e.id}" data-sec="xp" title="${ov?'XP de trop : la répartition est à corriger':okX?'Tous les XP sont répartis':'XP à répartir'}">${okX?'<i>✓</i>':''}XP</button>`:''}</span>`}
 function renderRows(L){
- /* 3.2.2 : plus de colonnes XP ni Contrat / coût : ils se consultent et se modifient dans la fiche de la saisie (bouton « Fiche ») */
+ /* 3.2.2 : plus de colonnes XP ni Contrat / coût : ils se consultent et se modifient dans la fiche de la saisie (boutons Infos / Notes / XP, 3.2.5) */
  $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th class="fit"></th><th>Ce qu'on a vu</th><th class="fit"></th></tr>`;
  L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
  $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
@@ -350,7 +353,7 @@ function renderRows(L){
  <td class="ty"><select class="tysel" data-k="type" style="background:${t.c};color:${tc(t.c)}">${T.map(x=>`<option value="${x.k}" ${x.k==e.type?'selected':''} style="background:#fff;color:#1d1d1f">${esc(x.l)}</option>`).join('')}</select></td>
  <td><select class="ed" data-k="dur" style="width:72px">${(DURS.includes(e.dur)?DURS:[e.dur,...DURS]).map(d=>`<option value="${d}" ${d==e.dur?'selected':''}>${fmtD(d)}</option>`).join('')}<option value="x">Autre…</option></select></td>
  <td>${t.cr?`<div class="ck ${e.cr?'on':''}" data-c="cr">✓</div>`:''}</td><td>${t.cr?`<div class="ck ${e.syn?'on':''}" data-c="syn">✓</div>`:''}</td>
- <td class="fcell">${fBtn(e)}</td>
+ <td class="fcell">${eBtns(e)}</td>
  <td class="grow">${LONGCOM(e.type)||/\n/.test(e.com||'')?`<textarea class="ed comta" data-k="com" rows="${Math.min(8,String(e.com||'').split('\n').length)}" placeholder="—">${esc(e.com)}</textarea>`:`<input class="ed" data-k="com" value="${esc(e.com)}" placeholder="—">`}</td>
  <td class="nw2"><button class="del" title="Supprimer">✕</button></td></tr>`}).join('')||`<tr><td colspan="9" class="empty">Aucune saisie pour ces filtres.</td></tr>`;
  $('rows').querySelectorAll('tr[data-id]').forEach(tr=>{const e=E().find(x=>x.id==tr.dataset.id),fl=()=>{e.maj=new Date().toISOString();touch();tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),60)};
@@ -364,7 +367,7 @@ function renderRows(L){
    e[k]=['dur','eur','engagement_mois','cout','seances'].includes(k)?(i.value===''?null:+i.value):i.value;
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
    fl();if(['type','date','statut','dur'].includes(k))renderList();if(k=='dur'||k=='type')xpOverAsk(e)});
-  tr.querySelector('[data-pde]').onclick=()=>openPdEdit(e.id);
+  tr.querySelectorAll('[data-pde]').forEach(b=>b.onclick=()=>openPdEdit(e.id,b.dataset.sec));
   /* 3.2.2 : confirmation avant de supprimer (date et type rappelés) ; le toast « Annuler » reste après la suppression */
   tr.querySelector('.del').onclick=()=>askBox({t:'Supprimer cette saisie ?',h:`<b>${esc(TM[e.type]?.l||e.type)} · ${dShort(e.date)}</b>${e.pid!=null?' · '+esc(pname(e.pid)):''}<br>Tu pourras encore revenir en arrière juste après.`,ok:'Supprimer'},
    ()=>{const idx=E().indexOf(e);if(idx<0)return;E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})});

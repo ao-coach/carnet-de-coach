@@ -202,7 +202,7 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
  t:[
   ['Enregistrer un temps',"Chaque moment de ta pratique, en quelques secondes : une rencontre, une invitation, une conversation, une séance, une supervision. C'est la seule saisie régulière."],
   ['Tes trois repères',"Heures de coaching, pratique délibérée et conversations : l'année en cours et les 31 derniers jours. La petite courbe montre la tendance."],
-  ['Mes saisies',"Tout l'historique, à filtrer par type, par personne ou par période. Chaque temps se corrige ici, et « Fiche » ouvre la saisie entière : notes, XP, contrat."],
+  ['Mes saisies',"Tout l'historique, à filtrer par type, par personne ou par période. Chaque temps se corrige ici ; les boutons Infos, Notes et XP ouvrent la saisie entière sur la partie voulue, et passent en vert quand elle est remplie."],
   ['Personnes',"Chaque personne rencontrée, invitée ou accompagnée a sa fiche. C'est ici que se voit le chemin de chacune."],
   ['À relancer',"Le carnet repère les personnes sans nouvelles depuis un moment, les accompagnements qui se terminent et les actions prévues. « Traiter » : c'est fait, une autre date, plus tard, ou un commentaire."],
   ['Relance au rythme',"Chaque personne a un rythme de contact, tous les 3 mois par défaut. Quand il est dépassé, elle revient ici, avec ses cercles et le sujet à reprendre. Entretenir ton réseau, sans rien vendre."],
@@ -229,7 +229,7 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
  t:[
   ['Log time','Every moment of your practice, in a few seconds: a meeting, an invitation, a conversation, a session, a supervision. It is the only regular entry.'],
   ['Your three markers','Coaching hours, deliberate practice and conversations: the current year and the last 31 days. The small curve shows the trend.'],
-  ['My entries','Your whole history, filtered by type, person or period. Every logged time can be corrected here, and “Card” opens the whole entry: notes, XP, contract.'],
+  ['My entries','Your whole history, filtered by type, person or period. Every logged time can be corrected here; the Info, Notes and XP buttons open the whole entry on the part you want, and turn green once it is filled in.'],
   ['People','Everyone you meet, invite or accompany has a profile. This is where each person’s path shows.'],
   ['To follow up','The notebook spots people you have not heard from in a while, engagements coming to an end and planned actions. “Handle”: done, another date, later, or a comment.'],
   ['Follow-up at your pace','Each person has a contact frequency, every 3 months by default. When it is overdue, they come back here, with their circles and the topic to pick up. Keeping your network alive, without selling anything.'],

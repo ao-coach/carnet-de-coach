@@ -1066,3 +1066,6 @@ textarea.fsn{min-height:200px}
 .xpqc{margin-top:12px;background:#FFF8E6;border:1px solid #E9CF8A;border-radius:10px;padding:9px 12px;font-size:13.5px;color:#8A6100;font-weight:700}.xpqc b{font-size:18px}
 .xpqc.ok{background:#EAF6EF;border-color:#A9D8BC;color:#2E7D5B}.xpqc .xov{color:#C23B3B}
 .xpqi.dn{background:#EAF6EF;border-color:#A9D8BC}.xpqi.dn:hover{background:#DDF0E4}.xpqi .n.ok{color:#2E7D5B}
+/* 3.2.5 : boutons Infos / Notes / XP de Mes saisies */
+.ent .fbts{display:inline-flex;gap:4px;white-space:nowrap}.ent .fbts .fbtn{padding:4px 8px}
+.ent .fbtn.ok{color:#2E7D5B;border-color:#A9D8BC;background:#EAF6EF}.ent .fbtn i{font-style:normal;font-weight:900;margin-right:1px}
