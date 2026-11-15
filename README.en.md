@@ -349,7 +349,7 @@ Under the statistics, your **achievements**:
 
 ### Affinities
 
-A table crosses your **coaching hours** by **audience** (rows) and by **topic** (columns), from your clients' profiles (People tab). The 5 most frequent audiences and topics are shown. A cell of **50 h and more** is a **specialty**. Hours of clients whose audience or topic is not filled in are counted separately.
+A table crosses your **coaching hours** by **audience** (rows) and by **topic** (columns), from your clients' profiles (People tab). The 5 most frequent audiences and topics are shown. A cell of **50 h and more** is a **specialty**. A client with several topics counts all their hours in each (once only for their audience): a line under the table says so. Hours of clients whose audience or topic is not filled in are counted separately.
 
 ### Bring in your history
 
@@ -545,47 +545,51 @@ A stage chosen by hand, on the profile or by drag and drop, holds until the next
 
 ### The person profile
 
-To open a profile, click a card, a name in “To follow up”, or “Profile” in a person's tile in My entries. You can also create a person with “+ New person”.
+To open a profile, click a card, a name in “To follow up”, a dot in the Network tab, or “Profile” in a person's tile in My entries. You can also create a person with “+ New person”.
 
 **At the top, always visible:**
 
 - **Photo.**
-  - Click the circle or “Photo”, choose an image, then frame it in the disc: drag to centre, then zoom with the slider or the mouse wheel.
+  - Click the circle: without a photo, you choose an image; with a photo, a small menu offers “Change photo…” or “Remove photo”. Frame the image in the disc: drag to centre, then zoom with the slider or the mouse wheel.
   - The photo is compressed (about 5 KB) and stored in your notebook, so it is encrypted with it.
-- **Name.** Icons appear next to the name as soon as the matching information is filled in:
-  - the envelope opens your email app;
-  - the globe opens the website;
-  - the handset starts the call, only on a phone or tablet.
-- **Role**, in one line: role and organisation.
-- **Phone, email, website.** Phone numbers are spaced automatically (French format): `0123456789` becomes `01 23 45 67 89`, and `+33123456789` becomes `+33 1 23 45 67 89`.
+- **Name** and **role**, in one line: role and organisation.
+- **Phone, email, website**, to the right of the name, in wide fields. The icon in front of each field becomes active once it is filled in: the envelope opens your email app, the globe opens the website, the handset starts the call (only on a phone or tablet). Phone numbers are spaced automatically (French format): `0123456789` becomes `01 23 45 67 89`, and `+33123456789` becomes `+33 1 23 45 67 89`.
+- **Exchanges.** A timeline with one dot per exchange, in its type's colour, **without debriefs** (they are not exchanges with the person). Above, the number of exchanges; below, the legend of the types present with their count. When dots overlap, those of the types ranked highest in Settings > Activity types come on top. The date (dd/mm) is above each dot and the year in the middle of its period. Hover a dot to see the detail.
 
-Then three tabs.
+Then four tabs. The profile opens on **Overview**; “Prepare”, in “To follow up”, opens it on **Notes**.
 
-**Info**
+**Overview**
 
-- **Stage**: automatic or chosen by hand.
-- **Circles**: the groups the person belongs to (entrepreneurs club, former colleagues, coaching school…), as many as you like. “+ circle” suggests the circles already used, the largest first; type a new name to create one. The ✕ on a pill removes it.
-- **Closeness**: Close, Regular (default) or Occasional. Independent of circles.
-- **Contact frequency**: every month, every 3 months (default), every 6 months, once a year or no follow-up. Below: the date of the last contact and the **suggested next contact** (“2 November 2026 · 12 days overdue”, “15 January 2027 (in 2 months)”).
-- **Referred or introduced by**: the person who put you in touch, searched by name (same field as in the entry form), then “Referred” or “Introduced”.
-- **Source**: where the person comes from when nobody introduced them (fair, LinkedIn, workshop…). The small ▾ lists the values already used; a new value is added to the list.
-- **Referrals**: two boxes, “Came through a referral” (you were recommended to them) and “I asked them for a referral”.
-- **Has referred or introduced**: the people they put you in touch with. “+ Add a person” links a new one; the ✕ removes the link.
-- **Audience** and **topic** (module ③): which audience the person belongs to, and what they come to work on. Same drop-down list as the source, with free typing. They feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)).
+- **Indicators**, on the left: last contact, coaching hours, conversations, sessions, contract, first contact.
+- **XP invested with this person**, on the right, skill by skill (module ②).
+- **Action plan**, below: the actions linked to the person. You can add some with a date and tick them once done. They also appear in the dashboard's action plan.
 
-**Notes** (the number of notes is in the tab title)
+**Contact**
+
+- At the top, on two rows of aligned boxes:
+  - **Stage**: automatic or chosen by hand.
+  - **Closeness** (module ③): Close, Regular (default) or Occasional. Independent of circles.
+  - **Contact frequency**: every month, every 3 months (default), every 6 months, once a year or no follow-up.
+  - **Circles**: the groups the person belongs to (entrepreneurs club, former colleagues, coaching school…), as many as you like. “+ circle” suggests the circles already used, the largest first; type a new name to create one. The ✕ on a pill removes it.
+  - **Audience** (module ③): which audience the person belongs to. The small ▾ lists the values already used; a new value is added to the list.
+  - **Topic** (module ③): what the person comes to work on, **one or several**. “+ topic” suggests the ones already used, most frequent first, or creates one; “Legitimacy; Leadership” adds two at once. The ✕ on a pill removes it. Audience and topics feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)) and the Network tab views.
+- Below, the date of the last contact and the **suggested next contact** (“2 November 2026 · 12 days overdue”, “15 January 2027 (in 2 months)”).
+- Then two columns:
+  - **Referred or introduced by**: the person who put you in touch, searched by name (same field as in the entry form), then “Referred” or “Introduced”. With the **source** (where the person comes from when nobody introduced them: fair, LinkedIn, workshop…) and the “Came through a referral” box (you were recommended to them).
+  - **Has referred or introduced**: the people they put you in touch with. “+ Add a person” links a new one; the ✕ removes the link. With the “I asked them for a referral” box.
+
+**Notes** (in the tab title, the number of entries with at least one note)
 
 - **Keep in mind**: context, stakes, what to know (the former “Description”).
 - **Next topic to raise**: shown in “To follow up” (“To pick up: …”).
-- **Notes from your exchanges**: all the “Notes” and “What we covered” lines of the person's entries, newest first, with date and type.
+- **Notes from your exchanges**: one card per entry, with its “What we covered” and its “Notes”, newest first, with date and type.
+  - **Filters by type**: only the types present for this person, with their count (“Session 8”, “Debrief 3”…); “All” shows them all again.
+  - **Collapse a note**: click its dot. Collapsed, it keeps its date and type, and its dot becomes a ring; another click expands it. “Collapse all / Expand all” acts on the notes shown. Handy to prepare a summary by keeping only the useful notes open. This state is kept **by this browser**: it is not in your notebook, so it does not follow you to another computer.
 
-**Interactions**
+**Contract** (only for a person with at least one proposal)
 
-- **Figures.** Last contact, coaching hours, conversations, sessions, contract, first contact.
-- **Contract**, if there is one. Amount, length and progress, with the start, planned sessions and length, all editable.
-- **Interactions.** A timeline with one dot per interaction, in its type's colour. When dots overlap, those of the types ranked highest in Settings > Activity types come on top: for example sessions above debriefs. The date (dd/mm) is above each dot and the year in the middle of its period. Hover a dot to see the detail.
-- **XP invested with this person**, skill by skill (module ②).
-- **Action plan.** The actions linked to the person. You can add some with a date and tick them once done. They also appear in the dashboard's action plan.
+- **Current contract**, if there is one: amount, length and progress, with the start, planned sessions and length, all editable.
+- **Proposals**: every proposal made to the person, newest first, with sessions, length, amount and status (pending, accepted, declined). A click opens the entry card (amount, status, sessions); once saved, the person's profile updates.
 
 **Bottom:**
 
@@ -600,7 +604,7 @@ Everything is saved as you type.
 
 The **Network** tab draws the people in your notebook and what links them. It is hidden without module ③ “Build my practice”. Nothing is entered there: everything comes from the profiles (circles, closeness, audience, topic, “Referred or introduced by”) and from your entries.
 
-- **Four views.** **Circles**, **Audience** and **Topic** group people around hubs: one disc per group, with its number of members, and each person linked to their groups. A person with no group is linked to the grey “No circle” (or “Not specified”) hub. **Orbits** puts you in the centre (your logo, chosen in Settings > Appearance, or your initials without a logo): the rings show closeness (close, regular, occasional), the slices of the disc the circles, in proportion to their number of members. A person in several circles is placed in the first one, with short strokes towards the others.
+- **Four views.** **Circles**, **Audience** and **Topic** group people around hubs: one disc per group, with its number of members, and each person linked to their groups. A person with no group is linked to the grey “No circle” (or “Not specified”) hub. **Orbits** puts you in the centre (your logo, chosen in Settings > Appearance, or your initials without a logo): the rings show closeness (close, regular, occasional), the slices of the disc the circles, in proportion to their number of members. A person in several circles is placed in the first one, with short strokes towards the others. In the Topic view, a person with several topics is linked to each and becomes a bridge between them.
 - **What each dot shows.** **Colour** shows the stage (network contact, invited, in conversation, proposal sent, client, engagement ended, supervisor); **size**, the number of exchanges. A **pale dot circled with red dots** needs a follow-up (contact frequency overdue, or no news for a while). A **gold outline** marks a **bridge**: a person in several groups. **Gold arrows** go from the person who referred to the person referred (dashed: introduced).
 - **Options.** “Referrals” shows or hides the arrows; “Flag people to follow up”, the red dots; “Include archived and no follow-up” adds, in grey, archived people and those marked “No follow-up”, otherwise left out.
 - **Hover and click.** Hover a dot: name, stage, number of exchanges, last contact, groups, follow-up, referred by. Click: their profile opens. Click a group: its members are highlighted, the rest fades; “Show all”, or a click on an empty area, brings everything back. You can drag a dot with the mouse while you look: nothing is saved, and the drawing is recomputed identically each time it opens.
@@ -773,7 +777,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.2.6** | 15/11/2026 | Display polish. Deliberate practice: skill in focus shown in a burgundy pill, compass labels never cut off and right-hand panel aligned to the top, XP header on one row, create an action from the search. Grow your practice: horizontal funnel, tiles in a row below, Sales skills with the number of rated entries. Orbits: your logo in the centre. About: “Stay in touch” card. |
+| **3.3.0** | 15/11/2026 | Person profile redesigned. Header: larger photo (menu on click), contact details to the right of the name, timeline of exchanges without debriefs. Overview (indicators, invested XP, action plan), Contact (aligned boxes, referrals in two columns), Notes (one card per entry, filters by type, collapsible notes remembered by the browser) and Contract (current contract, proposals) tabs. Several topics per person, as tags: the old value is migrated automatically, Network and Affinities updated. |
+| 3.2.6 | 15/11/2026 | Display polish. Deliberate practice: skill in focus shown in a burgundy pill, compass labels never cut off and right-hand panel aligned to the top, XP header on one row, create an action from the search. Grow your practice: horizontal funnel, tiles in a row below, Sales skills with the number of rated entries. Orbits: your logo in the centre. About: “Stay in touch” card. |
 | 3.2.5 | 15/11/2026 | My entries: three Info / Notes / XP buttons instead of “Card”, each opening the entry card on its section; Notes and XP turn green with ✓ once notes are written and XP assigned. Sorted by date, newest first, by default, and sortable by column with a click on its heading (second click: reverse order, arrow shown). |
 | 3.2.4 | 15/11/2026 | Practice XP: the total earned is broken down (assigned, to assign) and adds up, old entries from before XP now counting as XP to assign. The “XP to assign” box opens the list, with a counter; a click on an entry opens a small assignment window, then the entry turns green. Panel skills and assignment grid in two columns. “Too many” visible again in the list and the card. |
 | 3.2.3 | 15/11/2026 | Closing a changed entry card without saving asks for confirmation (also when closing or reloading the page): no more notes lost by mistake. Shortening an entry or changing its type once its XP are assigned asks you to correct the assignment (red dot on “Card” and a “too many” line in “Assign pending XP” if you postpone). |

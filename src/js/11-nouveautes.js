@@ -3,6 +3,11 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:58,s:'3.3.0',d:'15 novembre 2026',items:[
+  {t:"Une fiche personne refondue",p:"Une photo plus grande (un clic pour la changer ou la retirer), les coordonnées à droite du nom, et sous l'en-tête la frise de vos échanges, sans les débriefs. Quatre onglets : Situation (chiffres, XP investis, plan d'action), Contact, Notes et Contrat, dès qu'une proposition existe.",go:'people',b:'Personnes'},
+  {t:"Plusieurs problématiques par personne",p:"Dans l'onglet Contact, les problématiques deviennent des étiquettes : « + problématique » reprend celles que tu utilises déjà, ou en crée une. Dans Réseau, la personne rejoint chacun de ses groupes ; dans les Affinités, ses heures comptent pour chacune. Ton ancienne valeur est reprise telle quelle."},
+  {t:"Des notes à filtrer et à replier",p:"Dans l'onglet Notes, une carte par saisie, des filtres par type avec leur nombre, et un clic sur la pastille d'une note pour la replier : de quoi préparer une synthèse. Ce navigateur s'en souvient."},
+  {t:"Contact et Contrat",p:"Étape, proximité, rythme, cercles, public et problématique sur deux lignes alignées, puis qui te l'a recommandée et qui elle t'a recommandé. L'onglet Contrat garde le contrat en cours et liste toutes les propositions ; un clic ouvre la saisie."}]},
  {v:57,s:'3.2.6',d:'15 novembre 2026',items:[
   {t:"Pratique délibérée plus lisible",p:"Tes compétences en focus s'affichent dans une pastille bordeaux, sur la boussole comme dans le panneau XP. Les noms longs de la boussole ne sont plus coupés, et le panneau des focus et des actions se cale en haut. L'en-tête des XP tient sur une ligne."},
   {t:"Créer une action depuis la recherche",p:"Dans « Ajouter une action », tape ton idée : si aucune action ne correspond, la ligne « + Créer » (ou Entrée) ouvre le formulaire, texte déjà rempli."},
