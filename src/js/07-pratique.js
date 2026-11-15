@@ -190,23 +190,87 @@ function cleanPd(st){const pa=Object.keys(st.pa).length?{...st.pa}:null,rem={};
  return{pa,rem:Object.keys(rem).length?rem:null}}
 const pdHas=e=>!!(e.notes&&e.notes.trim())||!!(e.pa&&Object.keys(e.pa).length)||!!(e.rem&&Object.keys(e.rem).length)||!!(e.retours&&e.retours.length);
 
-/* ---------- modifier la pratique délibérée d'une saisie existante ---------- */
+/* ---------- 3.2.2 : fiche de la saisie (remplace « Détails de l'entretien ») ----------
+   Sections repliables, affichées selon les modules actifs au moment de la consultation :
+   Infos, Notes, XP de pratique, Contrat et coût. Tout se modifie sur un brouillon (PDE.d, PDE.st),
+   écrit dans la saisie par « Enregistrer ». Les XP reprennent pdForm / bindPdForm, comme la saisie.
+   openPdEdit(id, sec) : sec = section dépliée à l'ouverture (notes par défaut). */
 let PDE=null;
-function openPdEdit(id){const e=E().find(x=>String(x.id)===String(id));if(!e)return;
- PDE={e,notes:e.notes||'',st:{pa:{...(e.pa||{})},xp:{...(e.xp||{})},fcom:e.fcom||'',rem:JSON.parse(JSON.stringify(e.rem||{}))},ret:JSON.parse(JSON.stringify(e.retours||[]))};
- $('pdeT').textContent=`${TM[e.type]?.l||e.type} · ${dShort(e.date)}${e.pid!=null?' · '+pname(e.pid):''}`;renderPdEdit();$('pdeM').classList.add('show')}
-function renderPdEdit(){const b=$('pdeB'),R=PDE.ret;let h=`<div class="lab">Notes sur l'entretien</div><textarea class="fin pdta" data-notes rows="3" placeholder="Ce que tu veux garder en mémoire sur cet entretien…">${esc(PDE.notes)}</textarea>`+pdForm(PDE.st,PDE.e.type,PDE.e.dur);
- if(R.length&&MOD('competences'))h+=`<div class="lab">Retours de supervision</div>`+R.map((x,i)=>{const src=E().find(y=>y.id==x.eid),m=mById(x.mid);return `<div class="pdfq"><div class="cmh"><b>${esc(m?.l||'Compétence supprimée')}</b>${src?` · ${dShort(src.date)} · ${esc(TM[src.type]?.l||src.type)}${src.pid!=null?' · '+esc(pname(src.pid)):''}`:''}</div>${src?.rem?.[x.mid]?.t?`<div class="spx" style="margin-left:0">${esc(src.rem[x.mid].t)}</div>`:''}<textarea class="fin pdta" data-ret="${i}" rows="2" placeholder="Ce que je retiens de la supervision…">${esc(x.t||'')}</textarea></div>`}).join('');
- b.innerHTML=h;bindPdForm(b,PDE.st,renderPdEdit);
- b.querySelectorAll('[data-ret]').forEach(t=>t.oninput=()=>{R[+t.dataset.ret].t=t.value});b.querySelector('[data-notes]').oninput=ev=>{PDE.notes=ev.target.value}}
-$('pdeX').onclick=()=>{$('pdeM').classList.remove('show');PDE=null};
-$('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,c=cleanPd(PDE.st);
+const fsK=ty=>ty=='proposition'||ty=='invitation'||(ty=='supervision'&&MOD('activite'));
+function openPdEdit(id,sec){const e=E().find(x=>String(x.id)===String(id));if(!e)return;pkClose();
+ const d={date:e.date,type:e.type,dur:e.dur,pid:e.pid??null,psup:!!e.psup,cr:!!e.cr,syn:!!e.syn,com:e.com||'',notes:e.notes||'',
+  statut:e.statut||'attente',eur:e.eur??'',engagement_mois:e.engagement_mois||3,seances:e.seances??'',non:!!e.non,gratuit:!!e.gratuit,cout:+e.cout>0?e.cout:''};
+ PDE={e,d,st:{pa:{...(e.pa||{})},xp:{...(e.xp||{})},fcom:e.fcom||'',rem:JSON.parse(JSON.stringify(e.rem||{}))},ret:JSON.parse(JSON.stringify(e.retours||[])),open:new Set([sec||'notes']),durx:false};
+ renderPdEdit();$('pdeM').classList.add('show');const m=$('pdeM').querySelector('.modal');m.scrollTop=0;
+ const s=m.querySelector('.fss.op');if(s&&sec&&sec!=='notes')setTimeout(()=>s.scrollIntoView({block:'start',behavior:'smooth'}),60)}
+function fsSum(k,xpH){const d=PDE.d;
+ if(k==='notes'){const s=(d.com||d.notes||'').replace(/\s+/g,' ').trim();return s?esc(s.length>90?s.slice(0,89)+'…':s):'—'}
+ if(k==='xp'){const B=Math.round((+d.dur||0)/10)*xpMult(d.type),l=B-xpSum(PDE.st.xp),f=fcMet(),fv=f?+PDE.st.xp[f.id]||0:0;
+  const h=[B?`${B} XP`:'',fv&&isCom(d.type)?`${esc(f.l)} ${fv} XP`:''].filter(Boolean).join(' · ');
+  return h+(B?(l>0?(xpSig(PDE.e)?` · <small class="na">${l} à répartir</small>`:''):l<0?` · <small class="ov">${-l} de trop</small>`:' · <small class="ok">tout est réparti ✓</small>'):'')}
+ if(k==='k'){if(d.type=='proposition')return `${STAT[d.statut]||'En attente'}${d.eur!==''?' · '+eur(+d.eur):''}${d.engagement_mois?' · '+d.engagement_mois+' mois':''}`;
+  if(d.type=='invitation')return d.non?'A dit non':'—';
+  if(d.type=='supervision')return d.gratuit?'non payante':`coût ${eur(+d.cout>0?+d.cout:(+CFG().finances.supDefaut||0))}${+d.cout>0?'':' (prix moyen)'}`}
+ return ''}
+function fsSec(k,title,body){const op=PDE.open.has(k),sum=op?'':fsSum(k);
+ return `<section class="fss ${op?'op':''}" data-fss="${k}"><button type="button" class="fsh" data-fs="${k}" aria-expanded="${op}"><span class="fsc">${op?'▾':'▸'}</span><b>${title}</b>${sum?`<span class="fsum">${sum}</span>`:''}</button>${op?`<div class="fsb">${body}</div>`:''}</section>`}
+function renderPdEdit(){const b=$('pdeB'),d=PDE.d,R=PDE.ret,t=TM[d.type]||{l:d.type},C2=MOD('competences');
+ $('pdeT').textContent=`${t.l||d.type} · ${dShort(d.date)}${d.pid!=null?' · '+pname(d.pid):''}`;
+ const xpH=pdForm(PDE.st,d.type,d.dur)+(R.length&&C2?`<div class="lab">Retours de supervision</div>`+R.map((x,i)=>{const src=E().find(y=>y.id==x.eid),m=mById(x.mid);return `<div class="pdfq"><div class="cmh"><b>${esc(m?.l||'Compétence supprimée')}</b>${src?` · ${dShort(src.date)} · ${esc(TM[src.type]?.l||src.type)}${src.pid!=null?' · '+esc(pname(src.pid)):''}`:''}</div>${src?.rem?.[x.mid]?.t?`<div class="spx" style="margin-left:0">${esc(src.rem[x.mid].t)}</div>`:''}<textarea class="fin pdta" data-ret="${i}" rows="2" placeholder="Ce que je retiens de la supervision…">${esc(x.t||'')}</textarea></div>`}).join(''):'');
+ const has={infos:1,notes:1,xp:!!xpH,k:fsK(d.type)};if(![...PDE.open].some(k=>has[k]))PDE.open.add('notes');
+ const pname2=d.pid!=null?esc(pname(d.pid))||'—':d.psup?'Personne supprimée':'—',miss=d.pid==null&&!d.psup&&pReq(d.type);
+ const infos=`<div class="fsg">
+   <label class="fsl">Date<input type="date" class="fin" data-f="date" value="${esc(d.date)}"></label>
+   <label class="fsl">Type<select class="fin" data-f="type">${T.map(x=>`<option value="${x.k}" ${x.k==d.type?'selected':''}>${esc(x.l)}</option>`).join('')}${TM[d.type]?'':`<option value="${esc(d.type)}" selected>${esc(d.type)}</option>`}</select></label>
+   <label class="fsl">Durée${PDE.durx?`<input class="fin" data-fdx placeholder="2h30" title="2,5 · 2h30 · 150min">`:`<select class="fin" data-f="dur">${(DURS.includes(+d.dur)?DURS:[+d.dur,...DURS]).map(x=>`<option value="${x}" ${x==d.dur?'selected':''}>${fmtD(x)}</option>`).join('')}<option value="x">Autre…</option></select>`}</label>
+   ${t.p||d.pid!=null||d.psup?`<div class="fsl">Personne<button type="button" class="fin fspb${miss?' miss':''}" data-fp title="${miss?'Personne à renseigner':'Changer la personne'}">${pname2}</button></div>`:''}</div>
+  ${t.cr?`<div class="two fstg"><div class="tog ${d.cr?'on':''}" data-ft="cr"><b>✓</b>CR envoyé</div><div class="tog ${d.syn?'on':''}" data-ft="syn"><b>✓</b>Synthèse écrite</div></div>`:''}`;
+ const notes=`<div class="lab">Ce qu'on a vu</div><textarea class="fin fsta" data-f="com" rows="1" placeholder="${LONGCOM(d.type)?"Qui, dans quel contexte, ce qui s'est dit, la suite…":'1 ligne : thème, déclic, pattern repéré…'}">${esc(d.com)}</textarea>
+  <div class="lab">Notes sur l'entretien</div><textarea class="fin pdta fsta fsn" data-f="notes" rows="8" placeholder="Ce que tu veux garder en mémoire sur cet entretien…">${esc(d.notes)}</textarea>`;
+ let k='';
+ if(d.type=='proposition')k=`<div class="fsg"><label class="fsl">Statut<select class="fin" data-f="statut">${Object.keys(STAT).map(s=>`<option value="${s}" ${s==d.statut?'selected':''}>${STAT[s]}</option>`).join('')}</select></label>
+   <label class="fsl">Montant<input type="number" class="fin" data-f="eur" value="${esc(d.eur)}" placeholder="€"></label>
+   <label class="fsl">Durée d'engagement<select class="fin" data-f="engagement_mois">${[...new Set([1,2,3,4,5,6,9,12,+d.engagement_mois])].sort((a,b)=>a-b).map(m=>`<option value="${m}" ${m==d.engagement_mois?'selected':''}>${m} mois</option>`).join('')}</select></label>
+   <label class="fsl">Séances prévues<input type="number" min="1" class="fin" data-f="seances" value="${esc(d.seances)}" placeholder="—"></label></div>`;
+ else if(d.type=='invitation')k=`<div class="two fstg"><div class="tog ${d.non?'on':''}" data-ft="non"><b>✓</b>Elle a dit non</div></div>`;
+ else if(d.type=='supervision'){const df=+CFG().finances.supDefaut||0;k=`<div class="fsg"><label class="fsl">Coût de cette supervision<input type="number" min="0" class="fin" data-f="cout" value="${esc(d.cout)}" placeholder="${d.gratuit?'—':df?`Prix moyen : ${df} €`:'Montant €'}" ${d.gratuit?'disabled':''}></label>
+   <label class="cb fscb"><input type="checkbox" data-fg ${d.gratuit?'checked':''}><span>Supervision non payante</span></label></div>`}
+ b.innerHTML=fsSec('infos','Infos',infos)+fsSec('notes','Notes',notes)+(has.xp?fsSec('xp','XP de pratique',xpH):'')+(has.k?fsSec('k','Contrat et coût',k):'');
+ b.querySelectorAll('[data-fs]').forEach(h=>h.onclick=()=>{const s=h.dataset.fs;PDE.open.has(s)?PDE.open.delete(s):PDE.open.add(s);renderPdEdit()});
+ const xb=b.querySelector('[data-fss="xp"] .fsb');if(xb)bindPdForm(xb,PDE.st,renderPdEdit);
+ b.querySelectorAll('[data-ret]').forEach(x=>x.oninput=()=>{R[+x.dataset.ret].t=x.value});
+ b.querySelectorAll('textarea.fsta').forEach(x=>{fitTA(x);x.addEventListener('input',()=>fitTA(x))});
+ const com=b.querySelector('[data-f="com"]');if(com)com.onkeydown=ev=>{if(ev.key=='Enter'&&!LONGCOM(d.type))ev.preventDefault()};
+ b.querySelectorAll('[data-f]').forEach(i=>{const f=i.dataset.f,re=['type','dur','statut','date'].includes(f);
+  i[i.tagName=='SELECT'||i.type=='date'?'onchange':'oninput']=()=>{
+   if(f=='dur'&&i.value==='x'){PDE.durx=true;renderPdEdit();const x=b.querySelector('[data-fdx]');if(x)x.focus();return}
+   let v=i.value;if(f=='com'&&!LONGCOM(d.type)&&/\n/.test(v)){v=v.replace(/\s*\n+\s*/g,' ');i.value=v}
+   d[f]=f=='dur'||f=='engagement_mois'?+v:v;if(re)renderPdEdit()}});
+ const dx=b.querySelector('[data-fdx]');if(dx){let ok=false;const done=()=>{if(ok)return;ok=true;const v=parseDur(dx.value);if(v>0)d.dur=v;else if(dx.value.trim())toast('Durée non reconnue : 2,5 · 2h30 · 150min');PDE.durx=false;renderPdEdit()};
+  dx.onkeydown=ev=>{if(ev.key==='Enter')dx.blur();if(ev.key==='Escape'){ev.stopPropagation();dx.value='';dx.blur()}};dx.onblur=done}
+ b.querySelectorAll('[data-ft]').forEach(x=>x.onclick=()=>{const f=x.dataset.ft;d[f]=!d[f];x.classList.toggle('on',d[f])});
+ const g=b.querySelector('[data-fg]');if(g)g.onchange=()=>{d.gratuit=g.checked;renderPdEdit()};
+ const pb=b.querySelector('[data-fp]');if(pb)pb.onclick=()=>pkOpen(pb,{cur:d.pid,none:!pReq(d.type),onPick:id=>{d.pid=id;if(id!=null)d.psup=false;renderPdEdit()}})}
+$('pdeX').onclick=()=>{pkClose();$('pdeM').classList.remove('show');PDE=null};
+$('pdeS').onclick=()=>{if(!PDE)return;const e=PDE.e,d=PDE.d,c=cleanPd(PDE.st),need=s=>{PDE.open.add(s);renderPdEdit()};
+ if(!d.date){toast('Indique la date de la saisie');need('infos');return}
+ if(!(+d.dur>0)){toast('Indique la durée de la saisie');need('infos');return}
+ if(pReq(d.type)&&d.pid==null&&!d.psup){toast('Choisis la personne : elle est obligatoire pour ce type de saisie');need('infos');return}
  /* commentaire des Facultés commerciales : exigé si l'on change leurs XP ou si l'on efface un commentaire existant (l'historique converti n'en demande pas) */
- if(MOD('activite')&&isCom(e.type)){const f=fcMet(),nv=f?+PDE.st.xp[f.id]||0:0,ov=xpFcOf(e),t=(PDE.st.fcom||'').trim();
-  if(!t&&(nv!==ov||(e.fcom||'').trim())){toast(`${f?f.l:'Facultés commerciales'} : écris ce qui a été facile ou difficile`);const ta=$('pdeB').querySelector('[data-fcom]');if(ta)ta.focus();return}}
- if(c.pa)e.pa=c.pa;else delete e.pa;if(c.rem)e.rem=c.rem;else delete e.rem;if(PDE.notes.trim())e.notes=PDE.notes.trim();else delete e.notes;
- if(MOD('competences')||MOD('activite')){const x=xpClean(PDE.st,e.type,e.dur,true);if(x)e.xp=x;else delete e.xp}if(MOD('activite')){const t=(PDE.st.fcom||'').trim();if(t)e.fcom=t;else delete e.fcom}if(PDE.ret.length)e.retours=PDE.ret.map(x=>({...x,t:(x.t||'').trim()}));
- e.maj=new Date().toISOString();touch();$('pdeM').classList.remove('show');PDE=null;renderAll();toast('Saisie mise à jour')};
+ if(MOD('activite')&&isCom(d.type)){const f=fcMet(),nv=f?+PDE.st.xp[f.id]||0:0,ov=xpFcOf(e),t=(PDE.st.fcom||'').trim();
+  if(!t&&(nv!==ov||(e.fcom||'').trim())){toast(`${f?f.l:'Facultés commerciales'} : écris ce qui a été facile ou difficile`);need('xp');const ta=$('pdeB').querySelector('[data-fcom]');if(ta)ta.focus();return}}
+ /* champs de la saisie : seulement ce qui a changé, pour ne rien ajouter aux anciennes saisies */
+ const put=(k,v)=>{if((e[k]??null)!==(v??null))e[k]=v},flag=(k,v)=>{if(v)e[k]=true;else delete e[k]};
+ put('date',d.date);put('type',d.type);put('dur',+d.dur);
+ if(d.pid!==(e.pid??null)){e.pid=d.pid;if(d.pid!=null)delete e.psup}
+ if(TM[d.type]?.cr){if(!!e.cr!==d.cr)e.cr=d.cr;if(!!e.syn!==d.syn)e.syn=d.syn}
+ if((e.com||'')!==d.com)e.com=d.com;
+ if(d.type=='proposition'){put('statut',d.statut);put('eur',d.eur===''?null:+d.eur);put('engagement_mois',+d.engagement_mois||3);put('seances',d.seances===''?null:+d.seances)}
+ if(d.type=='invitation')flag('non',d.non);
+ if(d.type=='supervision'&&MOD('activite')){flag('gratuit',d.gratuit);put('cout',d.cout===''?null:+d.cout)}
+ if(c.pa)e.pa=c.pa;else delete e.pa;if(c.rem)e.rem=c.rem;else delete e.rem;if(d.notes.trim())e.notes=d.notes.trim();else delete e.notes;
+ if(MOD('competences')||MOD('activite')){const x=xpClean(PDE.st,d.type,d.dur,true);if(x)e.xp=x;else delete e.xp}if(MOD('activite')){const t=(PDE.st.fcom||'').trim();if(t)e.fcom=t;else delete e.fcom}if(PDE.ret.length)e.retours=PDE.ret.map(x=>({...x,t:(x.t||'').trim()}));
+ e.maj=new Date().toISOString();touch();pkClose();$('pdeM').classList.remove('show');PDE=null;renderAll();toast('Saisie mise à jour')};
 
 /* ---------- historique d'une compétence ---------- */
 let CMP=null;
@@ -225,7 +289,7 @@ function renderCmp(){const m=mById(CMP);if(!m){$('cmpM').classList.remove('show'
   <div class="lab">Remarques et retours de supervision <span class="lab0">· du plus récent au plus ancien</span></div>${items.map(x=>x.h).join('')||'<div class="hint" style="margin:0">Aucune remarque pour l\'instant. Elles se notent dans chaque saisie, sous la compétence.</div>'}`;
  $('cmpB').querySelector('[data-tgf]').onclick=()=>{if(F)unFocus(m.id);else setFocus(m.id,true);renderCmp()};
  $('cmpB').querySelector('[data-newact]').onclick=()=>openLib({nouveau:1,mid:m.id});
- $('cmpB').querySelectorAll('[data-pde]').forEach(b=>b.onclick=()=>openPdEdit(b.dataset.pde))}
+ $('cmpB').querySelectorAll('[data-pde]').forEach(b=>b.onclick=()=>openPdEdit(b.dataset.pde,'xp'))}
 $('cmpX').onclick=()=>{$('cmpM').classList.remove('show');CMP=null;renderAll()};
 
 /* ---------- bibliothèque d'actions ---------- */
