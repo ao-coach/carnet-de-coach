@@ -364,11 +364,38 @@ $('libX').onclick=()=>{$('libM').classList.remove('show');renderAll()};
 const xpOverN=()=>MOD('competences')?E().filter(e=>xpLeft(e)<0).length:0;
 /* 3.2.4 : XQD = saisies réparties depuis l'ouverture de la liste : elles y restent, en vert, cliquables, jusqu'à la fermeture */
 const XQD=new Set();
-function openXpQ(){XQD.clear();renderXpQ();$('xpqM').classList.add('show')}
+function openXpQ(){XQD.clear();XLOT=null;renderXpQ();$('xpqM').classList.add('show')}
+/* 3.4.0 : répartition en lot. Filtres type + période, compétences cochées ; seul le reste de chaque saisie est réparti,
+   à parts égales, ajouté à ce qui l'est déjà ; le reste de la division tourne d'une saisie à l'autre. Sauvegarde avant, Annuler. */
+let XLOT=null;
+function lotInit(){const L=E().filter(xpTodo),D=L.map(e=>e.date).filter(Boolean).sort();XLOT={open:false,types:new Set(L.map(e=>e.type)),du:D[0]||'',au:D.at(-1)||'',ids:new Set()}}
+const lotCands=()=>E().filter(e=>xpTodo(e)&&XLOT.types.has(e.type)&&(!XLOT.du||e.date>=XLOT.du)&&(!XLOT.au||e.date<=XLOT.au));
+const lotIds=()=>mActive().filter(m=>!m.fc&&XLOT.ids.has(String(m.id))).map(m=>m.id);
+function lotHTML(){const L=lotCands(),K=lotIds(),X=L.reduce((s,e)=>s+xpLeft(e),0),F=PD().focus.map(String),TY=T.filter(t=>xpMult(t.k)>0&&E().some(e=>e.type===t.k&&xpTodo(e)));
+ return `<details class="xlot" ${XLOT.open?'open':''}><summary>Répartir en lot</summary>
+  <div class="hint" style="margin:6px 0 0">Seul le reste de chaque saisie est réparti, à parts égales entre les compétences cochées ; ce qui est déjà réparti n'est pas touché.</div>
+  <div class="xlr"><span class="l">Types</span><span class="chips">${TY.map(t=>`<button type="button" class="chip ${XLOT.types.has(t.k)?'on':''}" data-lty="${esc(t.k)}">${esc(t.l)}</button>`).join('')}</span></div>
+  <div class="xlr"><span class="l">Période</span><span class="xld">du <input type="date" class="fin" id="lotDu" value="${esc(XLOT.du)}"> au <input type="date" class="fin" id="lotAu" value="${esc(XLOT.au)}"></span></div>
+  <div class="xlr"><span class="l">Compétences</span><span class="xlc">${mActive().filter(m=>!m.fc).map(m=>`<label class="cb"><input type="checkbox" data-lid="${esc(m.id)}" ${XLOT.ids.has(String(m.id))?'checked':''}><span>${esc(m.l)}${F.includes(String(m.id))?'<span class="fpill">focus</span>':''}</span></label>`).join('')}</span></div>
+  <div class="xlp">${!L.length?'Aucune saisie à répartir avec ces filtres.':!K.length?`${pl(L.length,'saisie')} · ${num(X)} XP à répartir : coche au moins une compétence.`:`${pl(L.length,'saisie')} · ${num(X)} XP seront répartis sur ${pl(K.length,'compétence')} (≈ ${num(X/K.length)} chacune).`}</div><!-- i18n-ok : variantes singulier/pluriel de pl() dans I18N_EN -->
+  <button type="button" class="cta" style="margin:0" id="lotGo" ${L.length&&K.length?'':'disabled'}>Répartir ${num(X)} XP</button></details>`}
+function bindLot(box){const d=box.querySelector('.xlot');if(!d)return;d.ontoggle=()=>{XLOT.open=d.open};
+ d.querySelectorAll('[data-lty]').forEach(b=>b.onclick=()=>{const k=b.dataset.lty;XLOT.types.has(k)?XLOT.types.delete(k):XLOT.types.add(k);renderXpQ()});
+ [['lotDu','du'],['lotAu','au']].forEach(([id,k])=>{const i=$(id);if(i)i.onchange=()=>{XLOT[k]=i.value;renderXpQ()}});
+ d.querySelectorAll('[data-lid]').forEach(c=>c.onchange=()=>{const k=c.dataset.lid;c.checked?XLOT.ids.add(k):XLOT.ids.delete(k);renderXpQ()});
+ const g=$('lotGo');if(g)g.onclick=()=>{const L=lotCands(),K=lotIds(),X=L.reduce((s,e)=>s+xpLeft(e),0);if(!L.length||!K.length)return;
+  askBox({t:'Répartir en lot ?',h:`<p>${esc(`${num(X)} XP seront répartis sur ${pl(L.length,'saisie')}, à parts égales entre ces compétences :`)}</p><p data-noi18n><b>${esc(K.map(id=>mById(id)?.l).join(', '))}</b></p><p>Une sauvegarde de ton carnet est faite avant ; tu pourras annuler juste après.</p>`,ok:'Répartir'},async()=>{/* i18n-ok : variantes singulier/pluriel de pl() dans I18N_EN */
+   if(!await backupBefore('avant-repartition')){toast("Sauvegarde impossible : rien n'a été réparti");return}
+   const now=new Date().toISOString(),prev=L.map(e=>[e,e.xp?{...e.xp}:null,e.maj]);let rot=0,tot=0;
+   L.forEach(e=>{const left=xpLeft(e);if(left<=0)return;const n=K.length,q=Math.floor(left/n),r=left-q*n;e.xp=e.xp||{};
+    for(let j=0;j<n;j++){const id=K[(rot+j)%n],add=q+(j<r?1:0);if(add>0)e.xp[id]=(+e.xp[id]||0)+add}rot=(rot+r)%n;tot+=left;e.maj=now});
+   touch();renderAll();renderXpQ();
+   toast(`${num(tot)} XP répartis sur ${pl(prev.length,'saisie')}`,'Annuler',()=>{prev.forEach(([e,x,m])=>{if(x)e.xp=x;else delete e.xp;if(m!=null)e.maj=m;else delete e.maj});touch();renderAll();if($('xpqM').classList.contains('show'))renderXpQ()})})}}/* i18n-ok : variantes singulier/pluriel de pl() dans I18N_EN */
 function renderXpQ(){const L=E().filter(e=>xpTodo(e)||(xpBudget(e)>0||xpPut(e)>0)&&xpLeft(e)<0||XQD.has(String(e.id))).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id),P=xpPending(),ov=xpOverN();
  const cnt=`<div class="xpqc ${P.x?'':'ok'}">${P.x?`<b>${num(P.x)}</b> XP restant à répartir · ${pl(P.n,'saisie')}`:'Tout est réparti ✓'}${ov?`<span class="xov"> · <span>${ov>1?`${ov} saisies avec des XP de trop`:'une saisie avec des XP de trop'}</span></span>`:''}</div>`;
- $('xpqB').innerHTML=cnt+(L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'},dn=xpLeft(e)==0;return `<button type="button" class="xpqi${dn?' dn':''}" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n xov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:dn?`<span class="n ok">✓ réparti<small>${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'');
- $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openXpR(b.dataset.xq))}
+ if(!XLOT)lotInit();
+ $('xpqB').innerHTML=cnt+(P.x||XLOT.open?lotHTML():'')+(L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'},dn=xpLeft(e)==0;return `<button type="button" class="xpqi${dn?' dn':''}" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n xov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:dn?`<span class="n ok">✓ réparti<small>${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'');
+ $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openXpR(b.dataset.xq));bindLot($('xpqB'))}
 /* 3.2.4 : petite fenêtre de répartition des XP d'une saisie (depuis la liste des XP en attente) :
    rappel de la saisie, grille XP (xpBlock / bindPdForm, comme la saisie), Enregistrer ; lien vers la fiche complète. */
 let XPR=null;
