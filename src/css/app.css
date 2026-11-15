@@ -1069,3 +1069,6 @@ textarea.fsn{min-height:200px}
 /* 3.2.5 : boutons Infos / Notes / XP de Mes saisies */
 .ent .fbts{display:inline-flex;gap:4px;white-space:nowrap}.ent .fbts .fbtn{padding:4px 8px}
 .ent .fbtn.ok{color:#2E7D5B;border-color:#A9D8BC;background:#EAF6EF}.ent .fbtn i{font-style:normal;font-weight:900;margin-right:1px}
+/* 3.2.5 : tri de Mes saisies par colonne */
+.ent th.srt{cursor:pointer;user-select:none;white-space:nowrap}.ent th.srt:hover{color:var(--afb)}
+.ent th .sar{display:inline-block;margin-left:4px;font-size:10px;color:#C9C5CF}.ent th.on .sar{color:var(--afb)}.ent th.on{color:var(--jet)}

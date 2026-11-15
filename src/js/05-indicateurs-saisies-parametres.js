@@ -343,10 +343,20 @@ const AC=['#fff','#E8C6CD','#EED8DC','#D3E3EC','#A9C8DA','#7FAAC2'];
    vert avec ✓ quand tout est réparti, point rouge s'il y a des XP de trop, neutre sinon. */
 function eBtns(e){const C2=MOD('competences'),B=xpBudget(e),P=xpPut(e),ov=C2&&P>B,shX=C2&&(B>0||P>0),okX=B>0&&P==B,okN=!!(e.notes&&e.notes.trim());
  return `<span class="fbts"><button type="button" class="fbtn" data-pde="${e.id}" data-sec="infos" title="Ouvrir les infos de la saisie">Infos</button><button type="button" class="fbtn${okN?' ok':''}" data-pde="${e.id}" data-sec="notes" title="${okN?'Notes remplies':'Ouvrir les notes de la saisie'}">${okN?'<i>✓</i>':''}Notes</button>${shX?`<button type="button" class="fbtn${okX?' ok':''}${ov?' over':''}" data-pde="${e.id}" data-sec="xp" title="${ov?'XP de trop : la répartition est à corriger':okX?'Tous les XP sont répartis':'XP à répartir'}">${okX?'<i>✓</i>':''}XP</button>`:''}</span>`}
+/* 3.2.5 : tri de Mes saisies. Par défaut, date décroissante. Un clic sur un titre trie la colonne (ordre alphanumérique),
+   un second clic inverse ; la flèche montre le sens. Valeurs vides toujours en dernier ; à égalité, la plus récente d'abord. */
+let RSORT={k:'date',d:-1};
+const RSK={pid:e=>e.pid!=null?pname(e.pid)||'':'',date:e=>e.date||'',type:e=>TM[e.type]?.l||e.type||'',dur:e=>+e.dur||0,
+ cr:e=>TM[e.type]?.cr?(e.cr?1:0):'',syn:e=>TM[e.type]?.cr?(e.syn?1:0):'',com:e=>(e.com||'').trim()};
+function rowSort(L){const f=RSK[RSORT.k]||RSK.date,d=RSORT.d,cmp=(a,b)=>typeof a=='number'&&typeof b=='number'?a-b:String(a).localeCompare(String(b),LANG==='en'?'en':'fr',{numeric:true,sensitivity:'base'});
+ return [...L].sort((a,b)=>{const x=f(a),y=f(b),ex=x==='',ey=y==='';if(ex!==ey)return ex?1:-1;return (ex?0:d*cmp(x,y))||b.date.localeCompare(a.date)||b.id-a.id})}
+function rowsHead(){const C=[['pid','Personne','fit'],['date','Date','fit'],['type','Type','fit'],['dur','Durée','fit'],['cr','CR','c fit'],['syn','Synth.','c fit'],[null,'','fit'],['com',"Ce qu'on a vu",''],[null,'','fit']]; /* i18n-ok : classes CSS ; libellés déjà dans I18N_EN */
+ return `<tr>${C.map(([k,l,c])=>{const on=k&&RSORT.k===k;return `<th class="${c}${k?' srt':''}${on?' on':''}"${k?` data-srt="${k}" aria-sort="${on?(RSORT.d>0?'ascending':'descending'):'none'}" title="Trier par cette colonne"`:''}>${l}${k?`<span class="sar" aria-hidden="true">${on?(RSORT.d>0?'▲':'▼'):'↕'}</span>`:''}</th>`}).join('')}</tr>`} /* i18n-ok : attributs ; « Trier par cette colonne » est dans I18N_EN */
 function renderRows(L){
  /* 3.2.2 : plus de colonnes XP ni Contrat / coût : ils se consultent et se modifient dans la fiche de la saisie (boutons Infos / Notes / XP, 3.2.5) */
- $('rowsHead').innerHTML=`<tr><th class="fit">Personne</th><th class="fit">Date</th><th class="fit">Type</th><th class="fit">Durée</th><th class="c fit">CR</th><th class="c fit">Synth.</th><th class="fit"></th><th>Ce qu'on a vu</th><th class="fit"></th></tr>`;
- L=[...L].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('cnt').textContent=L.length+' lignes';
+ $('rowsHead').innerHTML=rowsHead();
+ $('rowsHead').querySelectorAll('[data-srt]').forEach(th=>th.onclick=()=>{const k=th.dataset.srt;RSORT=RSORT.k===k?{k,d:-RSORT.d}:{k,d:1};renderRows(filtered())});
+ L=rowSort(L);$('cnt').textContent=L.length+' lignes';
  $('rows').innerHTML=L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'};return `<tr data-id="${e.id}">
  <td class="pcell"><button type="button" class="ed psel pbtn${e.pid==null&&!e.psup&&pReq(e.type)?' miss':''}" data-pp title="${e.pid==null&&!e.psup&&pReq(e.type)?'Personne à renseigner':'Changer la personne'}">${e.pid!=null?esc(pname(e.pid))||'—':e.psup?'Personne supprimée':'—'}</button>${e.pid!=null?`<button class="pflt" data-p="${e.pid}" title="Filtrer sur cette personne"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>`:''}</td>
  <td><input type="date" class="ed" data-k="date" value="${e.date}" style="width:122px"></td>
