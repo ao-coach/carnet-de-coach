@@ -12,6 +12,12 @@ const years=()=>{const s=new Set(E().map(e=>e.date.slice(0,4)));s.add(today().sl
 
 function toast(m,label,fn){const t=$('toast');t.innerHTML=`<span>${esc(m)}</span>${label?`<button>${label}</button>`:''}`;if(label)t.querySelector('button').onclick=()=>{fn();t.classList.remove('show')};
   t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),label?5000:2200)}
+/* 3.2.2 : petite fenêtre de confirmation au style du carnet, à la place de confirm() : askBox({t, h, ok, no}, siOui).
+   Le focus va sur « Annuler » : Entrée ou Échap ne suppriment rien par mégarde. */
+let ASK=null;
+function askBox(o,yes){ASK=yes;$('askT').textContent=o.t;$('askB').innerHTML=o.h||'';$('askOk').textContent=o.ok||'OK';$('askNo').textContent=o.no||'Annuler';$('askM').classList.add('show');setTimeout(()=>$('askNo').focus(),30)}
+const askClose=()=>{$('askM').classList.remove('show');ASK=null};
+$('askX').onclick=$('askNo').onclick=askClose;$('askOk').onclick=()=>{const f=ASK;askClose();if(f)f()};$('askM').onclick=e=>{if(e.target===$('askM'))askClose()};
 
 /* ---------- KPI ---------- */
 function spark(vals){if(vals.length<2)vals=[0,...vals];const mx=Math.max(...vals,1);return `<svg width="96" height="34"><polyline fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linejoin="round" points="${vals.map((v,i)=>`${i*(96/(vals.length-1))},${32-v/mx*28}`).join(' ')}"/></svg>`}
@@ -359,7 +365,9 @@ function renderRows(L){
    if(k=='type'&&e.type=='proposition'&&!e.statut){e.statut='attente';e.engagement_mois=e.engagement_mois||3}
    fl();if(['type','date','statut','dur'].includes(k))renderList()});
   tr.querySelector('[data-pde]').onclick=()=>openPdEdit(e.id);
-  tr.querySelector('.del').onclick=()=>{const idx=E().indexOf(e);E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})};
+  /* 3.2.2 : confirmation avant de supprimer (date et type rappelés) ; le toast « Annuler » reste après la suppression */
+  tr.querySelector('.del').onclick=()=>askBox({t:'Supprimer cette saisie ?',h:`<b>${esc(TM[e.type]?.l||e.type)} · ${dShort(e.date)}</b>${e.pid!=null?' · '+esc(pname(e.pid)):''}<br>Tu pourras encore revenir en arrière juste après.`,ok:'Supprimer'},
+   ()=>{const idx=E().indexOf(e);if(idx<0)return;E().splice(idx,1);DB.supprimes.e[e.id]=new Date().toISOString();touch();renderList();toast('Saisie supprimée','Annuler',()=>{E().splice(idx,0,e);delete DB.supprimes.e[e.id];touch();renderList()})});
   const p=tr.querySelector('.pflt');if(p)p.onclick=()=>{const v=DB.personnes.find(x=>String(x.id)===p.dataset.p)?.id;if(v==null)return;F.p.has(v)?F.p.delete(v):F.p.add(v);renderList();window.scrollTo({top:0,behavior:'smooth'})}})}
 $('mFree').onchange=e=>{$('mCout').disabled=e.target.checked};
 
