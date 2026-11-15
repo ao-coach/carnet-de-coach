@@ -1142,3 +1142,19 @@ body.no-activite .pfct1{grid-template-columns:repeat(2,minmax(0,1fr))}
 body.no-activite .pfct2{grid-template-columns:minmax(0,1fr)}
 @media(max-width:860px){.pfct{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.pfct{grid-template-columns:1fr}}
+/* 3.3.0 : onglet Notes, filtres par type, une carte par saisie, pastille = replier / déplier */
+.nfflt{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px}
+.nfflt .chip{display:inline-flex;align-items:center;gap:5px}
+.nfflt .chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.nfflt .chip small{color:var(--grey);font-weight:700}.nfflt .chip.on small{color:inherit;opacity:.8}
+.nfflt .nfall{margin-left:auto;font-size:12.5px}
+.nfr{max-height:none}
+.nfi:before{display:none}
+.nfd{position:absolute;left:-19px;top:3px;width:14px;height:14px;padding:0;border-radius:50%;background:var(--c,#9A9DA1);border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
+.nfd:hover{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 35%,#fff)}
+.nfd:focus-visible{outline:2px solid var(--afb);outline-offset:2px}
+.nfi.fold .nfd{background:#fff;box-shadow:0 0 0 2px var(--c,#9A9DA1)}
+.nfi.fold .t{display:none}
+.nfi .nfz{font-weight:600;font-style:italic}
+.nfi .t .k{margin-right:6px}
+.nfi .t+.t{margin-top:6px}

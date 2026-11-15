@@ -222,7 +222,7 @@ const webHost=v=>{try{return new URL(webUrl(v)).hostname.replace(/^www\./,'')}ca
 const siteLink=p=>p?.site?`<a class="site" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener">${esc(webHost(p.site))} ↗</a>`:'';
 /* 3.3.0 : onglets Situation (par défaut) · Contact · Notes · Contrat (seulement s'il existe une proposition) */
 let PFTAB='sit';
-function openFiche(id,tab,focusSujet){PFID=pById(id)?.id;if(PFID==null)return;PFTAB=tab||'sit';qFlag('fiche');if(PFTAB=='notes')qFlag('notes');pfAvMenu(false);renderFiche();$('pfM').classList.add('show');$('pfM').querySelector('.modal').scrollTop=0;pfTL();
+function openFiche(id,tab,focusSujet){PFID=pById(id)?.id;if(PFID==null)return;PFTAB=tab||'sit';NFF='';qFlag('fiche');if(PFTAB=='notes')qFlag('notes');pfAvMenu(false);renderFiche();$('pfM').classList.add('show');$('pfM').querySelector('.modal').scrollTop=0;pfTL();
  if(focusSujet)setTimeout(()=>{const s=$('pfSujet');s.focus();s.setSelectionRange(s.value.length,s.value.length)},60)}
 function pfTab(k){if(k=='kon'&&$('pfKT').classList.contains('hide'))k='sit';PFTAB=k;if(k=='notes')qFlag('notes');$('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.classList.toggle('on',b.dataset.pt==k));$('pfM').querySelectorAll('.pftab').forEach(x=>x.classList.toggle('on',x.dataset.pt==k))}
 $('pfTabs').querySelectorAll('[data-pt]').forEach(b=>b.onclick=()=>pfTab(b.dataset.pt));
@@ -325,11 +325,29 @@ function renderFicheNet(p,mk){const t=today(),all=pEntries(p.id);
  $('pfRecL').querySelectorAll('[data-rlx]').forEach(b=>b.onclick=()=>{const x=pById(b.dataset.rlx);x.reco_par=null;x.maj=new Date().toISOString();touch();rf()});
  $('pfRecAdd').onclick=()=>pkOpen($('pfRecAdd'),{cur:null,onPick:id=>{const x=pById(id);if(!x||x===p){toast('Choisis une autre personne');return}
   x.reco_par={pid:p.id,mode:'reco'};x.maj=new Date().toISOString();touch();rf()}});
- /* notes des échanges : « Notes » et « Ce qu'on a vu », de la plus récente à la plus ancienne */
- const NF=[];[...all].reverse().forEach(e=>{if(e.com&&e.com.trim())NF.push({e,k:"Ce qu'on a vu",x:e.com});if(e.notes&&e.notes.trim())NF.push({e,k:'Notes',x:e.notes})});
- $('pfNN').textContent=NF.length||'';
- $('pfNF').innerHTML=NF.length?`<div class="nfr">${NF.map(n=>`<div class="nfi" style="--c:${TM[n.e.type]?.c||'#9A9DA1'}"><div class="h">${dLong(n.e.date)} · <span class="ty">${esc(TM[n.e.type]?.l||'')}</span> <span class="k">${n.k}</span></div><div class="t">${esc(n.x)}</div></div>`).join('')}</div>`
-  :'<div class="hint" style="margin:0">Pas encore de notes : elles viennent de tes saisies (« Ce qu\'on a vu » et « Notes »).</div>'}
+ renderNF(p,all)}
+/* 3.3.0 : notes des échanges, une carte par saisie (« Ce qu'on a vu » et « Notes »), de la plus récente à la plus ancienne ;
+   filtres par type (types présents, avec leur nombre) ; clic sur la pastille = replier / déplier, état retenu par ce navigateur */
+let NFF='';
+const NFK=()=>'cdc-nf:'+(DB?.id||'');
+function nfFold(){try{return new Set(JSON.parse(localStorage.getItem(NFK())||'[]').map(String))}catch(e){return new Set()}}
+function nfSave(S){try{localStorage.setItem(NFK(),JSON.stringify([...S]))}catch(e){}}
+const hasTxt=v=>!!(v&&String(v).trim());
+function renderNF(p,all){const NF=[...all].reverse().filter(e=>hasTxt(e.com)||hasTxt(e.notes)),n=NF.length;
+ $('pfNN').textContent=n||'';$('pfNT').title=n?(n>1?`${n} saisies avec au moins une note`:'1 saisie avec au moins une note'):'Aucune saisie avec une note';
+ if(!n){$('pfNF').innerHTML='<div class="hint" style="margin:0">Pas encore de notes : elles viennent de tes saisies (« Ce qu\'on a vu » et « Notes »).</div>';return}
+ const C={};NF.forEach(e=>C[e.type]=(C[e.type]||0)+1);const T=Object.keys(C).sort((a,b)=>C[b]-C[a]||(TM[a]?.l||a).localeCompare(TM[b]?.l||b));
+ if(NFF&&!C[NFF])NFF='';
+ const V=NF.filter(e=>!NFF||e.type==NFF),F=nfFold(),anyOpen=V.some(e=>!F.has(String(e.id)));
+ const flt=(T.length>1?`<button type="button" class="chip ${!NFF?'on':''}" data-nff="">Tout <small>${n}</small></button>`+T.map(k=>`<button type="button" class="chip ${NFF==k?'on':''}" data-nff="${esc(k)}" style="--c:${TM[k]?.c||'#9A9DA1'}"><i></i>${esc(TM[k]?.l||k)} <small>${C[k]}</small></button>`).join(''):'')
+  +`<button type="button" class="lnk nfall" id="pfNFall">${anyOpen?'Tout replier':'Tout déplier'}</button>`;
+ const K=(l,x)=>hasTxt(x)?`<div class="t"><span class="k">${l}</span>${esc(x)}</div>`:'';
+ $('pfNF').innerHTML=`<div class="nfflt">${flt}</div><div class="nfr">${V.map(e=>{const f=F.has(String(e.id));
+  return `<div class="nfi ${f?'fold':''}" style="--c:${TM[e.type]?.c||'#9A9DA1'}"><button type="button" class="nfd" data-nfd="${esc(e.id)}" title="${f?'Déplier cette note':'Replier cette note'}" aria-expanded="${!f}"></button><div class="h">${dLong(e.date)} · <span class="ty">${esc(TM[e.type]?.l||'')}</span>${f?' <span class="nfz">· repliée</span>':''}</div>${K("Ce qu'on a vu",e.com)}${K('Notes',e.notes)}</div>`}).join('')}</div>`;
+ const rf=()=>renderNF(p,all);
+ $('pfNF').querySelectorAll('[data-nff]').forEach(b=>b.onclick=()=>{NFF=b.dataset.nff;rf()});
+ $('pfNF').querySelectorAll('[data-nfd]').forEach(b=>b.onclick=()=>{const S=nfFold(),k=b.dataset.nfd;S.has(k)?S.delete(k):S.add(k);nfSave(S);rf();$('pfNF').querySelector(`[data-nfd="${CSS.escape(k)}"]`)?.focus()});
+ $('pfNFall').onclick=()=>{const S=nfFold();V.forEach(e=>anyOpen?S.add(String(e.id)):S.delete(String(e.id)));nfSave(S);rf()}}
 /* choix d'un cercle : cercles existants (les plus fournis d'abord), ou création */
 function crOpen(anchor,p,done){pkClose();const el=document.createElement('div');el.className='ppk';
  el.innerHTML='<input class="fin ppq" placeholder="Chercher ou créer un cercle…" autocomplete="off" spellcheck="false"><div class="ppl"></div>';document.body.appendChild(el);
