@@ -1003,8 +1003,8 @@ small.na{color:#8A6100}small.ov{color:#C23B3B}small.ok{color:#2E7D5B}
 body.shot #demoBar,body.shot .toast,body.shot #toast,body.shot .banner,body.shot #qToast{display:none!important}
 body.shot #qOpen{display:none!important}
 body.shot .ov{background:transparent!important;backdrop-filter:none!important}
-/* 3.2.1 : plan d'action sous 1100 px : chaque action sur deux lignes (l'action en entier sur la première), l'en-tête suit la même disposition */
-@media(max-width:1100px){
+/* 3.2.1 : plan d'action sous 1200 px : chaque action sur deux lignes (l'action en entier sur la première), l'en-tête suit la même disposition */
+@media(max-width:1200px){
  #actCard .act,#actCard .act thead,#actCard .act tbody{display:block}
  #actCard .act tr{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto minmax(0,1fr) auto 28px;column-gap:4px;align-items:center;border-bottom:1px solid var(--line)}
  #actCard .act td,#actCard .act th{border-bottom:0;width:auto!important}

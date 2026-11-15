@@ -217,7 +217,7 @@ The **Deliberate practice** tab is for choosing what you are working on right no
 
 - The radar chart shows **the share of your XP on each of your tracked skills**, relative to the skill with the most. Dotted, the same over **your last 30 days**: where you are investing right now.
 - Next to each skill: its **level** and its XP total.
-- **Manage my skills** (at the top of the compass) opens the list of your skills: label, **discipline**, tracked or not, **focus**, number of entries. It is the only place to manage them; the Settings block points there. The **Sales skills** skill is always there: it can be renamed, but not deleted.
+- **Manage my skills** (at the top of the compass) opens the list of your skills: label, **discipline**, tracked or not, **focus**, number of entries. It is the only place to manage them; the Settings block points there. The **Sales skills** skill is always there: it can be renamed, but not deleted. On the compass, it only appears with module ③.
 - Skills of the same **discipline** (NLP, Transactional Analysis, Systemic…) are grouped on the compass, under a coloured arc bearing its name. The discipline is free text: suggestions appear as you type.
 - A skill with no XP stays at the centre, marked “no XP”.
 - With fewer than 3 tracked skills, the compass becomes a simple list.
@@ -414,6 +414,7 @@ Each action has a priority goal, a description, a person (optional), a due date,
 - The “In progress”, “Done” and “Cancelled” pills filter the list.
 - Actions created from a profile or a follow-up have “Follow-up” as their goal.
 - The ✕ at the end of the row deletes the action, without confirmation: “Cancel”, in the message that appears, brings it back.
+- On a screen narrower than 1200 px, each action takes two lines: the full action, then the goal, the person, the date, the result and the status.
 
 ### Indicator tracking
 
@@ -604,6 +605,8 @@ The **Network** tab draws the people in your notebook and what links them. It is
 - **What each dot shows.** **Colour** shows the stage (network contact, invited, in conversation, proposal sent, client, engagement ended, supervisor); **size**, the number of exchanges. A **pale dot circled with red dots** needs a follow-up (contact frequency overdue, or no news for a while). A **gold outline** marks a **bridge**: a person in several groups. **Gold arrows** go from the person who referred to the person referred (dashed: introduced).
 - **Options.** “Referrals” shows or hides the arrows; “Flag people to follow up”, the red dots; “Include archived and no follow-up” adds, in grey, archived people and those marked “No follow-up”, otherwise left out.
 - **Hover and click.** Hover a dot: name, stage, number of exchanges, last contact, groups, follow-up, referred by. Click: their profile opens. Click a group: its members are highlighted, the rest fades; “Show all”, or a click on an empty area, brings everything back. You can drag a dot with the mouse while you look: nothing is saved, and the drawing is recomputed identically each time it opens.
+- **Zoom and view.** The wheel (around the pointer) or the **+** and **−** buttons, top right of the graph, zoom; dragging the background moves the view; **⟲** resets it. Group names and first names move apart so they don't overlap, and big groups spread out more. Each time you open the tab, the zoom and any dragged dots go back to the original drawing.
+- **On a large screen**, the graph takes the height of the window, without scrolling the page; the right-hand panel scrolls on its own, with the legend at the top; the notebook title steps aside to make room, and “+ Log time” moves to the top of the panel.
 - **Large notebooks.** Beyond about sixty people, only the first names of bridges, people to follow up and the largest dots are written; the others appear on hover.
 - **What your network shows.** The right-hand panel (below the graph on a narrow screen) draws four leads from the chosen grouping: **bridges** (“Ben links Entrepreneurs club and Former colleagues network”), groups **to warm up** (at least half of their members to follow up), **growth leads** (groups where nobody has yet experienced a coaching conversation: an invitation?) and **referral chains** (James → Anthony → Roman). A name opens the profile, a group highlights it.
 
@@ -659,13 +662,13 @@ Settings in **Settings > Practice costs**.
 
 All blocks are **collapsed by default**. Click a title, or the triangle before it, to open or close the block. Collapsed, each block shows a one-line summary. Your choice is remembered on your computer.
 
-Blocks come in pairs, in this order; **My notebook** (the modules and the Essentials / All shortcuts, open by default) sits full width below Identity and Appearance. Some blocks only appear with their module (see [My notebook: the modules](#my-notebook-the-modules)):
+Blocks come in pairs, in this order; **My notebook** (the modules and the Essentials / All shortcuts, open by default) sits full width below Identity and Appearance. Some blocks only appear with their module (see [My notebook: the modules](#my-notebook-the-modules)); a block left alone on its row then takes the full width:
 
 | Left | Right |
 |---|---|
 | **Identity**: practice name, tool name, motto, label wording (feminine, masculine, inclusive). | **Appearance**: logo (also used as the tab and window icon) and banner side by side, the 5 brand colours (Accent, Dark, Background, Grey, Blue), “Back to the default palette”. |
 | **Security**: encryption, automatic lock, password, recovery key (see [part 13](#13-security-and-encryption)). | **Data storage**: linked folder, “Open another notebook”, “New notebook”. |
-| **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, **Person**, **Counts in**. An added type can only be deleted if it has no entries. A renamed built-in type shows ↺ at the end of its row: it gives the type its original name back (for example “Networking”). | **Skills**: points to “Manage my skills”, on the practice compass (see [part 4](#4-deliberate-practice)). |
+| **Activity types** (11 at most): order of importance by drag and drop (number 1 is at the base of the charts), colour, label, default length, **Person**, **Long notes**, **Counts in**. An added type can only be deleted if it has no entries. A renamed built-in type shows ↺ at the end of its row: it gives the type its original name back (for example “Networking”). | **Skills**: points to “Manage my skills”, on the practice compass (see [part 4](#4-deliberate-practice)). |
 | **People tracking**: “no contact” alert threshold, in days; how long “Later” lasts in To follow up (14 days by default). | **Indicators shown as banners**: choice of the 6 indicators shown at the top of the dashboard and Activity. |
 | **Practice costs**, full width (see [part 11](#11-costs-and-real-hourly-rate)). | |
 | **Share with a peer**: “Export a template without data”. | **Getting started**: show the roadmap, animated celebrations, “Replay the welcome”. |
@@ -673,6 +676,7 @@ Blocks come in pairs, in this order; **My notebook** (the modules and the Essent
 A few details:
 
 - **Counts in** decides which indicator a type's hours are added to: coaching hours, deliberate practice, business development or other. For a type you added, it also sets its XP: ×2 for coaching hours, ×1 for deliberate practice, none otherwise.
+- **Long notes**: for the ticked types, “What came up” is written on several lines (the Enter key starts a new line), both when logging and in My entries. Ticked by default for networking only.
 - **Person**: required or optional when logging. By default, required for meetings, invitations, conversations, proposals, sessions and debriefs; optional for supervisions and the types you add.
 - **Type colours** automatically follow the palette and the order of importance, as long as you don't edit a colour by hand.
 - **On a screen narrower than 1500 px**, Activity types and Skills stack one under the other.
@@ -690,7 +694,7 @@ At the bottom of every page:
 ## 13. Security and encryption
 
 - **Turn on encryption**: Settings > Security. Names, notes, goals and photos become unreadable without your password. Existing backups are encrypted too.
-- **Recovery key**: given to you when you turn encryption on. Keep it **off the computer**, in a password manager or on paper. Without the password or the recovery key, nobody can reopen the data, not even the tool's author.
+- **Recovery key**: given to you when you turn encryption on, to copy or download as a text file (in the language of the interface). Keep it **off the computer**, in a password manager or on paper. Without the password or the recovery key, nobody can reopen the data, not even the tool's author.
 - **Automatic lock**: never, or after 5, 15, 30 or 60 minutes of inactivity.
 - **Lock screen**: it offers to unlock with your password or your recovery key. With the recovery key, you then choose a new password. A link also lets you open another notebook.
 - In Settings, you can also lock immediately, change your password, generate a new recovery key or turn encryption off.
@@ -769,7 +773,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.2.0** | 14/11/2026 | Modules to pick and choose instead of simple or full mode: ① Coach a lot, ② Sharpen my skills, ③ Build my practice, ④ The game, with the Essentials and All shortcuts. Chosen at start-up (“What do you want to work on?”), in the “My notebook” menu top right and in Settings. Simple mode becomes Essentials, full mode becomes All. A hidden module loses nothing and stops flagging anything. Demo tour (all modules on) and roadmap follow the modules; “Switch on a module” mission. |
+| **3.2.1** | 15/11/2026 | Easier-to-read Network: graph sized to the screen, right-hand panel that scrolls on its own, big groups more spread out, names that no longer overlap, zoom and reset (wheel, buttons, dragging the background), same drawing every time. “Long notes” set per activity type. Action plan readable on a narrow screen, Settings balanced whatever the modules, compass without Sales skills without module ③, recovery key downloaded in the language of the interface, reliable review alert after an early renewal or a notebook merge. Module descriptions clarified (circles, contact frequency, follow-ups and levels stay in the core). |
+| 3.2.0 | 14/11/2026 | Modules to pick and choose instead of simple or full mode: ① Coach a lot, ② Sharpen my skills, ③ Build my practice, ④ The game, with the Essentials and All shortcuts. Chosen at start-up (“What do you want to work on?”), in the “My notebook” menu top right and in Settings. Simple mode becomes Essentials, full mode becomes All. A hidden module loses nothing and stops flagging anything. Demo tour (all modules on) and roadmap follow the modules; “Switch on a module” mission. |
 | 3.1.0 | 14/11/2026 | “What your notebook is for” screen in the onboarding (step 2) and at the top of the About tab. English version completed (messages, missions, reminders, older release notes). Three more questions in About (finding or fixing an entry, choosing your indicators, what's in Settings). Website rebuilt around the three values, new screenshots. |
 | 3.0.0 | 14/11/2026 | Practice XP instead of 1-to-5 ease ratings: every meeting earns XP based on its length and type, to assign to your skills (focus first, shortcuts, unassigned XP flagged in My entries). Levels per skill, practice compass (share of XP and last 30 days), XP panel with transfers and history. Sales skills (0 to 5 XP and a comment after a meeting, an invitation or a proposal). Practice XP indicator, XP achievements, CSV export. Old ratings converted, with an automatic safety copy before the migration. |
 | 2.5.0 | 14/11/2026 | Network tab (full mode): Circles, Audience, Topic and Orbits views, showing stage, number of exchanges, people to follow up, bridges and referrals; “What your network shows” panel (bridges, groups to warm up, growth leads, referral chains). The foundation of the approach: keeping your network alive. Demo enriched with ten network contacts. |

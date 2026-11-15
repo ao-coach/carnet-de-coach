@@ -217,7 +217,7 @@ L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce 
 
 - Le graphique en toile montre **la part de tes XP sur chacune de tes compétences suivies**, rapportée à la compétence la plus fournie. En pointillé, la même chose sur **tes 30 derniers jours** : où tu investis en ce moment.
 - À côté de chaque compétence : son **niveau** et son total d'XP.
-- **Gérer mes compétences** (en haut de la boussole) ouvre la liste de tes compétences : libellé, **discipline**, suivie ou non, **focus**, nombre de saisies. C'est le seul endroit où les gérer ; le bloc des Paramètres y renvoie. La compétence **Facultés commerciales** s'y trouve toujours : elle se renomme, mais ne se supprime pas.
+- **Gérer mes compétences** (en haut de la boussole) ouvre la liste de tes compétences : libellé, **discipline**, suivie ou non, **focus**, nombre de saisies. C'est le seul endroit où les gérer ; le bloc des Paramètres y renvoie. La compétence **Facultés commerciales** s'y trouve toujours : elle se renomme, mais ne se supprime pas. Sur la boussole, elle n'apparaît qu'avec le module ③.
 - Les compétences d'une même **discipline** (PNL, Analyse transactionnelle, Systémique…) sont regroupées sur la boussole, sous un arc de couleur portant son nom. La discipline est libre : des suggestions s'affichent quand tu la tapes.
 - Une compétence sans XP reste au centre, avec la mention « aucun XP ».
 - Avec moins de 3 compétences suivies, la boussole devient une simple liste.
@@ -414,6 +414,7 @@ Chaque action a un objectif prioritaire, une description, une personne (facultat
 - Les pastilles « En cours », « Réalisées » et « Annulées » filtrent la liste.
 - Les actions créées depuis une fiche ou une relance ont pour objectif « Relance ».
 - Le ✕ au bout de la ligne supprime l'action, sans confirmation : « Annuler », dans le message qui s'affiche, la rétablit.
+- Sur un écran de moins de 1200 px de large, chaque action tient sur deux lignes : l'action en entier, puis l'objectif, la personne, la date, le résultat et le statut.
 
 ### Suivi indicateurs
 
@@ -604,6 +605,8 @@ L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il
 - **Ce que montre chaque point.** La **couleur** dit l'étape (contact réseau, invité·e, en conversation, proposition envoyée, client·e, accompagnement terminé, superviseur·e) ; la **taille**, le nombre d'échanges. Un point **pâle entouré de pointillés rouges** est à relancer (rythme de contact dépassé, ou pas de nouvelles depuis un moment). Un **contour doré** signale une **passerelle** : une personne dans plusieurs groupes. Les **flèches dorées** vont de la personne qui recommande à la personne recommandée (en pointillés : présentée).
 - **Options.** « Recommandations » affiche ou masque les flèches ; « Signaler les personnes à relancer », les pointillés ; « Inclure archivé·es et sans suite » ajoute en gris les personnes archivées ou « Sans suite », absentes sinon.
 - **Survol et clic.** Survole un point : nom, étape, nombre d'échanges, dernier contact, groupes, relance, recommandé·e par. Clique : sa fiche s'ouvre. Clique sur un groupe : ses membres sont mis en avant, le reste s'estompe ; « Tout afficher », ou un clic dans le vide, revient à l'ensemble. Tu peux déplacer un point à la souris, le temps de la consultation : rien n'est enregistré, et le dessin est recalculé à l'identique à chaque ouverture.
+- **Zoom et vue.** La molette (autour du pointeur) ou les boutons **+** et **−**, en haut à droite du graphe, zooment ; glisser le fond déplace la vue ; **⟲** recentre. Les noms de groupes et les prénoms s'écartent pour ne pas se chevaucher, et les gros groupes s'étalent davantage. À chaque ouverture de l'onglet, le zoom et les points déplacés reviennent au dessin d'origine.
+- **Sur un grand écran**, le graphe prend la hauteur de la fenêtre, sans faire défiler la page ; le panneau de droite défile seul, avec la légende en tête ; le titre du carnet s'efface pour laisser la place, et « + Enregistrer un temps » passe en tête du panneau.
 - **Grands carnets.** Au-delà d'une soixantaine de personnes, seuls les prénoms des passerelles, des personnes à relancer et des plus gros points sont écrits ; les autres apparaissent au survol.
 - **Ce que montre ton réseau.** Le panneau de droite (sous le graphe sur un écran étroit) tire quatre pistes du regroupement choisi : les **passerelles** (« Bastien relie Club d'entrepreneurs et Réseau d'anciens collègues »), les groupes **à réchauffer** (au moins la moitié des membres à relancer), les **pistes de développement** (groupes où personne n'a encore vécu une conversation de coaching : une invitation ?) et les **chaînes de recommandation** (Julien → Antoine → Romain). Un nom ouvre la fiche, un groupe le met en avant.
 
@@ -659,13 +662,13 @@ Réglages dans **Paramètres > Coûts de l'activité**.
 
 Tous les blocs sont **repliés par défaut**. Clique sur un titre, ou sur le triangle placé avant lui, pour ouvrir ou fermer le bloc. Replié, chaque bloc affiche un résumé d'une ligne. Ton choix est mémorisé sur ton ordinateur.
 
-Les blocs vont par deux, dans cet ordre ; **Mon carnet** (les modules et les raccourcis Essentiel / Tout, ouvert par défaut) s'insère sur toute la largeur sous Identité et Apparence. Certains blocs n'apparaissent qu'avec leur module (voir [Mon carnet : les modules](#mon-carnet--les-modules)) :
+Les blocs vont par deux, dans cet ordre ; **Mon carnet** (les modules et les raccourcis Essentiel / Tout, ouvert par défaut) s'insère sur toute la largeur sous Identité et Apparence. Certains blocs n'apparaissent qu'avec leur module (voir [Mon carnet : les modules](#mon-carnet--les-modules)) ; un bloc resté seul sur sa ligne prend alors toute la largeur :
 
 | Gauche | Droite |
 |---|---|
 | **Identité** : nom du cabinet, nom de l'outil, phrase de motivation, accord des libellés (féminin, masculin, inclusif). | **Apparence** : logo (qui sert aussi d'icône à l'onglet et à la fenêtre) et bandeau côte à côte, les 5 couleurs de marque (Accent, Foncé, Fond, Gris, Bleu), « Revenir à la palette par défaut ». |
 | **Sécurité** : chiffrement, verrouillage automatique, mot de passe, clé de secours (voir la [partie 13](#13-sécurité-et-chiffrement)). | **Stockage des données** : dossier relié, « Ouvrir un autre carnet », « Nouveau carnet ». |
-| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, **Personne**, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. Un type intégré renommé affiche ↺ au bout de sa ligne : il lui rend son nom d'origine (par exemple « Rencontre réseau »). | **Compétences** : renvoie à « Gérer mes compétences », sur la boussole de pratique (voir la [partie 4](#4-pratique-délibérée)). |
+| **Types d'activité** (11 au maximum) : ordre d'importance par glisser-déposer (le n° 1 est à la base des graphiques), couleur, libellé, durée par défaut, **Personne**, **Notes longues**, **Compte dans**. Un type ajouté ne peut être supprimé que s'il n'a aucune saisie. Un type intégré renommé affiche ↺ au bout de sa ligne : il lui rend son nom d'origine (par exemple « Rencontre réseau »). | **Compétences** : renvoie à « Gérer mes compétences », sur la boussole de pratique (voir la [partie 4](#4-pratique-délibérée)). |
 | **Suivi des personnes** : seuil de l'alerte « sans contact », en jours ; durée de « Plus tard » dans À relancer (14 jours par défaut). | **Indicateurs suivis en bandeaux** : choix des 6 indicateurs affichés en haut du tableau de bord et des Métriques. |
 | **Coûts de l'activité**, sur toute la largeur (voir la [partie 11](#11-coûts-et-taux-horaire-réel)). | |
 | **Partager à un pair** : « Exporter un modèle sans données ». | **Parcours de démarrage** : afficher le carnet de route, célébrations animées, « Revoir l'accueil ». |
@@ -673,6 +676,7 @@ Les blocs vont par deux, dans cet ordre ; **Mon carnet** (les modules et les rac
 Quelques précisions :
 
 - **Compte dans** décide dans quel indicateur les heures d'un type sont additionnées : heures de coaching, pratique délibérée, développement ou autre. Pour un type que tu as ajouté, il fixe aussi ses XP : ×2 en heures de coaching, ×1 en pratique délibérée, aucun sinon.
+- **Notes longues** : pour les types cochés, « Ce qu'on a vu » s'écrit sur plusieurs lignes (la touche Entrée passe à la ligne), dans la saisie comme dans Mes saisies. Cochée par défaut pour la rencontre réseau seulement.
 - **Personne** : obligatoire ou facultative à la saisie. Par défaut, obligatoire pour la rencontre, l'invitation, la conversation, la proposition, la séance et le débrief ; facultative pour la supervision et les types que tu ajoutes.
 - **Les couleurs des types** suivent automatiquement la palette et l'ordre d'importance, tant que tu ne retouches pas une couleur à la main.
 - **Sur un écran de moins de 1500 px de large**, Types d'activité et Compétences passent l'un sous l'autre.
@@ -690,7 +694,7 @@ En bas de chaque page :
 ## 13. Sécurité et chiffrement
 
 - **Activer le chiffrement** : Paramètres > Sécurité. Noms, notes, objectifs et photos deviennent illisibles sans ton mot de passe. Les sauvegardes existantes sont chiffrées elles aussi.
-- **Clé de secours** : elle t'est remise à l'activation. Garde-la **hors de l'ordinateur**, dans un gestionnaire de mots de passe ou sur papier. Sans le mot de passe ni la clé de secours, personne ne peut plus rouvrir les données, pas même l'auteur de l'outil.
+- **Clé de secours** : elle t'est remise à l'activation, à copier ou à télécharger en fichier texte (dans la langue de l'interface). Garde-la **hors de l'ordinateur**, dans un gestionnaire de mots de passe ou sur papier. Sans le mot de passe ni la clé de secours, personne ne peut plus rouvrir les données, pas même l'auteur de l'outil.
 - **Verrouillage automatique** : jamais, ou après 5, 15, 30 ou 60 minutes d'inactivité.
 - **Écran de verrouillage** : il propose de déverrouiller avec ton mot de passe ou avec ta clé de secours. Avec la clé de secours, tu choisis ensuite un nouveau mot de passe. Un lien permet aussi d'ouvrir un autre carnet.
 - Dans Paramètres, tu peux aussi verrouiller tout de suite, changer de mot de passe, générer une nouvelle clé de secours ou désactiver le chiffrement.
@@ -769,7 +773,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.2.0** | 14/11/2026 | Modules à la carte à la place du mode simplifié ou complet : ① Coacher beaucoup, ② Affûter mes compétences, ③ Créer mon activité, ④ Le jeu, avec les raccourcis Essentiel et Tout. Choix au démarrage (« Sur quoi veux-tu travailler ? »), dans le menu « Mon carnet » en haut à droite et dans Paramètres. Le mode simplifié devient Essentiel, le complet devient Tout. Un module masqué ne fait rien perdre et ne signale plus rien. Visite de la démo (tous modules activés) et carnet de route qui suivent les modules ; mission « Activer un module ». |
+| **3.2.1** | 15/11/2026 | Réseau plus lisible : graphe à la hauteur de l'écran, panneau qui défile seul, gros groupes plus étalés, noms qui ne se chevauchent plus, zoom et recentrage (molette, boutons, glisser du fond), même dessin à chaque ouverture. « Notes longues » réglable par type d'activité. Plan d'action lisible sur écran étroit, Paramètres équilibré selon les modules, boussole sans Facultés commerciales sans le module ③, clé de secours téléchargée dans la langue de l'interface, alerte de bilan fiable après un renouvellement anticipé ou une fusion de carnets. Descriptions des modules précisées (cercles, rythme, relances et niveaux restent au socle). |
+| 3.2.0 | 14/11/2026 | Modules à la carte à la place du mode simplifié ou complet : ① Coacher beaucoup, ② Affûter mes compétences, ③ Créer mon activité, ④ Le jeu, avec les raccourcis Essentiel et Tout. Choix au démarrage (« Sur quoi veux-tu travailler ? »), dans le menu « Mon carnet » en haut à droite et dans Paramètres. Le mode simplifié devient Essentiel, le complet devient Tout. Un module masqué ne fait rien perdre et ne signale plus rien. Visite de la démo (tous modules activés) et carnet de route qui suivent les modules ; mission « Activer un module ». |
 | 3.1.0 | 14/11/2026 | Écran « À quoi sert ton carnet » dans le parcours de démarrage (2e étape) et en tête de l'onglet À propos. Version anglaise complétée (messages, missions, rappels, anciennes nouveautés). Trois questions de plus dans À propos (retrouver ou corriger une saisie, choisir tes indicateurs, contenu de Paramètres). Site refondu autour des trois valeurs, captures renouvelées. |
 | 3.0.0 | 14/11/2026 | XP de pratique à la place des notes d'aisance de 1 à 5 : chaque entretien rapporte des XP selon sa durée et son type, à répartir entre tes compétences (focus en tête, raccourcis, XP non répartis signalés dans Mes saisies). Niveaux par compétence, boussole de pratique (part des XP et 30 derniers jours), panneau XP avec transferts et historique. Compétence Facultés commerciales (0 à 5 XP et commentaire après une rencontre, une invitation ou une proposition). Indicateur XP de pratique, hauts faits d'XP, export CSV. Conversion des anciennes notes, avec une copie de sécurité automatique avant la migration. |
 | 2.5.0 | 14/11/2026 | Onglet Réseau (mode complet) : vues Cercles, Public, Problématique et Orbites, avec l'étape, le nombre d'échanges, les personnes à relancer, les passerelles et les recommandations ; panneau « Ce que montre ton réseau » (passerelles, groupes à réchauffer, pistes de développement, chaînes de recommandation). Le socle de la démarche : entretenir ton réseau. Démo enrichie de dix contacts réseau. |

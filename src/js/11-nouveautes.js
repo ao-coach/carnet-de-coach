@@ -3,6 +3,10 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:52,s:'3.2.1',d:'15 novembre 2026',items:[
+  {t:"Réseau : plus lisible, avec un zoom",p:"Le graphe prend la hauteur de ton écran et le panneau de droite défile à part. Les gros groupes respirent, les noms évitent de se chevaucher, et tu zoomes avec la molette ou les boutons + et −, tu déplaces la vue en glissant le fond, ⟲ recentre. Le dessin reste le même à chaque ouverture."},
+  {t:"Notes longues, type par type",p:"Dans Paramètres > Types d'activité, la case « Notes longues » écrit « Ce qu'on a vu » sur plusieurs lignes pour les types que tu choisis. La rencontre réseau reste cochée, comme avant.",go:"settings",b:"Paramètres"},
+  {t:"Finitions",p:"Le plan d'action garde l'action lisible sur un écran étroit, Paramètres s'équilibre quels que soient tes modules, la boussole n'affiche Facultés commerciales qu'avec « Créer mon activité », la clé de secours se télécharge dans la langue de l'interface, et l'alerte de bilan ne se cache plus derrière un renouvellement signé en avance."}]},
  {v:51,s:'3.2.0',d:'14 novembre 2026',items:[
   {t:'Mon carnet : des modules à la carte',p:"Le mode simplifié et le mode complet laissent la place à quatre modules : ① Coacher beaucoup (tableau de bord, objectifs, plan d'action), ② Affûter mes compétences (pratique délibérée, XP de pratique), ③ Créer mon activité (réseau, Facultés commerciales, coûts), ④ Le jeu (fiche de coach, rang, célébrations). Le menu « Mon carnet », en haut à droite, les affiche ou les masque. Un module masqué ne fait rien perdre et ne te signale plus rien."},
   {t:'Rien ne change pour toi',p:"Ton carnet garde ce que tu voyais : le mode simplifié devient « Essentiel » (aucun module, le suivi de tes entretiens et de tes personnes), le mode complet devient « Tout » (les quatre modules)."},
