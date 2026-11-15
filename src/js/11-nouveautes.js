@@ -3,6 +3,10 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:53,s:'3.2.2',d:'15 novembre 2026',items:[
+  {t:"La fiche de la saisie",p:"Dans Mes saisies, le bouton « Fiche », juste avant « Ce qu'on a vu », ouvre toute la saisie dans une fenêtre large, en sections repliables : Infos, Notes, XP de pratique, Contrat et coût, selon tes modules. Tout s'y modifie, puis « Enregistrer ». Les colonnes XP et Contrat / coût quittent le tableau, qui gagne en lisibilité.",go:'list',b:'Voir'},
+  {t:"Répartir les XP en attente",p:"Dans Pratique délibérée, le panneau XP de pratique liste d'un bouton les saisies dont les XP ne sont pas encore répartis. Un clic ouvre la fiche sur les XP ; tu répartis, tu enregistres, et tu reviens à la liste, à jour.",go:'pd',b:'Voir'},
+  {t:"Confirmation avant de supprimer",p:"Supprimer une saisie demande maintenant une confirmation, qui rappelle son type et sa date. « Annuler » reste possible quelques secondes après."}]},
  {v:52,s:'3.2.1',d:'15 novembre 2026',items:[
   {t:"Réseau : plus lisible, avec un zoom",p:"Le graphe prend la hauteur de ton écran et le panneau de droite défile à part. Les gros groupes respirent, les noms évitent de se chevaucher, et tu zoomes avec la molette ou les boutons + et −, tu déplaces la vue en glissant le fond, ⟲ recentre. Le dessin reste le même à chaque ouverture."},
   {t:"Notes longues, type par type",p:"Dans Paramètres > Types d'activité, la case « Notes longues » écrit « Ce qu'on a vu » sur plusieurs lignes pour les types que tu choisis. La rencontre réseau reste cochée, comme avant.",go:"settings",b:"Paramètres"},

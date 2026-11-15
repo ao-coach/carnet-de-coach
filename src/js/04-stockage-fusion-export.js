@@ -202,7 +202,7 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
  t:[
   ['Enregistrer un temps',"Chaque moment de ta pratique, en quelques secondes : une rencontre, une invitation, une conversation, une séance, une supervision. C'est la seule saisie régulière."],
   ['Tes trois repères',"Heures de coaching, pratique délibérée et conversations : l'année en cours et les 31 derniers jours. La petite courbe montre la tendance."],
-  ['Mes saisies',"Tout l'historique, à filtrer par type, par personne ou par période. Chaque temps se retrouve et se corrige ici."],
+  ['Mes saisies',"Tout l'historique, à filtrer par type, par personne ou par période. Chaque temps se corrige ici, et « Fiche » ouvre la saisie entière : notes, XP, contrat."],
   ['Personnes',"Chaque personne rencontrée, invitée ou accompagnée a sa fiche. C'est ici que se voit le chemin de chacune."],
   ['À relancer',"Le carnet repère les personnes sans nouvelles depuis un moment, les accompagnements qui se terminent et les actions prévues. « Traiter » : c'est fait, une autre date, plus tard, ou un commentaire."],
   ['Relance au rythme',"Chaque personne a un rythme de contact, tous les 3 mois par défaut. Quand il est dépassé, elle revient ici, avec ses cercles et le sujet à reprendre. Entretenir ton réseau, sans rien vendre."],
@@ -211,7 +211,7 @@ fr:{side:['Bienvenue','La démarche','Le tour'],brand:'Carnet de Camille',brandS
   ['Le carnet de route',"Une mission à la fois pour prendre le carnet en main. Dans ton propre carnet, il te guide dès le premier jour."],
   ['Mon carnet',"Camille a tout activé. « Mon carnet » choisit les modules affichés : ① Coacher beaucoup (tableau de bord, objectifs), ② Affûter mes compétences (pratique délibérée, XP), ③ Créer mon activité (réseau, coûts), ④ Le jeu (fiche de coach, rang). « Essentiel » garde le suivi de tes entretiens et de tes personnes. Masquer un module ne fait rien perdre."],
   ['Ton réseau',"Avec le module « Créer mon activité », l'onglet Réseau dessine tes personnes autour de leurs cercles : la couleur dit l'étape, la taille le nombre d'échanges, les pointillés rouges qui relancer, le contour doré qui fait le pont entre deux cercles. La molette ou les boutons + et − zooment, glisser le fond déplace la vue. À droite, ce que ton réseau montre : qui réchauffer, où inviter, qui remercier."],
-  ['XP de pratique',"Avec le module « Affûter mes compétences », chaque entretien rapporte des XP selon sa durée et son type : une séance de 1h30, 18 XP. Tu les répartis entre les compétences travaillées ; chacune monte de niveau, la boussole montre où tu investis, et un transfert déplace des XP sans en créer."],
+  ['XP de pratique',"Avec le module « Affûter mes compétences », chaque entretien rapporte des XP selon sa durée et son type : une séance de 1h30, 18 XP. Tu les répartis entre les compétences travaillées ; chacune monte de niveau, la boussole montre où tu investis, et un transfert déplace des XP sans en créer. Ceux que tu n'as pas encore répartis t'attendent derrière « Répartir les XP en attente »."],
   ['À toi de jouer',"Explore librement : rien n'est enregistré. Quand tu le souhaites, « Créer mon propre carnet » démarre le tien, vide et rien qu'à toi. Pour revoir ce tour : « Revoir la visite », ici."]],
  openPeople:'Ouvrir Personnes',end:'Terminer'},
 en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandSub:'Demo notebook',quote:'Coach a lot, practise deliberately, grow my practice',
@@ -229,7 +229,7 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
  t:[
   ['Log time','Every moment of your practice, in a few seconds: a meeting, an invitation, a conversation, a session, a supervision. It is the only regular entry.'],
   ['Your three markers','Coaching hours, deliberate practice and conversations: the current year and the last 31 days. The small curve shows the trend.'],
-  ['My entries','Your whole history, filtered by type, person or period. Every logged time can be found and corrected here.'],
+  ['My entries','Your whole history, filtered by type, person or period. Every logged time can be corrected here, and “Card” opens the whole entry: notes, XP, contract.'],
   ['People','Everyone you meet, invite or accompany has a profile. This is where each person’s path shows.'],
   ['To follow up','The notebook spots people you have not heard from in a while, engagements coming to an end and planned actions. “Handle”: done, another date, later, or a comment.'],
   ['Follow-up at your pace','Each person has a contact frequency, every 3 months by default. When it is overdue, they come back here, with their circles and the topic to pick up. Keeping your network alive, without selling anything.'],
@@ -238,7 +238,7 @@ en:{side:['Welcome','The approach','The tour'],brand:"Camille's notebook",brandS
   ['The roadmap','One mission at a time to get to grips with the notebook. In your own notebook, it guides you from day one.'],
   ['My notebook','Camille has everything switched on. “My notebook” picks the modules on display: ① Coach a lot (dashboard, goals), ② Sharpen my skills (deliberate practice, XP), ③ Build my practice (network, costs), ④ The game (coach profile, rank). “Essentials” keeps the tracking of your sessions and your people. Hiding a module loses nothing.'],
   ['Your network',"With the “Build my practice” module, the Network tab draws your people around their circles: colour shows the stage, size the number of exchanges, red dots who to follow up, a gold outline who bridges two circles. The wheel or the + and − buttons zoom, dragging the background moves the view. On the right, what your network shows: who to warm up, where to invite, who to thank."],
-  ['Practice XP','With the “Sharpen my skills” module, every session earns XP based on its length and type: a 1h30 session earns 18 XP. You assign them to the skills you worked on; each skill levels up, the compass shows where you invest, and a transfer moves XP without creating any.'],
+  ['Practice XP','With the “Sharpen my skills” module, every session earns XP based on its length and type: a 1h30 session earns 18 XP. You assign them to the skills you worked on; each skill levels up, the compass shows where you invest, and a transfer moves XP without creating any. The ones you have not assigned yet wait behind “Assign pending XP”.'],
   ['Your turn','Explore freely: nothing is saved. Whenever you like, “Create my own notebook” starts yours, empty and yours alone. To see this tour again: “Replay the tour”, here.']],
  openPeople:'Open People',end:'Finish'}};
 const DT={on:false,kind:null,i:0,choice:'tour',full:false};

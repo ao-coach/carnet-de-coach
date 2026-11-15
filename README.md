@@ -151,7 +151,7 @@ Le **socle** est toujours là : enregistrer un temps, Suivi d'activité, Mes sai
 | Module | Ce qu'il ajoute |
 |---|---|
 | ① **Coacher beaucoup** | Le **tableau de bord** (indicateurs, objectif prioritaire, plan d'action, suivi indicateurs), les indicateurs 4 à 6 sous les bandeaux, le choix et le glisser-déposer des indicateurs, Paramètres > Indicateurs suivis en bandeaux. |
-| ② **Affûter mes compétences** | L'onglet **Pratique délibérée** (boussole, XP de pratique, transferts, préparation de la supervision), le bloc XP, focus et remarques de la saisie et du détail ◎, les colonnes XP de Mes saisies, les XP investis avec une personne, Paramètres > Compétences. |
+| ② **Affûter mes compétences** | L'onglet **Pratique délibérée** (boussole, XP de pratique, transferts, préparation de la supervision), le bloc XP, focus et remarques de la saisie et de la fiche de la saisie, le bouton « Répartir les XP en attente », le point jaune du bouton « Fiche » de Mes saisies, les XP investis avec une personne, Paramètres > Compétences. |
 | ③ **Créer mon activité** | L'onglet **Réseau**, la proximité, le public et la problématique dans la fiche, les **Facultés commerciales** (0 à 5 XP et commentaire), la carte « Développer ton activité » (entonnoir), la vue **Liste** des personnes, le coût des supervisions, Paramètres > Suivi des personnes et Coûts de l'activité (taux horaire réel). |
 | ④ **Le jeu** (en option) | La **fiche Coach** (rang, niveau, hauts faits, victoires) et les **célébrations**. |
 
@@ -164,7 +164,7 @@ En **Essentiel** (l'ancien mode simplifié) :
 - **Onglets** : Suivi d'activité (l'écran principal), Mes saisies, Personnes, Paramètres, À propos.
 - **Saisie** : les types sont présentés l'un sous l'autre, avec leur sens (« J'ai proposé à une personne de découvrir le coaching »…), puis tes autres types. Il reste la durée, la personne, « Ce qu'on a vu », les notes sur l'entretien et le suivi (CR, synthèse). Une proposition garde son montant et sa durée d'engagement.
 - **Suivi d'activité** : le graphique du temps passé par mois et tes 3 indicateurs principaux (hors XP de pratique, objectifs et coûts).
-- **Mes saisies** : sans les colonnes XP ni le coût des supervisions.
+- **Fiche de la saisie** : sans les XP ni le coût des supervisions.
 - **Personnes** : vue Pipeline seulement, avec « À relancer » au-dessus. La fiche n'a ni proximité, ni XP investis, ni public, ni problématique.
 - **Paramètres** : Mon carnet, ton nom, ton logo et une palette proposée ; sécurité, stockage, partage et parcours.
 
@@ -190,15 +190,15 @@ C'est le geste quotidien : après chaque entretien, clique sur **« + Enregistre
   - « + Créer », en bas de la liste, suivi du nom tapé, crée une nouvelle personne.
   - Elle est **obligatoire** pour une rencontre, une invitation, une conversation, une proposition, une séance ou un débrief ; facultative pour une supervision et pour les types que tu ajoutes. Le réglage se change type par type (voir [Paramètres](#12-paramètres), colonne « Personne »).
 - **Ce qu'on a vu.** Une ligne : thème, déclic, pattern repéré. Pour une rencontre réseau, la zone accepte plusieurs lignes (qui, dans quel contexte, ce qui s'est dit, la suite) et s'agrandit avec ton texte.
-- **Notes sur l'entretien.** Une grande zone facultative, pour tout ce que tu veux garder en mémoire. Elle se retrouve dans Mes saisies (bouton ◎), dans l'export CSV et dans l'import CSV (colonne « Notes »).
+- **Notes sur l'entretien.** Une grande zone facultative, pour tout ce que tu veux garder en mémoire. Elle se retrouve dans la fiche de la saisie (Mes saisies, bouton « Fiche »), dans l'export CSV et dans l'import CSV (colonne « Notes »).
 - **Suivi.** Cases « CR envoyé » et « Synthèse écrite », pour les entretiens en face à face.
-- **Réponse** (Invitation). Case « Elle a dit non » si la personne décline. Tu peux la cocher plus tard, dans Mes saisies. Tes non sont comptés dans Suivi d'activité.
+- **Réponse** (Invitation). Case « Elle a dit non » si la personne décline. Tu peux la cocher plus tard, dans la fiche de la saisie (Mes saisies). Tes non sont comptés dans Suivi d'activité.
 - **Actions de pratique délibérée.** Pour chacune de tes actions en cours qui concerne ce type d'entretien : **Oui**, **En partie** ou **Non**. Un nouveau clic sur la réponse l'efface. C'est le plus rapide : commence par là.
 - **XP de pratique** (module ②). Chaque entretien rapporte des XP selon sa durée et son type : **10 minutes = 1 XP**, arrondi au plus proche, multiplié par **2** pour une séance ou une conversation, **3** pour une supervision, **1** pour un débrief ou un type d'entraînement que tu as ajouté (rôle « Pratique délibérée » ; un type ajouté de rôle « Heures de coaching » compte ×2). Une séance de 1h30 rapporte 18 XP, une conversation d'1 h 12 XP, une supervision de 1h30 27 XP, un débrief de 1h30 9 XP. Les multiplicateurs sont fixes.
   - L'en-tête annonce « 18 XP à répartir » et le détail du calcul ; il suit en direct le type et la durée.
   - Toutes tes compétences suivies s'affichent, **tes focus en premier**, avec **−** et **+**. Le compteur indique « reste 6 », puis « tout est réparti ✓ » ; on ne peut pas dépasser le budget.
   - Raccourcis : **Tout sur le focus** et **Répartir également**.
-  - Tu peux enregistrer sans tout répartir : les XP restants attendent dans Mes saisies et dans le détail ◎. Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis.
+  - Tu peux enregistrer sans tout répartir : les XP restants t'attendent dans Pratique délibérée, bouton « Répartir les XP en attente » (voir plus bas). Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis.
   - Une rencontre réseau, une invitation, une proposition ou une annexe ne rapporte pas d'XP de pratique.
 - **Facultés commerciales** (module ③). Après une rencontre réseau, une invitation ou une proposition : **de 0 à 5 XP** selon ton aisance, et **ce qui a été facile, ce qui a été difficile**. Ce commentaire est obligatoire, même à 0 XP ; sans le module ③, le bloc n'apparaît pas et rien n'est exigé.
 - **Focus.** Pour chacune de tes compétences en focus, une grande zone **« Ce que j'ai remarqué »** et une case **« Retenir pour la prochaine supervision »**. Tout est facultatif.
@@ -226,7 +226,7 @@ L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce 
 
 Sous la boussole, le panneau **XP de pratique** :
 
-- **en tête** : tes XP gagnés en tout, ceux des 30 derniers jours, et les **XP à répartir** (avec le nombre de saisies concernées et un lien vers Mes saisies) ;
+- **en tête** : tes XP gagnés en tout, ceux des 30 derniers jours, et les **XP à répartir** (avec le nombre de saisies concernées) ; le bouton **« Répartir les XP en attente »** liste ces saisies : un clic ouvre la fiche de la saisie sur ses XP, tu répartis, tu enregistres, et tu reviens à la liste, mise à jour ;
 - **pour chaque compétence** : son total (XP répartis dans tes saisies, plus les transferts reçus, moins les transferts donnés), son **niveau**, une barre qui **repart de zéro à chaque niveau**, ses XP des 30 derniers jours et le seuil du niveau suivant. Toutes les compétences suivent la même courbe : niveau 1 à 10 XP, puis 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), jusqu'au niveau 100 ;
 - **Transférer des XP** : « Transférer N XP de A vers B », avec un motif facultatif. Un transfert déplace des XP déjà gagnés, sans en créer : utile quand tu fusionnes deux compétences, ou quand un entretien a surtout servi une autre compétence. N ne peut pas dépasser le total de A ; une compétence archivée peut être source ou cible ;
 - **Historique des transferts** : date, A → B, nombre d'XP, motif. « annuler » reste possible tant que B a encore assez d'XP.
@@ -492,16 +492,13 @@ Le détail de tous tes entretiens, filtrable et modifiable directement dans le t
   - **À droite :** les XP investis avec cette personne, compétence par compétence.
   - **En dessous :** la frise de ses échanges, avec la date (jj/mm) au-dessus de chaque échange et l'année au milieu de sa période.
 - **Années.** Elles sont classées de la plus récente à la plus ancienne.
-- **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Ce qu'on a vu, XP, Contrat / coût.
-  - **XP** (module ②) est replié par défaut et montre un résumé : « 18 XP · Q 12 · É 6 » (les initiales de tes compétences). Un clic sur l'en-tête ou sur une cellule déplie une colonne par compétence, avec un petit champ numérique, et une colonne qui donne les XP gagnés et ce qui reste à répartir. On ne peut pas dépasser le budget de la saisie ; les Facultés commerciales vont de 0 à 5.
-  - Une saisie dont des XP restent **à répartir** a ses cellules XP en jaune. Si tu raccourcis la durée ou changes le type d'une saisie déjà répartie, le budget est recalculé : un **dépassement** colore la ligne en rouge, sans rien supprimer, jusqu'à ce que tu ajustes. Sans le module ②, rien n'est signalé.
-  - **Contrat / coût** est replié par défaut. Une fois déplié, sur un fond rosé, il montre : Accepté (statut), Montant (ou coût d'une supervision), Durée, Séances. Sur une supervision, la case « non payante » remplace le statut ; sur une invitation, la case « Elle a dit non ».
+- **Tableau.** Les colonnes sont, dans l'ordre : Personne, Date, Type, Durée, CR, Synth., Fiche, Ce qu'on a vu.
   - **Personne** : un clic sur le nom ouvre un champ de recherche (personnes récentes d'abord) pour changer la personne d'une saisie, en créer une, ou la retirer (« — Aucune personne ») sur un type où elle est facultative. Une saisie à qui il manque une personne obligatoire est entourée en rouge ; « Personne supprimée » signale une saisie dont la personne a été effacée. La petite loupe à côté filtre le tableau sur cette personne.
   - **Durée** : « Autre… », en bas de la liste, permet d'écrire n'importe quelle durée (`2,5`, `2h30`, `150min`), puis Entrée.
   - Chaque modification est enregistrée aussitôt.
-  - **◎** ouvre les détails de la saisie : notes sur l'entretien, et sa pratique délibérée (réponses aux actions, répartition des XP ou Facultés commerciales et leur commentaire, remarques, retours d'une supervision) pour la compléter ou la corriger. Il est coloré quand la saisie en contient.
-  - ✕ supprime une saisie. L'annulation est possible quelques secondes.
-- **Afficher les métriques archivées.** Fait réapparaître les axes que tu ne suis plus.
+  - **Fiche** ouvre la **fiche de la saisie**, une fenêtre large en sections repliables, affichées selon tes modules : **Infos** (date, type, durée, personne, CR et synthèse), **Notes** (« Ce qu'on a vu » et notes sur l'entretien, sans ascenseur étriqué), **XP de pratique** (module ② : réponses aux actions, répartition des XP, remarques, retours d'une supervision ; avec ③, Facultés commerciales et leur commentaire) et **Contrat et coût** (statut, montant, durée d'engagement et séances d'une proposition ; « Elle a dit non » d'une invitation ; coût d'une supervision avec ③). Notes est dépliée à l'ouverture, le reste replié ; un clic sur un titre déplie ou replie sa section, avec un résumé quand elle est repliée. Tout s'y modifie, puis **Enregistrer** ; ✕ ferme sans rien changer.
+  - Le bouton Fiche est coloré quand la saisie a des notes ou de la pratique délibérée. Un **point jaune** signale des XP **à répartir** (module ②). Dans la fiche, si tu raccourcis la durée ou changes le type d'une saisie déjà répartie, le budget est recalculé : un **dépassement** s'affiche en rouge, sans rien supprimer, jusqu'à ce que tu ajustes. Les Facultés commerciales vont de 0 à 5.
+  - ✕ supprime une saisie, après confirmation (la fenêtre rappelle son type et sa date). L'annulation reste possible quelques secondes.
 - **Exporter CSV** (en bas de page). Un tableur de toutes tes saisies.
 
 ---
@@ -546,7 +543,7 @@ Une étape choisie à la main, sur la fiche ou par glisser-déposer, reste valab
 
 ### La fiche personne
 
-Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « Fiche » dans Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ».
+Pour ouvrir une fiche, clique sur une carte, sur un nom dans « À relancer », ou sur « Fiche » dans la tuile d'une personne de Mes saisies. Tu peux aussi créer une personne avec « + Nouvelle personne ».
 
 **En haut, toujours visible :**
 
@@ -620,7 +617,7 @@ L'onglet **Réseau** dessine les personnes de ton carnet et ce qui les relie. Il
 2. Elle apparaît dans **À relancer** tant qu'aucune action n'est prévue pour la personne.
 3. Change son statut :
    - dans **À relancer**, avec les boutons Acceptée ou Refusée ;
-   - ou dans **Mes saisies**, colonne Contrat dépliée, Accepté : En attente, Acceptée ou Refusée.
+   - ou dans **Mes saisies**, fiche de la saisie, section Contrat et coût, Statut : En attente, Acceptée ou Refusée.
 4. Le **contrat** d'une personne est sa **dernière proposition acceptée** :
    - début : par défaut la date de la proposition, modifiable sur la fiche ;
    - fin : le début plus la durée d'engagement ;
@@ -773,7 +770,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.2.1** | 15/11/2026 | Réseau plus lisible : graphe à la hauteur de l'écran, panneau qui défile seul, gros groupes plus étalés, noms qui ne se chevauchent plus, zoom et recentrage (molette, boutons, glisser du fond), même dessin à chaque ouverture. « Notes longues » réglable par type d'activité. Plan d'action lisible sur écran étroit, Paramètres équilibré selon les modules, boussole sans Facultés commerciales sans le module ③, clé de secours téléchargée dans la langue de l'interface, alerte de bilan fiable après un renouvellement anticipé ou une fusion de carnets. Descriptions des modules précisées (cercles, rythme, relances et niveaux restent au socle). |
+| **3.2.2** | 15/11/2026 | Fiche de la saisie : bouton « Fiche » dans Mes saisies, avant « Ce qu'on a vu », qui ouvre toute la saisie dans une fenêtre large en sections repliables (Infos, Notes, XP de pratique, Contrat et coût) où tout se modifie ; colonnes XP et Contrat / coût retirées du tableau. « Répartir les XP en attente » dans le panneau XP de pratique. Confirmation avant de supprimer une saisie. |
+| 3.2.1 | 15/11/2026 | Réseau plus lisible : graphe à la hauteur de l'écran, panneau qui défile seul, gros groupes plus étalés, noms qui ne se chevauchent plus, zoom et recentrage (molette, boutons, glisser du fond), même dessin à chaque ouverture. « Notes longues » réglable par type d'activité. Plan d'action lisible sur écran étroit, Paramètres équilibré selon les modules, boussole sans Facultés commerciales sans le module ③, clé de secours téléchargée dans la langue de l'interface, alerte de bilan fiable après un renouvellement anticipé ou une fusion de carnets. Descriptions des modules précisées (cercles, rythme, relances et niveaux restent au socle). |
 | 3.2.0 | 14/11/2026 | Modules à la carte à la place du mode simplifié ou complet : ① Coacher beaucoup, ② Affûter mes compétences, ③ Créer mon activité, ④ Le jeu, avec les raccourcis Essentiel et Tout. Choix au démarrage (« Sur quoi veux-tu travailler ? »), dans le menu « Mon carnet » en haut à droite et dans Paramètres. Le mode simplifié devient Essentiel, le complet devient Tout. Un module masqué ne fait rien perdre et ne signale plus rien. Visite de la démo (tous modules activés) et carnet de route qui suivent les modules ; mission « Activer un module ». |
 | 3.1.0 | 14/11/2026 | Écran « À quoi sert ton carnet » dans le parcours de démarrage (2e étape) et en tête de l'onglet À propos. Version anglaise complétée (messages, missions, rappels, anciennes nouveautés). Trois questions de plus dans À propos (retrouver ou corriger une saisie, choisir tes indicateurs, contenu de Paramètres). Site refondu autour des trois valeurs, captures renouvelées. |
 | 3.0.0 | 14/11/2026 | XP de pratique à la place des notes d'aisance de 1 à 5 : chaque entretien rapporte des XP selon sa durée et son type, à répartir entre tes compétences (focus en tête, raccourcis, XP non répartis signalés dans Mes saisies). Niveaux par compétence, boussole de pratique (part des XP et 30 derniers jours), panneau XP avec transferts et historique. Compétence Facultés commerciales (0 à 5 XP et commentaire après une rencontre, une invitation ou une proposition). Indicateur XP de pratique, hauts faits d'XP, export CSV. Conversion des anciennes notes, avec une copie de sécurité automatique avant la migration. |

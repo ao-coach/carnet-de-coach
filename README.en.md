@@ -151,7 +151,7 @@ The **core** is always there: logging time, Activity, My entries, People (pipeli
 | Module | What it adds |
 |---|---|
 | ① **Coach a lot** | The **dashboard** (indicators, priority goal, action plan, indicator tracking), indicators 4 to 6 below the banners, choosing and dragging indicators, Settings > Banner indicators. |
-| ② **Sharpen my skills** | The **Deliberate practice** tab (compass, practice XP, transfers, supervision prep), the XP, focus and remarks block of the entry form and of the ◎ details, the XP columns of My entries, the XP invested with a person, Settings > Skills. |
+| ② **Sharpen my skills** | The **Deliberate practice** tab (compass, practice XP, transfers, supervision prep), the XP, focus and remarks block of the entry form and of the entry card, the “Assign pending XP” button, the yellow dot on the “Card” button in My entries, the XP invested with a person, Settings > Skills. |
 | ③ **Build my practice** | The **Network** tab, closeness, audience and topic in the profile, **Sales skills** (0 to 5 XP and a comment), the “Grow your practice” card (funnel), the **List** view of people, supervision costs, Settings > People tracking and Activity costs (real hourly rate). |
 | ④ **The game** (optional) | The **Coach profile** (rank, level, achievements, wins) and the **celebrations**. |
 
@@ -164,7 +164,7 @@ In **Essentials** (the former simple mode):
 - **Tabs**: Activity (the main screen), My entries, People, Settings, About.
 - **Entry form**: types are shown one below the other, with their meaning (“I invited someone to experience coaching”…), then your other types. What remains: length, person, “What came up”, meeting notes and follow-up (notes sent, summary). A proposal keeps its amount and commitment length.
 - **Activity**: the time-spent-per-month chart and your 3 main indicators (excluding practice XP, goals and costs).
-- **My entries**: without the XP columns or supervision costs.
+- **Entry card**: without XP or supervision costs.
 - **People**: Pipeline view only, with “To follow up” above. The profile has no closeness, invested XP, audience or topic.
 - **Settings**: My notebook, your name, your logo and a suggested palette; security, storage, sharing and getting started.
 
@@ -190,15 +190,15 @@ This is the everyday gesture: after each meeting, click **“+ Log time”**, to
   - “+ Create”, at the bottom of the list, followed by the name you typed, creates a new person.
   - It is **required** for a meeting, an invitation, a conversation, a proposal, a session or a debrief; optional for a supervision and for the types you add. The setting can be changed type by type (see [Settings](#12-settings), “Person” column).
 - **What came up.** One line: theme, insight, pattern spotted. For a networking entry, the area takes several lines (who, in what context, what was said, what's next) and grows with your text.
-- **Meeting notes.** A large optional area, for anything you want to remember. It shows up in My entries (◎ button), in the CSV export and in the CSV import (“Notes” column).
+- **Meeting notes.** A large optional area, for anything you want to remember. It shows up in the entry card (My entries, “Card” button), in the CSV export and in the CSV import (“Notes” column).
 - **Follow-up.** “Notes sent” and “Summary written” boxes, for face-to-face meetings.
-- **Answer** (Invitation). “They said no” box if the person declines. You can tick it later, in My entries. Your noes are counted in Activity.
+- **Answer** (Invitation). “They said no” box if the person declines. You can tick it later, in the entry card (My entries). Your noes are counted in Activity.
 - **Deliberate practice actions.** For each of your actions in progress that concerns this meeting type: **Yes**, **Partly** or **No**. Clicking the answer again clears it. It is the quickest part: start there.
 - **Practice XP** (module ②). Every meeting earns XP based on its length and type: **10 minutes = 1 XP**, rounded to the nearest, multiplied by **2** for a session or a conversation, **3** for a supervision, **1** for a debrief or a training type you added (role “Deliberate practice”; an added type with the role “Coaching hours” counts ×2). A 1h30 session earns 18 XP, a 1-hour conversation 12 XP, a 1h30 supervision 27 XP, a 1h30 debrief 9 XP. The multipliers are fixed.
   - The header shows “18 XP to assign” and how it is calculated; it follows the type and length live.
   - All your tracked skills are listed, **your focus first**, with **−** and **+**. The counter shows “6 left”, then “all assigned ✓”; you cannot go over the budget.
   - Shortcuts: **All on focus** and **Split evenly**.
-  - You can save without assigning everything: the remaining XP wait in My entries and in the ◎ details. They count for no skill until they are assigned.
+  - You can save without assigning everything: the remaining XP wait for you in Deliberate practice, “Assign pending XP” button (see below). They count for no skill until they are assigned.
   - A networking meeting, an invitation, a proposal or an extra earns no practice XP.
 - **Sales skills** (module ③). After a networking meeting, an invitation or a proposal: **0 to 5 XP** depending on how at ease you were, and **what was easy, what was hard**. This comment is required, even at 0 XP; without module ③ the block does not appear and nothing is required.
 - **Focus.** For each of your focus skills, a large **“What I noticed”** area and a **“Keep for the next supervision”** box. Everything is optional.
@@ -226,7 +226,7 @@ The **Deliberate practice** tab is for choosing what you are working on right no
 
 Below the compass, the **Practice XP** panel:
 
-- **at the top**: your XP earned in total, those of the last 30 days, and the **XP to assign** (with the number of entries concerned and a link to My entries);
+- **at the top**: your XP earned in total, those of the last 30 days, and the **XP to assign** (with the number of entries concerned); the **“Assign pending XP”** button lists these entries: a click opens the entry card on its XP, you assign, you save, and you come back to the updated list;
 - **for each skill**: its total (XP assigned in your entries, plus transfers received, minus transfers given), its **level**, a bar that **starts again from zero at each level**, its XP of the last 30 days and the threshold of the next level. All skills follow the same curve: level 1 at 10 XP, then 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), up to level 100;
 - **Transfer XP**: “Transfer N XP from A to B”, with an optional reason. A transfer moves XP already earned, without creating any: useful when you merge two skills, or when a meeting mostly served another skill. N cannot exceed A's total; an archived skill can be the source or the target;
 - **Transfer history**: date, A → B, number of XP, reason. “undo” stays possible as long as B still has enough XP.
@@ -492,16 +492,13 @@ The detail of all your meetings, filterable and editable directly in the table.
   - **Right:** the XP invested with this person, skill by skill.
   - **Below:** the timeline of their interactions, with the date (dd/mm) above each one and the year in the middle of its period.
 - **Years.** Sorted from most recent to oldest.
-- **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., What came up, XP, Contract / cost.
-  - **XP** (module ②) is collapsed by default and shows a summary: “18 XP · Q 12 · L 6” (the initials of your skills). A click on the header or a cell expands one column per skill, with a small number field, and a column giving the XP earned and what is left to assign. You cannot go over the entry's budget; Sales skills go from 0 to 5.
-  - An entry with XP still **to assign** has its XP cells in yellow. If you shorten the length or change the type of an entry already assigned, the budget is recalculated: an **overrun** turns the row red, without deleting anything, until you adjust. Without module ②, nothing is flagged.
-  - **Contract / cost** is collapsed by default. Once expanded, on a pinkish background, it shows: Accepted (status), Amount (or a supervision's cost), Length, Sessions. On a supervision, the “unpaid” box replaces the status; on an invitation, the “They said no” box.
+- **Table.** The columns are, in order: Person, Date, Type, Length, Notes, Summ., Card, What came up.
   - **Person**: a click on the name opens a search field (recent people first) to change an entry's person, create one, or remove it (“— No person”) on a type where it is optional. An entry missing a required person is outlined in red; “Deleted person” marks an entry whose person was deleted. The small magnifier next to it filters the table on that person.
   - **Length**: “Other…”, at the bottom of the list, lets you type any length (`2,5`, `2h30`, `150min`), then Enter.
   - Every change is saved immediately.
-  - **◎** opens the entry's details: meeting notes, and its deliberate practice (action answers, XP assignment or Sales skills and their comment, notes, supervision feedback) to complete or correct it. It is coloured when the entry contains some.
-  - ✕ deletes an entry. You can undo for a few seconds.
-- **Show archived metrics.** Brings back the skills you no longer track.
+  - **Card** opens the **entry card**, a wide window in collapsible sections, shown according to your modules: **Info** (date, type, length, person, report and summary), **Notes** (“What came up” and meeting notes, with no cramped scrollbar), **Practice XP** (module ②: action answers, XP assignment, remarks, supervision feedback; with ③, Sales skills and their comment) and **Contract and cost** (status, amount, commitment length and sessions of a proposal; “They said no” for an invitation; a supervision's cost with ③). Notes is expanded when it opens, the rest collapsed; a click on a heading expands or collapses its section, with a summary when collapsed. Everything can be edited there, then **Save**; ✕ closes without changing anything.
+  - The Card button is coloured when the entry has notes or deliberate practice. A **yellow dot** flags XP **to assign** (module ②). In the card, if you shorten the length or change the type of an entry already assigned, the budget is recalculated: an **overrun** shows in red, without deleting anything, until you adjust. Sales skills go from 0 to 5.
+  - ✕ deletes an entry, after confirmation (the window shows its type and date). You can still undo for a few seconds.
 - **Export CSV** (bottom of the page). A spreadsheet of all your entries.
 
 ---
@@ -546,7 +543,7 @@ A stage chosen by hand, on the profile or by drag and drop, holds until the next
 
 ### The person profile
 
-To open a profile, click a card, a name in “To follow up”, or “Profile” in My entries. You can also create a person with “+ New person”.
+To open a profile, click a card, a name in “To follow up”, or “Profile” in a person's tile in My entries. You can also create a person with “+ New person”.
 
 **At the top, always visible:**
 
@@ -620,7 +617,7 @@ The **Network** tab draws the people in your notebook and what links them. It is
 2. It appears in **To follow up** as long as no action is planned for the person.
 3. Change its status:
    - in **To follow up**, with the Accepted or Refused buttons;
-   - or in **My entries**, Contract column expanded, Accepted: Pending, Accepted or Refused.
+   - or in **My entries**, entry card, Contract and cost section, Status: Pending, Accepted or Refused.
 4. A person's **contract** is their **last accepted proposal**:
    - start: by default the proposal's date, editable on the profile;
    - end: the start plus the commitment length;
@@ -773,7 +770,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.2.1** | 15/11/2026 | Easier-to-read Network: graph sized to the screen, right-hand panel that scrolls on its own, big groups more spread out, names that no longer overlap, zoom and reset (wheel, buttons, dragging the background), same drawing every time. “Long notes” set per activity type. Action plan readable on a narrow screen, Settings balanced whatever the modules, compass without Sales skills without module ③, recovery key downloaded in the language of the interface, reliable review alert after an early renewal or a notebook merge. Module descriptions clarified (circles, contact frequency, follow-ups and levels stay in the core). |
+| **3.2.2** | 15/11/2026 | Entry card: a “Card” button in My entries, before “What came up”, opens the whole entry in a wide window with collapsible sections (Info, Notes, Practice XP, Contract and cost) where everything can be edited; XP and Contract / cost columns removed from the table. “Assign pending XP” in the Practice XP panel. Confirmation before deleting an entry. |
+| 3.2.1 | 15/11/2026 | Easier-to-read Network: graph sized to the screen, right-hand panel that scrolls on its own, big groups more spread out, names that no longer overlap, zoom and reset (wheel, buttons, dragging the background), same drawing every time. “Long notes” set per activity type. Action plan readable on a narrow screen, Settings balanced whatever the modules, compass without Sales skills without module ③, recovery key downloaded in the language of the interface, reliable review alert after an early renewal or a notebook merge. Module descriptions clarified (circles, contact frequency, follow-ups and levels stay in the core). |
 | 3.2.0 | 14/11/2026 | Modules to pick and choose instead of simple or full mode: ① Coach a lot, ② Sharpen my skills, ③ Build my practice, ④ The game, with the Essentials and All shortcuts. Chosen at start-up (“What do you want to work on?”), in the “My notebook” menu top right and in Settings. Simple mode becomes Essentials, full mode becomes All. A hidden module loses nothing and stops flagging anything. Demo tour (all modules on) and roadmap follow the modules; “Switch on a module” mission. |
 | 3.1.0 | 14/11/2026 | “What your notebook is for” screen in the onboarding (step 2) and at the top of the About tab. English version completed (messages, missions, reminders, older release notes). Three more questions in About (finding or fixing an entry, choosing your indicators, what's in Settings). Website rebuilt around the three values, new screenshots. |
 | 3.0.0 | 14/11/2026 | Practice XP instead of 1-to-5 ease ratings: every meeting earns XP based on its length and type, to assign to your skills (focus first, shortcuts, unassigned XP flagged in My entries). Levels per skill, practice compass (share of XP and last 30 days), XP panel with transfers and history. Sales skills (0 to 5 XP and a comment after a meeting, an invitation or a proposal). Practice XP indicator, XP achievements, CSV export. Old ratings converted, with an automatic safety copy before the migration. |
