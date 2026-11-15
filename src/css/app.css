@@ -990,7 +990,7 @@ textarea.req{border-color:#E3A5AD}
 .xph2{font-size:13px}.xph2>div{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px dashed var(--line)}.xph2 .d{color:var(--grey);width:72px;flex:none}.xph2 button,.xph2 .nox{margin-left:auto}
 
 
-small.na{color:#8A6100}small.ov{color:#C23B3B}small.ok{color:#2E7D5B}
+small.na{color:#8A6100}small.xov{color:#C23B3B}small.ok{color:#2E7D5B}
 .cf.jeu .xpbar{background:rgba(255,255,255,.12)}
 .wzcards.val .wzc p{color:#33403F}.wzvalf{font-style:italic;font-family:'Noto Serif',serif;font-size:15px}
 .ab-val{margin-bottom:18px}.ab-val>p{font-size:14.5px}.ab-val .wzcards{margin:14px 0 4px}.ab-valf{font-style:italic;font-family:'Noto Serif',serif;margin:12px 0 0}
@@ -1048,9 +1048,9 @@ textarea.fsn{min-height:200px}
 .xpqok{margin-top:14px;font-weight:800;color:#2E7D5B}
 /* 3.2.3 : XP de trop (point rouge sur « Fiche », ligne de la liste des XP en attente) */
 .ent .fbtn.over::after{content:'';position:absolute;top:-4px;right:-4px;width:9px;height:9px;border-radius:50%;background:#C23B3B;border:2px solid #fff}
-.xpqi .n.ov{color:#C23B3B}
+.xpqi .n.xov{color:#C23B3B}
 /* 3.2.4 : panneau XP : total décomposé, tuile « XP à répartir » cliquable, compétences sur deux colonnes, jauges fines */
-.xptot{align-items:stretch}.xptot .xpdec{display:block;font-size:12px;color:var(--grey);margin-top:2px}.xptot .xpdec .ov{color:#C23B3B;font-weight:700}
+.xptot{align-items:stretch}.xptot .xpdec{display:block;font-size:12px;color:var(--grey);margin-top:2px}.xptot .xpdec .xov{color:#C23B3B;font-weight:700}
 .xpqt{border:1px solid var(--line);background:#fff;border-radius:12px;padding:6px 14px;text-align:left;cursor:pointer;font:inherit;font-size:12.5px;color:var(--grey);display:flex;flex-direction:column}
 .xpqt:hover{border-color:var(--afb);background:var(--soft)}.xpqt b{display:block;font-size:22px;color:var(--jet)}.xpqt em{font-style:normal;font-weight:800;font-size:12.5px;margin-top:2px;color:var(--am)}
 .xpqt.na{border-color:#E9CF8A;background:#FFF8E6}.xpqt.na b{color:#8A6100}.xpqt.ok em{color:#2E7D5B}
@@ -1064,5 +1064,5 @@ textarea.fsn{min-height:200px}
 .xprt .tp{font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px}.xprt small{flex-basis:100%;font-size:13px;color:var(--jet)}
 .xprf{align-items:center}
 .xpqc{margin-top:12px;background:#FFF8E6;border:1px solid #E9CF8A;border-radius:10px;padding:9px 12px;font-size:13.5px;color:#8A6100;font-weight:700}.xpqc b{font-size:18px}
-.xpqc.ok{background:#EAF6EF;border-color:#A9D8BC;color:#2E7D5B}.xpqc .ov{color:#C23B3B}
+.xpqc.ok{background:#EAF6EF;border-color:#A9D8BC;color:#2E7D5B}.xpqc .xov{color:#C23B3B}
 .xpqi.dn{background:#EAF6EF;border-color:#A9D8BC}.xpqi.dn:hover{background:#DDF0E4}.xpqi .n.ok{color:#2E7D5B}
