@@ -1078,3 +1078,9 @@ textarea.fsn{min-height:200px}
 .fcp{display:inline-block;background:var(--am);color:#fff!important;font-weight:800;border-radius:999px;padding:1px 11px;text-align:center}
 .bsrow b.fcp{justify-self:start}
 .cf.jeu .fcp{background:#D9B66A;color:#3A2A08!important}
+/* 3.2.6 : en-tête du panneau XP sur une ligne, trois blocs égaux */
+.xptot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+.xptot>div,.xptot>.xpqt{border:1px solid var(--line);border-radius:12px;padding:8px 14px;background:#fff;min-width:0}
+.xptot>.xpqt.na{border-color:#E9CF8A;background:#FFF8E6}
+.xpqt .xpqi{display:inline;font-size:13px;font-weight:700;margin-left:6px;vertical-align:6px;color:#8A6100;background:none;border:0;padding:0}
+@media(max-width:560px){.xptot{grid-template-columns:1fr}}
