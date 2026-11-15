@@ -125,7 +125,9 @@ function netSvgOrbit(D){const fil=NET.fil,out=[],R3=D.Ro,R0=40,gk=new Map(D.G.ma
   const c=Math.cos(g.am),sn=Math.sin(g.am),anc=Math.abs(c)<.25?'middle':c>0?'start':'end';
   out.push(`<text class="nolb${fil!=null&&fil!=g.k?' dim':''}" data-g="${esc(g.k)}" x="${(cx+(R3+10)*c).toFixed(1)}" y="${(cy+(R3+10)*sn+(sn>.5?10:sn<-.5?-2:4)).toFixed(1)}" text-anchor="${anc}" style="fill:${g.c}"><tspan${g.sans?'':' data-noi18n'}>${esc(g.l)}</tspan> (${g.m.length})</text>`)});
  NETRK.forEach(k=>{const r=D.ring[k];out.push(`<circle class="nring" cx="${cx}" cy="${cy}" r="${r.toFixed(1)}"/>`)});
- out.push(`<circle class="nme" cx="${cx}" cy="${cy}" r="26"/><text class="nmet" x="${cx}" y="${cy+6}" data-noi18n>${esc((CFG().nom||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase())}</text>`);
+ /* 3.2.6 : au centre, le logo du carnet (Paramètres > personnalisation) découpé en cercle ; les initiales du nom sans logo */
+ const LG=CFG().logo;out.push(LG?`<clipPath id="nmeclip"><circle cx="${cx}" cy="${cy}" r="26"/></clipPath><circle class="nme lg" cx="${cx}" cy="${cy}" r="27"/><image href="${esc(LG)}" x="${cx-26}" y="${cy-26}" width="52" height="52" preserveAspectRatio="xMidYMid slice" clip-path="url(#nmeclip)"/>`
+  :`<circle class="nme" cx="${cx}" cy="${cy}" r="26"/><text class="nmet" x="${cx}" y="${cy+6}" data-noi18n>${esc((CFG().nom||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase())}</text>`);
  D.P.forEach(x=>x.gk.slice(1).forEach(k=>{const g=gk.get(k);if(!g)return;const X=x.x-cx,Y=x.y-cy,rr=Math.sqrt(X*X+Y*Y)||1,a=Math.atan2(Y,X);let da=g.am-a;while(da>Math.PI)da-=2*Math.PI;while(da<-Math.PI)da+=2*Math.PI;
   const t=a+Math.sign(da)*Math.min(Math.abs(da),(x.r+14)/rr);
   out.push(`<line class="ntk${fil!=null&&!x.gk.includes(fil)?' dim':''}" data-l="${esc(x.id)}" x1="${x.x.toFixed(1)}" y1="${x.y.toFixed(1)}" x2="${(cx+rr*Math.cos(t)).toFixed(1)}" y2="${(cy+rr*Math.sin(t)).toFixed(1)}" stroke="${g.c}"/>`)}));
