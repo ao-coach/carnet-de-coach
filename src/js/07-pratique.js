@@ -80,7 +80,9 @@ function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mBous()),
    if(s.f){const ww=46,fx=an=='start'?lx:an=='end'?lx-ww:lx-ww/2;g+=`<rect x="${fx}" y="${ly+21}" width="${ww}" height="15" rx="7.5" fill="#D9B66A"/><text x="${fx+ww/2}" y="${ly+32}" text-anchor="middle" style="font-size:9.5px;font-weight:900;fill:#3A2A08;letter-spacing:.8px">FOCUS</text>`}}
   else g+=`<text x="${lx}" y="${ly+14}" text-anchor="${an}" style="font-size:14.5px;fill:${sub}">${s.tot?`Niv. ${s.L} · ${num(s.tot)} XP`:'aucun XP'}</text>`;
   g+='</g>'});
- return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
+ /* 3.2.6 : le cadre s'élargit pour ne plus rogner les étiquettes longues */
+ const x0=Math.min(0,...EXT.map(e=>e[0]-6)),x1=Math.max(W,...EXT.map(e=>e[1]+6));
+ return `<svg viewBox="${x0.toFixed(0)} 0 ${(x1-x0).toFixed(0)} ${H}" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
 /* 3.2.6 : largeur d'un texte (canvas), pour la pastille focus et le cadre de la boussole */
 let TXTC=null;function txtW(t,f){try{TXTC=TXTC||document.createElement('canvas').getContext('2d');TXTC.font=f+',sans-serif';return TXTC.measureText(String(t)).width}catch(e){return String(t).length*f.match(/(\d+(\.\d+)?)px/)[1]*.6}}
 function boussoleList(){const F=PD().focus.map(String),T=xpTotals(),G30=xp30();return `<div class="bslist">${mBous().map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="bsrow" data-cmp="${esc(m.id)}"><b${F.includes(String(m.id))?' class="fcp"':''}>${esc(m.l)}</b><span class="xpbar"><i style="width:${a.pct}%"></i></span><span>${a.tot?`Niv. ${a.L} · ${num(a.tot)} XP`:'aucun XP'}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie : <button class="lnk0" data-mets style="text-decoration:underline">ajoute tes compétences</button>.</div>'}</div>`}

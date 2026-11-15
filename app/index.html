@@ -479,8 +479,10 @@ table .fit{width:1%;white-space:nowrap}
 .pflt{border:0;background:none;color:#B5B7BA;cursor:pointer;padding:2px 4px;vertical-align:middle;border-radius:6px} .pflt:hover{color:var(--afb);background:var(--soft)}
 
 /* ===== pratique délibérée ===== */
-.pdbx{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:26px;align-items:center}
-@media(max-width:1000px){.pdbx{grid-template-columns:1fr}}
+.pdbx{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:26px;align-items:start}
+/* 3.2.6 : panneau de droite calé en haut ; il passe sous la boussole dès 1100 px */
+#pdSide{padding-top:14px}
+@media(max-width:1100px){.pdbx{grid-template-columns:1fr}#pdSide{padding-top:0}}
 .bslab{cursor:pointer}.bslab:hover text:first-child{fill:var(--am)!important}
 .pdleg{font-size:12px;color:#9AA1A4;margin-top:4px}
 .bslist{display:grid;gap:6px}.bsrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;cursor:pointer;text-align:left;font:inherit}.bsrow:hover{border-color:var(--afb)}.bsrow span{font-size:12.5px;color:var(--grey)}.bsrow em{color:var(--am);font-style:normal;font-weight:800}
@@ -3426,7 +3428,9 @@ function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mBous()),
    if(s.f){const ww=46,fx=an=='start'?lx:an=='end'?lx-ww:lx-ww/2;g+=`<rect x="${fx}" y="${ly+21}" width="${ww}" height="15" rx="7.5" fill="#D9B66A"/><text x="${fx+ww/2}" y="${ly+32}" text-anchor="middle" style="font-size:9.5px;font-weight:900;fill:#3A2A08;letter-spacing:.8px">FOCUS</text>`}}
   else g+=`<text x="${lx}" y="${ly+14}" text-anchor="${an}" style="font-size:14.5px;fill:${sub}">${s.tot?`Niv. ${s.L} · ${num(s.tot)} XP`:'aucun XP'}</text>`;
   g+='</g>'});
- return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
+ /* 3.2.6 : le cadre s'élargit pour ne plus rogner les étiquettes longues */
+ const x0=Math.min(0,...EXT.map(e=>e[0]-6)),x1=Math.max(W,...EXT.map(e=>e[1]+6));
+ return `<svg viewBox="${x0.toFixed(0)} 0 ${(x1-x0).toFixed(0)} ${H}" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
 /* 3.2.6 : largeur d'un texte (canvas), pour la pastille focus et le cadre de la boussole */
 let TXTC=null;function txtW(t,f){try{TXTC=TXTC||document.createElement('canvas').getContext('2d');TXTC.font=f+',sans-serif';return TXTC.measureText(String(t)).width}catch(e){return String(t).length*f.match(/(\d+(\.\d+)?)px/)[1]*.6}}
 function boussoleList(){const F=PD().focus.map(String),T=xpTotals(),G30=xp30();return `<div class="bslist">${mBous().map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="bsrow" data-cmp="${esc(m.id)}"><b${F.includes(String(m.id))?' class="fcp"':''}>${esc(m.l)}</b><span class="xpbar"><i style="width:${a.pct}%"></i></span><span>${a.tot?`Niv. ${a.L} · ${num(a.tot)} XP`:'aucun XP'}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie : <button class="lnk0" data-mets style="text-decoration:underline">ajoute tes compétences</button>.</div>'}</div>`}

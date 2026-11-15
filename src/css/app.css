@@ -465,8 +465,10 @@ table .fit{width:1%;white-space:nowrap}
 .pflt{border:0;background:none;color:#B5B7BA;cursor:pointer;padding:2px 4px;vertical-align:middle;border-radius:6px} .pflt:hover{color:var(--afb);background:var(--soft)}
 
 /* ===== pratique délibérée ===== */
-.pdbx{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:26px;align-items:center}
-@media(max-width:1000px){.pdbx{grid-template-columns:1fr}}
+.pdbx{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:26px;align-items:start}
+/* 3.2.6 : panneau de droite calé en haut ; il passe sous la boussole dès 1100 px */
+#pdSide{padding-top:14px}
+@media(max-width:1100px){.pdbx{grid-template-columns:1fr}#pdSide{padding-top:0}}
 .bslab{cursor:pointer}.bslab:hover text:first-child{fill:var(--am)!important}
 .pdleg{font-size:12px;color:#9AA1A4;margin-top:4px}
 .bslist{display:grid;gap:6px}.bsrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;cursor:pointer;text-align:left;font:inherit}.bsrow:hover{border-color:var(--afb)}.bsrow span{font-size:12.5px;color:var(--grey)}.bsrow em{color:var(--am);font-style:normal;font-weight:800}
