@@ -332,19 +332,23 @@ function renderLib(){const q=(LIBO.q||'').trim().toLowerCase(),L=PD().lib.filter
  $('libB').innerHTML=`${LIBO.browse||!LIBO.slot&&!F?'':''}<input class="fin" id="libQ" placeholder="Rechercher une action ou une compétence…" value="${esc(LIBO.q||'')}">
   ${LIBO.browse?'':`<div class="hint" style="margin:8px 0 0">${LIBO.slot?'Choisis l\'action qui remplace celle-ci : l\'ancienne passe en pause, avec son historique.':'Choisis une action de ta bibliothèque, ou crée-en une.'}</div>`}
   ${cur.length?`<div class="lbg">En cours</div>${cur.map(row).join('')}`:''}${oth.length?`<div class="lbg">Les autres, du taux le plus faible au plus élevé</div>${oth.map(row).join('')}`:''}
-  ${!L.length&&q?'<div class="hint">Aucune action ne correspond.</div>':''}
+  ${!L.length&&q?'<div class="hint">Aucune action ne correspond.</div>':''}${q&&!F&&!PD().lib.some(a=>a.a.trim().toLowerCase()===q)?`<button type="button" class="lbcr" id="libCr"><span>+ Créer</span> <span data-noi18n>« ${esc((LIBO.q||'').trim())} »</span>${L.length?'':'<small>Entrée</small>'}</button>`:''}
   ${F?`<div class="lbnew"><div class="lbg" style="margin-top:0">Nouvelle action</div>
    <textarea class="fin" id="libA" rows="2" placeholder="Un geste précis et observable, à tenter en entretien">${esc(F.a)}</textarea>
    <div class="lab2" style="margin:10px 0 4px">Compétence travaillée</div><select class="sel" id="libMid" style="margin-left:0"><option value="">Aucune en particulier</option>${metrics().filter(m=>m.actif||String(m.id)===F.mid).map(m=>`<option value="${esc(m.id)}" ${String(m.id)===F.mid?'selected':''}>${esc(m.l)}${PD().focus.map(String).includes(String(m.id))?' · focus':''}</option>`).join('')}</select>
    <div class="lab2" style="margin:10px 0 4px">À vérifier dans les saisies de type</div><div class="chips" id="libTy">${T.filter(x=>x.p).map(x=>`<button class="chip ${F.types.includes(x.k)?'on':''}" data-ty="${x.k}">${esc(x.l)}</button>`).join('')}</div>
    <div style="display:flex;gap:10px;margin-top:12px"><button class="cta" style="margin:0" id="libAdd">Ajouter${LIBO.browse?' à la bibliothèque':''}</button><button class="btn2" id="libCancel">Annuler</button></div></div>`
-  :`<button class="addl" id="libNew">+ Nouvelle action</button> <span class="hint" style="margin:0">elle sera ajoutée à la bibliothèque</span>`}`;
+  :q?'':`<button class="addl" id="libNew">+ Nouvelle action</button> <span class="hint" style="margin:0">elle sera ajoutée à la bibliothèque</span>`}`;
  const qi=$('libQ');qi.oninput=()=>{LIBO.q=qi.value;const p=qi.selectionStart;renderLib();const n=$('libQ');n.focus();n.setSelectionRange(p,p)};
+ /* 3.2.6 : créer l'action depuis la recherche (ligne « + Créer « … » », Entrée quand rien ne correspond) : formulaire pré-rempli */
+ const newForm=t=>{LIBO.form={a:t||'',mid:PD().focus[0]!=null?String(PD().focus[0]):'',types:[...COACH]};renderLib();$('libA').focus()};
+ const cr=$('libCr');if(cr)cr.onclick=()=>newForm((LIBO.q||'').trim());
+ qi.onkeydown=ev=>{if(ev.key==='Enter'&&!ev.isComposing&&cr&&!L.length){ev.preventDefault();newForm((LIBO.q||'').trim())}};
  $('libB').querySelectorAll('.lbi').forEach(d=>{const a=PD().lib.find(x=>String(x.id)===d.dataset.id);
   const pk=d.querySelector('[data-pick]');if(pk)pk.onclick=()=>chooseAct(a);
   d.querySelector('[data-st]').onchange=ev=>{if(setSt(a,ev.target.value))touch();renderLib();renderAll()};
   const del=d.querySelector('[data-del]');if(del)del.onclick=()=>{PD().lib=PD().lib.filter(x=>x!==a);touch();renderLib();renderAll()}});
- const nw=$('libNew');if(nw)nw.onclick=()=>{LIBO.form={a:LIBO.q||'',mid:PD().focus[0]!=null?String(PD().focus[0]):'',types:[...COACH]};renderLib();$('libA').focus()};
+ const nw=$('libNew');if(nw)nw.onclick=()=>newForm(LIBO.q||'');
  if(F){$('libA').oninput=()=>F.a=$('libA').value;$('libMid').onchange=()=>F.mid=$('libMid').value;
   $('libTy').querySelectorAll('[data-ty]').forEach(b=>b.onclick=()=>{const k=b.dataset.ty;F.types=F.types.includes(k)?F.types.filter(x=>x!=k):[...F.types,k];renderLib()});
   $('libCancel').onclick=()=>{delete LIBO.form;renderLib()};
