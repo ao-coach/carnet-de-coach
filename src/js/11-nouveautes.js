@@ -3,6 +3,9 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:56,s:'3.2.5',d:'15 novembre 2026',items:[
+  {t:"Infos, Notes, XP : trois boutons",p:"Dans Mes saisies, le bouton « Fiche » laisse la place à trois boutons. Chacun ouvre la saisie sur la partie voulue. Notes passe en vert avec ✓ quand tu as écrit des notes, XP quand tous ses XP sont répartis : tu vois d'un coup d'œil ce qui reste à remplir."},
+  {t:"Trier Mes saisies",p:"Les saisies sont rangées de la plus récente à la plus ancienne. Clique sur un titre de colonne pour trier selon elle, une seconde fois pour inverser l'ordre ; une flèche indique le sens."}]},
  {v:55,s:'3.2.4',d:'15 novembre 2026',items:[
   {t:"Un total d'XP qui tombe juste",p:"Sous « XP gagnés en tout », le détail : ce qui est réparti, ce qui reste à répartir. Tes anciennes saisies, d'avant le passage aux XP, comptaient dans le total sans apparaître nulle part : elles sont maintenant dans les XP à répartir."},
   {t:"Répartir tes XP en quelques clics",p:"Dans le panneau XP de pratique, la case « XP à répartir » ouvre la liste des saisies concernées, avec un compteur. Un clic sur une saisie ouvre une petite fenêtre avec seulement ses XP, sur deux colonnes ; une fois enregistrée, la saisie passe en vert et reste modifiable."}]},
