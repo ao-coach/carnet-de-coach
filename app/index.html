@@ -1181,6 +1181,8 @@ body.no-activite .pfct2{grid-template-columns:minmax(0,1fr)}
 .kst{border-radius:10px;padding:1px 8px;font-size:11.5px;font-weight:800;text-align:center}
 .kst.a{background:#E6F2EC;color:#2D6A4F}.kst.r{background:#F8E6E8;color:#9B3A47}.kst.w{background:#FFF2D6;color:#8A6D1E}
 @media(max-width:560px){.pfkr{grid-template-columns:1fr 1fr}}
+/* 3.3.0 : écran étroit, l'onglet Notes passe aussi sur une colonne (la règle .pfcn l'emportait : les notes tombaient dans la colonne du séparateur) */
+@media(max-width:980px){.pfcols.pfcn{grid-template-columns:1fr}}
 </style></head><body>
 <div class="side" id="side"></div>
 <main id="main">
