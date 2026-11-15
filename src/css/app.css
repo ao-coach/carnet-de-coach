@@ -1072,3 +1072,7 @@ textarea.fsn{min-height:200px}
 /* 3.2.5 : tri de Mes saisies par colonne */
 .ent th.srt{cursor:pointer;user-select:none;white-space:nowrap}.ent th.srt:hover{color:var(--afb)}
 .ent th .sar{display:inline-block;margin-left:4px;font-size:10px;color:#C9C5CF}.ent th.on .sar{color:var(--afb)}.ent th.on{color:var(--jet)}
+/* 3.2.6 : compétence en focus = nom dans une pastille bordeaux */
+.fcp{display:inline-block;background:var(--am);color:#fff!important;font-weight:800;border-radius:999px;padding:1px 11px;text-align:center}
+.bsrow b.fcp{justify-self:start}
+.cf.jeu .fcp{background:#D9B66A;color:#3A2A08!important}

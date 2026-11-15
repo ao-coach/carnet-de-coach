@@ -1086,6 +1086,10 @@ textarea.fsn{min-height:200px}
 /* 3.2.5 : tri de Mes saisies par colonne */
 .ent th.srt{cursor:pointer;user-select:none;white-space:nowrap}.ent th.srt:hover{color:var(--afb)}
 .ent th .sar{display:inline-block;margin-left:4px;font-size:10px;color:#C9C5CF}.ent th.on .sar{color:var(--afb)}.ent th.on{color:var(--jet)}
+/* 3.2.6 : compétence en focus = nom dans une pastille bordeaux */
+.fcp{display:inline-block;background:var(--am);color:#fff!important;font-weight:800;border-radius:999px;padding:1px 11px;text-align:center}
+.bsrow b.fcp{justify-self:start}
+.cf.jeu .fcp{background:#D9B66A;color:#3A2A08!important}
 </style></head><body>
 <div class="side" id="side"></div>
 <main id="main">
@@ -3387,7 +3391,7 @@ const mBous=()=>mActive().filter(m=>!m.fc||MOD('activite'));
 function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mBous()),L=G.flatMap(g=>g.ms.map(m=>({m,g})));if(L.length<3)return '';
  const W=820,H=560,cx=W/2,cy=H/2+4,R=185,n=L.length,ang=i=>-Math.PI/2+i*2*Math.PI/n,F=PD().focus.map(String),P=th,T=xpTotals(),G30=xp30();
  const all0=L.map(({m,g})=>({m,g,...xpInfo(m.id,T,G30),f:F.includes(String(m.id))})),mx=Math.max(1,...all0.map(s=>s.tot)),m30=Math.max(0,...all0.map(s=>s.d30));
- const all=all0.map(s=>({...s,v:s.tot>0?s.tot/mx*5:null,v30:m30>0?s.d30/m30*5:0}));
+ const all=all0.map(s=>({...s,v:s.tot>0?s.tot/mx*5:null,v30:m30>0?s.d30/m30*5:0}));const EXT=[];
  const txt=jeu?'#E8EFEF':'var(--jet)',sub=jeu?'#9DB5B8':'#6B7275',grid=jeu?'rgba(255,255,255,.13)':'#E6E3EC',base=jeu?'#2BC1C8':'var(--am)';
  let g=`<defs><linearGradient id="bsw${P}" x1="0" y1="0" x2="1" y2=".35"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity="${jeu?.3:.55}"/><stop offset=".58" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="-1 0;1 0;1 0" keyTimes="0;.55;1" dur="6s" repeatCount="indefinite"/></linearGradient>`;
  if(jeu){g+=`<radialGradient id="pf${P}" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F1DCA4" stop-opacity=".55"/><stop offset=".6" stop-color="#C2416A" stop-opacity=".35"/><stop offset="1" stop-color="#822239" stop-opacity=".25"/></radialGradient>
@@ -3412,13 +3416,20 @@ function boussoleSVG(th){th=th||'app';const jeu=th=='jeu',G=discGroups(mBous()),
   g+=jeu?`<circle cx="${x}" cy="${y}" r="${s.v?9:6}" fill="${s.v?`url(#nd${P}${gi})`:'none'}" stroke="${c}" stroke-width="2" ${s.v?`filter="url(#sh${P})"`:'stroke-dasharray="3 3"'}/>`
    :`<circle cx="${x}" cy="${y}" r="${s.v?5.5:4}" fill="${s.v?c:'#fff'}" stroke="${c}" stroke-width="1.5" ${s.v?'':'stroke-dasharray="2 2"'}/>`;
   const lx=cx+Math.cos(a)*(R+62),ly=cy+Math.sin(a)*(R+54),an=Math.cos(a)>.25?'start':Math.cos(a)<-.25?'end':'middle';
-  g+=`<g class="bslab" data-cmp="${esc(s.m.id)}"><text x="${lx}" y="${ly-4}" text-anchor="${an}" style="font-size:16px;font-weight:800;fill:${txt}">${esc(s.m.l)}</text>`;
+  /* 3.2.6 : compétence en focus = nom en blanc dans une pastille bordeaux (hors thème du jeu, qui garde sa pastille FOCUS) */
+  const nw=txtW(s.m.l,'800 16px Nunito'),pf=s.f&&!jeu,pw=nw+22,px=an=='start'?lx:an=='end'?lx-pw:lx-pw/2;
+  g+=`<g class="bslab" data-cmp="${esc(s.m.id)}">`+(pf?`<rect x="${px}" y="${ly-23}" width="${pw}" height="26" rx="13" fill="var(--am)"/><text x="${px+pw/2}" y="${ly-4}" text-anchor="middle" style="font-size:16px;font-weight:800;fill:#fff">${esc(s.m.l)}</text>`
+   :`<text x="${lx}" y="${ly-4}" text-anchor="${an}" style="font-size:16px;font-weight:800;fill:${txt}">${esc(s.m.l)}</text>`);
+  const l2=s.tot?`Niv. ${s.L} · ${num(s.tot)} XP`+(jeu&&s.d30?` +${num(s.d30)}`:''):'aucun XP',ew=Math.max(pf?pw:nw,txtW(l2,'800 14.5px Nunito'))*1.08+4;
+  EXT.push(an=='start'?[lx,lx+ew]:an=='end'?[lx-ew,lx]:[lx-ew/2,lx+ew/2]);
   if(jeu){g+=`<text x="${lx}" y="${ly+15}" text-anchor="${an}" style="font-size:14px;font-weight:800">${s.tot?`<tspan style="fill:#E2B54E">Niv. ${s.L}</tspan><tspan style="fill:#9DB5B8;font-weight:700"> · ${num(s.tot)} XP</tspan>`:'<tspan style="font-size:12px;font-weight:700;fill:#9DB5B8">aucun XP</tspan>'}${s.d30?`<tspan style="font-size:12px;fill:#2BC1C8"> +${num(s.d30)}</tspan>`:''}</text>`;
    if(s.f){const ww=46,fx=an=='start'?lx:an=='end'?lx-ww:lx-ww/2;g+=`<rect x="${fx}" y="${ly+21}" width="${ww}" height="15" rx="7.5" fill="#D9B66A"/><text x="${fx+ww/2}" y="${ly+32}" text-anchor="middle" style="font-size:9.5px;font-weight:900;fill:#3A2A08;letter-spacing:.8px">FOCUS</text>`}}
-  else g+=`<text x="${lx}" y="${ly+14}" text-anchor="${an}" style="font-size:14.5px;fill:${sub}">${s.tot?`Niv. ${s.L} · ${num(s.tot)} XP`:'aucun XP'}${s.f?' · <tspan style="fill:var(--am);font-weight:800">focus</tspan>':''}</text>`;
+  else g+=`<text x="${lx}" y="${ly+14}" text-anchor="${an}" style="font-size:14.5px;fill:${sub}">${s.tot?`Niv. ${s.L} · ${num(s.tot)} XP`:'aucun XP'}</text>`;
   g+='</g>'});
  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="font-family:Nunito,sans-serif;display:block">${g}</svg>`}
-function boussoleList(){const F=PD().focus.map(String),T=xpTotals(),G30=xp30();return `<div class="bslist">${mBous().map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="bsrow" data-cmp="${esc(m.id)}"><b>${esc(m.l)}</b><span class="xpbar"><i style="width:${a.pct}%"></i></span><span>${a.tot?`Niv. ${a.L} · ${num(a.tot)} XP`:'aucun XP'}${F.includes(String(m.id))?' · <em>focus</em>':''}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie : <button class="lnk0" data-mets style="text-decoration:underline">ajoute tes compétences</button>.</div>'}</div>`}
+/* 3.2.6 : largeur d'un texte (canvas), pour la pastille focus et le cadre de la boussole */
+let TXTC=null;function txtW(t,f){try{TXTC=TXTC||document.createElement('canvas').getContext('2d');TXTC.font=f+',sans-serif';return TXTC.measureText(String(t)).width}catch(e){return String(t).length*f.match(/(\d+(\.\d+)?)px/)[1]*.6}}
+function boussoleList(){const F=PD().focus.map(String),T=xpTotals(),G30=xp30();return `<div class="bslist">${mBous().map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="bsrow" data-cmp="${esc(m.id)}"><b${F.includes(String(m.id))?' class="fcp"':''}>${esc(m.l)}</b><span class="xpbar"><i style="width:${a.pct}%"></i></span><span>${a.tot?`Niv. ${a.L} · ${num(a.tot)} XP`:'aucun XP'}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie : <button class="lnk0" data-mets style="text-decoration:underline">ajoute tes compétences</button>.</div>'}</div>`}
 
 /* ---------- onglet Pratique délibérée ---------- */
 function pdSideHTML(){const F=PD().focus,M=mActive(),AC=actsCours();
@@ -3736,7 +3747,7 @@ function renderXpPanel(){const box=$('pdXp');if(!box)return;const T=xpTotals(),G
  const st=XPT,H=[...X].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(+b.id||0)-(+a.id||0));
  box.innerHTML=`<div class="xptot"><div><b>${num(tot)} XP</b>gagnés en tout<small class="xpdec"><span>dont ${num(rep)} répartis</span>${pend.x?`<span> · ${num(pend.x)} à répartir</span>`:''}${ovx?`<span class="xov"> · ${num(ovx)} de trop</span>`:''}</small></div><div><b>+${num(g30)}</b>ces 30 jours</div><button type="button" class="xpqt ${pend.x?'na':'ok'}" data-xpq title="Ouvrir la liste des saisies à répartir"><b>${num(pend.x)}</b><span>${pend.x?`XP à répartir · ${pl(pend.n,'saisie')}`:'XP à répartir'}</span><em>${pend.x?'Répartir →':'Tout est réparti ✓'}</em></button></div>
   ${pend.x?`<div class="hint xpqh">Ils ne comptent pour aucune compétence tant qu'ils ne sont pas répartis.</div>`:''}${!pend.x&&xpOverN()?`<div class="hint xpqh">${xpOverN()>1?`${xpOverN()} saisies ont plus d'XP répartis qu'elles n'en rapportent.`:"Une saisie a plus d'XP répartis qu'elle n'en rapporte."} <button type="button" class="btn2" data-xpq>Corriger la répartition</button></div>`:''}
-  <div class="xpls">${M.map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="xpl" data-cmp="${esc(m.id)}"><span class="t"><b>${esc(m.l)}${F.includes(String(m.id))?'<span class="fpill">focus</span>':''}${m.actif?'':' <small>(archivée)</small>'}</b><span class="v">${num(a.tot)} XP · <em>Niv. ${a.L}</em></span></span><span class="xpbar"><i style="width:${a.pct}%"></i></span><span class="s">${a.d30?`+${num(a.d30)} ces 30 j`:'rien ces 30 j'} · ${a.L>=100?'niveau maximum':`niveau suivant à ${num(a.next)}`}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie.</div>'}</div>
+  <div class="xpls">${M.map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="xpl" data-cmp="${esc(m.id)}"><span class="t"><b>${F.includes(String(m.id))?`<span class="fcp">${esc(m.l)}</span>`:esc(m.l)}${m.actif?'':' <small>(archivée)</small>'}</b><span class="v">${num(a.tot)} XP · <em>Niv. ${a.L}</em></span></span><span class="xpbar"><i style="width:${a.pct}%"></i></span><span class="s">${a.d30?`+${num(a.d30)} ces 30 j`:'rien ces 30 j'} · ${a.L>=100?'niveau maximum':`niveau suivant à ${num(a.next)}`}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie.</div>'}</div>
   <div class="lab">Transférer des XP</div>
   <div class="xptf"><span>Transférer</span><input type="number" class="fin" id="xtN" min="1" step="1" value="${esc(st.n||'')}" placeholder="N" style="width:74px"><span>XP de</span><select class="sel" id="xtDe">${opt(st.de)}</select><span>vers</span><select class="sel" id="xtVers">${opt(st.vers)}</select>
    <input class="fin" id="xtMot" placeholder="Motif (facultatif)" value="${esc(st.motif||'')}"><button class="cta" id="xtGo" style="margin:0">Transférer</button></div>
