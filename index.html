@@ -51,7 +51,6 @@ section{padding:96px 0}
 .pil ul{list-style:none;padding:0;margin:0}.pil li{padding:6px 0 6px 28px;position:relative;color:#33403F}.pil li::before{content:'';position:absolute;left:0;top:13px;width:14px;height:3px;border-radius:2px;background:var(--c)}
 .pil .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;font-weight:900}
 .pil .shot{box-shadow:0 24px 60px rgba(0,35,39,.16);border-color:var(--line)}
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 .pillars .end{font-size:clamp(20px,2.2vw,26px);font-style:italic;text-align:center;color:var(--jet);margin:0}
 .hero p.lead b{color:#fff;font-weight:800}
 /* fiche coach */
@@ -87,7 +86,7 @@ footer{background:#001A1D;color:#8FA9AB;font-size:13.5px;padding:28px 0}footer .
 @media(max-width:900px){
  nav.top .links{display:none}
  .hero .w,.pil,.fiche .wrap,.mob{grid-template-columns:1fr}.hero .shot{transform:none;margin-bottom:-30px}
- .pil:nth-child(even) .txt{order:0}.six,.data .g4,.g3{grid-template-columns:1fr}.duo{grid-template-columns:1fr}
+ .pil:nth-child(even) .txt{order:0}.six,.data .g4,.g3{grid-template-columns:1fr}
  .mob form{flex-direction:column}.mob input{min-width:0}
  section{padding:64px 0}.pillars{padding-top:90px}
 }
@@ -147,6 +146,22 @@ html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
 .apropos .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .apropos .acts small{display:block;width:100%;color:var(--grey);font-size:13px}
 @media(max-width:900px){.apropos .wrap{grid-template-columns:1fr;gap:20px}.apropos .ph{width:120px;height:120px}}
+/* captures en bande (retour 5) */
+.pil.wide{grid-template-columns:1fr;gap:28px}
+.pil.wide .txt{order:0!important;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 48px;align-items:start}
+.pil.wide .txt>.hd{grid-column:1/-1}
+.strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:16px}
+.strip figure{margin:0;min-width:0}
+.strip button{all:unset;box-sizing:border-box;display:block;width:100%;cursor:zoom-in;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(0,35,39,.12)}
+.strip button:hover{border-color:#C9C3D1}.strip button:focus-visible{outline:3px solid var(--am);outline-offset:3px}
+.strip img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left}
+.strip figcaption{font-size:13px;font-weight:700;color:var(--grey);padding:8px 12px;border-top:1px solid var(--line)}
+dialog.zoom{border:0;padding:0;border-radius:14px;max-width:min(1300px,94vw);max-height:92vh;overflow:auto;background:#fff}
+dialog.zoom::backdrop{background:rgba(0,26,29,.82)}
+dialog.zoom img{display:block;max-width:100%;height:auto}
+dialog.zoom form{position:sticky;top:0;display:flex;justify-content:flex-end;padding:8px;background:#fff}
+dialog.zoom .btn{padding:8px 12px}
+@media(max-width:900px){.pil.wide .txt{grid-template-columns:1fr}.strip{grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.strip figure{scroll-snap-align:start}}
 </style></head><body>
 
 <nav class="top"><div class="w">
@@ -185,16 +200,16 @@ html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
   <div class="shot" style="max-width:520px;justify-self:center"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/log-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/log-en.jpg" alt="" loading="lazy"></div>
  </div>
 
- <div class="pil" style="--c:var(--teal)">
-  <div class="txt"><span class="num">2</span><h3><span class="fr">Affûter quelques compétences</span><span class="en">Sharpen a few skills</span></h3><p><span class="fr">On sort de l'école en sachant beaucoup et en maîtrisant peu. Choisis une ou deux compétences, investis-y chaque séance et ta supervision jusqu'à en faire des automatismes, puis passe aux suivantes. C'est ce qui donne du poids à tout ce que tu as appris.</span><span class="en">You leave coaching school knowing a lot and mastering little. Pick one or two skills, pour every session and your supervision into them until they become second nature, then move on to the next ones. That is what gives weight to everything you have learned.</span></p>
+ <div class="pil wide" style="--c:var(--teal)">
+  <div class="txt"><div class="hd"><span class="num">2</span><h3><span class="fr">Affûter quelques compétences</span><span class="en">Sharpen a few skills</span></h3></div><p><span class="fr">On sort de l'école en sachant beaucoup et en maîtrisant peu. Choisis une ou deux compétences, investis-y chaque séance et ta supervision jusqu'à en faire des automatismes, puis passe aux suivantes. C'est ce qui donne du poids à tout ce que tu as appris.</span><span class="en">You leave coaching school knowing a lot and mastering little. Pick one or two skills, pour every session and your supervision into them until they become second nature, then move on to the next ones. That is what gives weight to everything you have learned.</span></p>
    <ul><li><span class="fr">Des XP de pratique à chaque séance (10 minutes = 1 XP, ×2 pour une séance, ×3 pour une supervision), à répartir entre les compétences travaillées</span><span class="en">Practice XP from every session (10 minutes = 1 XP, ×2 for a session, ×3 for supervision), to assign to the skills you worked on</span></li><li><span class="fr">Un niveau par compétence, et la boussole de pratique : où tu investis vraiment</span><span class="en">A level for each skill, and the practice compass: where you really invest</span></li><li><span class="fr">Un focus, des actions concrètes vérifiées à chaque séance, tes remarques gardées pour la supervision</span><span class="en">A focus, concrete actions checked at every session, your notes kept for supervision</span></li></ul></div>
-  <div class="duo"><div class="shot" style="grid-column:1/-1"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/practice-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/practice-en.jpg" alt="" loading="lazy"></div><div class="shot" style="grid-column:1/-1;max-width:560px;justify-self:end"><img class="fr" src="assets/xp-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/xp-en.jpg" alt="" loading="lazy"></div></div>
+  <div class="strip"><figure><button type="button" data-zoom><img class="fr" src="assets/practice-fr.jpg" alt="Pratique délibérée : focus et actions" loading="lazy"><img class="en" src="assets/practice-en.jpg" alt="Deliberate practice: focus and actions" loading="lazy"><figcaption><span class="fr">Pratique délibérée : focus et actions</span><span class="en">Deliberate practice: focus and actions</span></figcaption></button></figure><figure><button type="button" data-zoom><img class="fr" src="assets/xp-fr.jpg" alt="Les XP par compétence" loading="lazy"><img class="en" src="assets/xp-en.jpg" alt="XP by skill" loading="lazy"><figcaption><span class="fr">Les XP par compétence</span><span class="en">XP by skill</span></figcaption></button></figure></div>
  </div>
 
- <div class="pil" style="--c:var(--blue)">
-  <div class="txt"><span class="num">3</span><h3><span class="fr">Créer ton activité par la relation</span><span class="en">Build your practice through relationships</span></h3><p><span class="fr">Le coaching se vend en coachant. Ton carnet te pousse aux gestes qui créent des rencontres : entretenir ton réseau, inviter, proposer, t'entourer de pairs qui partagent tes défis. Ce qu'on vit souvent comme une épreuve devient un jeu.</span><span class="en">Coaching sells through coaching. Your notebook nudges you towards the moves that lead to real conversations: keeping your network alive, inviting, making offers, surrounding yourself with peers who face the same challenges. What many coaches dread becomes a game.</span></p>
+ <div class="pil wide" style="--c:var(--blue)">
+  <div class="txt"><div class="hd"><span class="num">3</span><h3><span class="fr">Créer ton activité par la relation</span><span class="en">Build your practice through relationships</span></h3></div><p><span class="fr">Le coaching se vend en coachant. Ton carnet te pousse aux gestes qui créent des rencontres : entretenir ton réseau, inviter, proposer, t'entourer de pairs qui partagent tes défis. Ce qu'on vit souvent comme une épreuve devient un jeu.</span><span class="en">Coaching sells through coaching. Your notebook nudges you towards the moves that lead to real conversations: keeping your network alive, inviting, making offers, surrounding yourself with peers who face the same challenges. What many coaches dread becomes a game.</span></p>
    <ul><li><span class="fr">Un rythme de contact par personne : elle revient dans « À relancer » au bon moment, avec le sujet à reprendre</span><span class="en">A contact rhythm for each person: they come back in “To follow up” at the right time, with the topic to pick up</span></li><li><span class="fr">Ton réseau dessiné par cercles : qui fait le pont, quel groupe réchauffer, qui t'a recommandé qui</span><span class="en">Your network drawn by circles: who bridges groups, which group to warm up, who referred whom</span></li><li><span class="fr">Ton pipeline, de l'invitation au contrat, et ton entonnoir de l'année ; tes non comptent aussi</span><span class="en">Your pipeline, from invitation to contract, and your year's funnel; your noes count too</span></li></ul></div>
-  <div class="duo"><div class="shot" style="grid-column:1/-1"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/reseau-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/reseau-en.jpg" alt="" loading="lazy"></div><div class="shot" style="grid-column:1/-1"><div class="bar"><i></i><i></i><i></i></div><img class="fr" src="assets/pipeline-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/pipeline-en.jpg" alt="" loading="lazy"></div><div class="shot" style="grid-column:1/-1;max-width:560px;justify-self:end"><img class="fr" src="assets/funnel-fr.jpg" alt="" loading="lazy"><img class="en" src="assets/funnel-en.jpg" alt="" loading="lazy"></div></div>
+  <div class="strip"><figure><button type="button" data-zoom><img class="fr" src="assets/reseau-fr.jpg" alt="Ton réseau par cercles" loading="lazy"><img class="en" src="assets/reseau-en.jpg" alt="Your network by circles" loading="lazy"><figcaption><span class="fr">Ton réseau par cercles</span><span class="en">Your network by circles</span></figcaption></button></figure><figure><button type="button" data-zoom><img class="fr" src="assets/pipeline-fr.jpg" alt="Le pipeline, de l'invitation au contrat" loading="lazy"><img class="en" src="assets/pipeline-en.jpg" alt="The pipeline, from invitation to contract" loading="lazy"><figcaption><span class="fr">Le pipeline, de l'invitation au contrat</span><span class="en">The pipeline, from invitation to contract</span></figcaption></button></figure><figure><button type="button" data-zoom><img class="fr" src="assets/funnel-fr.jpg" alt="L'entonnoir de l'année" loading="lazy"><img class="en" src="assets/funnel-en.jpg" alt="The year's funnel" loading="lazy"><figcaption><span class="fr">L'entonnoir de l'année</span><span class="en">The year's funnel</span></figcaption></button></figure></div>
  </div>
  <p class="end serif"><span class="fr">Trente secondes après chaque entretien suffisent.</span><span class="en">Thirty seconds after each session is all it takes.</span></p>
 </div></section>
@@ -270,6 +285,7 @@ html[data-lang=en] .eng .sigq q{quotes:'“' '”'}
 </div></section>
 
 <footer><div class="w"><span>Carnet de coach · © 2026 Allan Oudomphong · <a href="https://github.com/ao-coach/carnet-de-coach/blob/main/LICENSE" target="_blank" rel="noopener"><span class="fr">Licence</span><span class="en">Licence</span> PolyForm Shield 1.0.0</a></span><span><a href="mentions.html" data-keeplang><span class="fr">Mentions légales et confidentialité</span><span class="en">Legal notice and privacy</span></a> · <a href="#" data-app-page="arch.html"><span class="fr">Comment l'outil est construit</span><span class="en">How the tool is built</span></a></span></div></footer>
+<dialog class="zoom" id="zoom" aria-label="Capture"><form method="dialog"><button class="btn o" aria-label="Fermer / Close">✕</button></form><img alt=""></dialog>
 <script>
 /* ---------- réglages du site : à compléter une seule fois ---------- */
 var APP='app/';        // l'application, dans le sous-dossier app/
@@ -308,6 +324,10 @@ document.querySelectorAll('.tip>button').forEach(function(b){var p=document.getE
  p.addEventListener('click',function(e){e.stopPropagation()});
  document.addEventListener('click',function(){if(!p.hidden)show(false)});
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!p.hidden){show(false);b.focus()}})});
+/* captures des piliers : un clic agrandit (Échap ou clic à côté pour fermer) */
+(function(){var z=document.getElementById('zoom'),zi=z.querySelector('img');
+ document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){var i=[].filter.call(b.querySelectorAll('img'),function(x){return x.offsetParent})[0]||b.querySelector('img');zi.src=i.currentSrc||i.src;zi.alt=i.alt;z.showModal()})});
+ z.addEventListener('click',function(e){if(e.target===z)z.close()})})();
 </script>
 <script data-goatcounter="https://ao-coach.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
