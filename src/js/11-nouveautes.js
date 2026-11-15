@@ -5,6 +5,7 @@
 const NEWS=[
  {v:58,s:'3.3.0',d:'15 novembre 2026',items:[
   {t:"Une fiche personne refondue",p:"Une photo plus grande (un clic pour la changer ou la retirer), les coordonnées à droite du nom, et sous l'en-tête la frise de vos échanges, sans les débriefs. Quatre onglets : Situation (chiffres, XP investis, plan d'action), Contact, Notes et Contrat, dès qu'une proposition existe.",go:'people',b:'Personnes'},
+  {t:"Les débriefs ne comptent plus comme contact",p:"Un débrief n'est pas un échange avec la personne : il ne repousse plus son dernier contact. La relance au rythme et « Sans contact » partent de votre vrai dernier échange."},
   {t:"Plusieurs problématiques par personne",p:"Dans l'onglet Contact, les problématiques deviennent des étiquettes : « + problématique » reprend celles que tu utilises déjà, ou en crée une. Dans Réseau, la personne rejoint chacun de ses groupes ; dans les Affinités, ses heures comptent pour chacune. Ton ancienne valeur est reprise telle quelle."},
   {t:"Des notes à filtrer et à replier",p:"Dans l'onglet Notes, une carte par saisie, des filtres par type avec leur nombre, et un clic sur la pastille d'une note pour la replier : de quoi préparer une synthèse. Ce navigateur s'en souvient."},
   {t:"Contact et Contrat",p:"Étape, proximité, rythme, cercles, public et problématique sur deux lignes alignées, puis qui te l'a recommandée et qui elle t'a recommandé. L'onglet Contrat garde le contrat en cours et liste toutes les propositions ; un clic ouvre la saisie."}]},

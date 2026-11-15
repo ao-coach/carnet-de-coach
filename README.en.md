@@ -389,6 +389,8 @@ The list of what needs action, most urgent first.
 
 A person appears only once in the list. Click a name to open the person's profile.
 
+A **debrief** is not an exchange with the person: it counts neither as the last contact (regular follow-up, “No contact”, profile, people list, Network) nor as the first contact.
+
 **Prepare** opens the profile on the Notes tab, with the cursor in “Next topic to raise”: a way to reread what to keep in mind before getting back in touch.
 
 **Handle** opens a small window:
@@ -573,7 +575,7 @@ Then four tabs. The profile opens on **Overview**; “Prepare”, in “To follo
   - **Circles**: the groups the person belongs to (entrepreneurs club, former colleagues, coaching school…), as many as you like. “+ circle” suggests the circles already used, the largest first; type a new name to create one. The ✕ on a pill removes it.
   - **Audience** (module ③): which audience the person belongs to. The small ▾ lists the values already used; a new value is added to the list.
   - **Topic** (module ③): what the person comes to work on, **one or several**. “+ topic” suggests the ones already used, most frequent first, or creates one; “Legitimacy; Leadership” adds two at once. The ✕ on a pill removes it. Audience and topics feed the **affinities** of your coach profile (see [part 5](#5-coach-your-profile)) and the Network tab views.
-- Below, the date of the last contact and the **suggested next contact** (“2 November 2026 · 12 days overdue”, “15 January 2027 (in 2 months)”).
+- Below, the date of the last contact (debriefs excluded) and the **suggested next contact** (“2 November 2026 · 12 days overdue”, “15 January 2027 (in 2 months)”).
 - Then two columns:
   - **Referred or introduced by**: the person who put you in touch, searched by name (same field as in the entry form), then “Referred” or “Introduced”. With the **source** (where the person comes from when nobody introduced them: fair, LinkedIn, workshop…) and the “Came through a referral” box (you were recommended to them).
   - **Has referred or introduced**: the people they put you in touch with. “+ Add a person” links a new one; the ✕ removes the link. With the “I asked them for a referral” box.

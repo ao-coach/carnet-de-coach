@@ -389,6 +389,8 @@ La liste de ce qui demande une action, avec les plus urgents en premier.
 
 Une personne n'apparaît qu'une fois dans la liste. Clique sur un nom pour ouvrir la fiche de la personne.
 
+Un **débrief** n'est pas un échange avec la personne : il ne compte ni comme dernier contact (relance au rythme, « Sans contact », fiche, liste des personnes, Réseau), ni comme premier contact.
+
 **Préparer** ouvre la fiche sur l'onglet Notes, le curseur dans « Prochain sujet à évoquer » : de quoi relire ce qu'il faut garder en tête avant de recontacter la personne.
 
 **Traiter** ouvre une petite fenêtre :
@@ -573,7 +575,7 @@ Puis quatre onglets. La fiche s'ouvre sur **Situation** ; « Préparer », dans 
   - **Cercles** : les groupes dont la personne fait partie (club d'entrepreneurs, anciens collègues, école de coaching…), autant que tu veux. « + cercle » propose les cercles déjà utilisés, les plus fournis d'abord ; tape un nom nouveau pour en créer un. Le ✕ d'une pastille la retire.
   - **Public** (module ③) : à quel public appartient la personne. Le petit ▾ déroule les valeurs déjà utilisées ; une nouvelle valeur est ajoutée à la liste.
   - **Problématique** (module ③) : ce que la personne vient travailler, **une ou plusieurs**. « + problématique » propose celles déjà utilisées, les plus fréquentes d'abord, ou en crée une ; « Légitimité; Leadership » en ajoute deux d'un coup. Le ✕ d'une pastille la retire. Public et problématiques alimentent les **affinités** de ta fiche de coach (voir la [partie 5](#5-coach--ta-fiche)) et les vues de l'onglet Réseau.
-- Dessous, la date du dernier contact et le **prochain contact conseillé** (« 2 novembre 2026 · dépassé de 12 j », « 15 janvier 2027 (dans 2 mois) »).
+- Dessous, la date du dernier contact (débriefs exclus) et le **prochain contact conseillé** (« 2 novembre 2026 · dépassé de 12 j », « 15 janvier 2027 (dans 2 mois) »).
 - Puis deux colonnes :
   - **Recommandé·e ou présenté·e par** : la personne qui te l'a fait connaître, cherchée par son nom (même champ que dans la saisie), puis « Recommandé·e » ou « Présenté·e ». Avec la **provenance** (d'où vient la personne quand personne ne te l'a présentée : salon, LinkedIn, atelier…) et la case « Vient d'une recommandation » (on t'a recommandé à elle).
   - **A recommandé ou présenté** : les personnes qu'elle t'a fait connaître. « + Ajouter une personne » en relie une nouvelle ; le ✕ retire le lien. Avec la case « Je lui ai demandé une recommandation ».

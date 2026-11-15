@@ -5,7 +5,8 @@ const ETAPES=[['invite','Invité·e'],['conversation','En conversation'],['propo
 const ETL={...Object.fromEntries(ETAPES),reseau:'Contact réseau'};
 const ETC={invite:'#B5915A',reseau:'#9A9DA1',conversation:'#2F8C93',proposition:'var(--afb)',client:'var(--am)',termine:'var(--jet)',perdu:'#C9727B',superviseur:'#8B78A8'};
 const pEntries=pid=>E().filter(e=>e.pid==pid).sort((a,b)=>a.date.localeCompare(b.date));
-const lastContact=pid=>pEntries(pid).filter(e=>e.date<=today()).at(-1)||null;
+/* 3.3.0 : un débrief n'est pas un échange avec la personne : il ne compte ni comme dernier contact, ni pour la relance au rythme */
+const lastContact=pid=>pEntries(pid).filter(e=>e.date<=today()&&e.type!='debrief').at(-1)||null;
 /* étape proposée automatiquement à partir des saisies */
 /* contrat en cours d'une personne : dernière proposition acceptée */
 const addMonths=(d,m)=>{const x=new Date(d+'T12:00:00Z');x.setUTCMonth(x.getUTCMonth()+(+m||0));return x.toISOString().slice(0,10)};
@@ -271,7 +272,7 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
   DB.actions.push({id:nextId(DB.actions),p:'Relance',a:txt,d:$('pfADate').value||'',r:'',s:'encours',pid:p.id,maj:new Date().toISOString()});touch();renderFiche()};
  $('pfANew').onkeydown=e=>{if(e.key=='Enter')$('pfAAdd').click()};
  const all=pEntries(p.id),st=stats(all),l=lastContact(p.id);
- $('pfSum').innerHTML=[[l?dShort(l.date):'—','dernier contact'],[n1(st.h)+' h','de coaching'],[all.filter(e=>e.type=='conversation').length,'conversations'],[all.filter(e=>e.type=='session').length,'sessions'],[st.ca?eur(st.ca):'—','contrat'],[all[0]?dShort(all[0].date):'—','premier contact']].map(([v,k])=>`<div><b>${v}</b>${k}</div>`).join('');
+ $('pfSum').innerHTML=[[l?dShort(l.date):'—','dernier contact'],[n1(st.h)+' h','de coaching'],[all.filter(e=>e.type=='conversation').length,'conversations'],[all.filter(e=>e.type=='session').length,'sessions'],[st.ca?eur(st.ca):'—','contrat'],[pfTLE(p.id)[0]?dShort(pfTLE(p.id)[0].date):'—','premier contact']].map(([v,k])=>`<div><b>${v}</b>${k}</div>`).join('');
  if($('pfM').classList.contains('show'))pfTL();$('pfAis').innerHTML=aisBlock(all);
  $('pfKT').classList.toggle('hide',!all.some(e=>e.type=='proposition'));
  const K=contractOf(p.id);$('pfKS').classList.toggle('hide',!K);
