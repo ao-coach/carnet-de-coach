@@ -230,15 +230,18 @@ function hautsFaitsHTML(jeu){const{got,todo}=hautsFaits(),PL='<button class="cfp
 
 /* ---------- affinités : public × problématique ---------- */
 function affinites(){const hp={};E().filter(e=>COACH.includes(e.type)&&e.pid!=null).forEach(e=>{hp[e.pid]=(hp[e.pid]||0)+(e.dur||0)/60});
- const cells={},rows={},cols={};let nc=0;
- Object.entries(hp).forEach(([pid,h])=>{const p=pById(pid);const pu=(p?.public||'').trim(),pr=(p?.probl||'').trim();if(!pu||!pr){nc+=h;return}
-  const k=pu+'\u0001'+pr;cells[k]=(cells[k]||0)+h;rows[pu]=(rows[pu]||0)+h;cols[pr]=(cols[pr]||0)+h});
+ /* 3.3.0 : un client à plusieurs problématiques compte toutes ses heures dans chacune (expérience réelle sur chaque sujet), une seule fois pour son public */
+ const cells={},rows={},cols={};let nc=0,multi=0;
+ Object.entries(hp).forEach(([pid,h])=>{const p=pById(pid);const pu=String(p?.public||'').trim(),PR=p?prbOf(p):[];if(!pu||!PR.length){nc+=h;return}
+  if(PR.length>1)multi++;rows[pu]=(rows[pu]||0)+h;PR.forEach(pr=>{const k=pu+'\u0001'+pr;cells[k]=(cells[k]||0)+h;cols[pr]=(cols[pr]||0)+h})});
  const R=Object.keys(rows).sort((a,b)=>rows[b]-rows[a]).slice(0,5),C=Object.keys(cols).sort((a,b)=>cols[b]-cols[a]).slice(0,5);
- return{R,C,rows,cols,cell:(r,c)=>cells[r+'\u0001'+c]||0,nc}}
+ return{R,C,rows,cols,cell:(r,c)=>cells[r+'\u0001'+c]||0,nc,multi}}
 function affinitesHTML(jeu){const A=affinites(),SP=50;
  const head=`<div class="cfsh">Affinités <span>heures de coaching par public et par problématique · spécialité à partir de ${SP} h</span></div>`;
  if(!A.R.length)return `<div class="cfpanel">${head}<div class="hint" style="margin:0">Renseigne le <b>public</b> et la <b>problématique</b> dans la fiche de tes clients (onglet Personnes) : tes affinités et tes spécialités apparaîtront ici.${A.nc?` ${fmtV(A.nc,' h')} h de coaching ne sont pas encore classées.`:''}</div></div>`;
- const foot=A.nc?`<div class="hint" style="margin:8px 0 0">${fmtV(A.nc,' h')} h de coaching pas encore classées : renseigne le public et la problématique de ces clients.</div>`:'';
+ const ft=[A.multi?(A.multi>1?`${A.multi} clients ont plusieurs problématiques : leurs heures comptent dans chacune.`:'1 client a plusieurs problématiques : ses heures comptent dans chacune.'):'',
+  A.nc?`${fmtV(A.nc,' h')} h de coaching pas encore classées : renseigne le public et la problématique de ces clients.`:''].filter(Boolean);
+ const foot=ft.length?`<div class="hint" style="margin:8px 0 0">${ft.join('<br>')}</div>`:'';
  const nsp=A.R.reduce((s,r)=>s+A.C.filter(c=>A.cell(r,c)>=SP).length,0);
  if(!jeu){const mx=Math.max(1,...A.R.flatMap(r=>A.C.map(c=>A.cell(r,c))));
   return `<div class="cfpanel">${head}<table class="hm"><tr><th></th>${A.C.map(c=>`<th>${esc(c)}</th>`).join('')}<th>Total</th></tr>

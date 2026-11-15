@@ -232,15 +232,16 @@ function renderFiche(){const p=pById(PFID);if(!p)return;const mk=()=>{p.maj=new 
  $('pfAv').style.backgroundImage=p.photo?`url("${p.photo}")`:'';$('pfAv').textContent=p.photo?'':ini;$('pfAv').style.background=p.photo?'':PAL[[...(p.nom||'')].reduce((a,c)=>a+c.charCodeAt(0),0)%PAL.length];
  if(p.photo){$('pfAv').style.backgroundImage=`url("${p.photo}")`;$('pfAv').style.backgroundSize='cover'}
  $('pfPhDel').classList.toggle('hide',!p.photo);
- [['pfNom','nom'],['pfTit','titre'],['pfTel','tel'],['pfMail','email'],['pfWeb','site'],['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl'],['pfNotes','notes'],['pfSujet','sujet']].forEach(([id,k])=>{$(id).value=p[k]||'';
+ [['pfNom','nom'],['pfTit','titre'],['pfTel','tel'],['pfMail','email'],['pfWeb','site'],['pfSrc','provenance'],['pfPub','public'],['pfNotes','notes'],['pfSujet','sujet']].forEach(([id,k])=>{$(id).value=p[k]||'';
   $(id).oninput=e=>{p[k]=e.target.value;if(k=='nom'&&!p.nom.trim())return;mk();if(['email','site','tel'].includes(k))links()}});
  $('pfTel').value=fmtTel(p.tel);$('pfTel').onchange=e=>{const f=fmtTel(e.target.value);if(f!==e.target.value){e.target.value=f;p.tel=f;mk()}};
  $('pfNom').onchange=e=>{if(!e.target.value.trim()){p.nom='Sans nom';e.target.value=p.nom;mk()}};
  const links=()=>{$('pfIcons').innerHTML=[p.email?`<a class="pfi" href="mailto:${esc(p.email)}" title="Écrire un e-mail">${SVGI.mail}</a>`:'',p.site?`<a class="pfi" href="${esc(webUrl(p.site))}" target="_blank" rel="noopener" title="Voir le site">${SVGI.web}</a>`:'',p.tel&&IS_TOUCH?`<a class="pfi" href="tel:${esc(p.tel.replace(/[^\d+]/g,''))}" title="Appeler">${SVGI.tel}</a>`:''].join('')};links();
- [['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl']].forEach(([id,k])=>{const inp=$(id),M=$(id+'M'),vals=()=>[...new Set(DB.personnes.filter(x=>x!==p).map(x=>(x[k]||'').trim()).filter(Boolean))].sort(byName);
+ $('pfPrb').value=prbOf(p).join('; ');$('pfPrb').oninput=e=>{prbSet(p,e.target.value);mk()};
+ [['pfSrc','provenance'],['pfPub','public'],['pfPrb','probl']].forEach(([id,k])=>{const inp=$(id),M=$(id+'M'),vals=()=>[...new Set(DB.personnes.filter(x=>x!==p).flatMap(x=>k=='probl'?prbOf(x):[String(x[k]||'').trim()]).filter(Boolean))].sort(byName);
   const show=all=>{const q=all?'':inp.value.trim().toLowerCase(),V=vals().filter(v=>!q||v.toLowerCase().includes(q));
    M.innerHTML=V.length?V.map(v=>`<div data-v="${esc(v)}">${esc(v)}</div>`).join(''):`<div class="e">${vals().length?'Aucune valeur proche : la tienne sera ajoutée':'Pas encore de valeur : la première sera proposée ensuite'}</div>`;M.classList.add('show');
-   M.querySelectorAll('[data-v]').forEach(d=>d.onmousedown=ev=>{ev.preventDefault();inp.value=d.dataset.v;p[k]=d.dataset.v;mk();M.classList.remove('show')})};
+   M.querySelectorAll('[data-v]').forEach(d=>d.onmousedown=ev=>{ev.preventDefault();inp.value=d.dataset.v;if(k=='probl')prbSet(p,d.dataset.v);else p[k]=d.dataset.v;mk();M.classList.remove('show')})};
   inp.parentNode.querySelector('.cmbb').onmousedown=ev=>{ev.preventDefault();M.classList.contains('show')?M.classList.remove('show'):(inp.focus(),show(true))};
   inp.onfocus=()=>show(!inp.value.trim());inp.addEventListener('input',()=>show(false));inp.onblur=()=>setTimeout(()=>M.classList.remove('show'),120);
   inp.onkeydown=ev=>{if(ev.key=='Escape')M.classList.remove('show')}});

@@ -165,7 +165,7 @@ function exportCsvP(){if(DEKK&&!confirm('L\'export CSV est lisible en clair (nom
   const q=v=>`"${String(v??'').replace(/"/g,'""')}"`,PXL={proche:'Proche',regulier:'Régulier',occasionnel:'Occasionnel'};
   const head=['Nom','Fonction','Étape','Cercles','Proximité','Rythme de contact (mois)','Recommandé·e ou présenté·e par','Recommandé·e / présenté·e','Provenance','Public','Problématique','Téléphone','E-mail','Site','Dernier contact','Prochain sujet à évoquer','Archivée'].map(TR);
   const L=[...DB.personnes].sort((a,b)=>byName(a.nom,b.nom)).map(p=>{const r=p.reco_par&&pById(p.reco_par.pid),l=lastContact(p.id);
-   return[p.nom,p.titre||'',TR(ETL[stageOf(p)]),(p.cercles||[]).join(' ; '),TR(PXL[p.proximite||'regulier']),rythmeOf(p),r?r.nom:'',r?TR(p.reco_par.mode=='presente'?'présenté·e':'recommandé·e'):'',p.provenance||'',p.public||'',p.probl||'',p.tel||'',p.email||'',p.site||'',l?l.date:'',p.sujet||'',p.archive?TR('oui'):'']});
+   return[p.nom,p.titre||'',TR(ETL[stageOf(p)]),(p.cercles||[]).join(' ; '),TR(PXL[p.proximite||'regulier']),rythmeOf(p),r?r.nom:'',r?TR(p.reco_par.mode=='presente'?'présenté·e':'recommandé·e'):'',p.provenance||'',p.public||'',prbOf(p).join(' ; '),p.tel||'',p.email||'',p.site||'',l?l.date:'',p.sujet||'',p.archive?TR('oui'):'']});
   download(`coaching-personnes_${today()}.csv`,'\ufeff'+[head,...L].map(r=>r.map(q).join(';')).join('\r\n'),'text/csv')}
 $('expJson').onclick=exportJson;$('expCsv').onclick=exportCsv;$('expCsvP').onclick=exportCsvP;
 $('impJson').onclick=()=>$('impFile').click();

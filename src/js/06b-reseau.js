@@ -15,8 +15,8 @@ const netHash=s=>[...String(s)].reduce((a,c)=>Math.imul(a^c.charCodeAt(0),167776
 function netCol(st){const c=ETC[st]||'#9A9DA1',m=/^var\((--[\w-]+)\)$/.exec(c);return m?(getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim()||'#797D81'):c}
 const netFirst=p=>String(p.nom||'?').trim().split(/\s+/)[0];
 const netIni=p=>String(p.nom||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
-/* groupes d'une personne selon le regroupement : cercles (liste), public ou problématique (texte, séparé par , ou ;) */
-function netGroups(p,v){const L=v=='cercles'||v=='orbites'?(p.cercles||[]):String(p[v]||'').split(/[;,]/),m=new Map();
+/* groupes d'une personne selon le regroupement : cercles (liste), problématiques (liste, 3.3.0), public (texte, séparé par , ou ;) */
+function netGroups(p,v){const L=v=='cercles'||v=='orbites'?(p.cercles||[]):v=='probl'?prbOf(p):String(p[v]||'').split(/[;,]/),m=new Map();
  L.forEach(s=>{s=String(s||'').trim();const k=fold(s);if(k&&!m.has(k))m.set(k,s)});return[...m.entries()]}
 
 /* ---------- données du graphe ---------- */
@@ -193,7 +193,7 @@ function netSide(D){const I=netInsights(D),gl=new Map(D.G.map(g=>[g.k,g])),G=k=>
  return `<h2>Ce que montre ton réseau</h2>${fil}<div class="nsum"><span>${pl(D.P.filter(x=>!x.off).length,'personne')}</span><span>${nG} ${grpW}</span></div>`
   +sec('Passerelles',I.pass.length,"Elles relient deux mondes : demande-leur qui, de l'autre côté, gagnerait à te connaître.",
    I.pass.slice(0,6).map(x=>`<li>${who(x)} <span>relie</span> ${and(x.gk)}</li>`).join('')+more(I.pass,6),
-   D.v=='cercles'||D.v=='orbites'?"Aucune pour l'instant : une personne dans deux cercles fait le pont entre eux.":"Aucune : ici, chaque personne a une seule valeur.")
+   D.v=='cercles'||D.v=='orbites'?"Aucune pour l'instant : une personne dans deux cercles fait le pont entre eux.":D.v=='probl'?"Aucune pour l'instant : une personne à deux problématiques fait le pont entre elles.":"Aucune : ici, chaque personne a une seule valeur.")
   +sec('À réchauffer',I.warm.length,'Au moins la moitié de leurs membres attendent de tes nouvelles.',
    I.warm.map(z=>`<li>${G(z.g.k)} <span>${z.k} sur ${z.m.length} à relancer</span></li>`).join(''),"Rien à réchauffer : tes groupes sont entretenus.")
   +sec('Pistes de développement',I.dev.length,'Des liens sans conversation de coaching pour l\'instant : une invitation ?',
