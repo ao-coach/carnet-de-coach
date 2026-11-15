@@ -137,11 +137,14 @@ function renderBiz(){const y=YSEL||today().slice(0,4),py=String(+y-1),B=bizYear(
  $('bizView').innerHTML=`<button data-v="fun" class="${BVIEW=='fun'?'on':''}">Entonnoir</button><button data-v="mois" class="${BVIEW=='mois'?'on':''}">Par mois</button>`;
  $('bizView').querySelectorAll('button').forEach(b=>b.onclick=()=>{BVIEW=b.dataset.v;renderBiz()});
  const col=k=>TM[k]?.c||'#999',ST=[['inv','Invitations','invitation',col('invitation')],['conv','Personnes en conversation','conversation',col('conversation')],['prop','Personnes avec une proposition','proposition',col('proposition')],['cli','Clients signés','',CFG().couleurs.accent]];
+ /* 3.2.6 : entonnoir à l'horizontale, étapes de gauche à droite (hauteur proportionnelle), taux entre deux étapes ; tuiles en ligne dessous */
  if(BVIEW=='fun'){const mx=Math.max(1,...ST.map(s=>B[s[0]]));
-  const rows=ST.map((s,i)=>{const v=B[s[0]],w=Math.max(v?8:2,v/mx*100),r=i?rate(v,B[ST[i-1][0]]):null,pr=i?rate(Pv[s[0]],Pv[ST[i-1][0]]):null;
-   return `${i?`<div class="bzr">${r!=null?`↓ <b>${r} %</b>`:'↓ —'}${pr!=null?` <span>(${pr} % en ${py})</span>`:''}</div>`:''}<div class="bzl"><span class="bzn">${s[1]}</span><div class="bzb"><i style="width:${w}%;background:${s[3]}"></i><b>${v}</b></div></div>`}).join('');
+  const top=[],bot=[];ST.forEach((s,i)=>{const v=B[s[0]],h=v?Math.max(6,Math.round(v/mx*130)):3,r=i?rate(v,B[ST[i-1][0]]):null,pr=i?rate(Pv[s[0]],Pv[ST[i-1][0]]):null;
+   if(i){top.push(`<div class="bzt"><b>→ ${r!=null?r+' %':'—'}</b>${pr!=null?`<span>(${pr} % en ${py})</span>`:''}</div>`);bot.push('<div></div>')}
+   top.push(`<div class="bzc"><b>${v}</b><i style="height:${h}px;background:${s[3]}"></i></div>`);bot.push(`<div class="bzcl">${s[1]}</div>`)});
+  const rows=top.join('')+bot.join('');
   const glob=rate(B.cli,B.inv)??rate(B.cli,B.conv),gl=rate(B.cli,B.inv)!=null?'des invitations':'des conversations';
-  box.innerHTML=`<div class="bzg"><div class="bzf">${rows}</div><div class="bzk">
+  box.innerHTML=`<div class="bzg"><div class="bzh">${rows}</div><div class="bzk">
    <div><small>Transformation</small><b>${glob!=null?glob+' %':'—'}</b><span>${glob!=null?gl+' deviennent des clients':'pas encore de données'}</span></div>
    <div><small>CA signé ${y}</small><b>${eur(B.ca)}</b><span>${Pv.ca?`${eur(Pv.ca)} en ${py}`:'&nbsp;'}</span></div>
    <div><small>Panier moyen</small><b>${B.nacc?eur(B.ca/B.nacc):'—'}</b><span>${B.nacc?pl(B.nacc,'contrat')+' signé'+(B.nacc>1?'s':''):'&nbsp;'}</span></div>
