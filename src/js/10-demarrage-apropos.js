@@ -87,7 +87,7 @@ const lienUrl=k=>{const o=LIENS[k];return typeof o=='string'?o:(o[LANG==='en'?'e
 function lienHtml(){
  const B=[['news','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>','Les nouveautés',"Une lettre à chaque nouvelle version, pas plus. Pour te désinscrire, il suffit de répondre « stop ».","M'inscrire"],
   ['don','<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>','Soutenir',"Le carnet est gratuit et le restera. S'il t'aide, tu peux contribuer au temps que j'y consacre.",'Faire un don'],
-  ['contact','<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>','Une idée, un souci','Chaque retour de coach nourrit les prochaines versions.','Écrire à Allan']].filter(x=>lienUrl(x[0]));
+  ['contact','<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>','Une idée, un souci','Chaque retour de coach nourrit les prochaines versions.',"M'écrire"]].filter(x=>lienUrl(x[0]));
  return B.length?`<div class="card ab-t ab-lien"><div class="ab-k">Rester en lien</div><div class="ab-ls">${B.map(([k,ic,t,p,b])=>`<div class="ab-li"><div class="ic">${ABIC(ic)}</div><b>${t}</b><p>${p}</p><a class="btn2" href="${esc(lienUrl(k))}" data-lk="${k}" target="_blank" rel="noopener">${b}</a></div>`).join('')}</div></div>`:''}
 function renderAbout(){const R=$('about');if(!R)return;
  R.innerHTML=`<div class="ab-h"><div class="ab-ti">À propos</div><p>Pourquoi ce carnet, l'approche qu'il porte, et comment il est construit. <a href="../" target="_blank" rel="noopener" style="color:var(--am);font-weight:800">Le site de Carnet de coach</a></p></div>
