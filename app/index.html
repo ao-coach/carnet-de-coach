@@ -1865,6 +1865,23 @@ function avXpOf(a,M){const r=a?.rep,B=avBudget(a),o={};if(!r||r.m==='na'||!B)ret
  fr.sort((p,q)=>q[1]-p[1]);for(let i=0;rest>0;i++,rest--)o[fr[i%fr.length][0]]++;Object.keys(o).forEach(k=>{if(!o[k])delete o[k]});return o}
 /* XP d'avant l'outil encore à répartir : tout le budget tant qu'aucune répartition valable n'est enregistrée */
 const avLeftOf=(a,M)=>{const B=avBudget(a);if(!B)return 0;const r=a?.rep;if(r&&(r.m==='na'||Object.keys(avXpOf(a,M)).length))return 0;return B};
+/* 3.5.0 : l'ancienne catégorie « Pratiquer délibérément » (objectif prioritaire de la démo et des premiers carnets) devient la catégorie fixe
+   « Pratique délibérée » : objectif renommé (ou réuni à un objectif « Pratique délibérée » existant, sa description ajoutée), actions rangées dessous ;
+   les actions en cours ou en pause reçoivent leur action de bibliothèque (3 en cours au plus, les suivantes passent en pause).
+   Texte exact seulement ; une seule fois par carnet (prefs.cat_pd). L'identifiant de bibliothèque est déduit de celui de l'action (cp + id) :
+   deux copies du carnet migrées séparément créent la même action, qui se réunit à la fusion. */
+const PD_OLD=['pratiquer délibérément','pratiquer deliberement','practise deliberately','practice deliberately'];/* i18n-ok : textes reconnus, non affichés */
+function catPdMerge(d){const P=d.prefs;if(P.cat_pd)return;P.cat_pd=1;const old=x=>PD_OLD.includes(String(x||'').trim().toLowerCase());
+ if(!d.priorites.some(p=>p&&old(p.o))&&!d.actions.some(a=>a&&old(a.p)))return;
+ const en=typeof LANG!=='undefined'&&LANG==='en',lab=en?'Deliberate practice':'Pratique délibérée',isNew=x=>['pratique délibérée','deliberate practice'].includes(String(x||'').trim().toLowerCase());/* i18n-ok : libellé FR/EN de la catégorie, comme PCAT */
+ let ex=d.priorites.find(p=>p&&isNew(p.o));const now=new Date().toISOString();
+ d.priorites=d.priorites.filter(p=>{if(!p||!old(p.o))return true;
+  if(ex){const t=String(p.d||'').trim();if(t&&!String(ex.d||'').includes(t))ex.d=[String(ex.d||'').trim(),t].filter(Boolean).join(' · ');return false}
+  p.o=lab;ex=p;return true});
+ const tgt=ex?ex.o:lab,L=d.pd.lib;let nc=L.filter(l=>l&&l.st=='cours'&&!l.horsPlan).length;
+ d.actions.forEach(a=>{if(!a||!old(a.p))return;a.p=tgt;a.maj=now;if(a.lib!=null||!['encours','pause'].includes(a.s))return;
+  let st=a.s=='encours'?'cours':'pause';if(st=='cours'){if(nc>=3){st='pause';a.s='pause'}else nc++}
+  const lid='cp'+a.id,l=L.find(x=>x&&String(x.id)===lid);if(l){a.lib=lid;return}L.push({id:lid,a:a.a||'',mid:null,types:Object.keys(d.config.types||{}).filter(k=>typeRole(k,d.config)=='coaching'),st,cree:today(),maj:now});a.lib=lid})}
 function migrate(d){
   d=JSON.parse(JSON.stringify(d||{}));delete d.format;const v=d.version_schema||0;
   d.personnes=d.personnes||[];d.entrees=d.entrees||[];
@@ -1913,7 +1930,7 @@ function migrate(d){
   {const P=d.prefs,m=P.modules;if(m&&typeof m=='object'&&!Array.isArray(m))P.modules=Object.fromEntries(MODS.map(k=>[k,!!m[k]]));
    else{delete P.modules;if(P.simple===true)P.modules=modsAll(false);else if(P.simple===false||P.onboarded||d.entrees.length)P.modules=modsAll(true)}
    if(P.modules)P.simple=!MODS.some(k=>P.modules[k])}
-  d.supprimes.m=(d.supprimes.m&&typeof d.supprimes.m=='object'&&!Array.isArray(d.supprimes.m))?d.supprimes.m:{};cmpPurge(d);planLink(d);
+  d.supprimes.m=(d.supprimes.m&&typeof d.supprimes.m=='object'&&!Array.isArray(d.supprimes.m))?d.supprimes.m:{};cmpPurge(d);catPdMerge(d);planLink(d);
   d.version_schema=VERSION;return d;
 }
 
