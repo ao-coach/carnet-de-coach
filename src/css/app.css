@@ -1207,3 +1207,5 @@ table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}
 .avrr{display:grid;grid-template-columns:minmax(0,1fr) 150px 48px 76px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
 .avrr input{accent-color:var(--am);width:100%}.avrr small{color:var(--grey);text-align:right}
 @media(max-width:640px){.avrr{grid-template-columns:minmax(0,1fr) 90px 44px 64px}.avrc,.avrp{margin-left:6px}}
+/* 3.5.0 : année déclarée avant l'outil (Suivi d'activité) */
+.chip.avy{border-style:dashed;border-color:var(--am)}

@@ -427,9 +427,9 @@ $('xprS').onclick=()=>{if(!XPR)return;const e=XPR.e,st=XPR.st,B=xpBudget(e),n=xp
  toast(xpLeft(e)>0?`Enregistré : il reste ${xpLeft(e)} XP à répartir sur cette saisie`:'XP répartis ✓')};
 /* 3.5.0 : ligne « Avant l'outil » de la liste et sa fenêtre de répartition (parts égales, proportions, non attribués) */
 function avSpan(){const a=AVO(),Y=Object.keys(a.annees||{}).sort();return a.mode==='an'&&Y.length?(Y[0]===Y.at(-1)?Y[0]:`${Y[0]}–${Y.at(-1)}`):a.date?`→ ${dShort(a.date)}`:'—'}
-function avHoursTxt(){const x=avHours(AVO()),P=[];if(x.h)P.push(`${n1(x.h)} h de coaching`);if(x.dx+x.s)P.push(`${n1(x.dx+x.s)} h de pratique délibérée`);if(x.s)P.push(`dont ${n1(x.s)} h de supervision`);return P.join(' · ')}
+function avHoursTxt(){const x=avHours(AVO()),P=[];if(x.h)P.push(`${n1(x.h)} h de coaching`);if(x.dx+x.s)P.push(`${n1(x.dx+x.s)} h de pratique délibérée`);if(x.s)P.push(`dont ${n1(x.s)} h de supervision`);return P.map(t=>`<span>${t}</span>`).join(' · ')}/* morceaux traduits un à un */
 function avLine(){const B=avB();if(!B)return'';const l=avLeft(),na=AVO().rep?.m==='na';
- return `<button type="button" class="xpqi av${l?'':' dn'}" data-xqav><span class="d">${esc(avSpan())}</span><span class="tp">Avant l'outil</span><span class="w"><b>Ton expérience déclarée</b><small>${esc(avHoursTxt())}</small></span>${l?`<span class="n">${num(l)} à répartir<small>sur ${num(B)} XP</small></span>`:na?`<span class="n ok">non attribués<small>${num(B)} XP</small></span>`:`<span class="n ok">✓ réparti<small>${num(B)} XP</small></span>`}</button>`}
+ return `<button type="button" class="xpqi av${l?'':' dn'}" data-xqav><span class="d">${esc(avSpan())}</span><span class="tp">Avant l'outil</span><span class="w"><b>Ton expérience déclarée</b><small>${avHoursTxt()}</small></span>${l?`<span class="n">${num(l)} à répartir<small>sur ${num(B)} XP</small></span>`:na?`<span class="n ok">non attribués<small>${num(B)} XP</small></span>`:`<span class="n ok">✓ réparti<small>${num(B)} XP</small></span>`}</button>`}
 let AVR=null;
 const avMets=()=>metrics().filter(m=>m.actif&&!m.fc);
 function openAvR(){const r=AVO().rep,M=avMets(),ids=M.map(m=>String(m.id));AVR={m:r?.m||'eg',eg:new Set(),pr:{}};
@@ -440,7 +440,7 @@ function openAvR(){const r=AVO().rep,M=avMets(),ids=M.map(m=>String(m.id));AVR={
 const avrRep=()=>AVR.m==='na'?{m:'na',w:{}}:AVR.m==='eg'?{m:'eg',w:Object.fromEntries([...AVR.eg].map(id=>[id,1]))}:{m:'pr',w:Object.fromEntries(Object.entries(AVR.pr).filter(([,v])=>+v>0))};
 function renderAvR(){const B=avB(),M=avMets(),X=avXpOf({...AVO(),rep:avrRep()},metrics()),opt=(k,t,s)=>`<label class="cdopt ${AVR.m===k?'on':''}"><input type="radio" name="avrm" value="${k}" ${AVR.m===k?'checked':''}><span><b>${t}</b><small>${s}</small></span></label>`;
  const tp=Object.values(AVR.pr).reduce((s,v)=>s+(+v||0),0);
- $('avrB').innerHTML=`<div class="hint" style="margin:6px 0 12px"><b>${num(B)} XP</b> · ${esc(avHoursTxt())}</div>
+ $('avrB').innerHTML=`<div class="hint" style="margin:6px 0 12px"><b>${num(B)} XP</b> · ${avHoursTxt()}</div>
   ${opt('eg','À parts égales','entre les compétences cochées')}
   ${AVR.m==='eg'?`<div class="avrc">${M.map(m=>`<label class="cb"><input type="checkbox" data-aveg="${esc(m.id)}" ${AVR.eg.has(String(m.id))?'checked':''}> ${esc(m.l)}</label>`).join('')}<div class="hint">${AVR.eg.size?`${num(Math.round(B/AVR.eg.size))} XP environ par compétence`:'Coche au moins une compétence.'}</div></div>`:''}
   ${opt('pr','Selon des proportions','tu règles la part de chaque compétence')}

@@ -166,16 +166,29 @@ $('kcClose').onclick=closeKcat;$('kcOk').onclick=closeKcat;$('kcat').onclick=e=>
 
 /* ---------- temps passé par mois ---------- */
 let YSEL=null;
-function renderYears(){const ys=years();if(!YSEL||!ys.includes(YSEL))YSEL=today().slice(0,4);
- $('yChips').innerHTML=ys.map(y=>`<button class="chip ${y==YSEL?'on':''}" data-y="${y}">${y}</button>`).join('');
+/* 3.5.0 : années déclarées « avant l'outil » (volumes par année) : ajoutées aux années du Suivi d'activité, puce en pointillé si l'année n'a aucune saisie */
+const avYearsDecl=()=>{const a=DB.coach?.avant;return a&&a.mode==='an'&&a.annees?Object.keys(a.annees).filter(y=>AVK.some(k=>avNum(a.annees[y][k]))).sort():[]};
+const avOfYear=y=>{const a=DB.coach?.avant;return a&&a.mode==='an'&&a.annees?.[y]||null};
+const avYearH=o=>o?avNum(o.h)+Math.max(avNum(o.delib),avNum(o.suph)):0;
+function renderYears(){const D=avYearsDecl(),ys=[...new Set([...years(),...D])].sort(),hasE=new Set(E().map(e=>e.date.slice(0,4)));if(!YSEL||!ys.includes(YSEL))YSEL=today().slice(0,4);
+ $('yChips').innerHTML=ys.map(y=>{const av=D.includes(y)&&!hasE.has(y);return `<button class="chip ${y==YSEL?'on':''}${av?' avy':''}" data-y="${y}" ${D.includes(y)?'title="Volumes déclarés avant l\'outil"':''}>${y}</button>`}).join('');/* i18n-ok : title traduit dans I18N_EN */
  $('yChips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{YSEL=b.dataset.y;renderAll()})}
 /* largeur réelle du cadre : texte à taille normale, barres réparties sur tout l'espace */
 const svgW=id=>{const el=$(id),w=Math.round(el?.getBoundingClientRect().width||0);const W=w>200?w:720;el.setAttribute('viewBox',`0 0 ${W} 260`);return W};
 function renderMonthly(){const y=YSEL,W=svgW('monthly'),Hh=260,l=36,b=26,top=16,cur=today();
  const ST=STACK.map(k=>TM[k]),M=MO.map((_,i)=>ST.map(t=>H(E().filter(e=>e.type==t.k&&e.date.startsWith(y+'-'+pad(i+1))))));
- const tot=M.map(r=>r.reduce((a,b)=>a+b,0)),mx=Math.max(...tot),stepv=mx>60?20:mx>20?10:mx>8?4:2,max=Math.max(4,Math.ceil(mx/stepv)*stepv),step=(W-l-10)/12,bw=Math.max(14,Math.min(56,step*.62));let g='';
+ /* 3.5.0 : volumes déclarés pour l'année. Sans saisie : un bloc hachuré annuel ; avec des saisies : une colonne hachurée « avant l'outil » avant janvier */
+ const AVY=avOfYear(y),avh=avYearH(AVY),hasE=M.some(r=>r.some(v=>v));
+ const PAT=`<defs><pattern id="avhatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#C2416A1F"/><rect width="5" height="10" fill="#C2416A40"/></pattern></defs>`;
+ if(avh&&!hasE){const L=[`${n1(avNum(AVY.h))} h de coaching`];if(avNum(AVY.delib)||avNum(AVY.suph))L.push(`${n1(Math.max(avNum(AVY.delib),avNum(AVY.suph)))} h de pratique délibérée`);if(avNum(AVY.suph))L.push(`dont ${n1(avNum(AVY.suph))} h de supervision`);
+  $('monthly').innerHTML=`${PAT}<rect x="${l}" y="${top}" width="${W-l-10}" height="${Hh-b-top}" rx="10" fill="url(#avhatch)" stroke="#C2416A" stroke-width="2" stroke-dasharray="7 5"/>
+   <text x="${l+(W-l-10)/2}" y="${(Hh-b+top)/2-14}" text-anchor="middle" style="font-size:16px;font-weight:900;fill:var(--am)">${y} · avant l'outil</text>
+   <text x="${l+(W-l-10)/2}" y="${(Hh-b+top)/2+8}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:var(--jet)">${L.map(t=>`<tspan>${esc(t)}</tspan>`).join('<tspan> · </tspan>')}</text>
+   <text x="${l+(W-l-10)/2}" y="${(Hh-b+top)/2+28}" text-anchor="middle" style="font-size:12px;fill:var(--grey)">volumes déclarés pour l'année, sans détail par mois</text>`;return}
+ const avc=avh>0,nc=avc?13:12,tot=M.map(r=>r.reduce((a,b)=>a+b,0)),mx=Math.max(...tot,avc?avh:0),stepv=mx>60?20:mx>20?10:mx>8?4:2,max=Math.max(4,Math.ceil(mx/stepv)*stepv),step=(W-l-10)/nc,bw=Math.max(14,Math.min(56,step*.62)),l0=avc?l+step:l;let g=avc?PAT:'';
+ if(avc){const x=l+(step-bw)/2,h=avh/max*(Hh-b-top);g+=`<rect x="${x}" y="${Hh-b-h}" width="${bw}" height="${Math.max(h,2)}" rx="3" fill="url(#avhatch)" stroke="#C2416A" stroke-width="1.5" stroke-dasharray="4 3"><title>Avant l'outil · ${n1(avh)} h déclarées</title></rect><text x="${x+bw/2}" y="${Hh-8}" text-anchor="middle" style="fill:var(--am);font-weight:800">Avant</text><text x="${x+bw/2}" y="${Hh-b-h-5}" text-anchor="middle" style="fill:var(--am);font-weight:700">${n1(avh)}</text>`}
  for(let v=0;v<=max;v+=stepv){const yy=Hh-b-(v/max)*(Hh-b-top);g+=`<line x1="${l}" x2="${W-6}" y1="${yy}" y2="${yy}" stroke="#EEE"/><text x="${l-8}" y="${yy+4}" text-anchor="end">${v}h</text>`}
- M.forEach((row,i)=>{const x=l+i*step+(step-bw)/2;let yy=Hh-b;const isCur=y==cur.slice(0,4)&&i==+cur.slice(5,7)-1;
+ M.forEach((row,i)=>{const x=l0+i*step+(step-bw)/2;let yy=Hh-b;const isCur=y==cur.slice(0,4)&&i==+cur.slice(5,7)-1;
   g+=`<text x="${x+bw/2}" y="${Hh-8}" text-anchor="middle" style="${isCur?'fill:var(--jet);font-weight:800':''}">${MO[i]}</text>`;
   if(!tot[i]){g+=`<rect x="${x}" y="${Hh-b-4}" width="${bw}" height="4" rx="2" fill="#EEE"/>`;return}
   row.forEach((v,j)=>{if(!v)return;const h=v/max*(Hh-b-top);yy-=h;g+=`<rect x="${x}" y="${yy}" width="${bw}" height="${Math.max(h-1.5,1)}" rx="2" fill="${ST[j].c}"><title>${MO[i]} · ${esc(ST[j].l)} : ${n1(v)} h</title></rect>`});
