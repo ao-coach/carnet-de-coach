@@ -3,6 +3,9 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:61,s:'3.5.1',d:'16 novembre 2026',items:[
+  {t:"Ton expérience déclarée, célébrée",p:"Quand tu déclares tes années d'avant l'outil, les hauts faits qu'elles débloquent sont célébrés une seule fois, ensemble, quelques secondes après ta dernière modification : médailles, niveau et rang atteints sur un même écran.",go:'settings',b:'Voir'},
+  {t:"Finitions",p:"Dans le thème du jeu, l'écusson doré passe dans le bandeau « Niveau » sous ta photo. Le tableau « Tous les volumes » tient sur un écran étroit, sans défilement. Dans À propos, « M'écrire ». La page « Comment l'outil est construit » est à jour et présente les modules."}]},
  {v:60,s:'3.5.0',d:'16 novembre 2026',items:[
   {t:"Ton expérience d'avant l'outil, sans fichier",p:"Tu coachais déjà ? Dans Paramètres, « Ton expérience avant l'outil » : tes heures de coaching, de pratique délibérée et de supervision, année par année ou en un seul total, sans rien ressaisir ni passer par un tableur. Elles comptent dans tes niveaux, ton rang et tes hauts faits, et apparaissent hachurées dans le Suivi d'activité. Le parcours de démarrage te le demande aussi : « Tu coaches depuis quand ? ». Aucune saisie n'est créée.",go:'settings',b:'Voir'},
   {t:"Des XP pour ces années-là",p:"Tes heures déclarées rapportent des XP selon la même règle que tes saisies. Ils t'attendent sur la ligne « Avant l'outil » de « XP à répartir » : à parts égales, selon tes proportions, ou laissés non attribués. Si tu avais déjà déclaré des totaux dans ta fiche de coach, leurs XP y sont aussi.",go:'pd',b:'Voir'},
