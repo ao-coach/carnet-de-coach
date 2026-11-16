@@ -1197,7 +1197,9 @@ table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}
 .avtab td{text-align:right;vertical-align:top}.avtab input.fin{width:78px;text-align:right;padding:5px 7px}
 .avtab .avxp{color:var(--am);font-weight:800;white-space:nowrap;padding-top:10px}
 .avtab tr.avtot td{font-weight:900;border-top:2px solid var(--jet)}
-.avtab td:first-child{min-width:150px}.avw{font-size:11.5px;color:#A1561B;font-weight:700;max-width:220px;white-space:normal;margin-top:2px}
+.avtab td:first-child{min-width:0}.avw{font-size:11.5px;color:#A1561B;font-weight:700;white-space:normal}.avtab tr.avhw td{border-bottom:0}.avtab tr.avwr td,.avtab tr.avwr td:last-child{padding-top:0;text-align:left}
+/* 3.5.1 : le tableau tient sans défilement à 800 px */
+.avtab{width:100%}.avtab th,.avtab td{padding-left:2px;padding-right:2px}.avtab th{text-transform:none;letter-spacing:-.01em;font-size:10px;-webkit-hyphens:auto;hyphens:auto;vertical-align:bottom}.avtab input.fin{width:100%;min-width:38px;max-width:84px;padding:5px 3px;-moz-appearance:textfield;appearance:textfield}.avtab input.fin::-webkit-inner-spin-button,.avtab input.fin::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .avdt{display:flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}.avdt input{width:150px}
 .avdep0{display:flex;align-items:center;gap:8px;font-weight:700}.avdep0 .sel{margin:0}
 .xpqi.av{grid-template-columns:auto auto minmax(0,1fr) auto;border:2px dashed var(--am);background:repeating-linear-gradient(135deg,#fff,#fff 8px,#FBF3F5 8px,#FBF3F5 16px)}

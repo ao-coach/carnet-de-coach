@@ -1211,7 +1211,9 @@ table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}
 .avtab td{text-align:right;vertical-align:top}.avtab input.fin{width:78px;text-align:right;padding:5px 7px}
 .avtab .avxp{color:var(--am);font-weight:800;white-space:nowrap;padding-top:10px}
 .avtab tr.avtot td{font-weight:900;border-top:2px solid var(--jet)}
-.avtab td:first-child{min-width:150px}.avw{font-size:11.5px;color:#A1561B;font-weight:700;max-width:220px;white-space:normal;margin-top:2px}
+.avtab td:first-child{min-width:0}.avw{font-size:11.5px;color:#A1561B;font-weight:700;white-space:normal}.avtab tr.avhw td{border-bottom:0}.avtab tr.avwr td,.avtab tr.avwr td:last-child{padding-top:0;text-align:left}
+/* 3.5.1 : le tableau tient sans défilement à 800 px */
+.avtab{width:100%}.avtab th,.avtab td{padding-left:2px;padding-right:2px}.avtab th{text-transform:none;letter-spacing:-.01em;font-size:10px;-webkit-hyphens:auto;hyphens:auto;vertical-align:bottom}.avtab input.fin{width:100%;min-width:38px;max-width:84px;padding:5px 3px;-moz-appearance:textfield;appearance:textfield}.avtab input.fin::-webkit-inner-spin-button,.avtab input.fin::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .avdt{display:flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}.avdt input{width:150px}
 .avdep0{display:flex;align-items:center;gap:8px;font-weight:700}.avdep0 .sel{margin:0}
 .xpqi.av{grid-template-columns:auto auto minmax(0,1fr) auto;border:2px dashed var(--am);background:repeating-linear-gradient(135deg,#fff,#fff 8px,#FBF3F5 8px,#FBF3F5 16px)}
@@ -4417,7 +4419,7 @@ function avFormHTML(ctx){if(isObj(CO().avant))avSync(CO().avant,E());const a=AV(
  const head=`<tr><th>${mode==='an'?'Année':''}</th>${F.map(f=>`<th title="${esc(f[1])}">${f[2]}</th>`).join('')}<th>XP de pratique</th></tr>`;
  let body='';
  if(mode==='an'){if(!wiz&&!Y.length)body=`<tr><td colspan="${F.length+2}"><label class="avdep0">Tu coaches depuis <select class="sel" data-avdep><option value="">—</option>${yopt('')}</select></label></td></tr>`;
-  body+=Y.map(y=>{const o=a.annees?.[y]||{},n=avYearN(y);return `<tr><td><b>${y}</b>${n?`<div class="avw">⚠ ${pl(n,'saisie')} déjà dans ton carnet : déclare seulement le reste</div><!-- i18n-ok -->`:''}</td>${F.map(f=>`<td>${inp(o[f[0]],`data-avy="${y}" data-avk="${f[0]}"`)}</td>`).join('')}<td class="avxp" data-avxp="${y}">${num(avBudget(o))}</td></tr>`}).join('');
+  body+=Y.map(y=>{const o=a.annees?.[y]||{},n=avYearN(y);return `<tr${n?' class="avhw"':''}><td><b>${y}</b></td>${F.map(f=>`<td>${inp(o[f[0]],`data-avy="${y}" data-avk="${f[0]}"`)}</td>`).join('')}<td class="avxp" data-avxp="${y}">${num(avBudget(o))}</td></tr>${n?`<tr class="avwr"><td colspan="${F.length+2}"><div class="avw">⚠ ${pl(n,'saisie')} déjà dans ton carnet : déclare seulement le reste</div><!-- i18n-ok --></td></tr>`:''}`}).join('');
   if(Y.length)body+=`<tr class="avtot"><td>Total</td>${F.map(f=>`<td data-avt="${f[0]}">${num(avNum(a[f[0]]))}</td>`).join('')}<td class="avxp" data-avxpt>${num(avBudget(a))} XP</td></tr>`}
  else body=`<tr><td><label class="avdt">Jusqu'au <input class="fin" type="date" data-avdate value="${esc(a.date||'')}"></label></td>${F.map(f=>`<td>${inp(a[f[0]],`data-avk="${f[0]}"`)}</td>`).join('')}<td class="avxp" data-avxpt>${num(avBudget(a))} XP</td></tr>`;
  return `${deb}${seg}<div class="tscroll"><table class="pt tight avtab"><thead>${head}</thead><tbody>${body}</tbody></table></div><!-- i18n-ok -->
