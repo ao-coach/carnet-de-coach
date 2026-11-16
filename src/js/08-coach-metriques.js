@@ -44,6 +44,17 @@ function fcRow(){const f=fcMet();if(!f)return[];const v=Math.max(0,xpTotals()[f.
 /* niveau global = moyenne des niveaux des statistiques déjà saisies (une statistique entre dans la moyenne à sa première saisie) */
 function coachLevel(){const L=coachStats().flatMap(g=>g.s).filter(r=>+r[1]>0).map(r=>rowLvl(r).cont),m=L.length?L.reduce((a,b)=>a+b,0)/L.length:0,n=Math.min(100,Math.floor(m+1e-9));return{L:n,pct:n>=100?100:Math.round((m-n)*100),moy:m}}
 
+/* ---------- 3.5.0 : badge « volumes renseignés dans les saisies » ----------
+   Écusson doré : plein quand toutes les heures (coaching, pratique délibérée, supervision) viennent de saisies (manuelles ou import CSV),
+   sinon rempli d'or de bas en haut selon la part renseignée. Aucun texte à côté : l'information est dans l'infobulle. Pas de badge sans heure. */
+let BDGN=0;/* i18n-ok : tracé SVG */
+/* i18n-ok : phrases à nombres de badgeTip dans I18N_EN */
+function badgeSVG(J,sz){if(!J||J.pct==null)return'';const id='bdg'+(++BDGN),p=J.full?100:Math.max(0,Math.min(99,J.pct)),sh='M16 2l11 4v9c0 7-5 12-11 15C10 27 5 22 5 15V6z',y=30-28*p/100;/* i18n-ok : tracé SVG */
+ return `<svg class="bdg" width="${sz}" height="${sz}" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7E7B0"/><stop offset=".45" stop-color="#D9A93F"/><stop offset="1" stop-color="#8E6418"/></linearGradient><clipPath id="${id}c"><rect x="0" y="${y.toFixed(1)}" width="32" height="32"/></clipPath></defs>
+  <path d="${sh}" fill="${J.full?`url(#${id}g)`:'#EFE8D6'}" stroke="#7A5512" stroke-width="1.2"/>${J.full?'':`<path d="${sh}" fill="url(#${id}g)" clip-path="url(#${id}c)"/>`}${J.full?'<path d="M11 16l3.5 3.5L21.5 12" stroke="#4A3206" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>':''}</svg>`}
+const badgeTip=J=>/* i18n-ok */J.full?`${fmtV(J.hs,' h')} h, toutes renseignées dans les saisies : aucun volume déclaré.`:`${J.pct} % de tes heures sont renseignées dans les saisies (${fmtV(J.hs,' h')} h saisies, ${fmtV(J.hd,' h')} h déclarées).`;
+function badgeHTML(sz){const J=avJust();if(J.pct==null)return'';return `<span class="cfbadge${J.full?' full':''}" data-avgo title="${esc(badgeTip(J))}" role="img" aria-label="${esc(badgeTip(J))}">${badgeSVG(J,sz)}</span>`}
+
 /* ---------- rendu de la fiche ---------- */
 function coachHTML(){const C=CO(),jeu=C.theme=='jeu',me=coachLevel(),rk=rangOf(me.L),deb=C.debut||firstCoachDate(),age=ageOf(C.naissance);
  const nom=C.nom||'Ton nom',ini=(C.nom||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -52,9 +63,9 @@ function coachHTML(){const C=CO(),jeu=C.theme=='jeu',me=coachLevel(),rk=rangOf(m
  const chips=a=>(a||[]).filter(x=>x&&x.trim()).map(x=>`<span class="chip0">${esc(x)}</span>`).join(jeu?'':' · ');
  const photo=C.photo?`<img src="${C.photo}" alt="">`:`<span>${esc(ini)}</span>`;
  let ring='';if(jeu){const sz=146,sw=8,r=(sz-sw)/2,cc=2*Math.PI*r;ring=`<svg width="${sz}" height="${sz}" class="cfring"><defs><linearGradient id="cfrg" x1="0" x2="1"><stop offset="0" stop-color="#C9973F"/><stop offset="1" stop-color="#F1DCA4"/></linearGradient></defs><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="${sw}"/><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="url(#cfrg)" stroke-width="${sw}" stroke-dasharray="${cc*me.pct/100} ${cc}" stroke-linecap="round" transform="rotate(-90 ${sz/2} ${sz/2})"/></svg>`}
- const lvlTxt=me.L>=100?`Niveau <b>100</b>`:`Niveau <b>${me.L}</b> · moyenne de tes statistiques · niveau suivant : ${me.L+1}`;
+ const lvlTxt=`${jeu?'':badgeHTML(15)}<span class="cflvn">Niveau ${me.L>=100?100:me.L}</span>${me.L>=100?'':` · moyenne de tes statistiques · niveau suivant : ${me.L+1}`}`;
  const head=`<div class="cfhd">
-  <div class="cfav">${ring}<div class="cfph" data-coedit title="Modifier mon profil">${photo}</div>${jeu?`<span class="cflb"><span class="o"><span class="i">Niveau ${me.L}</span></span></span>`:''}</div>
+  <div class="cfav">${ring}<div class="cfph" data-coedit title="Modifier mon profil">${photo}</div>${jeu?`<span class="cflb">${badgeHTML(26)}<span class="o"><span class="i">Niveau ${me.L}</span></span></span>`:''}</div>
   <div class="cfid"><div class="cfnm ${C.nom?'':'ph'}">${esc(nom)}</div>${meta?`<div class="cfmeta">${meta}</div>`:''}${C.pitch?`<div class="cfpitch">« ${esc(C.pitch)} »</div>`:`<div class="cfpitch ph" data-coedit>Ton micro-pitch, en une phrase…</div>`}</div>
   <div class="cfrk"><small>Rang</small><b>${esc(rk)}</b><div class="cflvl">${lvlTxt}</div><div class="cfbar"><i style="width:${me.pct}%"></i></div></div>
   <div class="cfcv"><span><span class="k">${jeu?'Diplômes':'Formation'}</span>${chips(C.formation)||'<em>à compléter</em>'}${PLUS}</span><span><span class="k">Parcours</span>${chips(C.parcours)||'<em>à compléter</em>'}${PLUS}</span></div></div>`;
@@ -71,6 +82,7 @@ function renderCoach(){const C=CO();
  $('coFiche').innerHTML=coachHTML();const R=$('coFiche');
  R.querySelectorAll('[data-coedit]').forEach(b=>b.onclick=()=>openCoEdit());R.querySelectorAll('[data-covic]').forEach(b=>b.onclick=()=>openVic(null));R.querySelectorAll('[data-vicd]').forEach(b=>b.onclick=()=>openVicD(+b.dataset.vicd));
  R.querySelectorAll('[data-hfall]').forEach(b=>b.onclick=()=>{HFALL=!HFALL;renderCoach()});
+ R.querySelectorAll('[data-avgo]').forEach(b=>b.onclick=e=>{e.stopPropagation();openAvSet()});
  R.querySelectorAll('.cfbous [data-cmp]').forEach(b=>b.onclick=()=>openCmp(b.dataset.cmp));
  bindPdSide(R.querySelector('.cfside'))}
 $('coTheme').querySelectorAll('button').forEach(b=>b.onclick=()=>{CO().theme=b.dataset.th;touch();renderCoach()});
@@ -149,7 +161,8 @@ function avFormHTML(ctx){if(isObj(CO().avant))avSync(CO().avant,E());const a=AV(
  return `${deb}${seg}<div class="tscroll"><table class="pt tight avtab"><thead>${head}</thead><tbody>${body}</tbody></table></div><!-- i18n-ok -->
   <button type="button" class="lnk0" data-avall>${AVALL?'Seulement les heures':'+ Tous les volumes (séances, conversations, personnes, invitations, propositions, contrats, CA)'}</button>
   <div class="hint" style="margin:6px 0 0">${mode==='tot'?'Un seul total : tes niveaux et tes XP sont justes, mais le Suivi d\'activité ne peut rien montrer année par année.':'Un ordre de grandeur suffit. Les années vides sont ignorées.<!-- i18n-ok -->'} Les XP suivent la règle des saisies : 10 min = 1 XP, × 2 pour le coaching, × 1 pour la pratique délibérée, × 3 pour la supervision.<!-- i18n-ok --></div>
-  ${wiz?'':`<div class="hint" style="margin:6px 0 0">Ces volumes comptent dans tes niveaux, ton rang, tes hauts faits, les totaux des bandeaux et le Suivi d'activité (marqués « avant l'outil ») ; leurs XP t'attendent dans « XP à répartir ». Aucune saisie n'est créée.</div>`}`}
+  ${wiz?'':`<div class="hint" style="margin:6px 0 0">Ces volumes comptent dans tes niveaux, ton rang, tes hauts faits, les totaux des bandeaux et le Suivi d'activité (marqués « avant l'outil ») ; leurs XP t'attendent dans « XP à répartir ». Aucune saisie n'est créée.</div>
+  ${(()=>{const J=avJust();return J.pct==null?'':`<div class="avjust">${badgeSVG(J,18)}<span>${J.full?'Toutes tes heures sont renseignées dans les saisies : aucun volume déclaré.':`${J.pct} % de tes heures sont renseignées dans les saisies (${fmtV(J.hs,' h')} h saisies, ${fmtV(J.hd,' h')} h déclarées). Pour atteindre 100 %, importe ton historique en CSV à la place des volumes déclarés.`}</span></div><!-- i18n-ok -->`})()}`}`}
 /* rafraîchit les totaux et les XP sans refaire le tableau (le champ en cours garde le focus) */
 function avRefresh(box){const a=AV();box.querySelectorAll('[data-avxp]').forEach(td=>td.textContent=num(avBudget(a.annees?.[td.dataset.avxp]||{})));
  box.querySelectorAll('[data-avt]').forEach(td=>td.textContent=num(avNum(a[td.dataset.avt])));box.querySelectorAll('[data-avxpt]').forEach(td=>td.textContent=num(avBudget(a))+' XP')}
