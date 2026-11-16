@@ -1226,7 +1226,7 @@ table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}
 /* 3.5.0 : badge doré « volumes renseignés dans les saisies » (écusson, sans texte : infobulle) */
 .cfbadge{display:inline-flex;vertical-align:-3px;cursor:pointer;margin-right:5px}.cfbadge .bdg{filter:drop-shadow(0 1px 1.5px rgba(122,85,18,.35))}
 .cf .cflvl .cflvn{font-weight:900;font-size:14px}.cf.pro .cflvl .cflvn{color:#002327}.cf.jeu .cflvl .cflvn{color:#fff}
-.cf.jeu .cflb .cfbadge{position:absolute;right:calc(100% + 3px);top:50%;transform:translateY(-50%);margin:0}.cf.jeu .cflb .cfbadge .bdg{filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+.cf.jeu .cflb .i:has(.cfbadge){display:flex;align-items:center;gap:6px;padding:4px 18px 4px 13px}.cf.jeu .cflb .cfbadge{margin:0;vertical-align:0}.cf.jeu .cflb .cfbadge .bdg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
 .avjust{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13px;font-weight:700;color:#6B4A0E;background:#FFF8E6;border:1px solid #F1DCA4;border-radius:10px;padding:7px 12px}
 .avjust .bdg{flex:none}
 /* 3.5.0 : onglets de la fiche personne à 800 px : plus de barre de défilement horizontale (ses flèches ◂ ▸ apparaissaient sous les onglets
@@ -4327,7 +4327,7 @@ function coachHTML(){const C=CO(),jeu=C.theme=='jeu',me=coachLevel(),rk=rangOf(m
  let ring='';if(jeu){const sz=146,sw=8,r=(sz-sw)/2,cc=2*Math.PI*r;ring=`<svg width="${sz}" height="${sz}" class="cfring"><defs><linearGradient id="cfrg" x1="0" x2="1"><stop offset="0" stop-color="#C9973F"/><stop offset="1" stop-color="#F1DCA4"/></linearGradient></defs><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="${sw}"/><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="url(#cfrg)" stroke-width="${sw}" stroke-dasharray="${cc*me.pct/100} ${cc}" stroke-linecap="round" transform="rotate(-90 ${sz/2} ${sz/2})"/></svg>`}
  const lvlTxt=`${jeu?'':badgeHTML(15)}<span class="cflvn">Niveau ${me.L>=100?100:me.L}</span>${me.L>=100?'':` · moyenne de tes statistiques · niveau suivant : ${me.L+1}`}`;
  const head=`<div class="cfhd">
-  <div class="cfav">${ring}<div class="cfph" data-coedit title="Modifier mon profil">${photo}</div>${jeu?`<span class="cflb">${badgeHTML(26)}<span class="o"><span class="i">Niveau ${me.L}</span></span></span>`:''}</div>
+  <div class="cfav">${ring}<div class="cfph" data-coedit title="Modifier mon profil">${photo}</div>${jeu?`<span class="cflb"><span class="o"><span class="i">${badgeHTML(19)}<span>Niveau ${me.L}</span></span></span></span>`:''}</div>
   <div class="cfid"><div class="cfnm ${C.nom?'':'ph'}">${esc(nom)}</div>${meta?`<div class="cfmeta">${meta}</div>`:''}${C.pitch?`<div class="cfpitch">« ${esc(C.pitch)} »</div>`:`<div class="cfpitch ph" data-coedit>Ton micro-pitch, en une phrase…</div>`}</div>
   <div class="cfrk"><small>Rang</small><b>${esc(rk)}</b><div class="cflvl">${lvlTxt}</div><div class="cfbar"><i style="width:${me.pct}%"></i></div></div>
   <div class="cfcv"><span><span class="k">${jeu?'Diplômes':'Formation'}</span>${chips(C.formation)||'<em>à compléter</em>'}${PLUS}</span><span><span class="k">Parcours</span>${chips(C.parcours)||'<em>à compléter</em>'}${PLUS}</span></div></div>`;
