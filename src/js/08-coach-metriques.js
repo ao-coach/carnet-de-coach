@@ -95,11 +95,8 @@ function renderCoEdit(){const C=CO(),fc=firstCoachDate();
   ${(C.victoires||[]).map((v,i)=>`<div class="vli"><span class="vth" style="${v.img?`background-image:url('${v.img}')`:''}">${v.img?'':'★'}</span><div><b>${esc(v.t||'Sans titre')}</b><span>${TIERS[v.tier||'or']}${v.d?' · '+dShort(v.d):''}${v.desc?' · '+esc(v.desc.slice(0,60))+(v.desc.length>60?'…':''):''}</span></div><button class="lnk0" data-ve="${i}">modifier</button></div>`).join('')}
   <button class="addl" id="coVicAdd" style="margin-top:4px">+ Ajouter une victoire</button>
   <div class="lab2" id="coS_hist" style="margin:20px 0 4px">Reprendre ton historique</div>
-  <div class="hint" style="margin:0 0 8px">Tu coachais avant d'utiliser l'outil ? Deux façons d'en tenir compte :</div>
-  <div class="cohist"><b>1. Importer tes saisies</b> depuis un tableur (Excel : « Enregistrer sous » CSV). Colonnes reconnues : Date, Type, Durée, Personne, Commentaire, Montant, Statut. Les lignes déjà présentes sont ignorées.<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn2" id="coCsvM">Télécharger le modèle</button><button class="btn2" id="coCsvI">Importer un fichier CSV</button></div></div>
-  <div class="cohist"><b>2. Ou déclarer tes totaux</b> d'avant l'outil. Ils comptent dans ta fiche (niveaux, rang, hauts faits), pas dans tes indicateurs ni tes graphiques.
-   <div class="avg">${[['h','Heures de coaching'],['ses','Séances'],['conv','Conversations'],['pers','Personnes coachées'],['delib','Heures de pratique délibérée'],['suph','Heures de supervision'],['sup','Supervisions (nombre)'],['inv','Invitations'],['prop','Propositions'],['ca','CA signé (€)'],['cli','Contrats signés (renouvellements compris)']].map(([k,l])=>`<label>${l}<input class="fin" type="number" min="0" data-av="${k}" value="${esc(C.avant?.[k]??'')}"></label>`).join('')}
-    <label>Jusqu'au<input class="fin" type="date" data-av="date" value="${esc(C.avant?.date||'')}"></label></div></div>`;
+  <div class="hint" style="margin:0 0 8px">Tu coachais avant d'utiliser l'outil ? Importe tes saisies depuis un tableur, ou déclare tes volumes année par année : tout se fait dans Paramètres, carte « Ton expérience avant l'outil ».${avB()?` Aujourd'hui : ${esc(avHoursTxt())}.`:''}</div>
+  <button class="btn2" id="coAvGo">Reprendre mon expérience</button>`;
  const B=$('coB');
  B.querySelectorAll('[data-co]').forEach(i=>i[i.tagName=='SELECT'?'onchange':'oninput']=()=>{C[i.dataset.co]=i.value;if(i.dataset.co=='nom')C.nom=i.value;touch()});
  B.querySelectorAll('[data-li]').forEach(i=>i.oninput=()=>{C[i.dataset.li][+i.dataset.i]=i.value;touch()});
@@ -110,8 +107,7 @@ function renderCoEdit(){const C=CO(),fc=firstCoachDate();
  B.querySelectorAll('[data-vr]').forEach(i=>i.onchange=()=>{C.victoires[+i.dataset.vr].tier=i.value;touch()});
  B.querySelectorAll('[data-vx]').forEach(b=>b.onclick=()=>{C.victoires.splice(+b.dataset.vx,1);touch();renderCoEdit()});
  $('coVicAdd').onclick=()=>openVic(null);
- B.querySelectorAll('[data-av]').forEach(i=>i.oninput=()=>{C.avant=C.avant||{};const k=i.dataset.av;if(k=='date')C.avant.date=i.value;else if(i.value==='')delete C.avant[k];else C.avant[k]=Math.max(0,+i.value||0);touch()});
- $('coCsvM').onclick=csvModel;$('coCsvI').onclick=()=>$('csvFile').click();
+ $('coAvGo').onclick=()=>{$('coX').click();openAvSet()};
  $('coPh').onclick=()=>$('coFile').click();const d=$('coPhDel');if(d)d.onclick=()=>{delete C.photo;touch();renderCoEdit()}}
 $('coFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{CRT='coach';CR.img=im;CR.z=1;CR.ox=0;CR.oy=0;$('crZoom').value=1;crDraw($('crCv'),300,true);$('cropM').classList.add('show')};im.onerror=()=>toast('Image non reconnue');im.src=fr.result};fr.readAsDataURL(f)};
 $('coX').onclick=()=>{const C=CO();['formation','parcours'].forEach(k=>C[k]=(C[k]||[]).map(x=>x.trim()).filter(Boolean));C.victoires=(C.victoires||[]).filter(v=>(v.t||'').trim());['nom','titre','pitch'].forEach(k=>{if(C[k])C[k]=C[k].trim()});touch();$('coM').classList.remove('show');renderAll()};
@@ -122,6 +118,56 @@ $('coOk').onclick=()=>$('coX').click();
    ========================================================= */
 const AV=()=>CO().avant||{};
 const avN=k=>+AV()[k]||0;
+
+/* ---------- 3.5.0 : ton expérience avant l'outil (Paramètres et parcours de démarrage) ----------
+   Un seul formulaire, avFormHTML(ctx) : ctx 'wiz' (parcours : trois champs d'heures, les autres volumes repliés) ou 'set' (Paramètres).
+   Les valeurs s'écrivent directement dans coach.avant ; avSync recalcule les totaux recopiés et la date « jusqu'au ». */
+const AVF=[['h','Heures de coaching','Coaching (h)'],['delib','Heures de pratique délibérée, supervision comprise','Pratique délibérée (h)'],['suph','Heures de supervision','dont supervision (h)'],
+ ['ses','Séances sous contrat','Séances'],['conv','Conversations (sessions offertes)','Conversations'],['pers','Personnes coachées','Personnes'],['sup','Supervisions (nombre)','Supervisions'],
+ ['inv','Invitations','Invitations'],['prop','Propositions','Propositions'],['cli','Contrats signés (renouvellements compris)','Contrats'],['ca','CA signé (€)','CA (€)']];
+let AVALL=false;
+const avYearN=y=>E().filter(e=>e.date.startsWith(y)).length;
+/* années proposées : de « depuis » à la première année qui a des saisies (les suivantes sont suivies dans le carnet), plus celles déjà déclarées */
+function avYears(){const a=AV(),cy=+today().slice(0,4),Y=Object.keys(a.annees||{}).map(Number),d=+(a.depuis||0)||(Y.length?Math.min(...Y):0);if(!d)return[];
+ const f=+(E().map(e=>e.date).sort()[0]||'').slice(0,4)||cy,end=Math.max(Math.min(cy,Math.max(f,d)),...Y),out=[];for(let y=Math.max(1970,Math.min(d,cy));y<=end;y++)out.push(String(y));return out}
+/* heures renseignées dans les saisies et heures déclarées (badge) */
+function avJust(){const all=E(),hs=H(all.filter(e=>COACH.includes(e.type)||DELIB.includes(e.type))),a=AV(),hd=avNum(a.h)+Math.max(avNum(a.delib),avNum(a.suph)),t=hs+hd;
+ return{hs,hd,pct:t>0?Math.floor(hs/t*100+1e-9):null,full:hs>0&&hd===0}}
+/* i18n-ok : les phrases à nombres (avertissement, règle des XP) sont dans I18N_EN sous leur forme {0} */
+function avFormHTML(ctx){if(isObj(CO().avant))avSync(CO().avant,E());const a=AV(),wiz=ctx==='wiz',F=AVF.filter((f,i)=>i<3||AVALL),Y=avYears(),cy=today().slice(0,4),mode=a.mode==='tot'?'tot':'an';
+ const yopt=sel=>{let o='';for(let y=+cy;y>=+cy-40;y--)o+=`<option value="${y}" ${String(y)===String(sel)?'selected':''}>${y}</option>`;return o};
+ const inp=(v,at)=>`<input class="fin" type="number" min="0" step="any" ${at} value="${v?esc(v):''}">`;
+ const deb=wiz?`<div class="avdeb"><label class="avch ${a.debute?'on':''}"><input type="radio" name="avdeb" value="0" ${a.debute?'checked':''}> Je débute</label><label class="avch ${a.debute?'':'on'}"><input type="radio" name="avdeb" value="1" ${a.debute?'':'checked'}> Depuis <select class="sel" data-avdep>${yopt(a.depuis||Y[0]||cy)}</select></label></div>`:'';
+ if(wiz&&a.debute)return deb;
+ const seg=`<div class="seg avmode"><button type="button" data-avm="an" class="${mode==='an'?'on':''}">Par année</button><button type="button" data-avm="tot" class="${mode==='tot'?'on':''}">Un seul total</button></div>`;
+ const head=`<tr><th>${mode==='an'?'Année':''}</th>${F.map(f=>`<th title="${esc(f[1])}">${f[2]}</th>`).join('')}<th>XP de pratique</th></tr>`;
+ let body='';
+ if(mode==='an'){if(!wiz&&!Y.length)body=`<tr><td colspan="${F.length+2}"><label class="avdep0">Tu coaches depuis <select class="sel" data-avdep><option value="">—</option>${yopt('')}</select></label></td></tr>`;
+  body+=Y.map(y=>{const o=a.annees?.[y]||{},n=avYearN(y);return `<tr><td><b>${y}</b>${n?`<div class="avw">⚠ ${pl(n,'saisie')} déjà dans ton carnet : déclare seulement le reste</div><!-- i18n-ok -->`:''}</td>${F.map(f=>`<td>${inp(o[f[0]],`data-avy="${y}" data-avk="${f[0]}"`)}</td>`).join('')}<td class="avxp" data-avxp="${y}">${num(avBudget(o))}</td></tr>`}).join('');
+  if(Y.length)body+=`<tr class="avtot"><td>Total</td>${F.map(f=>`<td data-avt="${f[0]}">${num(avNum(a[f[0]]))}</td>`).join('')}<td class="avxp" data-avxpt>${num(avBudget(a))} XP</td></tr>`}
+ else body=`<tr><td><label class="avdt">Jusqu'au <input class="fin" type="date" data-avdate value="${esc(a.date||'')}"></label></td>${F.map(f=>`<td>${inp(a[f[0]],`data-avk="${f[0]}"`)}</td>`).join('')}<td class="avxp" data-avxpt>${num(avBudget(a))} XP</td></tr>`;
+ return `${deb}${seg}<div class="tscroll"><table class="pt tight avtab"><thead>${head}</thead><tbody>${body}</tbody></table></div><!-- i18n-ok -->
+  <button type="button" class="lnk0" data-avall>${AVALL?'Seulement les heures':'+ Tous les volumes (séances, conversations, personnes, invitations, propositions, contrats, CA)'}</button>
+  <div class="hint" style="margin:6px 0 0">${mode==='tot'?'Un seul total : tes niveaux et tes XP sont justes, mais le Suivi d\'activité ne peut rien montrer année par année.':'Un ordre de grandeur suffit. Les années vides sont ignorées.<!-- i18n-ok -->'} Les XP suivent la règle des saisies : 10 min = 1 XP, × 2 pour le coaching, × 1 pour la pratique délibérée, × 3 pour la supervision.<!-- i18n-ok --></div>
+  ${wiz?'':`<div class="hint" style="margin:6px 0 0">Ces volumes comptent dans tes niveaux, ton rang, tes hauts faits, les totaux des bandeaux et le Suivi d'activité (marqués « avant l'outil ») ; leurs XP t'attendent dans « XP à répartir ». Aucune saisie n'est créée.</div>`}`}
+/* rafraîchit les totaux et les XP sans refaire le tableau (le champ en cours garde le focus) */
+function avRefresh(box){const a=AV();box.querySelectorAll('[data-avxp]').forEach(td=>td.textContent=num(avBudget(a.annees?.[td.dataset.avxp]||{})));
+ box.querySelectorAll('[data-avt]').forEach(td=>td.textContent=num(avNum(a[td.dataset.avt])));box.querySelectorAll('[data-avxpt]').forEach(td=>td.textContent=num(avBudget(a))+' XP')}
+function avBind(box,rerender){const C=CO();if(!isObj(C.avant))C.avant={};const a=C.avant,save=()=>{CELQUIET=Date.now();avSync(a,E());touch()};
+ box.querySelectorAll('[data-avy]').forEach(i=>i.oninput=()=>{const y=i.dataset.avy,k=i.dataset.avk;a.annees=isObj(a.annees)?a.annees:{};const o=a.annees[y]=a.annees[y]||{};const v=avNum(i.value);if(v)o[k]=v;else delete o[k];a.mode='an';save();avRefresh(box)});
+ box.querySelectorAll('[data-avk]:not([data-avy])').forEach(i=>i.oninput=()=>{const k=i.dataset.avk,v=avNum(i.value);if(v)a[k]=v;else delete a[k];a.mode='tot';save();avRefresh(box)});
+ box.querySelectorAll('[data-avdate]').forEach(i=>i.onchange=()=>{if(i.value)a.date=i.value;else delete a.date;save()});
+ box.querySelectorAll('[data-avdep]').forEach(s=>s.onchange=()=>{if(s.value)a.depuis=s.value;else delete a.depuis;delete a.debute;if(!C.debut&&s.value)C.debut=s.value+'-01-01';save();rerender()});
+ box.querySelectorAll('[name=avdeb]').forEach(r=>r.onchange=()=>{if(r.value==='0')a.debute=true;else{delete a.debute;if(!a.depuis)a.depuis=String(+today().slice(0,4)-1)}save();rerender()});
+ box.querySelectorAll('[data-avm]').forEach(b=>b.onclick=()=>{const m=b.dataset.avm;if(m===(a.mode==='tot'?'tot':'an'))return;
+  if(m==='tot'){a.mode='tot';avSync(a,E());/* les totaux des années deviennent le total, les années restent gardées */}
+  else{a.mode='an';if(!a.annees||!Object.keys(a.annees).length){const y=(a.date||today()).slice(0,4);a.annees={[y]:Object.fromEntries(AVK.filter(k=>avNum(a[k])).map(k=>[k,avNum(a[k])]))};a.depuis=a.depuis||y}}
+  save();rerender()});
+ box.querySelectorAll('[data-avall]').forEach(b=>b.onclick=()=>{AVALL=!AVALL;rerender()})}
+function renderAvSet(){const b=$('setAvB');if(!b||!DB)return;b.innerHTML=`<div class="hint" style="margin:0 0 10px">Deux façons de reprendre ton historique : <b>importer tes saisies</b> depuis un tableur (Excel : « Enregistrer sous » CSV ; colonnes Date, Type, Durée, Personne, Commentaire, Montant, Statut ; elles deviennent de vraies saisies), ou <b>déclarer tes volumes</b> année par année.</div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px"><button class="btn2" id="avCsvM">Télécharger le modèle CSV</button><button class="btn2" id="avCsvI">Importer un fichier CSV</button>${avB()&&MOD('competences')?'<button class="btn2" id="avRep">Répartir les XP</button>':''}</div>${avFormHTML('set')}`;
+ $('avCsvM').onclick=csvModel;$('avCsvI').onclick=()=>$('csvFile').click();if($('avRep'))$('avRep').onclick=openAvR;avBind(b,renderAvSet)}
+function openAvSet(){goTab('settings');const c=$('setAv');if(c&&c.classList.contains('closed')){c.classList.remove('closed');foldSet('setAv',true)}renderAvSet();setTimeout(()=>c&&c.scrollIntoView({behavior:'smooth',block:'start'}),60)}
 
 /* ---------- Métriques : développer ton activité ---------- */
 let BVIEW='fun';
@@ -185,7 +231,9 @@ function hautsFaits(){const A=AV(),v={ses:avN('ses'),h:avN('h'),pers:0,cli:0,ca:
  const xpMax=()=>{v.xpl=Math.max(v.xpl,...Object.values(XT).map(x=>xpLvl(x).L),0)},xfUntil=d=>{while(xi<XF.length&&(XF[xi].date||'')<=d){const t=XF[xi++];XT[t.de]=(XT[t.de]||0)-t.xp;XT[t.vers]=(XT[t.vers]||0)+t.xp}xpMax()};
  const P=new Set(),C=new Set(),Wk=new Set(),got=[],done={};const AD=A.date||'';
  const check=d=>HF.forEach(f=>f.th.forEach(([t,tier])=>{const key=f.k+t;if(!done[key]&&v[f.k]>=t){done[key]=1;got.push({k:key,ic:f.ic(t),t:f.l(t),d,tier,auto:1})}}));
- v.pers=persA;v.cli=cliA;check(AD||'avant');
+ v.pers=persA;v.cli=cliA;
+ /* 3.5.0 : XP d'avant l'outil (répartis ou non) */
+ v.xp=avB();Object.entries(avXp()).forEach(([k,x])=>XT[k]=(XT[k]||0)+x);xpMax();check(AD||'avant');
  [...E()].sort(byDate).forEach(e=>{
   if(COACH.includes(e.type)){v.h+=(e.dur||0)/60;if(e.pid!=null){P.add(e.pid);v.pers=persA+P.size}
    const w=weekKey(e.date);if(!Wk.has(w)){Wk.add(w);let n=0,k=w;while(Wk.has(k)){n++;k=addDays(k,-7)}v.wk=Math.max(v.wk,n)}}

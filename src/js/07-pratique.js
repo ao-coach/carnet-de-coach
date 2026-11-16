@@ -16,7 +16,11 @@ function aisNow(mid){const s=E().filter(e=>e.ais&&e.ais[mid]).sort(byDate).map(e
  return{s,v,p,tr:v==null||p==null?0:v-p>=.3?1:v-p<=-.3?-1:0}}
 /* ---------- 3.0.0 : totaux d'XP (saisies + transferts reçus − transferts donnés) ---------- */
 const XFERS=()=>PD().transferts||(PD().transferts=[]);
-function xpTotals(){const T={};E().forEach(e=>{if(e.xp)for(const[k,v] of Object.entries(e.xp))T[k]=(T[k]||0)+(+v||0)});
+/* 3.5.0 : XP d'avant l'outil (coach.avant, voir avSync) : comptés dans les totaux des compétences, le total gagné et « à répartir » */
+const AVO=()=>DB.coach.avant;
+const avB=()=>avBudget(AVO()),avXp=()=>avXpOf(AVO(),metrics()),avLeft=()=>avLeftOf(AVO(),metrics());
+const avPutN=()=>Object.values(avXp()).reduce((s,v)=>s+v,0),avNaN=()=>AVO().rep?.m==='na'?avB():0;
+function xpTotals(){const T={};Object.entries(avXp()).forEach(([k,v])=>T[k]=v);E().forEach(e=>{if(e.xp)for(const[k,v] of Object.entries(e.xp))T[k]=(T[k]||0)+(+v||0)});
  XFERS().forEach(t=>{T[t.de]=(T[t.de]||0)-(+t.xp||0);T[t.vers]=(T[t.vers]||0)+(+t.xp||0)});return T}
 function xpGain(L){const T={};L.forEach(e=>{if(e.xp)for(const[k,v] of Object.entries(e.xp))T[k]=(T[k]||0)+(+v||0)});return T}
 const xp30=()=>xpGain(range(addDays(today(),-29),today()));
@@ -25,7 +29,8 @@ const xpEarned=e=>xpBudget(e)+xpFcOf(e);
 function xpInfo(mid,T,G){T=T||xpTotals();G=G||xp30();const tot=Math.max(0,T[mid]||0);return{tot,d30:G[mid]||0,...xpLvl(tot)}}
 const xpAbbr=l=>{const w=String(l||'').split(/[\s'’&\-]+/).filter(x=>x.length>2);return (w.length>1?w.slice(0,2).map(x=>x[0]):[(w[0]||String(l||'?'))[0]]).join('').toUpperCase()};
 /* XP à répartir : saisies dont le budget n'est pas entièrement réparti (signalées en mode complet seulement) */
-function xpPending(){let n=0,x=0;E().forEach(e=>{if(xpTodo(e)){n++;x+=xpLeft(e)}});return{n,x}}
+function xpPending(){let n=0,x=0;E().forEach(e=>{if(xpTodo(e)){n++;x+=xpLeft(e)}});const av=avLeft();return{n,x:x+av,av}}
+const pendTxt=P=>P.n&&P.av?`${pl(P.n,'saisie')} et ton expérience`:P.av?'ton expérience avant l\'outil':pl(P.n,'saisie');/* i18n-ok : « {0} saisie(s) et ton expérience » dans I18N_EN */
 const trTxt=t=>t>0?' ↗':t<0?' ↘':'';
 const starsH=(v,cls)=>`<span class="pdst ${cls||''}">${[1,2,3,4,5].map(j=>`<i class="${v!=null&&j<=Math.round(v)?'on':''}">★</i>`).join('')}</span>`;
 const dotsH=a=>`<span class="pdots">${a.last.map(v=>`<i class="r${v}"></i>`).join('')}${'<i class="r-"></i>'.repeat(Math.max(0,10-a.last.length))}</span>`;
@@ -392,10 +397,10 @@ function bindLot(box){const d=box.querySelector('.xlot');if(!d)return;d.ontoggle
    touch();renderAll();renderXpQ();
    toast(`${num(tot)} XP répartis sur ${pl(prev.length,'saisie')}`,'Annuler',()=>{prev.forEach(([e,x,m])=>{if(x)e.xp=x;else delete e.xp;if(m!=null)e.maj=m;else delete e.maj});touch();renderAll();if($('xpqM').classList.contains('show'))renderXpQ()})})}}/* i18n-ok : variantes singulier/pluriel de pl() dans I18N_EN */
 function renderXpQ(){const L=E().filter(e=>xpTodo(e)||(xpBudget(e)>0||xpPut(e)>0)&&xpLeft(e)<0||XQD.has(String(e.id))).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id),P=xpPending(),ov=xpOverN();
- const cnt=`<div class="xpqc ${P.x?'':'ok'}">${P.x?`<b>${num(P.x)}</b> XP restant à répartir · ${pl(P.n,'saisie')}`:'Tout est réparti ✓'}${ov?`<span class="xov"> · <span>${ov>1?`${ov} saisies avec des XP de trop`:'une saisie avec des XP de trop'}</span></span>`:''}</div>`;
+ const cnt=`<div class="xpqc ${P.x?'':'ok'}">${P.x?`<b>${num(P.x)}</b> XP restant à répartir · ${pendTxt(P)}`:'Tout est réparti ✓'}${ov?`<span class="xov"> · <span>${ov>1?`${ov} saisies avec des XP de trop`:'une saisie avec des XP de trop'}</span></span>`:''}</div>`;
  if(!XLOT)lotInit();
- $('xpqB').innerHTML=cnt+(P.x||XLOT.open?lotHTML():'')+(L.length?`<div class="xpq">${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'},dn=xpLeft(e)==0;return `<button type="button" class="xpqi${dn?' dn':''}" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n xov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:dn?`<span class="n ok">✓ réparti<small>${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'');
- $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openXpR(b.dataset.xq));bindLot($('xpqB'))}
+ $('xpqB').innerHTML=cnt+(P.x||XLOT.open?lotHTML():'')+(L.length||avB()?`<div class="xpq">${avLine()}${L.map(e=>{const t=TM[e.type]||{l:e.type,c:'#ccc'},dn=xpLeft(e)==0;return `<button type="button" class="xpqi${dn?' dn':''}" data-xq="${e.id}"><span class="d">${dShort(e.date)}</span><span class="tp" style="background:${t.c};color:${tc(t.c)}">${esc(t.l)}</span><span class="w">${e.pid!=null?`<b>${esc(pname(e.pid))}</b>`:''}${e.com?`<small>${esc(e.com)}</small>`:''}</span>${xpLeft(e)<0?`<span class="n xov">${-xpLeft(e)} de trop<small>sur ${xpBudget(e)} XP</small></span>`:dn?`<span class="n ok">✓ réparti<small>${xpBudget(e)} XP</small></span>`:`<span class="n">${xpLeft(e)} à répartir<small>sur ${xpBudget(e)} XP</small></span>`}</button>`}).join('')}</div>`:'');
+ $('xpqB').querySelectorAll('[data-xq]').forEach(b=>b.onclick=()=>openXpR(b.dataset.xq));$('xpqB').querySelectorAll('[data-xqav]').forEach(b=>b.onclick=openAvR);bindLot($('xpqB'))}
 /* 3.2.4 : petite fenêtre de répartition des XP d'une saisie (depuis la liste des XP en attente) :
    rappel de la saisie, grille XP (xpBlock / bindPdForm, comme la saisie), Enregistrer ; lien vers la fiche complète. */
 let XPR=null;
@@ -420,6 +425,36 @@ $('xprS').onclick=()=>{if(!XPR)return;const e=XPR.e,st=XPR.st,B=xpBudget(e),n=xp
  const x=xpClean(st,e.type,e.dur,true);if(x)e.xp=x;else delete e.xp;
  e.maj=new Date().toISOString();touch();xprClose();XQD.add(String(e.id));renderAll();if($('xpqM').classList.contains('show'))renderXpQ();
  toast(xpLeft(e)>0?`Enregistré : il reste ${xpLeft(e)} XP à répartir sur cette saisie`:'XP répartis ✓')};
+/* 3.5.0 : ligne « Avant l'outil » de la liste et sa fenêtre de répartition (parts égales, proportions, non attribués) */
+function avSpan(){const a=AVO(),Y=Object.keys(a.annees||{}).sort();return a.mode==='an'&&Y.length?(Y[0]===Y.at(-1)?Y[0]:`${Y[0]}–${Y.at(-1)}`):a.date?`→ ${dShort(a.date)}`:'—'}
+function avHoursTxt(){const x=avHours(AVO()),P=[];if(x.h)P.push(`${n1(x.h)} h de coaching`);if(x.dx+x.s)P.push(`${n1(x.dx+x.s)} h de pratique délibérée`);if(x.s)P.push(`dont ${n1(x.s)} h de supervision`);return P.join(' · ')}
+function avLine(){const B=avB();if(!B)return'';const l=avLeft(),na=AVO().rep?.m==='na';
+ return `<button type="button" class="xpqi av${l?'':' dn'}" data-xqav><span class="d">${esc(avSpan())}</span><span class="tp">Avant l'outil</span><span class="w"><b>Ton expérience déclarée</b><small>${esc(avHoursTxt())}</small></span>${l?`<span class="n">${num(l)} à répartir<small>sur ${num(B)} XP</small></span>`:na?`<span class="n ok">non attribués<small>${num(B)} XP</small></span>`:`<span class="n ok">✓ réparti<small>${num(B)} XP</small></span>`}</button>`}
+let AVR=null;
+const avMets=()=>metrics().filter(m=>m.actif&&!m.fc);
+function openAvR(){const r=AVO().rep,M=avMets(),ids=M.map(m=>String(m.id));AVR={m:r?.m||'eg',eg:new Set(),pr:{}};
+ if(r&&r.m==='eg')ids.forEach(id=>{if(+r.w[id]>0)AVR.eg.add(id)});if(!AVR.eg.size)ids.forEach(id=>AVR.eg.add(id));
+ if(r&&r.m==='pr'){const tw=ids.reduce((s,id)=>s+(+r.w[id]||0),0);if(tw)ids.forEach(id=>{const v=Math.round((+r.w[id]||0)/tw*100);if(v)AVR.pr[id]=v})}
+ if(!Object.keys(AVR.pr).length&&ids.length){const q=Math.floor(100/ids.length);ids.forEach((id,i)=>AVR.pr[id]=q+(i<100-q*ids.length?1:0))}
+ renderAvR();$('avrM').classList.add('show');$('avrM').querySelector('.modal').scrollTop=0}
+const avrRep=()=>AVR.m==='na'?{m:'na',w:{}}:AVR.m==='eg'?{m:'eg',w:Object.fromEntries([...AVR.eg].map(id=>[id,1]))}:{m:'pr',w:Object.fromEntries(Object.entries(AVR.pr).filter(([,v])=>+v>0))};
+function renderAvR(){const B=avB(),M=avMets(),X=avXpOf({...AVO(),rep:avrRep()},metrics()),opt=(k,t,s)=>`<label class="cdopt ${AVR.m===k?'on':''}"><input type="radio" name="avrm" value="${k}" ${AVR.m===k?'checked':''}><span><b>${t}</b><small>${s}</small></span></label>`;
+ const tp=Object.values(AVR.pr).reduce((s,v)=>s+(+v||0),0);
+ $('avrB').innerHTML=`<div class="hint" style="margin:6px 0 12px"><b>${num(B)} XP</b> · ${esc(avHoursTxt())}</div>
+  ${opt('eg','À parts égales','entre les compétences cochées')}
+  ${AVR.m==='eg'?`<div class="avrc">${M.map(m=>`<label class="cb"><input type="checkbox" data-aveg="${esc(m.id)}" ${AVR.eg.has(String(m.id))?'checked':''}> ${esc(m.l)}</label>`).join('')}<div class="hint">${AVR.eg.size?`${num(Math.round(B/AVR.eg.size))} XP environ par compétence`:'Coche au moins une compétence.'}</div></div>`:''}
+  ${opt('pr','Selon des proportions','tu règles la part de chaque compétence')}
+  ${AVR.m==='pr'?`<div class="avrp">${M.map(m=>{const id=String(m.id);return `<label class="avrr"><span>${esc(m.l)}</span><input type="range" min="0" max="100" step="5" data-avpr="${esc(id)}" value="${+AVR.pr[id]||0}"><b>${+AVR.pr[id]||0} %</b><small>${num(X[id]||0)} XP</small></label>`}).join('')}
+   <div class="hint">${tp===100?'Total : 100 % ✓':tp?`Total : ${tp} % · les parts seront ramenées à 100 %`:'Donne une part à au moins une compétence.'}</div></div>`:''}
+  ${opt('na','Ne pas les attribuer','ils comptent dans « XP gagnés en tout » et dans tes hauts faits, pour aucune compétence, et ne te sont plus signalés')}
+  <div class="hint" style="margin:10px 0 0">Tu pourras changer d'avis à tout moment ; si tu corriges tes volumes, la répartition suit.</div>`;
+ const b=$('avrB');b.querySelectorAll('[name=avrm]').forEach(i=>i.onchange=()=>{AVR.m=i.value;renderAvR()});
+ b.querySelectorAll('[data-aveg]').forEach(i=>i.onchange=()=>{const id=i.dataset.aveg;if(i.checked)AVR.eg.add(id);else AVR.eg.delete(id);renderAvR()});
+ b.querySelectorAll('[data-avpr]').forEach(i=>{i.oninput=()=>{AVR.pr[i.dataset.avpr]=+i.value;i.closest('.avrr').querySelector('b').textContent=i.value+' %'};i.onchange=()=>renderAvR()})}
+$('avrX').onclick=()=>{$('avrM').classList.remove('show');AVR=null};$('avrM').onclick=e=>{if(e.target===$('avrM'))$('avrX').click()};
+$('avrE').onclick=()=>{$('avrX').click();$('xpqM').classList.remove('show');openAvSet()};
+$('avrS').onclick=()=>{if(!AVR)return;const r=avrRep();if(r.m!=='na'&&!Object.keys(r.w).length){toast(r.m==='eg'?'Coche au moins une compétence':'Donne une part à au moins une compétence');return}
+ AVO().rep=r;touch();$('avrX').click();renderAll();if($('xpqM').classList.contains('show'))renderXpQ();toast(r.m==='na'?'XP d\'avant l\'outil laissés non attribués':'XP d\'avant l\'outil répartis ✓')};
 $('xpqX').onclick=()=>$('xpqM').classList.remove('show');$('xpqM').onclick=e=>{if(e.target===$('xpqM'))$('xpqX').click()};
 
 /* =========================================================
@@ -427,13 +462,13 @@ $('xpqX').onclick=()=>$('xpqM').classList.remove('show');$('xpqM').onclick=e=>{i
    ========================================================= */
 let XPT={};
 function renderXpPanel(){const box=$('pdXp');if(!box)return;const T=xpTotals(),G30=xp30(),F=PD().focus.map(String),X=XFERS();
- const M=metrics().filter(m=>m.actif||(T[m.id]||0)>0),tot=E().reduce((s,e)=>s+xpEarned(e),0),g30=range(addDays(today(),-29),today()).reduce((s,e)=>s+xpEarned(e),0),pend=xpPending();
+ const M=metrics().filter(m=>m.actif||(T[m.id]||0)>0),tot=E().reduce((s,e)=>s+xpEarned(e),0)+avB(),g30=range(addDays(today(),-29),today()).reduce((s,e)=>s+xpEarned(e),0),pend=xpPending();
  /* 3.2.6 : en-tête sur une ligne, trois blocs égaux ; la mention « ne comptent pour aucune compétence » passe en infobulle de la tuile */
  /* 3.2.4 : total décomposé (gagnés = répartis + à répartir ; « de trop » à part) ; la tuile « XP à répartir » ouvre la liste, même à 0 */
- const rep=E().reduce((s,e)=>s+Math.min(xpPut(e),xpBudget(e))+xpFcOf(e),0),ovx=E().reduce((s,e)=>s+Math.max(0,-xpLeft(e)),0);
+ const rep=E().reduce((s,e)=>s+Math.min(xpPut(e),xpBudget(e))+xpFcOf(e),0)+avPutN(),avna=avNaN(),ovx=E().reduce((s,e)=>s+Math.max(0,-xpLeft(e)),0);
  const opt=cur=>metrics().filter(m=>m.actif||(T[m.id]||0)>0||String(m.id)===String(cur)).map(m=>`<option value="${esc(m.id)}" ${String(m.id)===String(cur)?'selected':''}>${esc(m.l)}${m.actif?'':' (archivée)'}</option>`).join('');
  const st=XPT,H=[...X].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(+b.id||0)-(+a.id||0));
- box.innerHTML=`<div class="xptot"><div><b>${num(tot)} XP</b>gagnés en tout<small class="xpdec"><span>dont ${num(rep)} répartis</span>${pend.x?`<span> · ${num(pend.x)} à répartir</span>`:''}${ovx?`<span class="xov"> · ${num(ovx)} de trop</span>`:''}</small></div><div><b>+${num(g30)}</b>ces 30 jours</div><button type="button" class="xpqt ${pend.x?'na':'ok'}" data-xpq title="${pend.x?"Ces XP ne comptent pour aucune compétence tant qu'ils ne sont pas répartis. Clique pour ouvrir la liste des saisies.":'Ouvrir la liste des saisies à répartir'}"><b>${num(pend.x)}${pend.x?'<sup class="xpqi" aria-hidden="true">ⓘ</sup>':''}</b><span>${pend.x?`XP à répartir · ${pl(pend.n,'saisie')}`:'XP à répartir'}</span><em>${pend.x?'Répartir →':'Tout est réparti ✓'}</em></button></div>
+ box.innerHTML=`<div class="xptot"><div><b>${num(tot)} XP</b>gagnés en tout<small class="xpdec"><span>dont ${num(rep)} répartis</span>${pend.x?`<span> · ${num(pend.x)} à répartir</span>`:''}${avna?`<span> · ${num(avna)} non attribués</span>`:''}${ovx?`<span class="xov"> · ${num(ovx)} de trop</span>`:''}</small></div><div><b>+${num(g30)}</b>ces 30 jours</div><button type="button" class="xpqt ${pend.x?'na':'ok'}" data-xpq title="${pend.x?"Ces XP ne comptent pour aucune compétence tant qu'ils ne sont pas répartis. Clique pour ouvrir la liste des saisies.":'Ouvrir la liste des saisies à répartir'}"><b>${num(pend.x)}${pend.x?'<sup class="xpqi" aria-hidden="true">ⓘ</sup>':''}</b><span>${pend.x?`XP à répartir · ${pendTxt(pend)}`:'XP à répartir'}</span><em>${pend.x?'Répartir →':'Tout est réparti ✓'}</em></button></div>
   ${!pend.x&&xpOverN()?`<div class="hint xpqh">${xpOverN()>1?`${xpOverN()} saisies ont plus d'XP répartis qu'elles n'en rapportent.`:"Une saisie a plus d'XP répartis qu'elle n'en rapporte."} <button type="button" class="btn2" data-xpq>Corriger la répartition</button></div>`:''}
   <div class="xpls">${M.map(m=>{const a=xpInfo(m.id,T,G30);return `<button class="xpl" data-cmp="${esc(m.id)}"><span class="t"><b>${F.includes(String(m.id))?`<span class="fcp">${esc(m.l)}</span>`:esc(m.l)}${m.actif?'':' <small>(archivée)</small>'}</b><span class="v">${num(a.tot)} XP · <em>Niv. ${a.L}</em></span></span><span class="xpbar"><i style="width:${a.pct}%"></i></span><span class="s">${a.d30?`+${num(a.d30)} ces 30 j`:'rien ces 30 j'} · ${a.L>=100?'niveau maximum':`niveau suivant à ${num(a.next)}`}</span></button>`}).join('')||'<div class="hint">Aucune compétence suivie.</div>'}</div>
   <div class="lab">Transférer des XP</div>

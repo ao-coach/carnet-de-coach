@@ -1188,3 +1188,22 @@ body.no-activite .pfct2{grid-template-columns:minmax(0,1fr)}
 /* 3.4.0 : action du plan liée à la bibliothèque de pratique délibérée */
 .alk{display:block;font-size:11.5px;color:var(--afb);padding-left:8px;font-weight:700}
 table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}
+/* 3.5.0 : expérience avant l'outil (Paramètres, parcours de démarrage, XP à répartir) */
+.avdeb{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 14px}
+.avch{display:flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:12px;padding:8px 14px;font-weight:800;cursor:pointer;background:#fff}
+.avch.on{border-color:var(--am);background:#FBEFF2}.avch input{accent-color:var(--am)}.avch .sel{margin:0}
+.seg.avmode{margin:0 0 8px}
+.avtab{min-width:0}.avtab th{white-space:normal;font-size:11px;line-height:1.2;text-align:right}.avtab th:first-child,.avtab td:first-child{text-align:left}
+.avtab td{text-align:right;vertical-align:top}.avtab input.fin{width:78px;text-align:right;padding:5px 7px}
+.avtab .avxp{color:var(--am);font-weight:800;white-space:nowrap;padding-top:10px}
+.avtab tr.avtot td{font-weight:900;border-top:2px solid var(--jet)}
+.avw{font-size:11.5px;color:#A1561B;font-weight:700;max-width:220px;white-space:normal;margin-top:2px}
+.avdt{display:flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}.avdt input{width:150px}
+.avdep0{display:flex;align-items:center;gap:8px;font-weight:700}.avdep0 .sel{margin:0}
+.xpqi.av{grid-template-columns:auto auto minmax(0,1fr) auto;border:2px dashed var(--am);background:repeating-linear-gradient(135deg,#fff,#fff 8px,#FBF3F5 8px,#FBF3F5 16px)}
+.xpqi.av .tp{background:var(--am);color:#fff}.xpqi.av.dn{border-style:solid;border-color:#A9D8BC;background:#EAF6EF}
+.avrc{display:flex;flex-wrap:wrap;gap:0 16px;margin:0 0 8px 30px}.avrc .hint{flex-basis:100%;margin:6px 0 0}
+.avrp{margin:0 0 8px 30px}.avrp .hint{margin:6px 0 0}
+.avrr{display:grid;grid-template-columns:minmax(0,1fr) 150px 48px 76px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.avrr input{accent-color:var(--am);width:100%}.avrr small{color:var(--grey);text-align:right}
+@media(max-width:640px){.avrr{grid-template-columns:minmax(0,1fr) 90px 44px 64px}.avrc,.avrp{margin-left:6px}}

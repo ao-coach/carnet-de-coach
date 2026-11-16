@@ -144,7 +144,36 @@ function cmpPurge(d){const S=d?.supprimes?.m,c=d?.config;if(!S||!c||!Array.isArr
    t.de=de;t.vers=vers;return true});
   if(Array.isArray(pd.focus)&&pd.focus.some(isDel)){const o=[];pd.focus.forEach(f=>{const x=isDel(f)?dest(f):f;if(x!=null&&!o.some(y=>String(y)===String(x)))o.push(x)});pd.focus=o.slice(0,3)}
   if(Array.isArray(pd.lib))pd.lib.forEach(a=>{if(a&&isDel(a.mid))a.mid=dest(a.mid)})}
+ const av=d.coach?.avant;if(av&&av.rep&&av.rep.w&&typeof av.rep.w=='object'){const w=av.rep.w;Object.keys(w).forEach(k=>{if(!isDel(k))return;const v=+w[k]||0,x=dest(k);delete w[k];if(x!=null&&v>0)w[x]=(+w[x]||0)+v})}
  return d}
+/* 3.5.0 : expérience avant l'outil (coach.avant). Volumes par année (annees = {"2021":{h,delib,suph,…}}, mode 'an') ou en un seul total (mode 'tot').
+   En mode 'an', les totaux coach.avant.h, .ses… restent recopiés (somme des années) et la date « jusqu'au » est déduite : une version
+   antérieure lit toujours des totaux justes. delib = heures de pratique délibérée, supervision comprise (comme dans les statistiques) ; suph en est une partie.
+   XP : la règle des saisies (10 min = 1 XP × 2 coaching, × 1 pratique délibérée hors supervision, × 3 supervision) ; budget recalculé, jamais stocké.
+   Répartition : rep = {m:'eg'|'pr'|'na', w:{idCompétence:poids}} ; XP par compétence déduits du budget (ils suivent une correction des volumes).
+   Sans rep : « à répartir ». 'na' : non attribués (comptent dans le total gagné, pour aucune compétence). */
+const AVK=['h','delib','suph','ses','conv','pers','sup','inv','prop','cli','ca'];
+const avNum=v=>{const n=+v;return isFinite(n)&&n>0?Math.round(n*100)/100:0};
+function avSync(a,ent){if(!a||typeof a!='object'||Array.isArray(a))return a;
+ if(a.annees!=null&&(typeof a.annees!='object'||Array.isArray(a.annees)))delete a.annees;
+ if(a.annees){Object.keys(a.annees).forEach(y=>{const o=a.annees[y];if(!/^\d{4}$/.test(y)||!o||typeof o!='object'||Array.isArray(o)){delete a.annees[y];return}
+   Object.keys(o).forEach(k=>{const v=avNum(o[k]);if(AVK.includes(k)&&v)o[k]=v;else delete o[k]})})}
+ if(a.mode!=='an'&&a.mode!=='tot')a.mode=a.annees&&Object.keys(a.annees).length?'an':AVK.some(k=>avNum(a[k]))?'tot':'an';
+ if(a.mode==='an'){AVK.forEach(k=>delete a[k]);delete a.date;const Y=Object.keys(a.annees||{}).filter(y=>Object.keys(a.annees[y]).length).sort();
+  Y.forEach(y=>AVK.forEach(k=>{const v=a.annees[y][k];if(v)a[k]=Math.round(((+a[k]||0)+v)*100)/100}));
+  if(Y.length){const y=Y.at(-1),f=(ent||[]).map(e=>e&&e.date).filter(d=>d&&d.startsWith(y)).sort()[0];a.date=f?addDays(f,-1):y+'-12-31'}else delete a.date}
+ else AVK.forEach(k=>{const v=avNum(a[k]);if(v)a[k]=v;else delete a[k]});
+ if(a.rep!=null){const r=a.rep;if(!r||typeof r!='object'||!['eg','pr','na'].includes(r.m))delete a.rep;
+  else{const w={};if(r.w&&typeof r.w=='object')Object.keys(r.w).forEach(k=>{const v=avNum(r.w[k]);if(v)w[k]=v});r.w=w}}
+ return a}
+const avHours=a=>({h:avNum(a?.h),dx:Math.max(0,avNum(a?.delib)-avNum(a?.suph)),s:avNum(a?.suph)});
+function avBudget(a){const x=avHours(a);return Math.round(x.h*6)*2+Math.round(x.dx*6)+Math.round(x.s*6)*3}
+/* XP par compétence (reste au plus fort reste) ; M = compétences de la configuration */
+function avXpOf(a,M){const r=a?.rep,B=avBudget(a),o={};if(!r||r.m==='na'||!B)return o;const W=(M||[]).filter(m=>m&&!m.fc).map(m=>String(m.id)).filter(id=>+r.w[id]>0);
+ if(!W.length)return o;const tw=W.reduce((s,id)=>s+(+r.w[id]),0);let rest=B;const fr=W.map(id=>{const x=B*(+r.w[id])/tw,n=Math.floor(x);o[id]=n;rest-=n;return[id,x-n]});
+ fr.sort((p,q)=>q[1]-p[1]);for(let i=0;rest>0;i++,rest--)o[fr[i%fr.length][0]]++;Object.keys(o).forEach(k=>{if(!o[k])delete o[k]});return o}
+/* XP d'avant l'outil encore à répartir : tout le budget tant qu'aucune répartition valable n'est enregistrée */
+const avLeftOf=(a,M)=>{const B=avBudget(a);if(!B)return 0;const r=a?.rep;if(r&&(r.m==='na'||Object.keys(avXpOf(a,M)).length))return 0;return B};
 function migrate(d){
   d=JSON.parse(JSON.stringify(d||{}));delete d.format;const v=d.version_schema||0;
   d.personnes=d.personnes||[];d.entrees=d.entrees||[];
@@ -176,7 +205,7 @@ function migrate(d){
   if(!d.id)d.id=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));
   if(d.config.sousTitre==="C'est en coachant délibérément et beaucoup qu'on devient un excellent coach")d.config.sousTitre="C'est en coachant beaucoup et en pratiquant délibérément qu'on devient un excellent coach";
   d.pd=(d.pd&&typeof d.pd=='object'&&!Array.isArray(d.pd))?d.pd:{};d.pd.focus=Array.isArray(d.pd.focus)?d.pd.focus.slice(0,3):[];d.pd.lib=Array.isArray(d.pd.lib)?d.pd.lib:[];d.pd.prep=(d.pd.prep&&typeof d.pd.prep=='object'&&!Array.isArray(d.pd.prep))?d.pd.prep:{};
-  d.coach={nom:'',titre:'',naissance:'',debut:'',pitch:'',genre:'i',theme:'pro',...((d.coach&&typeof d.coach=='object')?d.coach:{})};['formation','parcours','victoires'].forEach(k=>{if(!Array.isArray(d.coach[k]))d.coach[k]=[]});if(!isObj(d.coach.avant))d.coach.avant={};
+  d.coach={nom:'',titre:'',naissance:'',debut:'',pitch:'',genre:'i',theme:'pro',...((d.coach&&typeof d.coach=='object')?d.coach:{})};['formation','parcours','victoires'].forEach(k=>{if(!Array.isArray(d.coach[k]))d.coach[k]=[]});if(!isObj(d.coach.avant))d.coach.avant={};avSync(d.coach.avant,d.entrees);
   d.supprimes=d.supprimes||{};d.supprimes.e=d.supprimes.e||{};d.supprimes.a=d.supprimes.a||{};d.supprimes.p=d.supprimes.p||{};
   /* 3.0.0 : XP de pratique. Compétence « Facultés commerciales » (non supprimable, renommable), transferts, conversion des notes de 1 à 5.
      La conversion ne touche que les saisies qui ont encore un « ais » : elle ne se rejoue pas, et une copie ancienne fusionnée est convertie à la volée. */

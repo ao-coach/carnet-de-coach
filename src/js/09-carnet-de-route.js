@@ -74,13 +74,15 @@ function showMe(q){if(!q)return;spotOff();if(q.act){q.act();return}
 
 /* ---------- célébrations ---------- */
 let CELS=null,CELT=0,CELQ=[];
+/* 3.5.0 : pas de célébration pendant qu'on déclare son expérience d'avant l'outil (CELQUIET = heure de la dernière modification) */
+let CELQUIET=0;
 const HFDESC=k=>{if(String(k).startsWith('ch_'))return "Un chapitre du carnet de route bouclé : tu maîtrises une nouvelle part de l'outil.";if(k=='victoire')return '';const m=String(k).match(/^([a-z_]+?)(\d+)?$/),f=m?m[1]:'',n=m&&m[2]?+m[2]:0;
  return({ses:n==1?"Ta première séance sous contrat : le coaching devient ton métier.":"Des séances qui s'enchaînent : la pratique s'installe.",h:"Les heures font le coach : chacune compte.",pers:"Autant de personnes qui t'ont fait confiance.",
   cli:n==1?"Ton premier client payant : le cap que beaucoup de coachs mettent des mois à franchir.":"Des contrats signés : ton activité prend racine.",ca:"Te faire payer pour ton coaching : la preuve que ta valeur est reconnue.",
   wk:"La régularité, ton meilleur allié.",delib:"Revenir sur sa pratique, c'est ce qui transforme l'expérience en compétence.",sup:n==1?"Ta première supervision : tu n'es plus seul·e face à ta pratique.":"Te faire superviser, encore et encore : la marque des coachs qui progressent.",
   inv:"Inviter, encore et encore : c'est ce qui nourrit tout le reste.",non:n==1?"Ton premier non : la preuve que tu as osé proposer.":"Le oui vit au pays du non : ceux qui reçoivent le plus de non font le plus de propositions.",acq:"Un geste devenu naturel : la pratique délibérée porte ses fruits.",ch_:"Un chapitre du carnet de route bouclé : tu maîtrises une nouvelle part de l'outil."})[f]||'Un pas de plus sur ton chemin de coach.'};
 function celSnap(){if(!DB||!MOD('jeu'))return null;try{const R=coachStats().flatMap(g=>g.s),L={};R.forEach(r=>L[r[2]]={l:r[0],L:rowLvl(r).L,v:r[1],u:r[3],x:rowLvl(r)});const g=coachLevel(),H=hautsFaits().got.filter(x=>!x.man),hf={};H.forEach(x=>hf[x.k]=x);return{L,g:g.L,rk:rangOf(g.L),hf}}catch(e){return null}}
-function celCheck(){const s=celSnap();if(!s||!CELS){CELS=s;return}const o=CELS;CELS=s;if(DB.prefs.anim===false)return;
+function celCheck(){const s=celSnap();if(!s||!CELS){CELS=s;return}const o=CELS;CELS=s;if(DB.prefs.anim===false||Date.now()-CELQUIET<5000||!$('wiz').classList.contains('hide'))return;
  const nh=Object.keys(s.hf).filter(k=>!o.hf[k]).map(k=>s.hf[k]),ups=Object.keys(s.L).filter(k=>o.L[k]&&s.L[k].L>o.L[k].L).map(k=>s.L[k]);
  nh.slice(0,3).forEach(x=>CELQ.push(()=>cel3(x,nh.length>3&&x===nh[2]?nh.length-3:0)));
  if(s.g>o.g)CELQ.push(()=>cel2(s.g,s.rk!=o.rk?s.rk:null));

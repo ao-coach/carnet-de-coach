@@ -1,8 +1,8 @@
 /* =========================================================
    PARCOURS DE DÉMARRAGE
    ========================================================= */
-const WZ=['hello','valeur','mode','ident'];
-const WZL={hello:'Bienvenue',valeur:'À quoi sert ton carnet',mode:'Tes modules',ident:'Ton identité'};
+const WZ=['hello','valeur','mode','exp','ident'];
+const WZL={hello:'Bienvenue',valeur:'À quoi sert ton carnet',mode:'Tes modules',exp:'Ton expérience',ident:'Ton identité'};
 let WI=0,WFIRST=true,WBACK=false;
 function openWizard(i=0,first=true,back=false){WI=i;WFIRST=first;WBACK=back;$('lock').classList.add('hide');$('wiz').classList.remove('hide');renderWiz()}
 function closeWizard(){$('wiz').classList.add('hide')}
@@ -120,6 +120,9 @@ const WS={
   bind:()=>{document.querySelectorAll('[data-wm]').forEach(b=>b.onclick=()=>{const o=Object.fromEntries(MODS.map(k=>[k,MOD(k)]));o[b.dataset.wm]=!o[b.dataset.wm];setMods(o);renderWiz()});
    document.querySelectorAll('[data-wms]').forEach(b=>b.onclick=()=>{setMods(modsAll(b.dataset.wms=='1'));renderWiz()})},
   go:()=>true}},
+ /* 3.5.0 : « Tu coaches depuis quand ? » : volumes d'avant l'outil, sans fichier ni saisie (formulaire commun avec Paramètres) */
+ exp:()=>({t:'Tu coaches depuis quand ?',lead:'Ton expérience d\'avant l\'outil compte : niveaux, rang, et des XP de pratique à répartir. Pas besoin de tout ressaisir : un ordre de grandeur par année suffit. Tout reste modifiable dans Paramètres, où tu peux aussi importer tes saisies depuis un tableur.',
+  html:`<div id="wzAv">${avFormHTML('wiz')}</div>`,bind:()=>{const b=$('wzAv'),re=()=>{b.innerHTML=avFormHTML('wiz');avBind(b,re)};avBind(b,re)},go:()=>true}),
  ident:()=>{const C=CFG(),K=C.couleurs,cur=PALETTES.findIndex(p=>Object.keys(p.c).every(k=>p.c[k].toLowerCase()==K[k].toLowerCase()));
   return{t:'Ton cabinet',lead:'Ton carnet doit te ressembler. L\'aperçu à gauche se met à jour en direct ; tout reste modifiable dans Paramètres.',next:'Entrer dans mon carnet',
   html:`<label class="wzl" style="margin-top:0">Nom</label><input class="fin" id="wNom" value="${esc(C.nom)}" placeholder="Le nom de ton cabinet">

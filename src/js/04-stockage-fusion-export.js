@@ -99,6 +99,8 @@ function mergeDB(A,B,base,prefA){
   {const a=A.prefs?.nouveautes_vues,b=B.prefs?.nouveautes_vues;if(a!=null||b!=null){R.prefs=R.prefs||{};R.prefs.nouveautes_vues=Math.max(+a||0,+b||0)}}
   /* 3.4.0 : une copie qui a encore une compétence supprimée ne la fait pas revenir (ni ses XP) */
   cmpPurge(R);planLink(R);
+  /* 3.5.0 : expérience avant l'outil réunie année par année (section coach) : les totaux recopiés suivent les années réunies */
+  if(isObj(R.coach)&&isObj(R.coach.avant))avSync(R.coach.avant,R.entrees);
   return{db:R,added}}
 
 function touch(){if(!DB)return;if(READONLY){toast('Lecture seule : cette version de l\'application est périmée. Recharge-la (Ctrl+F5).');return}
