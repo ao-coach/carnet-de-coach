@@ -719,6 +719,7 @@ body.no-competences .pcards .pc2{grid-template-columns:1fr}
 .medal.t-lg{background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.7),transparent 45%),linear-gradient(145deg,#C58BE8,#4E1C74);color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15),0 0 70px rgba(181,122,217,.7)}
 .medal::after{content:'';position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);animation:celsh 2.4s ease-in-out infinite}
 @keyframes celsh{0%{left:-60%}55%,100%{left:120%}}@keyframes celpulse{50%{transform:scale(1.04)}}
+.c3 .medals{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0 auto 14px;max-width:340px}.medal.sm{width:62px;height:62px;margin:0;border-radius:16px;font-size:18px}.medal.more{background:rgba(255,255,255,.14);color:#F1DCA4;box-shadow:none;animation:none}.medal.more::after{display:none}
 .c3 .k{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#F1DCA4}.c3 b{display:block;font:400 28px 'Noto Serif',serif;margin:4px 0}.c3 p{color:#D8E3E4;font-size:13.5px;margin:6px 0 14px;line-height:1.5}
 .c3b{display:flex;gap:16px;justify-content:center;align-items:center}.cta.gold{background:#F1DCA4;color:#3A2A08}.c3b .lnk0{color:#F1DCA4;text-decoration:underline;font-weight:800;font-size:13px}
 /* victoires */

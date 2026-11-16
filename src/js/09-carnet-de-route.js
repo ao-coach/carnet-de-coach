@@ -84,7 +84,15 @@ const HFDESC=k=>{if(String(k).startsWith('ch_'))return "Un chapitre du carnet de
   wk:"La régularité, ton meilleur allié.",delib:"Revenir sur sa pratique, c'est ce qui transforme l'expérience en compétence.",sup:n==1?"Ta première supervision : tu n'es plus seul·e face à ta pratique.":"Te faire superviser, encore et encore : la marque des coachs qui progressent.",
   inv:"Inviter, encore et encore : c'est ce qui nourrit tout le reste.",non:n==1?"Ton premier non : la preuve que tu as osé proposer.":"Le oui vit au pays du non : ceux qui reçoivent le plus de non font le plus de propositions.",acq:"Un geste devenu naturel : la pratique délibérée porte ses fruits.",ch_:"Un chapitre du carnet de route bouclé : tu maîtrises une nouvelle part de l'outil."})[f]||'Un pas de plus sur ton chemin de coach.'};
 function celSnap(){if(!DB||!MOD('jeu'))return null;try{const R=coachStats().flatMap(g=>g.s),L={};R.forEach(r=>L[r[2]]={l:r[0],L:rowLvl(r).L,v:r[1],u:r[3],x:rowLvl(r)});const g=coachLevel(),H=hautsFaits().got.filter(x=>!x.man),hf={};H.forEach(x=>hf[x.k]=x);return{L,g:g.L,rk:rangOf(g.L),hf}}catch(e){return null}}
-function celCheck(){const s=celSnap();if(!s||!CELS){CELS=s;return}const o=CELS;CELS=s;if(DB.prefs.anim===false||Date.now()-CELQUIET<5000||!$('wiz').classList.contains('hide'))return;
+/* 3.5.1 : ce que débloquent les volumes déclarés est célébré une seule fois, en groupe, 5 s après la dernière modification (et après le parcours de démarrage) */
+let CELB=null,CELBT=0;
+function celCheck(){const s=celSnap();if(!s||!CELS){CELS=s;return}let o=CELS;CELS=s;if(DB.prefs.anim===false){CELB=null;return}
+ const wz=!$('wiz').classList.contains('hide'),quiet=Date.now()-CELQUIET<5000;
+ if(quiet||(wz&&CELB)){if(quiet&&!CELB)CELB=o;clearTimeout(CELBT);CELBT=setTimeout(celCheck,5200);return}
+ if(wz)return;
+ if(CELB){const b=CELB;CELB=null;const nh=Object.keys(s.hf).filter(k=>!b.hf[k]).map(k=>s.hf[k]),g=s.g>b.g?s.g:0,rk=s.rk!=b.rk?s.rk:null;
+  if(nh.length>1)CELQ.push(()=>celG(nh,g,rk));else{if(nh.length)CELQ.push(()=>cel3(nh[0],0));if(g)CELQ.push(()=>cel2(g,rk))}
+  if(CELQ.length&&!$('cel2').classList.contains('show')&&!$('cel3').classList.contains('show'))celNext();return}
  const nh=Object.keys(s.hf).filter(k=>!o.hf[k]).map(k=>s.hf[k]),ups=Object.keys(s.L).filter(k=>o.L[k]&&s.L[k].L>o.L[k].L).map(k=>s.L[k]);
  nh.slice(0,3).forEach(x=>CELQ.push(()=>cel3(x,nh.length>3&&x===nh[2]?nh.length-3:0)));
  if(s.g>o.g)CELQ.push(()=>cel2(s.g,s.rk!=o.rk?s.rk:null));
@@ -99,6 +107,12 @@ function cel2(L,rk){const m=$('cel2');m.innerHTML=`<div class="c2"><div class="c
 function cel3(x,more){const m=$('cel3');m.innerHTML=`<div class="rays"></div><div class="c3"><div class="medal t-${x.tier}" ${x.img?`style="background:url('${x.img}') center/cover"`:''}>${x.img?'':esc(String(x.ic))}</div><div class="k">Haut fait débloqué · ${TIERS[x.tier]}</div><b>${esc(x.t)}</b><p>${esc(x.desc||HFDESC(x.k))}</p>${more?`<p style="color:#F1DCA4">et ${more} autre${more>1?'s':''} haut${more>1?'s':''} fait${more>1?'s':''} !</p>`:''}
  <div class="c3b"><button class="cta gold" id="c3ok">Continuer</button>${!MOD('jeu')?'':'<button class="lnk0" id="c3go">Voir ma fiche</button>'}</div></div>`;
  m.classList.add('show');$('c3ok').onclick=()=>{m.classList.remove('show');celNext()};const g=$('c3go');if(g)g.onclick=()=>{m.classList.remove('show');CELQ=[];goTab('coach');window.scrollTo({top:0})}}
+
+/* célébration groupée des hauts faits débloqués par l'expérience déclarée */
+function celG(L,g,rk){const m=$('cel3'),med=x=>`<div class="medal sm t-${x.tier}" title="${esc(x.t)}" ${x.img?`style="background:url('${x.img}') center/cover"`:''}>${x.img?'':esc(String(x.ic))}</div>`;
+ m.innerHTML=`<div class="rays"></div><div class="c3"><div class="medals">${L.slice(0,L.length>8?7:8).map(med).join('')}${L.length>8?`<div class="medal sm more" data-noi18n>+${L.length-7}</div>`:''}</div><div class="k">Ton expérience compte</div><b>${L.length} hauts faits débloqués</b><p>Ce que tu as déjà accompli avant ton carnet y est maintenant reconnu.</p>${g?`<p style="color:#F1DCA4">Tu passes niveau ${g}</p>`:''}${rk?`<p style="color:#F1DCA4">Nouveau rang : ${esc(rk)}</p>`:''}
+ <div class="c3b"><button class="cta gold" id="c3ok">Continuer</button>${!MOD('jeu')?'':'<button class="lnk0" id="c3go">Voir ma fiche</button>'}</div></div>`;
+ m.classList.add('show');$('c3ok').onclick=()=>{m.classList.remove('show');celNext()};const gb=$('c3go');if(gb)gb.onclick=()=>{m.classList.remove('show');CELQ=[];goTab('coach');window.scrollTo({top:0})}}
 
 /* ---------- victoires : image, titre, date, niveau, récit ---------- */
 let VICE=null;
