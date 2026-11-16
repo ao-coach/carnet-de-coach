@@ -89,13 +89,14 @@ The **FR / EN** button, top right (and the “Français / English” link on the
 
 ### The welcome (less than a minute)
 
-A new notebook opens on four screens:
+A new notebook opens on five screens:
 
 | Screen | What you do there |
 |---|---|
 | Welcome | A welcome letter. One link imports a backup or a template passed on by a peer, another lets you **explore a demo notebook**. |
 | What your notebook is for | The notebook's three values on one page: coach a lot, sharpen a few skills, build your practice through relationships (the text [at the top of this manual](#what-your-notebook-is-for)). You can read it again at the top of the About tab. |
 | Your modules | “What do you want to work on?”: tick ① Coach a lot, ② Sharpen my skills, ③ Build my practice and, optionally, ④ The game; or a shortcut, **Essentials** (offered by default) or **All** (see [My notebook: the modules](#my-notebook-the-modules)). |
+| Your experience | “How long have you been coaching?”: “I'm just starting”, or “Since” a year, then your coaching, deliberate practice and supervision hours year by year (a rough figure is enough; the other volumes unfold with one click). See [Your experience before the tool](#your-experience-before-the-tool). |
 | Your identity | Your name or your practice's name, your logo, a colour palette. |
 
 “Enter my notebook” takes you straight to the tool, and the first mission is shown to you.
@@ -112,7 +113,7 @@ The rest is discovered by using it. The **roadmap**, at the bottom right, sugges
 
 | Chapter | Missions |
 |---|---|
-| 1. First steps | Log your first meeting, link it to a person, write a note, look at your activity, open a person's profile, choose where to keep your notebook, protect it with a password. |
+| 1. First steps | Log your first meeting, link it to a person, write a note, look at your activity, open a person's profile, bring in your experience from before the tool (or say you are just starting), choose where to keep your notebook, protect it with a password. |
 | 2. Grow your practice | Understand your pipeline (see below), log a network contact, give a person a contact frequency, log an invitation, send a proposal, follow it through to the answer; look at your network (module ③). |
 | 3. Practise deliberately (module ②) | Complete your coach profile (with ④), name at least 3 skills, assign your first XP, choose a focus, create an action, write a note and keep it for supervision, log a prepared supervision. |
 | 4. Steer (module ①) | Choose your indicators, set your priority goal, enter your costs (with ③). |
@@ -231,7 +232,7 @@ The **Deliberate practice** tab is for choosing what you are working on right no
 
 Below the compass, the **Practice XP** panel:
 
-- **at the top**, on a row of three blocks: your XP earned in total, with their breakdown (“of which X assigned · Y to assign”), those of the last 30 days, and the **“XP to assign”** box (with the number of entries concerned; its ⓘ tooltip reminds you that these XP count for no skill until they are assigned). Old entries, from before the switch to XP, are included. A click on this box, even at 0, opens the list of entries to assign, with a counter at the top; a click on an entry opens a **small assignment window** (the entry, its XP in two columns, Save, and a link to the full card); once saved, the entry turns **green** in the list and stays clickable while the list is open; it also shows, in red, the entries with **too much XP** after a change of length or type. At the top of this list, **Assign in bulk** handles many entries at once, your old ones for example: choose the types, the period and the skills; the preview gives the number of entries and XP; only what is left in each entry is assigned, in equal shares between the ticked skills, without touching what is already assigned. A backup is made first, and “Cancel” remains possible right after;
+- **at the top**, on a row of three blocks: your XP earned in total, with their breakdown (“of which X assigned · Y to assign”), those of the last 30 days, and the **“XP to assign”** box (with the number of entries concerned; its ⓘ tooltip reminds you that these XP count for no skill until they are assigned). Old entries, from before the switch to XP, are included, as are the XP of your [experience from before the tool](#your-experience-before-the-tool). A click on this box, even at 0, opens the list of entries to assign, with a counter at the top; a click on an entry opens a **small assignment window** (the entry, its XP in two columns, Save, and a link to the full card); once saved, the entry turns **green** in the list and stays clickable while the list is open; it also shows, in red, the entries with **too much XP** after a change of length or type. At the top of this list, **Assign in bulk** handles many entries at once, your old ones for example: choose the types, the period and the skills; the preview gives the number of entries and XP; only what is left in each entry is assigned, in equal shares between the ticked skills, without touching what is already assigned. A backup is made first, and “Cancel” remains possible right after. Your declared experience from before the tool has its own hatched line, **“Before the tool”**, at the top of the list: a click opens its window, where its XP are split **in equal shares** between the ticked skills, **in proportions** you set, or stay **unassigned** (they then count in the total earned and in the XP achievement, for no skill, and are no longer flagged). Only the rule is saved: if you correct your volumes, the split follows;
 - **for each skill**: its total (XP assigned in your entries, plus transfers received, minus transfers given), its **level**, a bar that **starts again from zero at each level**, its XP of the last 30 days and the threshold of the next level. All skills follow the same curve: level 1 at 10 XP, then 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), up to level 100;
 - **Transfer XP**: “Transfer N XP from A to B”, with an optional reason. A transfer moves XP already earned, without creating any: useful when you merge two skills, or when a meeting mostly served another skill. N cannot exceed A's total; an archived skill can be the source or the target;
 - **Transfer history**: date, A → B, number of XP, reason. “undo” stays possible as long as B still has enough XP.
@@ -357,15 +358,35 @@ Under the statistics, your **achievements**:
 
 A table crosses your **coaching hours** by **audience** (rows) and by **topic** (columns), from your clients' profiles (People tab). The 5 most frequent audiences and topics are shown. A cell of **50 h and more** is a **specialty**. A client with several topics counts all their hours in each (once only for their audience): a line under the table says so. Hours of clients whose audience or topic is not filled in are counted separately.
 
+### Gold shield: your recorded hours
+
+Just before your overall level, in the profile header (and, in the Video game theme, to the left of the level label under your photo), a **gold shield** shows what share of your hours (coaching, deliberate practice, supervision) is **recorded in entries**, logged day by day or imported as CSV, rather than only declared:
+
+- **full**, with a tick, when everything comes from entries;
+- **filled with gold from the bottom up** according to the recorded share, when part is declared;
+- absent as long as you have no hours.
+
+No text next to it: hover over it for the percentage and the details (hours entered, hours declared); a click opens [Your experience before the tool](#your-experience-before-the-tool), where the same information is written out, even without module ④. To complete it, import as CSV the years you only declared.
+
 ### Bring in your history
 
-Were you coaching before using the tool? In **Edit my profile > Bring in your history**:
+Were you coaching before using the tool? It all happens now in **Settings > Your experience before the tool** (see [below](#your-experience-before-the-tool)); “Edit my profile” points there with the “Bring in my experience” button. Two ways:
 
 1. **Import your entries** from a spreadsheet: in Excel, “Save as” CSV, then “Import a CSV file” (also at the bottom of the page: “Import a CSV”).
    - “Download the template” gives a file with the right columns. The column names stay in French so the file remains compatible: Date, Type, Durée (length), Personne (person), Commentaire (comment), Notes, Montant (amount), Statut (status). Only Date and Type are required.
    - Accepted dates: `12/03/2024`, `12/03/24`, `2024-03-12`. Types: the labels of your types (Session, Conversation…). Lengths: as in the entry form (`1h30`, `90`, `1.5`).
    - Unknown people are created. Rows already present (same date, same type, same person) are ignored. A summary is shown before importing.
-2. **Or enter your totals** from before the tool: hours, sessions, conversations, people coached, deliberate practice, supervision, invitations, proposals, revenue, paying clients. They count in your profile (levels, rank, achievements), not in your indicators or charts.
+2. **Or declare your volumes** from before the tool, year by year or as a single total.
+
+#### Your experience before the tool
+
+The Settings card brings the CSV import and the declaration together. No entry is created: your follow-ups, profiles and network stay accurate.
+
+- **By year** (default): choose the year you started (“You've been coaching since”), then fill in, row by row, your coaching hours, your deliberate practice hours (supervision included) and, among them, your supervision hours. “+ All volumes” adds sessions, conversations, people, supervisions, invitations, proposals, contracts and revenue. Rows run from your starting year to the first year that already has entries; for that one, a warning reminds you to declare only what is not entered. Empty years are ignored.
+- **A single total**: one row and an “Up to” date. Your levels and XP are right, but Activity cannot show anything year by year. Switching from one to the other loses nothing.
+- **Just starting**: as long as nothing is declared, “I'm just starting” says there is nothing to bring in.
+
+These volumes count in your levels, rank, achievements (dated “before the tool”) and the banner totals; declared years show hatched in [Activity](#7-activity). The hours earn XP by the rule for entries (10 min = 1 XP, × 2 for coaching, × 1 for deliberate practice, × 3 for supervision): they wait for you on the “Before the tool” line of “XP to assign”. At the bottom of the card, the gold shield and the share of your hours recorded in entries.
 
 ### Two themes
 
@@ -482,7 +503,7 @@ The catalogue has 23 indicators, in 4 pillars:
 ### Charts
 
 - **Year.** The 2024, 2025, 2026… buttons select the year shown.
-- **Time spent per month.** One stacked bar per month, with your number 1 type at the base. Hover a bar to see the detail.
+- **Time spent per month.** One stacked bar per month, with your number 1 type at the base. Hover a bar to see the detail. A year that is only declared (dotted chip) shows a hatched block with its volumes, with no monthly detail; the year you started the tool has, before January, a hatched “Before” column for the declared hours. The year's indicators only count your entries. Under “Grow your practice”, a line recalls the invitations, proposals, contracts and revenue declared for the year.
 - **Grow your practice.** Two views, for the selected year:
   - **Funnel**: invitations, people in conversation, people with a proposal, clients signed. Between each stage, the **conversion rate** (and that of the previous year). The stages read from left to right, in columns of proportional height. Below, on one row: the overall conversion rate, revenue signed (compared with the previous year), the average deal, your **Sales skills** (the year's XP on your networking meetings, invitations and proposals, with the number of rated entries and the average per rating) and your **noes received** (declined invitations and refused proposals): those who get the most noes often get the most yeses. Rates compare distinct people; “—” when the previous stage is not filled in (for example as long as you do not log your invitations).
   - **By month**: invitations, conversations, proposals and signatures, month by month, to see your pace.
@@ -675,7 +696,7 @@ Settings in **Settings > Practice costs**.
 
 All blocks are **collapsed by default**. Click a title, or the triangle before it, to open or close the block. Collapsed, each block shows a one-line summary. Your choice is remembered on your computer.
 
-Blocks come in pairs, in this order; **My notebook** (the modules and the Essentials / All shortcuts, open by default) sits full width below Identity and Appearance. Some blocks only appear with their module (see [My notebook: the modules](#my-notebook-the-modules)); a block left alone on its row then takes the full width:
+Blocks come in pairs, in this order; **My notebook** (the modules and the Essentials / All shortcuts, open by default) sits full width below Identity and Appearance, followed by **Your experience before the tool** (CSV import and declared volumes, see [part 5](#your-experience-before-the-tool)), shown whatever your modules. Some blocks only appear with their module (see [My notebook: the modules](#my-notebook-the-modules)); a block left alone on its row then takes the full width:
 
 | Left | Right |
 |---|---|
@@ -787,7 +808,8 @@ For commercial use (resale, inclusion in a paid offer, white label), contact All
 
 | Version | Date | Main changes |
 |---|---|---|
-| **3.4.0** | 15/11/2026 | Skills and action plan. My skills: reorder by drag and drop (handle, mouse, finger, keyboard); delete a used skill by choosing what happens to its XP (back to assign, remarks moved into the notes, or transferred to another skill), with a backup first, and no way back through an older copy. XP to assign: bulk assignment (types, period, skills, equal shares of what is left). Action plan: Network and Deliberate practice categories, suggestions in “Other…”, Paused status; deliberate practice actions and action plan kept in sync both ways. |
+| **3.5.0** | 16/11/2026 | Bring in your experience. Settings > Your experience before the tool (and the “How long have you been coaching?” onboarding step): volumes by year or as a single total, without a file and without creating entries; they count in levels, rank and achievements, show hatched in Activity and earn XP to assign on the “Before the tool” line (equal shares, proportions or unassigned). Gold shield next to the level: share of hours recorded in entries. A single “Deliberate practice” category in the action plan; compass without overlaps, gold focus in the game theme; no more arrows under the tabs of a person's profile. |
+| 3.4.0 | 15/11/2026 | Skills and action plan. My skills: reorder by drag and drop (handle, mouse, finger, keyboard); delete a used skill by choosing what happens to its XP (back to assign, remarks moved into the notes, or transferred to another skill), with a backup first, and no way back through an older copy. XP to assign: bulk assignment (types, period, skills, equal shares of what is left). Action plan: Network and Deliberate practice categories, suggestions in “Other…”, Paused status; deliberate practice actions and action plan kept in sync both ways. |
 | 3.3.0 | 15/11/2026 | Person profile redesigned. Header: larger photo (menu on click), contact details to the right of the name, timeline of exchanges without debriefs. Overview (indicators, invested XP, action plan), Contact (aligned boxes, referrals in two columns), Notes (one card per entry, filters by type, collapsible notes remembered by the browser) and Contract (current contract, proposals) tabs. Several topics per person, as tags: the old value is migrated automatically, Network and Affinities updated. |
 | 3.2.6 | 15/11/2026 | Display polish. Deliberate practice: skill in focus shown in a burgundy pill, compass labels never cut off and right-hand panel aligned to the top, XP header on one row, create an action from the search. Grow your practice: horizontal funnel, tiles in a row below, Sales skills with the number of rated entries. Orbits: your logo in the centre. About: “Stay in touch” card. |
 | 3.2.5 | 15/11/2026 | My entries: three Info / Notes / XP buttons instead of “Card”, each opening the entry card on its section; Notes and XP turn green with ✓ once notes are written and XP assigned. Sorted by date, newest first, by default, and sortable by column with a click on its heading (second click: reverse order, arrow shown). |

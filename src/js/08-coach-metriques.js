@@ -149,8 +149,8 @@ function avJust(){const all=E(),hs=H(all.filter(e=>COACH.includes(e.type)||DELIB
 function avFormHTML(ctx){if(isObj(CO().avant))avSync(CO().avant,E());const a=AV(),wiz=ctx==='wiz',F=AVF.filter((f,i)=>i<3||AVALL),Y=avYears(),cy=today().slice(0,4),mode=a.mode==='tot'?'tot':'an';
  const yopt=sel=>{let o='';for(let y=+cy;y>=+cy-40;y--)o+=`<option value="${y}" ${String(y)===String(sel)?'selected':''}>${y}</option>`;return o};
  const inp=(v,at)=>`<input class="fin" type="number" min="0" step="any" ${at} value="${v?esc(v):''}">`;
- const deb=wiz?`<div class="avdeb"><label class="avch ${a.debute?'on':''}"><input type="radio" name="avdeb" value="0" ${a.debute?'checked':''}> Je débute</label><label class="avch ${a.debute?'':'on'}"><input type="radio" name="avdeb" value="1" ${a.debute?'':'checked'}> Depuis <select class="sel" data-avdep>${yopt(a.depuis||Y[0]||cy)}</select></label></div>`:'';
- if(wiz&&a.debute)return deb;
+ const none=!avB()&&!Object.keys(a.annees||{}).length&&!AVK.some(k=>avNum(a[k])),deb=wiz||none||a.debute?`<div class="avdeb"><label class="avch ${a.debute?'on':''}"><input type="radio" name="avdeb" value="0" ${a.debute?'checked':''}> Je débute</label><label class="avch ${a.debute?'':'on'}"><input type="radio" name="avdeb" value="1" ${a.debute?'':'checked'}> Depuis <select class="sel" data-avdep>${yopt(a.depuis||Y[0]||cy)}</select></label></div>`:'';
+ if(a.debute)return deb+(wiz?'':'<div class="hint" style="margin:0">Tu débutes : rien à déclarer. Ton carnet commence avec ta première saisie.</div>');
  const seg=`<div class="seg avmode"><button type="button" data-avm="an" class="${mode==='an'?'on':''}">Par année</button><button type="button" data-avm="tot" class="${mode==='tot'?'on':''}">Un seul total</button></div>`;
  const head=`<tr><th>${mode==='an'?'Année':''}</th>${F.map(f=>`<th title="${esc(f[1])}">${f[2]}</th>`).join('')}<th>XP de pratique</th></tr>`;
  let body='';

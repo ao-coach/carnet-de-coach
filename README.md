@@ -89,13 +89,14 @@ Le bouton **FR / EN**, en haut à droite (et le lien « English » de l'accueil)
 
 ### L'accueil (moins d'une minute)
 
-Un carnet neuf s'ouvre sur quatre écrans :
+Un carnet neuf s'ouvre sur cinq écrans :
 
 | Écran | Ce que tu y fais |
 |---|---|
 | Bienvenue | Une lettre d'accueil. Un lien permet d'importer une sauvegarde ou un modèle transmis par un pair, un autre d'**explorer un carnet de démonstration**. |
 | À quoi sert ton carnet | Les trois valeurs du carnet en une page : coacher beaucoup, affûter quelques compétences, créer ton activité par la relation (le texte [en tête de ce manuel](#à-quoi-sert-ton-carnet)). Il reste lisible ensuite en tête de l'onglet À propos. |
 | Tes modules | « Sur quoi veux-tu travailler ? » : coche ① Coacher beaucoup, ② Affûter mes compétences, ③ Créer mon activité et, en option, ④ Le jeu ; ou un raccourci, **Essentiel** (proposé par défaut) ou **Tout** (voir [Mon carnet : les modules](#mon-carnet--les-modules)). |
+| Ton expérience | « Tu coaches depuis quand ? » : « Je débute », ou « Depuis » une année, puis tes heures de coaching, de pratique délibérée et de supervision année par année (un ordre de grandeur suffit ; les autres volumes se déplient d'un clic). Voir [Ton expérience avant l'outil](#ton-expérience-avant-loutil). |
 | Ton identité | Ton nom ou celui de ton cabinet, ton logo, une palette de couleurs. |
 
 « Entrer dans mon carnet » t'amène directement sur l'outil, et la première mission t'est montrée.
@@ -112,7 +113,7 @@ Le reste se découvre en l'utilisant. Le **carnet de route**, en bas à droite, 
 
 | Chapitre | Missions |
 |---|---|
-| 1. Premiers pas | Enregistrer ton premier entretien, le relier à une personne, écrire une note, regarder ton suivi d'activité, ouvrir la fiche d'une personne, choisir où ranger ton carnet, le protéger par un mot de passe. |
+| 1. Premiers pas | Enregistrer ton premier entretien, le relier à une personne, écrire une note, regarder ton suivi d'activité, ouvrir la fiche d'une personne, reprendre ton expérience d'avant l'outil (ou dire que tu débutes), choisir où ranger ton carnet, le protéger par un mot de passe. |
 | 2. Développer ton activité | Comprendre ton pipeline (voir ci-dessous), enregistrer un contact réseau, donner un rythme de contact à une personne, enregistrer une invitation, envoyer une proposition, la suivre jusqu'à la réponse ; regarder ton réseau (module ③). |
 | 3. Pratiquer délibérément (module ②) | Compléter ton profil de coach (avec ④), nommer au moins 3 compétences, répartir tes premiers XP, choisir un focus, créer une action, noter une remarque et la retenir pour la supervision, enregistrer une supervision préparée. |
 | 4. Piloter (module ①) | Choisir tes indicateurs, fixer ton objectif prioritaire, renseigner tes coûts (avec ③). |
@@ -231,7 +232,7 @@ L'onglet **Pratique délibérée** sert à choisir sur quoi tu travailles en ce 
 
 Sous la boussole, le panneau **XP de pratique** :
 
-- **en tête**, sur une ligne de trois blocs : tes XP gagnés en tout, avec leur détail (« dont X répartis · Y à répartir »), ceux des 30 derniers jours, et la case **« XP à répartir »** (avec le nombre de saisies concernées ; son infobulle ⓘ rappelle que ces XP ne comptent pour aucune compétence tant qu'ils ne sont pas répartis). Les anciennes saisies, d'avant le passage aux XP, en font partie. Un clic sur cette case, même à 0, ouvre la liste des saisies à répartir, avec un compteur en tête ; un clic sur une saisie ouvre une **petite fenêtre de répartition** (la saisie, ses XP sur deux colonnes, Enregistrer, et un lien vers la fiche complète) ; une fois enregistrée, la saisie passe **en vert** dans la liste et reste cliquable tant que la liste est ouverte ; elle montre aussi, en rouge, les saisies qui ont des XP **de trop** après un changement de durée ou de type. En tête de cette liste, **Répartir en lot** traite d'un coup beaucoup de saisies, par exemple tes anciennes : choisis les types, la période et les compétences ; l'aperçu annonce le nombre de saisies et d'XP ; seul le reste de chaque saisie est réparti, à parts égales entre les compétences cochées, sans toucher à ce qui l'est déjà. Une sauvegarde est faite avant, et « Annuler » reste possible juste après ;
+- **en tête**, sur une ligne de trois blocs : tes XP gagnés en tout, avec leur détail (« dont X répartis · Y à répartir »), ceux des 30 derniers jours, et la case **« XP à répartir »** (avec le nombre de saisies concernées ; son infobulle ⓘ rappelle que ces XP ne comptent pour aucune compétence tant qu'ils ne sont pas répartis). Les anciennes saisies, d'avant le passage aux XP, en font partie, comme les XP de ton [expérience d'avant l'outil](#ton-expérience-avant-loutil). Un clic sur cette case, même à 0, ouvre la liste des saisies à répartir, avec un compteur en tête ; un clic sur une saisie ouvre une **petite fenêtre de répartition** (la saisie, ses XP sur deux colonnes, Enregistrer, et un lien vers la fiche complète) ; une fois enregistrée, la saisie passe **en vert** dans la liste et reste cliquable tant que la liste est ouverte ; elle montre aussi, en rouge, les saisies qui ont des XP **de trop** après un changement de durée ou de type. En tête de cette liste, **Répartir en lot** traite d'un coup beaucoup de saisies, par exemple tes anciennes : choisis les types, la période et les compétences ; l'aperçu annonce le nombre de saisies et d'XP ; seul le reste de chaque saisie est réparti, à parts égales entre les compétences cochées, sans toucher à ce qui l'est déjà. Une sauvegarde est faite avant, et « Annuler » reste possible juste après. Ton expérience déclarée d'avant l'outil a sa propre ligne hachurée, **« Avant l'outil »**, en tête de liste : un clic ouvre sa fenêtre, où ses XP se répartissent **à parts égales** entre les compétences cochées, **selon des proportions** que tu règles, ou restent **non attribués** (ils comptent alors dans le total gagné et dans le haut fait des XP, pour aucune compétence, et ne te sont plus signalés). Seule la règle est enregistrée : si tu corriges tes volumes, la répartition suit ;
 - **pour chaque compétence** : son total (XP répartis dans tes saisies, plus les transferts reçus, moins les transferts donnés), son **niveau**, une barre qui **repart de zéro à chaque niveau**, ses XP des 30 derniers jours et le seuil du niveau suivant. Toutes les compétences suivent la même courbe : niveau 1 à 10 XP, puis 30, 60, 100, 150, 210, 280… (5 × L × (L + 1)), jusqu'au niveau 100 ;
 - **Transférer des XP** : « Transférer N XP de A vers B », avec un motif facultatif. Un transfert déplace des XP déjà gagnés, sans en créer : utile quand tu fusionnes deux compétences, ou quand un entretien a surtout servi une autre compétence. N ne peut pas dépasser le total de A ; une compétence archivée peut être source ou cible ;
 - **Historique des transferts** : date, A → B, nombre d'XP, motif. « annuler » reste possible tant que B a encore assez d'XP.
@@ -357,15 +358,35 @@ Sous les statistiques, tes **hauts faits** :
 
 Un tableau croise tes **heures de coaching** par **public** (en lignes) et par **problématique** (en colonnes), à partir de la fiche de tes clients (onglet Personnes). Les 5 publics et les 5 problématiques les plus fréquents s'affichent. Une case de **50 h et plus** est une **spécialité**. Un client à plusieurs problématiques compte toutes ses heures dans chacune (une seule fois pour son public) : une ligne sous le tableau le rappelle. Les heures des clients dont le public ou la problématique ne sont pas renseignés sont comptées à part.
 
+### Écusson doré : tes heures renseignées
+
+Juste avant ton niveau global, dans l'en-tête de la fiche (et, dans le thème Jeu vidéo, à gauche de l'étiquette de niveau sous ta photo), un **écusson doré** dit quelle part de tes heures (coaching, pratique délibérée, supervision) est **renseignée dans des saisies**, au jour le jour ou importées en CSV, plutôt que seulement déclarée :
+
+- **plein**, avec une coche, quand tout vient de saisies ;
+- **rempli d'or de bas en haut** selon la part renseignée, quand une partie est déclarée ;
+- absent tant que tu n'as aucune heure.
+
+Aucun texte à côté : survole-le pour le pourcentage et le détail (heures saisies, heures déclarées) ; un clic ouvre [Ton expérience avant l'outil](#ton-expérience-avant-loutil), où la même information figure en clair, même sans le module ④. Pour le compléter, importe en CSV les années que tu as seulement déclarées.
+
 ### Reprendre ton historique
 
-Tu coachais avant d'utiliser l'outil ? Dans **Modifier mon profil > Reprendre ton historique** :
+Tu coachais avant d'utiliser l'outil ? Tout se fait désormais dans **Paramètres > Ton expérience avant l'outil** (voir [plus bas](#ton-expérience-avant-loutil)) ; « Modifier mon profil » y renvoie par le bouton « Reprendre mon expérience ». Deux façons :
 
 1. **Importer tes saisies** depuis un tableur : dans Excel, « Enregistrer sous » au format CSV, puis « Importer un fichier CSV » (aussi en bas de page : « Importer un CSV »).
    - « Télécharger le modèle » donne un fichier avec les bonnes colonnes : Date, Type, Durée, Personne, Commentaire, Notes, Montant, Statut. Seules Date et Type sont obligatoires.
    - Dates acceptées : `12/03/2024`, `12/03/24`, `2024-03-12`. Types : le libellé de tes types (Séance, Session, Conversation…). Durées : comme dans la saisie (`1h30`, `90`, `1,5`).
    - Les personnes inconnues sont créées. Les lignes déjà présentes (même date, même type, même personne) sont ignorées. Un récapitulatif s'affiche avant d'importer.
-2. **Ou déclarer tes totaux** d'avant l'outil : heures, séances, conversations, personnes coachées, pratique délibérée, supervision, invitations, propositions, CA, clients payants. Ils comptent dans ta fiche (niveaux, rang, hauts faits), pas dans tes indicateurs ni tes graphiques.
+2. **Ou déclarer tes volumes** d'avant l'outil, année par année ou en un seul total.
+
+#### Ton expérience avant l'outil
+
+La carte de Paramètres réunit l'import CSV et la déclaration. Aucune saisie n'est créée : tes relances, tes fiches et ton réseau restent justes.
+
+- **Par année** (par défaut) : choisis l'année où tu as commencé (« Tu coaches depuis »), puis remplis, ligne par ligne, tes heures de coaching, de pratique délibérée (supervision comprise) et, parmi elles, de supervision. « + Tous les volumes » ajoute les séances, conversations, personnes, supervisions, invitations, propositions, contrats et CA. Les lignes vont de ton année de départ à la première année qui a déjà des saisies ; pour celle-ci, un avertissement rappelle de ne déclarer que ce qui n'est pas saisi. Les années vides sont ignorées.
+- **Un seul total** : une ligne et une date « Jusqu'au ». Tes niveaux et tes XP sont justes, mais le Suivi d'activité ne peut rien montrer année par année. Passer de l'un à l'autre ne perd rien.
+- **Tu débutes** : tant que rien n'est déclaré, « Je débute » dit qu'il n'y a rien à reprendre.
+
+Ces volumes comptent dans tes niveaux, ton rang, tes hauts faits (datés « avant l'outil ») et les totaux des bandeaux ; les années déclarées apparaissent hachurées dans le [Suivi d'activité](#7-suivi-dactivité). Les heures rapportent des XP selon la règle des saisies (10 min = 1 XP, × 2 pour le coaching, × 1 pour la pratique délibérée, × 3 pour la supervision) : ils t'attendent sur la ligne « Avant l'outil » de « XP à répartir ». En bas de la carte, l'écusson doré et la part de tes heures renseignées dans des saisies.
 
 ### Deux thèmes
 
@@ -482,7 +503,7 @@ Le catalogue compte 23 indicateurs, répartis en 4 piliers :
 ### Graphiques
 
 - **Année.** Les boutons 2024, 2025, 2026… choisissent l'année affichée.
-- **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail.
+- **Temps passé par mois.** Une barre empilée par mois, avec le n° 1 de tes types à la base. Survole une barre pour voir le détail. Une année seulement déclarée (puce en pointillé) montre un bloc hachuré avec ses volumes, sans détail par mois ; l'année où tu as commencé l'outil a, devant janvier, une colonne hachurée « Avant » pour les heures déclarées. Les indicateurs de l'année, eux, ne comptent que tes saisies. Sous « Développer ton activité », une ligne rappelle les invitations, propositions, contrats et CA déclarés pour l'année.
 - **Développer ton activité.** Deux vues, pour l'année choisie :
   - **Entonnoir** : invitations, personnes en conversation, personnes avec une proposition, clients signés. Entre chaque étape, le **taux de passage** (et celui de l'année précédente). Les étapes se lisent de gauche à droite, en colonnes de hauteur proportionnelle. Dessous, sur une ligne : le taux de transformation global, le CA signé (comparé à l'année précédente), le panier moyen, tes **Facultés commerciales** (XP de l'année sur tes rencontres réseau, invitations et propositions, avec le nombre de saisies évaluées et la moyenne par évaluation) et tes **non reçus** (invitations déclinées et propositions refusées) : ceux qui reçoivent le plus de non sont souvent ceux qui reçoivent le plus de oui. Les taux comparent des personnes distinctes ; « — » quand l'étape précédente n'est pas renseignée (par exemple tant que tu n'enregistres pas tes invitations).
   - **Par mois** : invitations, conversations, propositions et signatures, mois par mois, pour voir ton rythme.
@@ -675,7 +696,7 @@ Réglages dans **Paramètres > Coûts de l'activité**.
 
 Tous les blocs sont **repliés par défaut**. Clique sur un titre, ou sur le triangle placé avant lui, pour ouvrir ou fermer le bloc. Replié, chaque bloc affiche un résumé d'une ligne. Ton choix est mémorisé sur ton ordinateur.
 
-Les blocs vont par deux, dans cet ordre ; **Mon carnet** (les modules et les raccourcis Essentiel / Tout, ouvert par défaut) s'insère sur toute la largeur sous Identité et Apparence. Certains blocs n'apparaissent qu'avec leur module (voir [Mon carnet : les modules](#mon-carnet--les-modules)) ; un bloc resté seul sur sa ligne prend alors toute la largeur :
+Les blocs vont par deux, dans cet ordre ; **Mon carnet** (les modules et les raccourcis Essentiel / Tout, ouvert par défaut) s'insère sur toute la largeur sous Identité et Apparence, suivi de **Ton expérience avant l'outil** (import CSV et volumes déclarés, voir la [partie 5](#ton-expérience-avant-loutil)), visible quels que soient tes modules. Certains blocs n'apparaissent qu'avec leur module (voir [Mon carnet : les modules](#mon-carnet--les-modules)) ; un bloc resté seul sur sa ligne prend alors toute la largeur :
 
 | Gauche | Droite |
 |---|---|
@@ -787,7 +808,8 @@ Pour un usage commercial (revente, intégration dans une offre payante, marque b
 
 | Version | Date | Principales évolutions |
 |---|---|---|
-| **3.4.0** | 15/11/2026 | Compétences et plan d'action. Mes compétences : réordonner par glisser-déposer (poignée, souris, doigt, clavier) ; supprimer une compétence utilisée en choisissant le sort de ses XP (à répartir, remarques versées dans les notes, ou transférés sur une autre compétence), avec sauvegarde avant, et sans retour possible par une copie ancienne. XP à répartir : répartition en lot (types, période, compétences, parts égales du reste). Plan d'action : catégories Réseau et Pratique délibérée, suggestions dans « Autre… », statut En pause ; actions de pratique délibérée et plan d'action synchronisés dans les deux sens. |
+| **3.5.0** | 16/11/2026 | Reprendre son expérience. Paramètres > Ton expérience avant l'outil (et étape « Tu coaches depuis quand ? » du parcours de démarrage) : volumes par année ou en un seul total, sans fichier ni saisie créée ; ils comptent dans les niveaux, le rang et les hauts faits, apparaissent hachurés dans le Suivi d'activité et rapportent des XP à répartir sur la ligne « Avant l'outil » (parts égales, proportions ou non attribués). Écusson doré à côté du niveau : part des heures renseignées dans des saisies. Une seule catégorie « Pratique délibérée » dans le plan d'action ; boussole sans chevauchement, focus doré dans le thème du jeu ; plus de flèches sous les onglets de la fiche personne. |
+| 3.4.0 | 15/11/2026 | Compétences et plan d'action. Mes compétences : réordonner par glisser-déposer (poignée, souris, doigt, clavier) ; supprimer une compétence utilisée en choisissant le sort de ses XP (à répartir, remarques versées dans les notes, ou transférés sur une autre compétence), avec sauvegarde avant, et sans retour possible par une copie ancienne. XP à répartir : répartition en lot (types, période, compétences, parts égales du reste). Plan d'action : catégories Réseau et Pratique délibérée, suggestions dans « Autre… », statut En pause ; actions de pratique délibérée et plan d'action synchronisés dans les deux sens. |
 | 3.3.0 | 15/11/2026 | Fiche personne refondue. En-tête : photo plus grande (menu au clic), coordonnées à droite du nom, frise des échanges sans les débriefs. Onglets Situation (indicateurs, XP investis, plan d'action), Contact (cases alignées, recommandations sur deux colonnes), Notes (une carte par saisie, filtres par type, notes repliables retenues par le navigateur) et Contrat (contrat en cours, propositions). Problématiques multiples, en étiquettes : migration automatique de l'ancienne valeur, Réseau et Affinités à jour. |
 | 3.2.6 | 15/11/2026 | Finitions d'affichage. Pratique délibérée : compétence en focus dans une pastille bordeaux, étiquettes de la boussole jamais coupées et panneau de droite calé en haut, en-tête XP sur une ligne, créer une action depuis la recherche. Développer ton activité : entonnoir à l'horizontale, tuiles en ligne dessous, Facultés commerciales avec le nombre de saisies évaluées. Orbites : ton logo au centre. À propos : carte « Rester en lien ». |
 | 3.2.5 | 15/11/2026 | Mes saisies : trois boutons Infos / Notes / XP à la place de « Fiche », chacun ouvrant la fiche de la saisie sur sa section ; Notes et XP en vert avec ✓ quand les notes sont écrites et les XP répartis. Tri par date décroissante par défaut, et tri par colonne d'un clic sur son titre (second clic : ordre inverse, flèche visible). |
