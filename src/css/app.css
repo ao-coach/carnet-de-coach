@@ -1215,3 +1215,7 @@ table.act select.ed:disabled{opacity:1;color:var(--jet);cursor:not-allowed}
 .cf.jeu .cflb .cfbadge{position:absolute;right:calc(100% + 3px);top:50%;transform:translateY(-50%);margin:0}.cf.jeu .cflb .cfbadge .bdg{filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
 .avjust{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13px;font-weight:700;color:#6B4A0E;background:#FFF8E6;border:1px solid #F1DCA4;border-radius:10px;padding:7px 12px}
 .avjust .bdg{flex:none}
+/* 3.5.0 : onglets de la fiche personne à 800 px : plus de barre de défilement horizontale (ses flèches ◂ ▸ apparaissaient sous les onglets
+   dès qu'ils débordaient d'un pixel) ; sur écran étroit, les onglets passent à la ligne au lieu de défiler */
+.pctabs{scrollbar-width:none}.pctabs::-webkit-scrollbar{display:none}
+@media(max-width:900px){.pctabs{flex-wrap:wrap;overflow-x:visible}}
