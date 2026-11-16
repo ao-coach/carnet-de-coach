@@ -4120,12 +4120,12 @@
    "pa": {
     "1": 2
    },
+   "notes": "Beaucoup d'énergie ; elle a tenu ses deux engagements. Noter la phrase « je n'ai plus besoin de tout contrôler ».",
    "xp": {
     "m3": 12,
     "m1": 3,
     "m2": 3
-   },
-   "notes": "Beaucoup d'énergie ; elle a tenu ses deux engagements. Noter la phrase « je n'ai plus besoin de tout contrôler »."
+   }
   },
   {
    "id": 252,
@@ -4199,11 +4199,11 @@
    "pa": {
     "1": 0
    },
+   "notes": "Séance 12 sur 12 : bilan de l'accompagnement. Proposer un dernier point dans trois mois.",
    "xp": {
     "m3": 11,
     "m1": 7
-   },
-   "notes": "Séance 12 sur 12 : bilan de l'accompagnement. Proposer un dernier point dans trois mois."
+   }
   },
   {
    "id": 228,
@@ -4330,12 +4330,12 @@
    "pa": {
     "1": 2
    },
+   "notes": "Elle arrive avec un nouveau sujet : sa relation avec son associé. Je l'ai laissée choisir. Revenir la prochaine fois sur l'objectif de départ.",
    "xp": {
     "m3": 9,
     "m5": 4,
     "m4": 5
-   },
-   "notes": "Elle arrive avec un nouveau sujet : sa relation avec son associé. Je l'ai laissée choisir. Revenir la prochaine fois sur l'objectif de départ."
+   }
   },
   {
    "id": 246,
@@ -4648,7 +4648,7 @@
    "d": "Une invitation par semaine, au minimum"
   },
   {
-   "o": "Pratiquer délibérément",
+   "o": "Pratique délibérée",
    "d": "Réécouter une séance sur deux"
   },
   {
@@ -4668,11 +4668,12 @@
   },
   {
    "id": 2,
-   "p": "Pratiquer délibérément",
+   "p": "Pratique délibérée",
    "a": "Préparer la prochaine supervision",
    "d": "2026-11-14",
    "r": "",
-   "s": "encours"
+   "s": "encours",
+   "lib": "cp2"
   },
   {
    "id": 3,
@@ -4783,6 +4784,18 @@
     "st": "pause",
     "cree": "2026-04-01",
     "maj": "2026-04-01T10:00:00.000Z"
+   },
+   {
+    "id": "cp2",
+    "a": "Préparer la prochaine supervision",
+    "mid": null,
+    "types": [
+     "conversation",
+     "session"
+    ],
+    "st": "cours",
+    "cree": "2026-10-01",
+    "maj": "2026-10-01T18:00:00.000Z"
    }
   ],
   "prep": {},
@@ -4838,7 +4851,25 @@
     "desc": "Un atelier de deux heures sur la prise de décision en équipe."
    }
   ],
-  "avant": {}
+  "avant": {
+   "mode": "an",
+   "depuis": "2025",
+   "annees": {
+    "2025": {
+     "h": 45,
+     "delib": 20,
+     "suph": 6,
+     "ses": 30,
+     "pers": 6
+    }
+   },
+   "h": 45,
+   "delib": 20,
+   "suph": 6,
+   "ses": 30,
+   "pers": 6,
+   "date": "2025-09-07"
+  }
  },
  "prefs": {
   "onboarded": true,
@@ -4848,7 +4879,8 @@
    "competences": true,
    "activite": true,
    "jeu": true
-  }
+  },
+  "cat_pd": 1
  },
  "supprimes": {
   "t": {}

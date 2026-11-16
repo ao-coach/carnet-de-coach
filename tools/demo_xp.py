@@ -12,7 +12,13 @@ contacts réseau, saisies, actions : tout est gardé) et produit les données XP
   - deux transferts dans l'historique ;
   - deux saisies récentes laissées à répartir (visibles avec le module compétences) ;
   - tous les modules activés (3.2.0) ;
-  - version_schema 4, plus aucune note de 1 à 5 (ni ais, ni ais_v2).
+  - version_schema 4, plus aucune note de 1 à 5 (ni ais, ni ais_v2) ;
+  - 3.5.0 : une seule catégorie « Pratique délibérée » (l'ancien objectif « Pratiquer délibérément »
+    est renommé, ses actions en cours reçoivent leur action de bibliothèque, comme catPdMerge) ;
+  - 3.5.0 : chaque action de la bibliothèque a son action dans le plan (comme planLink) : créées
+    ici, plus écrites à la main ;
+  - 3.5.0 : expérience d'avant l'outil déclarée pour 2025 (pratique de la certification), volumes par
+    année, XP laissés à répartir (comme avSync).
 Tous les noms sont fictifs.
 
 Déterministe et relançable : chaque valeur dépend de l'identifiant de la saisie,
@@ -88,6 +94,86 @@ TRANSFERTS = {
 }
 
 
+# 3.5.0 : catégorie et lien plan d'action ↔ bibliothèque (mêmes règles que catPdMerge et planLink dans l'application)
+PD_OLD = {"fr": "Pratiquer délibérément", "en": "Practise deliberately"}
+PCAT = {"fr": "Pratique délibérée", "en": "Deliberate practice"}
+L2P = {"cours": "encours", "pause": "pause", "acquise": "realisee"}
+LINK_DATE = "2026-10-01"
+# 3.5.0 : expérience d'avant l'outil (mêmes clés que l'application : AVK)
+AVK = ["h", "delib", "suph", "ses", "conv", "pers", "sup", "inv", "prop", "cli", "ca"]
+AVANT = {"2025": {"h": 45, "delib": 20, "suph": 6, "ses": 30, "pers": 6}}
+
+
+def add_days(s, n):
+    import datetime
+    return (datetime.date.fromisoformat(s) + datetime.timedelta(days=n)).isoformat()
+
+
+def cat_pd(lang, d):
+    old, lab = PD_OLD[lang], PCAT[lang]
+    for p in d["priorites"]:
+        if p.get("o") == old:
+            p["o"] = lab
+    lib = d["pd"]["lib"]
+    nc = sum(1 for l in lib if l.get("st") == "cours" and not l.get("horsPlan"))
+    for a in d["actions"]:
+        if a.get("p") != old:
+            continue
+        a["p"] = lab
+        if a.get("lib") is not None or a.get("s") not in ("encours", "pause"):
+            continue
+        st = "cours" if a["s"] == "encours" else "pause"
+        if st == "cours":
+            if nc >= 3:
+                st, a["s"] = "pause", "pause"
+            else:
+                nc += 1
+        lid = "cp%s" % a["id"]
+        if not any(str(l.get("id")) == lid for l in lib):
+            lib.append({"id": lid, "a": a.get("a", ""), "mid": None, "types": ["conversation", "session"], "st": st,
+                        "cree": LINK_DATE, "maj": LINK_DATE + "T18:00:00.000Z"})
+        a["lib"] = lid
+    d["prefs"]["cat_pd"] = 1
+
+
+def plan_link(lang, d):
+    lib = [l for l in d["pd"]["lib"] if l.get("id") is not None]
+    ids = {str(l["id"]) for l in lib}
+    # actions liées à une action de bibliothèque disparue : retirées
+    d["actions"] = [a for a in d["actions"] if a.get("lib") is None or str(a["lib"]) in ids]
+    used = {a["id"] for a in d["actions"]}
+    for k, l in enumerate(lib):
+        if l.get("horsPlan"):
+            continue
+        st = l.get("st") if l.get("st") in L2P else "pause"
+        a = next((x for x in d["actions"] if str(x.get("lib")) == str(l["id"])), None)
+        if a is None:
+            nid = 101 + k
+            while nid in used:
+                nid += 1
+            used.add(nid)
+            a = {"id": nid, "p": PCAT[lang], "a": l.get("a", ""), "d": "", "r": "", "s": L2P[st], "lib": l["id"],
+                 "maj": l.get("maj") or LINK_DATE + "T18:00:00.000Z"}
+            d["actions"].append(a)
+        else:
+            a["p"] = PCAT[lang] if a.get("p") not in (PCAT[lang],) else a["p"]
+            a["a"] = l.get("a", "")
+            a["s"] = L2P[st]
+
+
+def experience(d):
+    ent = sorted(e["date"] for e in d["entrees"])
+    a = {"mode": "an", "depuis": min(AVANT), "annees": {y: dict(v) for y, v in AVANT.items()}}
+    for k in AVK:
+        s = sum(v.get(k, 0) for v in AVANT.values())
+        if s:
+            a[k] = s
+    y = max(AVANT)
+    first = next((x for x in ent if x.startswith(y)), None)
+    a["date"] = add_days(first, -1) if first else y + "-12-31"
+    d["coach"]["avant"] = a
+
+
 def budget(e):
     return round_half_up((e.get("dur") or 0) / 10) * MULT.get(e["type"], 0)
 
@@ -153,6 +239,9 @@ def build(lang, d):
     # simple reste écrit, cohérent avec les modules, pour une application plus ancienne
     d.setdefault("prefs", {})["modules"] = {k: True for k in ("coacher", "competences", "activite", "jeu")}
     d["prefs"]["simple"] = False
+    cat_pd(lang, d)
+    plan_link(lang, d)
+    experience(d)
     return d
 
 
