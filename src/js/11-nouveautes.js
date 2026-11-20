@@ -3,6 +3,8 @@
    À chaque publication : APP_VERSION +1, mettre à jour APP_SEMVER, et ajouter une entrée ici (v = APP_VERSION, s = APP_SEMVER).
    ========================================================= */
 const NEWS=[
+ {v:62,s:'3.5.2',d:'20 novembre 2026',items:[
+  {t:"Plus de page blanche au démarrage",p:"Il arrivait que le navigateur ne réponde plus quand le carnet lui demandait l'accès à ton dossier : la page restait blanche. Désormais, au bout de quelques secondes, ton carnet s'ouvre depuis sa copie dans le navigateur, et un bandeau te propose de choisir à nouveau ton dossier."}]},
  {v:61,s:'3.5.1',d:'16 novembre 2026',items:[
   {t:"Ton expérience déclarée, célébrée",p:"Quand tu déclares tes années d'avant l'outil, les hauts faits qu'elles débloquent sont célébrés une seule fois, ensemble, quelques secondes après ta dernière modification : médailles, niveau et rang atteints sur un même écran.",go:'settings',b:'Voir'},
   {t:"Finitions",p:"Dans le thème du jeu, l'écusson doré passe dans le bandeau « Niveau » sous ta photo. Le tableau « Tous les volumes » tient sur un écran étroit, sans défilement. Dans À propos, « M'écrire ». La page « Comment l'outil est construit » est à jour et présente les modules."}]},
