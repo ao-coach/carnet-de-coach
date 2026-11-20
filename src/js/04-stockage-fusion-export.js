@@ -2,6 +2,9 @@
    STOCKAGE : serveur local (lanceur) ou dossier (Chrome/Edge), + copie navigateur
    ========================================================= */
 let NEEDPERM=false;
+/* 3.5.2 : Chrome peut ne jamais répondre à une demande d'autorisation sur un dossier déjà relié ; on n'attend plus indéfiniment (PERMSTUCK : il faut choisir le dossier à nouveau) */
+let PERMSTUCK=false;
+const raceTO=(p,ms,fb)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(fb),ms))]);
 const FS_OK=!!window.showDirectoryPicker;
 const BKRE=/^coaching-data_.*\.json$/;
 async function writeFile(dir,name,text){const fh=await dir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(text);await w.close()}
@@ -132,14 +135,14 @@ window.addEventListener('beforeunload',e=>{if($('status').classList.contains('bu
 const sameBook=(a,b)=>(a?.id||null)===(b?.id||null);
 /* Relier un dossier. Si ce dossier contient un AUTRE carnet, on l'ouvre sans jamais écraser son fichier. */
 async function connectDir(useExisting){
-  if(useExisting){try{if(await DIR.requestPermission({mode:'readwrite'})!=='granted')return}catch(e){return}NEEDPERM=false;if(DB){clearTimeout(saveT);await idb.set('data',await payload())}return boot()}
+  if(useExisting){try{const p=await raceTO(DIR.requestPermission({mode:'readwrite'}),20000,'stuck');if(p==='stuck'){PERMSTUCK=true;banner('stuck');return}if(p!=='granted')return}catch(e){return}NEEDPERM=false;if(DB){clearTimeout(saveT);await idb.set('data',await payload())}return boot()}
   const prevDir=await idb.get('dir');let nd;try{nd=await window.showDirectoryPicker({id:'aocoach',mode:'readwrite'})}catch(e){return}
   const t=await readFile(nd,FILE);let f=null;if(t){try{f=JSON.parse(t)}catch(e){toast(`${FILE} est illisible dans ce dossier`);return}}
   if(!f&&!DB){toast(`Aucun carnet (${FILE}) dans ce dossier`);return}
   const cur=DB||await idb.get('data');let other=f&&cur&&!sameBook(f,cur);
   if(other&&!prevDir&&!confirm(`Ce dossier contient un autre carnet.\nTon carnet actuel n'est enregistré que dans ce navigateur : il sera remplacé. Exporte-le d'abord (Exporter JSON) si tu veux le garder.\n\nOuvrir le carnet de ce dossier ?`))return;
   if(DB&&!other){clearTimeout(saveT);await idb.set('data',await payload())}
-  DIR=nd;LASTSEEN=null;BASE=null;NEEDPERM=false;await idb.set('dir',nd);
+  DIR=nd;LASTSEEN=null;BASE=null;NEEDPERM=false;PERMSTUCK=false;await idb.set('dir',nd);
   if(other){await idb.set('data',null);DB=null;await setDEK(null);ENV=null;toast(LANG==='en'?`Notebook from the “${nd.name}” folder opened`:`Carnet du dossier « ${nd.name} » ouvert`)}/* i18n-ok : nom de dossier, traduit sur place */
   boot()}
 async function startFresh(){const c=await idb.get('data'),d=await idb.get('dir');
@@ -154,6 +157,7 @@ function setStatus(s,msg){const el=$('status');el.className='status '+(s=='ok'?'
 }
 function banner(kind){const b=$('banner');if(!kind){b.classList.add('hide');return}
   const M={nodir:['Tes saisies sont gardées dans ce navigateur uniquement. Choisis un dossier (idéalement synchronisé, OneDrive ou Drive) pour les enregistrer dans un fichier.','Choisir le dossier',()=>connectDir(false)],
+   stuck:['Le navigateur ne répond pas pour ton dossier de données. Tes saisies sont gardées dans ce navigateur : choisis à nouveau ton dossier pour continuer à les enregistrer dans ton fichier.','Choisir le dossier',()=>connectDir(false)],
    reconnect:['Le navigateur demande ton autorisation pour accéder au dossier de données. Choisis « Autoriser à chaque visite » pour ne plus avoir à le refaire.','Reconnecter le dossier',()=>connectDir(true)],
    old:['Cette version de l\'application est plus ancienne que celle qui a enregistré ton carnet : elle est en lecture seule pour protéger tes données.','Recharger',()=>location.reload()],
    nofs:['Ce navigateur ne sait pas enregistrer dans un fichier : utilise Chrome ou Edge sur ordinateur. En attendant, tes saisies sont gardées dans le navigateur ; exporte régulièrement.','Exporter JSON',exportJson]}[kind];

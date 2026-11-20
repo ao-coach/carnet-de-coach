@@ -227,7 +227,7 @@ async function afterLoad(){
  $('appVer').textContent=`Version ${APP_SEMVER} (${APP_DATE})`;
  $('lock').classList.add('hide');$('main').style.visibility='visible';applyConfig();renderAll();updLockBtn();
  if(!FS_OK){banner('nofs');setStatus('local')}
- else if(DIR&&NEEDPERM){banner('reconnect');setStatus('local')}
+ else if(DIR&&NEEDPERM){banner(PERMSTUCK?'stuck':'reconnect');setStatus('local')}
  else if(DIR){banner(null);setStatus('ok')}
  else{banner('nodir');setStatus('local')}
  qInit();CELS=celSnap()}
@@ -236,7 +236,7 @@ async function boot(){setTimeout(()=>{try{if(/[?&]demo=1/.test(location.search)&
  try{if(!idb.db)await idb.open()}catch(e){}
  const cached=await idb.get('data');let fileRaw=null,fileTxt=null;NEEDPERM=false;
  if(FS_OK){DIR=DIR||await idb.get('dir')||null;
-  if(DIR){let p='prompt';try{p=await DIR.queryPermission({mode:'readwrite'})}catch(e){}
+  if(DIR){let p='prompt';PERMSTUCK=false;try{p=await raceTO(DIR.queryPermission({mode:'readwrite'}),3000,'stuck')}catch(e){}if(p==='stuck')PERMSTUCK=true;
    if(p==='granted'){const t=await readFile(DIR,FILE);fileTxt=t;if(t){try{fileRaw=JSON.parse(t)}catch(e){toast(`${FILE} est illisible : il n'a pas été modifié. Restaure une sauvegarde.`);setStatus('err','Fichier illisible');return}}}
    else NEEDPERM=true}}
  /* le fichier du dossier fait foi ; si la copie du navigateur est le même carnet, on FUSIONNE les deux (rien n'est perdu) */
